@@ -193,7 +193,7 @@ input { outline: none; }
 .view-btn:hover, .view-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
 
 /* =========================================
-   6. CARDS (FIXED CORNERS & BORDERS)
+   6. CARDS (FIXED & DARK BORDER)
    ========================================= */
 
 .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; padding-bottom: 4rem; }
@@ -205,17 +205,25 @@ input { outline: none; }
 .grid-cards.cols-6 { grid-template-columns: repeat(6, 1fr); }
 .grid-cards.cols-5 .card-title, .grid-cards.cols-6 .card-title { font-size: 1.3rem; }
 
-/* ВНЕШНИЙ БЛОК (Цвет обводки) */
+/* ВНЕШНИЙ БЛОК (Темная обводка) */
 .card {
     position: relative;
     width: 100%;
     aspect-ratio: 2 / 3;
-    background: var(--border-color); /* Цвет границы по умолчанию */
+    
+    /* Темно-серый цвет границы в обычном состоянии */
+    background: #2a2c33; 
+    
     padding: 1px; /* Толщина границы */
     cursor: pointer;
     z-index: 1;
+    
     /* Форма среза 20px */
     clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+    
+    /* Тень в обычном состоянии */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    
     transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
