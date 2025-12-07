@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaLog // Game Simulation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Подключаем БАЗУ и СПЕЦИФИКУ ИГР -->
+    <title>MediaLog // Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="games.css">
 </head>
 <body>
     <div class="bg-noise"></div>
     <div class="bg-gradient"></div>
 
-    <nav class="navbar glass">
+    <nav class="navbar">
         <div class="logo">MEDIA<span class="dot">LOG</span></div>
         <div class="nav-links">
             <a href="index.html" class="nav-item">HUB</a>
@@ -23,13 +20,12 @@
         </div>
     </nav>
 
-    <header class="page-header games-header">
-        <div class="header-deco">/// SYSTEM: ONLINE</div>
-        <h1>GAME SIMULATIONS</h1>
-        <p>SELECT MODULE TO START...</p>
-    </header>
-
     <main class="container">
+        <header class="page-header">
+            <p class="deco-text">/// SYSTEM ONLINE</p>
+            <h1>SIMULATION MODULES</h1>
+        </header>
+
         <div class="filter-bar">
             <button class="filter-btn active" data-filter="all">ALL</button>
             <button class="filter-btn" data-filter="rpg">RPG</button>
@@ -37,82 +33,64 @@
         </div>
 
         <div class="games-grid">
-            
-            <!-- Карточка Игры 1 -->
+            <!-- Game 1 -->
             <div class="game-module" data-category="rpg">
-                <div class="module-bg" style="background-image: url('https://images5.alphacoders.com/112/1126269.jpg');"></div>
-                <div class="module-content">
-                    <div class="module-top">
-                        <span class="platform">PC / PS5</span>
-                        <span class="rank ur">UR</span>
+                <div class="game-bg" style="background-image: url('https://images5.alphacoders.com/112/1126269.jpg');"></div>
+                <div class="game-content">
+                    <div class="game-header">
+                        <span class="game-rank ur">UR</span>
                     </div>
-                    <div class="module-main">
+                    <div class="game-title">
                         <h2>Elden Ring</h2>
-                        <p class="playtime">TIME: 124 HRS</p>
+                        <span>124 HRS // STEAM</span>
                     </div>
-                    <div class="module-footer">
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 80%"></div>
-                        </div>
-                        <span class="status">PLAYING</span>
+                    <div class="game-footer">
+                        <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
                     </div>
                 </div>
-                <!-- Декоративные углы -->
-                <div class="corner t-l"></div>
-                <div class="corner t-r"></div>
-                <div class="corner b-l"></div>
-                <div class="corner b-r"></div>
+                <div class="corner tl"></div><div class="corner tr"></div>
+                <div class="corner bl"></div><div class="corner br"></div>
             </div>
 
-            <!-- Карточка Игры 2 -->
+            <!-- Game 2 -->
             <div class="game-module" data-category="gacha">
-                <div class="module-bg" style="background-image: url('https://images8.alphacoders.com/135/1353982.jpeg');"></div>
-                <div class="module-content">
-                    <div class="module-top">
-                        <span class="platform">PC / MOBILE</span>
-                        <span class="rank ssr">SSR</span>
+                <div class="game-bg" style="background-image: url('https://images8.alphacoders.com/135/1353982.jpeg');"></div>
+                <div class="game-content">
+                    <div class="game-header">
+                        <span class="game-rank ssr">SSR</span>
                     </div>
-                    <div class="module-main">
+                    <div class="game-title">
                         <h2>Wuthering Waves</h2>
-                        <p class="playtime">LVL: 45</p>
+                        <span>LVL 45 // DAILY</span>
                     </div>
-                    <div class="module-footer">
-                        <div class="progress-bar">
-                            <div class="progress infinite"></div>
-                        </div>
-                        <span class="status">DAILY</span>
+                    <div class="game-footer">
+                        <!-- Infinite loader for live games -->
+                        <div class="progress-bar"><div class="progress-fill infinite"></div></div>
                     </div>
                 </div>
-                 <div class="corner t-l"></div><div class="corner t-r"></div>
-                 <div class="corner b-l"></div><div class="corner b-r"></div>
+                <div class="corner tl"></div><div class="corner tr"></div>
+                <div class="corner bl"></div><div class="corner br"></div>
             </div>
-
-             <!-- Карточка Игры 3 -->
+             <!-- Game 3 -->
              <div class="game-module" data-category="rpg">
-                <div class="module-bg" style="background-image: url('https://images6.alphacoders.com/133/1330239.jpeg');"></div>
-                <div class="module-content">
-                    <div class="module-top">
-                        <span class="platform">PC</span>
-                        <span class="rank sr">SR</span>
+                <div class="game-bg" style="background-image: url('https://images6.alphacoders.com/133/1330239.jpeg');"></div>
+                <div class="game-content">
+                    <div class="game-header">
+                        <span class="game-rank sr">SR</span>
                     </div>
-                    <div class="module-main">
+                    <div class="game-title">
                         <h2>Cyberpunk 2077</h2>
-                        <p class="playtime">COMPLETED</p>
+                        <span>COMPLETED</span>
                     </div>
-                    <div class="module-footer">
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 100%; background: var(--gold);"></div>
-                        </div>
-                        <span class="status" style="color: var(--gold);">DONE</span>
+                    <div class="game-footer">
+                        <div class="progress-bar"><div class="progress-fill" style="width: 100%; background: var(--gold)"></div></div>
                     </div>
                 </div>
-                 <div class="corner t-l"></div><div class="corner t-r"></div>
-                 <div class="corner b-l"></div><div class="corner b-r"></div>
+                <div class="corner tl"></div><div class="corner tr"></div>
+                <div class="corner bl"></div><div class="corner br"></div>
             </div>
-
         </div>
     </main>
-
     <script src="script.js"></script>
 </body>
 </html>
