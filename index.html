@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resonance Log | My List</title>
+    <!-- Шрифт как в Sci-Fi интерфейсах -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Фоновый шум/частицы -->
+    <div class="bg-noise"></div>
+    <div class="bg-gradient"></div>
+
+    <!-- Навигация -->
+    <nav class="navbar glass">
+        <div class="logo">RESONANCE<span class="dot">.</span>LOG</div>
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">ALL</button>
+            <button class="filter-btn" data-filter="anime">ANIME</button>
+            <button class="filter-btn" data-filter="game">GAMES</button>
+        </div>
+    </nav>
+
+    <!-- Заголовок (Hero) -->
+    <header class="hero">
+        <div class="hero-content">
+            <p class="subtitle">DATA ARCHIVE // 001</p>
+            <h1>TERMINAL <br> RECORD</h1>
+            <p class="description">Архив просмотренных тайтлов и пройденных игр. <br>Синхронизация завершена.</p>
+        </div>
+    </header>
+
+    <!-- Сетка контента -->
+    <main class="container">
+        <div class="grid">
+            
+            <!-- Карточка 1 (Аниме) -->
+            <div class="card" data-category="anime">
+                <div class="card-image" style="background-image: url('https://images3.alphacoders.com/132/1328972.jpeg');">
+                    <div class="overlay"></div>
+                    <span class="rating">SSR</span>
+                </div>
+                <div class="card-info">
+                    <span class="tag">ANIME</span>
+                    <h3>Frieren: Beyond Journey's End</h3>
+                    <div class="stats">
+                        <span>10/10</span>
+                        <span class="status completed">COMPLETED</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 2 (Игра) -->
+            <div class="card" data-category="game">
+                <div class="card-image" style="background-image: url('https://images8.alphacoders.com/135/1353982.jpeg');">
+                    <div class="overlay"></div>
+                    <span class="rating">UR</span>
+                </div>
+                <div class="card-info">
+                    <span class="tag">GAME</span>
+                    <h3>Wuthering Waves</h3>
+                    <div class="stats">
+                        <span>9/10</span>
+                        <span class="status playing">PLAYING</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 3 (Аниме) -->
+            <div class="card" data-category="anime">
+                <div class="card-image" style="background-image: url('https://images4.alphacoders.com/937/937666.jpg');">
+                    <div class="overlay"></div>
+                    <span class="rating">SR</span>
+                </div>
+                <div class="card-info">
+                    <span class="tag">ANIME</span>
+                    <h3>Cyberpunk: Edgerunners</h3>
+                    <div class="stats">
+                        <span>10/10</span>
+                        <span class="status completed">COMPLETED</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Добавляй больше карточек по аналогии -->
+
+        </div>
+    </main>
+
+    <footer class="glass">
+        <p>SYSTEM STATUS: STABLE © 2024</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
