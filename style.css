@@ -274,7 +274,7 @@ input { outline: none; }
 @keyframes rotate { to { transform: rotate(360deg); } }
 
 /* =========================================
-   7. CATALOG CARDS (FIXED CORNERS & BORDERS)
+   7. CATALOG CARDS (FIXED BORDER & ZOOM)
    ========================================= */
 .grid-cards {
     display: grid;
@@ -287,12 +287,13 @@ input { outline: none; }
     position: relative;
     height: 420px;
     
-    /* 1. Карточка = РАМКА */
-    background: var(--border-color);
-    /* 2. Толщина рамки регулируется позицией внутренних элементов (см. ниже) */
+    /* 1. Цвет рамки (фон родителя) */
+    background: var(--border-color); 
+    padding: 1px; /* Толщина рамки */
     
     cursor: pointer;
     z-index: 1;
+    /* Анимация цвета рамки */
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s;
     
     /* Форма среза */
@@ -305,18 +306,22 @@ input { outline: none; }
     );
 }
 
-/* Картинка (Внутренний слой) - отступ 1px создает рамку */
+/* 2. Блок с картинкой (Внутренний) */
 .card-img {
     position: absolute;
+    /* Отступ 1px создает видимость рамки */
     top: 1px; left: 1px;
     width: calc(100% - 2px); 
     height: calc(100% - 2px);
     
     background-color: #0a0b10;
-    background-size: cover; 
-    background-position: center;
     
-    /* Повторяем форму */
+    /* НАСТРОЙКИ ФОНА ДЛЯ ЗУМА */
+    background-size: 100%; /* Начальный размер */
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Форма внутренней части */
     clip-path: polygon(
         0 0, 
         100% 0, 
@@ -325,12 +330,13 @@ input { outline: none; }
         0 100%
     );
     
-    transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Анимируем размер фона, а не сам блок! */
+    transition: background-size 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
     filter: brightness(0.8) grayscale(20%);
     z-index: 1;
 }
 
-/* Градиент поверх картинки */
+/* Градиент затемнения */
 .card::after {
     content: ''; position: absolute; 
     top: 1px; left: 1px; right: 1px; bottom: 1px;
@@ -408,15 +414,18 @@ input { outline: none; }
 .rank-badge.ssr { color: var(--cyan); border-color: var(--cyan); }
 .rank-badge.sr { color: #fff; }
 
-/* HOVER */
+/* --- HOVER ЭФФЕКТЫ --- */
+
 .card:hover {
     transform: translateY(-10px);
-    background: var(--gold); /* Рамка становится золотой */
+    /* Меняем цвет подложки на золотой -> рамка загорается */
+    background: var(--gold); 
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
 
 .card:hover .card-img {
-    transform: scale(1.05);
+    /* ЗУМ ФОНА, А НЕ БЛОКА */
+    background-size: 110%; 
     filter: brightness(1.1) grayscale(0%);
 }
 
@@ -427,9 +436,4 @@ input { outline: none; }
 .card:hover .card-meta {
     color: var(--cyan);
     border-color: var(--cyan);
-}
-
-@media (max-width: 768px) {
-    .navbar { flex-direction: column; gap: 1rem; padding: 1rem; }
-    .hub-card { width: 100%; height: 380px; }
 }
