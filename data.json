@@ -1,0 +1,78 @@
+{
+    "games": [
+        {
+            "title": "Wuthering Waves",
+            "category": "gacha",
+            "rank": "UR",
+            "image": "https://cdn2.steamgriddb.com/grid/7cee9e13ee29834be975c2164736ad4d.png",
+            "desc": "Wuthering Waves is a story-rich open-world action RPG with a high degree of freedom. You wake from your slumber as a Rover.",
+            "tags": "Action RPG, Open World, Gacha",
+            "platform": "PC / Mobile / PS5",
+            "dev": "Kuro Games",
+            "meta_highlight": "LVL 55",
+            "meta_sub": "DAILY // ACTIVE"
+        },
+        {
+            "title": "Elden Ring",
+            "category": "rpg",
+            "rank": "UR",
+            "image": "https://images5.alphacoders.com/112/1126269.jpg",
+            "desc": "Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.",
+            "tags": "Soulslike, Dark Fantasy, Open World",
+            "platform": "PC / Console",
+            "dev": "FromSoftware",
+            "meta_highlight": "120 HRS",
+            "meta_sub": "COMPLETED"
+        },
+        {
+            "title": "Cyberpunk 2077",
+            "category": "rpg",
+            "rank": "SSR",
+            "image": "https://cdn2.steamgriddb.com/grid/14fa61790d304f53a43cfbea22db9cda.webp",
+            "desc": "Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power and glamour.",
+            "tags": "Cyberpunk, Shooter, Story Rich",
+            "platform": "PC / Console",
+            "dev": "CD Projekt Red",
+            "meta_highlight": "★★★★",
+            "meta_sub": "ARCHIVED"
+        }
+    ],
+    "anime": [
+        {
+            "title": "Frieren",
+            "category": "series",
+            "rank": "UR",
+            "image": "https://images3.alphacoders.com/132/1328972.jpeg",
+            "desc": "Elf mage Frieren and her courageous fellow adventurers have defeated the Demon King and brought peace to the land.",
+            "tags": "Fantasy, Slice of Life, Adventure",
+            "platform": "TV Series",
+            "dev": "Madhouse",
+            "meta_highlight": "★★★★★",
+            "meta_sub": "MASTERPIECE"
+        },
+        {
+            "title": "Your Name",
+            "category": "movie",
+            "rank": "UR",
+            "image": "https://images.alphacoders.com/846/846313.jpg",
+            "desc": "Two strangers find themselves linked in a bizarre way. When a connection forms, will distance be the only thing to keep them apart?",
+            "tags": "Romance, Drama, Supernatural",
+            "platform": "Movie",
+            "dev": "CoMix Wave Films",
+            "meta_highlight": "★★★★★",
+            "meta_sub": "REWATCHED"
+        },
+        {
+            "title": "Edgerunners",
+            "category": "series",
+            "rank": "SSR",
+            "image": "https://images4.alphacoders.com/937/937666.jpg",
+            "desc": "A street kid tries to survive in a technology and body modification-obsessed city of the future.",
+            "tags": "Cyberpunk, Sci-Fi, Action",
+            "platform": "Netflix",
+            "dev": "Studio Trigger",
+            "meta_highlight": "★★★★",
+            "meta_sub": "COMPLETED"
+        }
+    ]
+}
