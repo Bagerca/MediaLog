@@ -1,0 +1,250 @@
+:root {
+    --bg-dark: #0a0b10;
+    --card-bg: #14161f;
+    --text-main: #e0e0e0;
+    --text-muted: #8a8f9d;
+    --accent: #4deeea; /* Бирюзовый киберпанк/WuWa */
+    --gold: #f2c94c;   /* Золотой для 5* редкости */
+    --border: rgba(255, 255, 255, 0.08);
+    --glass: rgba(20, 22, 31, 0.7);
+    
+    --font-head: 'Rajdhani', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Фон с шумом и градиентом */
+.bg-noise {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMGEwYjEwIi8+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idHJhbnNwYXJlbnQiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMDUiLz48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOCIgbnVtT2N0YXZlcz0iMyIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48L3N2Zz4=');
+    z-index: -2;
+    pointer-events: none;
+}
+
+.bg-gradient {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 80% 10%, rgba(77, 238, 234, 0.08), transparent 40%),
+                radial-gradient(circle at 10% 90%, rgba(138, 143, 157, 0.05), transparent 40%);
+    z-index: -1;
+}
+
+/* Навигация */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+}
+
+.logo {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.dot { color: var(--accent); }
+
+.filters {
+    display: flex;
+    gap: 2rem;
+}
+
+.filter-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-head);
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    position: relative;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    color: var(--text-main);
+}
+
+.filter-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* Hero Section */
+.hero {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    position: relative;
+}
+
+.subtitle {
+    font-family: var(--font-head);
+    color: var(--accent);
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.hero h1 {
+    font-family: var(--font-head);
+    font-size: 5rem;
+    line-height: 0.9;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(180deg, #fff, #8a8f9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.description {
+    color: var(--text-muted);
+    max-width: 400px;
+    line-height: 1.6;
+}
+
+/* Grid System */
+.container {
+    padding: 0 3rem 5rem 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* Карточки - Самое важное */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border-color: rgba(77, 238, 234, 0.3);
+}
+
+.card-image {
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, var(--card-bg) 10%, transparent 60%);
+}
+
+.rating {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    padding: 4px 8px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--gold);
+    border: 1px solid rgba(242, 201, 76, 0.3);
+    font-size: 0.8rem;
+}
+
+.card-info {
+    padding: 1.5rem;
+    position: relative;
+}
+
+.tag {
+    font-size: 0.7rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 2px 6px;
+    font-family: var(--font-head);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.card h3 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+}
+
+.status.playing { color: var(--accent); }
+.status.completed { color: var(--gold); }
+
+/* Анимация появления */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-family: var(--font-head);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    border-top: 1px solid var(--border);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .navbar { padding: 1rem; }
+    .hero h1 { font-size: 3rem; }
+    .container { padding: 0 1rem 3rem 1rem; }
+}
