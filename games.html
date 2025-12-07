@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaLog // Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-noise"></div>
+    <div class="bg-gradient"></div>
+
+    <nav class="navbar glass">
+        <div class="logo">MEDIA<span class="dot">LOG</span></div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item">HUB</a>
+            <a href="anime.html" class="nav-item">ANIME</a>
+            <a href="games.html" class="nav-item active">GAMES</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>GAME ARCHIVE</h1>
+        <p>Simulation & Combat Logs</p>
+    </header>
+
+    <main class="container">
+        <div class="grid">
+            <!-- Пример карточки Игры -->
+            <div class="card">
+                <div class="card-image" style="background-image: url('https://images5.alphacoders.com/112/1126269.jpg');">
+                    <span class="rating ur">UR</span> <!-- UR для любимых -->
+                </div>
+                <div class="card-info">
+                    <span class="tag">RPG</span>
+                    <h3>Elden Ring</h3>
+                    <div class="stats">
+                        <span>120 HRS</span>
+                        <span class="status playing">PLAYING</span>
+                    </div>
+                </div>
+            </div>
+            
+             <!-- Вторая карточка -->
+             <div class="card">
+                <div class="card-image" style="background-image: url('https://images8.alphacoders.com/135/1353982.jpeg');">
+                    <span class="rating ssr">SSR</span>
+                </div>
+                <div class="card-info">
+                    <span class="tag">GACHA</span>
+                    <h3>Wuthering Waves</h3>
+                    <div class="stats">
+                        <span>LVL 40</span>
+                        <span class="status playing">Daily</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
