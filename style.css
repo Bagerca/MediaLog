@@ -1,342 +1,167 @@
 /* =========================================
-   1. VARIABLES & RESET
-   ========================================= */
-:root {
-    /* ФОН */
-    --bg-base: #050608;
-    --bg-glass: rgba(5, 6, 8, 0.9);
-    
-    /* ТЕКСТ */
-    --text-main: #f2f2f2;
-    --text-muted: #808a9f;
-    
-    /* ЦВЕТА WUWA */
-    --cyan: #5ffbf1;             
-    --gold: #e8c686;             
-    --gold-dim: rgba(232, 198, 134, 0.3);
-    
-    /* РАМКИ */
-    --border-color: rgba(255, 255, 255, 0.15);
-    
-    /* ШРИФТЫ */
-    --font-head: 'Rajdhani', sans-serif;
-    --font-body: 'Inter', sans-serif;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    background-color: var(--bg-base);
-    color: var(--text-main);
-    font-family: var(--font-body);
-    min-height: 100vh;
-    overflow-x: hidden;
-    display: flex; flex-direction: column;
-}
-
-a { text-decoration: none; color: inherit; }
-button { border: none; background: none; cursor: pointer; outline: none; }
-input { outline: none; }
-
-/* =========================================
-   2. BACKGROUND SYSTEM
-   ========================================= */
-.background-container {
-    position: fixed; inset: 0; z-index: -10; pointer-events: none;
-    background: #050608; overflow: hidden;
-}
-
-.bg-grid {
-    position: absolute; inset: 0;
-    background-size: 60px 60px;
-    background-image:
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
-}
-
-.bg-fog {
-    position: absolute; width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% 120%, rgba(95, 251, 241, 0.03), transparent 60%);
-    opacity: 0.6;
-}
-
-.gold-dust {
-    position: absolute; width: 2px; height: 2px;
-    background: var(--gold);
-    box-shadow: 0 0 4px var(--gold);
-    border-radius: 50%;
-    animation: floatUp 15s infinite linear;
-    opacity: 0;
-}
-.d1 { left: 10%; animation-delay: 0s; }
-.d2 { left: 30%; animation-delay: 5s; width: 3px; height: 3px; }
-.d3 { left: 60%; animation-delay: 2s; }
-.d4 { left: 80%; animation-delay: 7s; width: 1px; height: 1px; }
-
-@keyframes floatUp {
-    0% { transform: translateY(110vh); opacity: 0; }
-    20% { opacity: 0.8; }
-    80% { opacity: 0.8; }
-    100% { transform: translateY(-10vh); opacity: 0; }
-}
-
-/* =========================================
-   3. NAVBAR
-   ========================================= */
-.navbar {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.5rem 5%;
-    background: rgba(5, 6, 8, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-color);
-    position: sticky; top: 0; z-index: 100;
-}
-
-.logo {
-    font-family: var(--font-head); font-weight: 700; font-size: 1.6rem; letter-spacing: 3px;
-    color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.1);
-}
-
-.nav-links { display: flex; gap: 3rem; }
-.nav-item {
-    font-family: var(--font-head); font-weight: 600; color: var(--text-muted);
-    letter-spacing: 1px; transition: 0.3s; position: relative;
-}
-.nav-item:hover, .nav-item.active { color: var(--text-main); }
-
-.nav-item.active::after {
-    content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px;
-    background: var(--gold); box-shadow: 0 0 10px var(--gold);
-}
-
-/* =========================================
-   4. LAYOUT & HEADER
-   ========================================= */
-.container { max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
-.page-header { text-align: center; margin: 4rem 0; min-height: 150px; }
-
-/* Золотая табличка (FIXED) */
-.deco-tag {
-    position: relative; display: inline-block;
-    padding: 6px 16px;
-    border: 1px solid var(--gold-dim);
-    color: var(--gold);
-    font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 3px;
-    background: rgba(232, 198, 134, 0.05);
-    margin-bottom: 1.5rem;
-    overflow: hidden; 
-    opacity: 0; transform: scaleX(0); 
-    animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
-}
-
-.deco-tag::after {
-    content: ''; position: absolute; top: 0; left: -50%;
-    width: 20%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-    transform: skewX(-25deg);
-    animation: tagShine 4s infinite ease-in-out 1s;
-}
-
-@keyframes tagReveal {
-    0% { opacity: 0; transform: scaleX(0); border-color: transparent; }
-    50% { opacity: 1; border-color: var(--gold); }
-    100% { opacity: 1; transform: scaleX(1); border-color: var(--gold-dim); }
-}
-@keyframes tagShine {
-    0% { left: -50%; opacity: 0; } 5% { opacity: 1; } 20% { left: 150%; opacity: 0; } 100% { left: 150%; opacity: 0; }
-}
-
-.page-header h1 {
-    font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px; color: #fff;
-    min-height: 1.2em;
-}
-
-/* =========================================
-   5. CONTROLS (DROPDOWN + SEARCH)
-   ========================================= */
-.filter-wrapper {
-    display: flex; justify-content: center; align-items: center; gap: 1rem;
-    margin-bottom: 3rem; position: relative; z-index: 50; flex-wrap: wrap;
-}
-
-/* --- Dropdown --- */
-.custom-dropdown {
-    position: relative; width: 260px; font-family: var(--font-head);
-}
-
-.dropdown-trigger {
-    width: 100%; padding: 12px 24px;
-    display: flex; justify-content: space-between; align-items: center;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-color);
-    color: var(--gold); font-weight: 700; letter-spacing: 2px;
-    cursor: pointer; transition: 0.3s;
-    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-}
-.dropdown-trigger:hover, .custom-dropdown.open .dropdown-trigger {
-    background: rgba(232, 198, 134, 0.1); border-color: var(--gold);
-    text-shadow: 0 0 10px rgba(232, 198, 134, 0.4);
-}
-.arrow-icon { transition: 0.3s; }
-.custom-dropdown.open .arrow-icon { transform: rotate(180deg); }
-
-.dropdown-options {
-    position: absolute; top: 110%; left: 0; width: 100%;
-    background: #08090d; border: 1px solid var(--border-color);
-    opacity: 0; visibility: hidden;
-    transform: translateY(-10px);
-    transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-}
-.custom-dropdown.open .dropdown-options {
-    opacity: 1; visibility: visible; transform: translateY(0); border-color: var(--gold-dim);
-}
-
-.option {
-    padding: 12px 20px; color: var(--text-muted); cursor: pointer; transition: 0.2s;
-    border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; letter-spacing: 1px;
-    display: flex; align-items: center;
-}
-.option:last-child { border-bottom: none; }
-.option:hover { background: rgba(232, 198, 134, 0.05); color: var(--text-main); padding-left: 25px; }
-.option.active { color: var(--gold); background: linear-gradient(90deg, rgba(232, 198, 134, 0.1), transparent); }
-.option.active::before {
-    content: ''; display: inline-block; width: 6px; height: 6px; background: var(--gold);
-    margin-right: 10px; transform: rotate(45deg); box-shadow: 0 0 5px var(--gold);
-}
-
-/* --- Search Terminal --- */
-.search-terminal {
-    position: relative; width: 260px; height: 48px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-color);
-    display: flex; align-items: center; padding: 0 15px;
-    transition: 0.3s;
-    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-}
-.search-terminal input {
-    background: transparent; border: none;
-    color: var(--gold); font-family: var(--font-head); font-size: 1rem; letter-spacing: 1px;
-    width: 100%; height: 100%; padding-left: 10px; text-transform: uppercase;
-}
-.search-terminal input::placeholder { color: var(--text-muted); opacity: 0.5; }
-.search-icon { transition: 0.3s; }
-
-.search-terminal:focus-within {
-    border-color: var(--gold); background: rgba(232, 198, 134, 0.1);
-    box-shadow: 0 0 15px rgba(232, 198, 134, 0.1);
-}
-.search-terminal:focus-within .search-icon { stroke: var(--gold); }
-
-@media (max-width: 600px) {
-    .filter-wrapper { flex-direction: column; }
-    .custom-dropdown, .search-terminal { width: 100%; }
-}
-
-/* =========================================
-   6. HUB CARDS (Main Menu)
-   ========================================= */
-.hub-wrapper { min-height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-.hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
-
-.hub-card {
-    width: 320px; height: 460px;
-    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    background: var(--border-color); z-index: 1; transition: 0.4s;
-    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-}
-.hub-card::before {
-    content: ''; position: absolute; top: 1px; left: 1px; right: 1px; bottom: 1px;
-    background: linear-gradient(180deg, rgba(20,22,28,0.95) 0%, rgba(10,11,14,0.98) 100%);
-    z-index: -1;
-    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-}
-.hub-card:hover { transform: translateY(-10px); background: var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
-
-.hub-icon-circle {
-    width: 140px; height: 140px;
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 2rem; position: relative;
-    background: radial-gradient(circle, rgba(232, 198, 134, 0.02) 0%, transparent 70%); z-index: 2;
-}
-.hub-icon-circle::before {
-    content: ''; position: absolute; inset: -5px; border-radius: 50%;
-    border: 1px dashed rgba(232, 198, 134, 0.3); opacity: 0.3; animation: rotate 30s linear infinite;
-}
-.hub-card:hover .hub-icon-circle { border-color: var(--gold); box-shadow: 0 0 20px rgba(232, 198, 134, 0.1); }
-.hub-card:hover .hub-icon-circle::before { opacity: 1; border-color: var(--gold); }
-.hub-text { text-align: center; z-index: 2; }
-.hub-text h2 { font-family: var(--font-head); font-size: 2rem; color: #fff; letter-spacing: 2px; }
-.hub-text p { color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; margin-top: 5px; opacity: 0.7; }
-@keyframes rotate { to { transform: rotate(360deg); } }
-
-/* =========================================
-   7. CATALOG CARDS (POSTERS)
+   7. CATALOG CARDS (FIXED CORNERS & BORDERS)
    ========================================= */
 .grid-cards {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2rem; padding-bottom: 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+    padding-bottom: 4rem;
 }
 
 .card {
-    position: relative; height: 420px; background: #0a0b10;
-    cursor: pointer; z-index: 1;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
-}
-.card::before {
-    content: ''; position: absolute; inset: 0; padding: 1px;
+    position: relative;
+    height: 420px;
+    
+    /* 1. Карточка выступает в роли РАМКИ */
     background: var(--border-color);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor; mask-composite: exclude;
-    z-index: 5; pointer-events: none; transition: background 0.4s;
+    padding: 1px; /* Толщина рамки */
+    
+    cursor: pointer;
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s;
+    
+    /* Форма среза (одинаковая для рамки и контента) */
+    clip-path: polygon(
+        0 0, 
+        100% 0, 
+        100% calc(100% - 30px), 
+        calc(100% - 30px) 100%, 
+        0 100%
+    );
 }
+
+/* 2. Картинка (Внутренний слой) */
 .card-img {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    background-size: cover; background-position: center;
+    position: absolute;
+    /* Отступаем 1px от края, чтобы была видна рамка */
+    top: 1px; left: 1px;
+    width: calc(100% - 2px); 
+    height: calc(100% - 2px);
+    
+    background-color: #0a0b10; /* Черная подложка */
+    background-size: cover; 
+    background-position: center;
+    
+    /* Повторяем форму среза, чтобы картинка не вылезала */
+    clip-path: polygon(
+        0 0, 
+        100% 0, 
+        100% calc(100% - 30px), 
+        calc(100% - 30px) 100%, 
+        0 100%
+    );
+    
     transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     filter: brightness(0.8) grayscale(20%);
-}
-.card::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(5,6,8,0.95) 0%, rgba(5,6,8,0.6) 30%, transparent 100%);
     z-index: 1;
 }
+
+/* Градиент поверх картинки (для читаемости текста) */
+.card::after {
+    content: ''; position: absolute; 
+    /* Тоже отступаем 1px */
+    top: 1px; left: 1px; right: 1px; bottom: 1px;
+    
+    background: linear-gradient(to top, 
+        rgba(5,6,8,0.98) 0%, 
+        rgba(5,6,8,0.7) 25%, 
+        transparent 100%
+    );
+    z-index: 2; /* Поверх картинки */
+    pointer-events: none;
+    
+    /* Форма среза */
+    clip-path: polygon(
+        0 0, 
+        100% 0, 
+        100% calc(100% - 30px), 
+        calc(100% - 30px) 100%, 
+        0 100%
+    );
+}
+
+/* Контент */
 .card-content {
-    position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem;
-    z-index: 2; transform: translateY(0); transition: 0.4s;
+    position: absolute; bottom: 0; left: 0; width: 100%; 
+    padding: 1.5rem;
+    z-index: 3; /* Поверх всего */
+    transform: translateY(0);
+    transition: 0.4s;
 }
+
 .card-title {
-    font-family: var(--font-head); font-size: 1.8rem; font-weight: 700; text-transform: uppercase;
-    color: #fff; margin-bottom: 0.5rem; line-height: 1; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.8);
 }
+
 .card-meta {
     display: flex; align-items: center; gap: 10px;
-    font-family: var(--font-head); font-size: 0.85rem; color: var(--text-muted);
-    letter-spacing: 1px; border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 10px; margin-top: 10px; transition: 0.3s;
+    font-family: var(--font-head);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 10px;
+    margin-top: 10px;
+    transition: 0.3s;
 }
-.meta-highlight { color: var(--gold); text-shadow: 0 0 5px rgba(232, 198, 134, 0.4); }
 
+.meta-highlight {
+    color: var(--gold);
+    text-shadow: 0 0 5px rgba(232, 198, 134, 0.4);
+}
+
+/* --- БЕЙДЖИ (RANK) --- */
 .rank-badge {
-    position: absolute; top: 0; left: 0; padding: 6px 14px;
-    background: rgba(5, 6, 8, 0.8); backdrop-filter: blur(8px);
-    border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);
-    z-index: 3; font-family: var(--font-head); font-weight: 700; font-size: 1rem; letter-spacing: 2px;
+    position: absolute; top: 1px; left: 1px; /* Учитываем рамку */
+    padding: 6px 14px;
+    background: rgba(5, 6, 8, 0.9);
+    backdrop-filter: blur(8px);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 4;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    
+    /* Срезанный уголок у бейджа */
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
 }
+
 .rank-badge.ur { color: var(--gold); border-color: var(--gold); }
 .rank-badge.ssr { color: var(--cyan); border-color: var(--cyan); }
+.rank-badge.sr { color: #fff; }
 
-.card:hover { transform: translateY(-10px); }
-.card:hover::before { background: var(--gold); box-shadow: 0 0 20px rgba(232, 198, 134, 0.2); }
-.card:hover .card-img { transform: scale(1.1); filter: brightness(1.1) grayscale(0%); }
-.card:hover .card-content { transform: translateY(-5px); }
-.card:hover .card-meta { color: var(--cyan); border-color: var(--cyan); }
+/* --- HOVER ЭФФЕКТЫ --- */
+.card:hover {
+    transform: translateY(-10px);
+    background: var(--gold); /* Рамка становится золотой */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5); /* Тень под карточкой */
+}
 
-@media (max-width: 768px) {
-    .navbar { flex-direction: column; gap: 1rem; padding: 1rem; }
-    .hub-card { width: 100%; height: 380px; }
+/* Дополнительное свечение рамки при наведении */
+.card:hover::before { 
+    /* Убираем старый ::before, он больше не нужен для рамки */
+    display: none; 
+}
+
+.card:hover .card-img {
+    transform: scale(1.05);
+    filter: brightness(1.1) grayscale(0%);
+}
+
+.card:hover .card-content {
+    transform: translateY(-5px);
+}
+
+.card:hover .card-meta {
+    color: var(--cyan);
+    border-color: var(--cyan);
 }
