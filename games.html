@@ -1,4 +1,3 @@
-<!-- START OF FILE games.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,7 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<!-- ВАЖНО: Атрибут data-page указывает, какой массив брать из data.json -->
+<body data-page="games">
+    
     <div class="background-container">
         <div class="bg-grid"></div>
         <div class="bg-fog"></div>
@@ -38,6 +39,7 @@
                     <svg class="arrow-icon" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="#e8c686" stroke-width="2"/></svg>
                 </button>
                 <div class="dropdown-options">
+                    <!-- Значения data-filter должны совпадать с "category" в JSON -->
                     <div class="option active" data-filter="all">ALL SIMULATIONS</div>
                     <div class="option" data-filter="gacha">GACHA / LIVE SERVICE</div>
                     <div class="option" data-filter="rpg">RPG / STORY</div>
@@ -49,118 +51,25 @@
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
             
-            <!-- ОБНОВЛЕННЫЕ КНОПКИ УПРАВЛЕНИЯ ВИДОМ -->
+            <!-- Кнопки управления сеткой -->
             <div class="view-controls">
-                <!-- 3 Columns -->
                 <button class="view-btn active" data-cols="3" title="3 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <rect x="0" y="0" width="4" height="14" fill="currentColor"/>
-                        <rect x="5" y="0" width="4" height="14" fill="currentColor"/>
-                        <rect x="10" y="0" width="4" height="14" fill="currentColor"/>
-                    </svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg>
                 </button>
-                <!-- 4 Columns -->
                 <button class="view-btn" data-cols="4" title="4 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <rect x="0" y="0" width="2.5" height="14" fill="currentColor"/>
-                        <rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/>
-                        <rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/>
-                        <rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/>
-                    </svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg>
                 </button>
-                <!-- 5 Columns -->
                 <button class="view-btn" data-cols="5" title="5 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <rect x="0" y="0" width="2" height="14" fill="currentColor"/>
-                        <rect x="3" y="0" width="2" height="14" fill="currentColor"/>
-                        <rect x="6" y="0" width="2" height="14" fill="currentColor"/>
-                        <rect x="9" y="0" width="2" height="14" fill="currentColor"/>
-                        <rect x="12" y="0" width="2" height="14" fill="currentColor"/>
-                    </svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2" height="14" fill="currentColor"/><rect x="3" y="0" width="2" height="14" fill="currentColor"/><rect x="6" y="0" width="2" height="14" fill="currentColor"/><rect x="9" y="0" width="2" height="14" fill="currentColor"/><rect x="12" y="0" width="2" height="14" fill="currentColor"/></svg>
                 </button>
-                <!-- 6 Columns -->
                 <button class="view-btn" data-cols="6" title="6 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <rect x="0" y="0" width="1.5" height="14" fill="currentColor"/>
-                        <rect x="2.5" y="0" width="1.5" height="14" fill="currentColor"/>
-                        <rect x="5" y="0" width="1.5" height="14" fill="currentColor"/>
-                        <rect x="7.5" y="0" width="1.5" height="14" fill="currentColor"/>
-                        <rect x="10" y="0" width="1.5" height="14" fill="currentColor"/>
-                        <rect x="12.5" y="0" width="1.5" height="14" fill="currentColor"/>
-                    </svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="1.5" height="14" fill="currentColor"/><rect x="2.5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="7.5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="10" y="0" width="1.5" height="14" fill="currentColor"/><rect x="12.5" y="0" width="1.5" height="14" fill="currentColor"/></svg>
                 </button>
             </div>
         </div>
 
-        <!-- Сетка карточек -->
-        <div class="grid-cards cols-3">
-            
-            <!-- CARD 1: Wuthering Waves -->
-            <div class="card" 
-                 data-category="gacha" 
-                 data-desc="Wuthering Waves is a story-rich open-world action RPG with a high degree of freedom. You wake from your slumber as a Rover, greeted by a vibrant new world filled with novel sights and novel tech."
-                 data-tags="Action RPG,Open World,Gacha,Post-Apocalyptic"
-                 data-platform="PC / Mobile / PS5"
-                 data-dev="Kuro Games"
-                 data-rank="UR">
-                
-                <div class="card-img" style="background-image: url('https://cdn2.steamgriddb.com/grid/7cee9e13ee29834be975c2164736ad4d.png');"></div>
-                <div class="rank-badge ur">UR</div>
-                <div class="card-content">
-                    <div class="card-title">Wuthering Waves</div>
-                    <div class="card-meta">
-                        <span class="meta-highlight">LVL 55</span>
-                        <span>DAILY // ACTIVE</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CARD 2: Elden Ring -->
-            <div class="card" 
-                 data-category="rpg" 
-                 data-desc="Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between."
-                 data-tags="Soulslike,Dark Fantasy,Open World,RPG"
-                 data-platform="PC / Console"
-                 data-dev="FromSoftware"
-                 data-rank="UR">
-                 
-                <div class="card-img" style="background-image: url('https://images5.alphacoders.com/112/1126269.jpg');"></div>
-                <div class="rank-badge ur">UR</div>
-                <div class="card-content">
-                    <div class="card-title">Elden Ring</div>
-                    <div class="card-meta">
-                        <span class="meta-highlight">120 HRS</span>
-                        <span>COMPLETED</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CARD 3: Cyberpunk 2077 -->
-            <div class="card" 
-                 data-category="rpg" 
-                 data-desc="Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification."
-                 data-tags="Cyberpunk,Shooter,Story Rich,Sci-Fi"
-                 data-platform="PC / Console"
-                 data-dev="CD Projekt Red"
-                 data-rank="SSR">
-                 
-                <div class="card-img" style="background-image: url('https://cdn2.steamgriddb.com/grid/14fa61790d304f53a43cfbea22db9cda.webp');"></div>
-                <div class="rank-badge ssr">SSR</div>
-                <div class="card-content">
-                    <div class="card-title">Cyberpunk 2077</div>
-                    <div class="card-meta">
-                        <span class="meta-highlight" style="color:var(--cyan)">★★★★</span>
-                        <span>ARCHIVED</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Дополнительные карточки для теста сетки -->
-            <div class="card" data-category="rpg" data-rank="SR" data-desc="Test Card" data-tags="Test"><div class="card-img" style="background-color: #222;"></div><div class="rank-badge">SR</div><div class="card-content"><div class="card-title">Test Module 01</div><div class="card-meta"><span>TESTING</span></div></div></div>
-            <div class="card" data-category="gacha" data-rank="R" data-desc="Test Card" data-tags="Test"><div class="card-img" style="background-color: #222;"></div><div class="rank-badge">R</div><div class="card-content"><div class="card-title">Test Module 02</div><div class="card-meta"><span>TESTING</span></div></div></div>
-            <div class="card" data-category="rpg" data-rank="SSR" data-desc="Test Card" data-tags="Test"><div class="card-img" style="background-color: #222;"></div><div class="rank-badge ssr">SSR</div><div class="card-content"><div class="card-title">Test Module 03</div><div class="card-meta"><span>TESTING</span></div></div></div>
-
-        </div>
+        <!-- КОНТЕЙНЕР ПУСТОЙ (заполняется через JS) -->
+        <div class="grid-cards cols-3" id="cards-container"></div>
     </main>
 
     <!-- HUD MODAL -->
@@ -170,8 +79,7 @@
             <div class="corner b-l"></div><div class="corner b-r"></div>
         
             <button class="modal-close" id="closeModal">
-                <span class="close-text">ABORT SIGNAL</span>
-                <span class="close-icon">✕</span>
+                <span class="close-text">ABORT SIGNAL</span><span class="close-icon">✕</span>
             </button>
         
             <div class="modal-body">
@@ -180,46 +88,24 @@
                     <div class="visual-overlay"></div>
                     <div class="rank-tag-large" id="modalRank">UR</div>
                 </div>
-        
                 <div class="modal-info">
                     <div class="modal-header">
-                        <div class="sys-row">
-                            <span class="sys-msg">/// DECRYPTED_DATA_LOG_01</span>
-                            <span class="sys-id">ID: #89-XJ</span>
-                        </div>
+                        <div class="sys-row"><span class="sys-msg">/// DECRYPTED_DATA_LOG_01</span><span class="sys-id">ID: #89-XJ</span></div>
                         <h2 id="modalTitle">TITLE_PLACEHOLDER</h2>
                         <div class="tags-container" id="modalTags"></div>
                     </div>
-        
                     <div class="modal-content-scroll">
                         <p id="modalDesc" class="modal-desc">Description text...</p>
                         <div class="stats-grid">
-                            <div class="stat-box">
-                                <span class="stat-label">PLATFORM</span>
-                                <span class="stat-value" id="modalPlatform">PC</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-label">DEVELOPER</span>
-                                <span class="stat-value" id="modalDev">STUDIO</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-label">STATUS</span>
-                                <span class="stat-value active">ACCESSIBLE</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-label">INTEGRITY</span>
-                                <span class="stat-value highlight">100%</span>
-                            </div>
+                            <div class="stat-box"><span class="stat-label">PLATFORM</span><span class="stat-value" id="modalPlatform">PC</span></div>
+                            <div class="stat-box"><span class="stat-label">DEVELOPER</span><span class="stat-value" id="modalDev">STUDIO</span></div>
+                            <div class="stat-box"><span class="stat-label">STATUS</span><span class="stat-value active">ACCESSIBLE</span></div>
+                            <div class="stat-box"><span class="stat-label">INTEGRITY</span><span class="stat-value highlight">100%</span></div>
                         </div>
                     </div>
-        
                     <div class="modal-footer">
-                        <button class="action-btn primary">
-                            <span class="btn-text">INITIATE LAUNCH</span>
-                        </button>
-                        <button class="action-btn secondary">
-                            <span class="btn-text">EDIT RECORD</span>
-                        </button>
+                        <button class="action-btn primary"><span class="btn-text">INITIATE LAUNCH</span></button>
+                        <button class="action-btn secondary"><span class="btn-text">EDIT RECORD</span></button>
                     </div>
                 </div>
             </div>
