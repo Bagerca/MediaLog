@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resonance // Hub</title>
+    <title>Anime // Resonance</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,57 +11,67 @@
     <div class="background-container">
         <div class="bg-grid"></div>
         <div class="bg-fog"></div>
-        <!-- Золотая пыль -->
-        <div class="gold-dust d1"></div><div class="gold-dust d2"></div>
-        <div class="gold-dust d3"></div><div class="gold-dust d4"></div>
+        <div class="gold-dust d2"></div><div class="gold-dust d4"></div>
     </div>
 
     <nav class="navbar">
         <div class="logo">MEDIA<span style="color:#fff">.LOG</span></div>
         <div class="nav-links">
-            <a href="index.html" class="nav-item active">TERMINAL</a>
-            <a href="anime.html" class="nav-item">VISUALS</a>
+            <a href="index.html" class="nav-item">TERMINAL</a>
+            <a href="anime.html" class="nav-item active">VISUALS</a>
             <a href="games.html" class="nav-item">SIMULATIONS</a>
         </div>
     </nav>
 
-    <main class="hub-wrapper container">
+    <main class="container">
         <header class="page-header">
-            <div class="deco-tag">SYSTEM: ONLINE</div>
-            <h1>SELECT ARCHIVE</h1>
+            <div class="deco-tag">/// ARCHIVE: OPEN</div>
+            <h1>VISUAL LOGS</h1>
         </header>
 
-        <div class="hub-grid">
-            
-            <a href="anime.html" class="hub-card">
-                <div class="hub-icon-circle">
-                    <!-- SVG LENS (GOLD) -->
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#e8c686" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10" />
-                        <circle cx="12" cy="12" r="4" />
-                        <path d="M12 2v2M12 22v-2M2 12h2M22 12h-2" />
-                    </svg>
-                </div>
-                <div class="hub-text">
-                    <h2>VISUAL LOGS</h2>
-                    <p>ANIME RECORDS</p>
-                </div>
-            </a>
+        <div class="filter-bar">
+            <button class="wuwa-btn active" data-filter="all">ALL</button>
+            <button class="wuwa-btn" data-filter="series">SERIES</button>
+            <button class="wuwa-btn" data-filter="movie">MOVIES</button>
+        </div>
 
-            <a href="games.html" class="hub-card">
-                <div class="hub-icon-circle">
-                    <!-- SVG GAMEPAD (GOLD) -->
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#e8c686" stroke-width="1.5">
-                        <rect x="2" y="6" width="20" height="12" rx="2" />
-                        <path d="M6 12h4M8 10v4" />
-                        <circle cx="17" cy="12" r="2" />
-                    </svg>
+        <div class="grid-cards">
+            
+            <div class="card" data-category="series">
+                <div class="card-img" style="background-image: url('https://images3.alphacoders.com/132/1328972.jpeg');"></div>
+                <div class="rank-badge ur">UR</div>
+                <div class="card-content">
+                    <div class="card-title">Frieren</div>
+                    <div class="card-meta">
+                        <span style="color:var(--gold)">★★★★★</span>
+                        <span>28 EP // MASTERPIECE</span>
+                    </div>
                 </div>
-                <div class="hub-text">
-                    <h2>GAME LOGS</h2>
-                    <p>SIMULATIONS</p>
+            </div>
+
+            <div class="card" data-category="movie">
+                <div class="card-img" style="background-image: url('https://images.alphacoders.com/846/846313.jpg');"></div>
+                <div class="rank-badge ur">UR</div>
+                <div class="card-content">
+                    <div class="card-title">Your Name</div>
+                    <div class="card-meta">
+                        <span style="color:var(--gold)">★★★★★</span>
+                        <span>MOVIE // REWATCHED</span>
+                    </div>
                 </div>
-            </a>
+            </div>
+
+            <div class="card" data-category="series">
+                <div class="card-img" style="background-image: url('https://images4.alphacoders.com/937/937666.jpg');"></div>
+                <div class="rank-badge ssr">SSR</div>
+                <div class="card-content">
+                    <div class="card-title">Edgerunners</div>
+                    <div class="card-meta">
+                        <span style="color:var(--cyan)">★★★★</span>
+                        <span>10 EP // COMPLETED</span>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </main>
