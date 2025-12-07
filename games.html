@@ -1,3 +1,4 @@
+<!-- START OF FILE games.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -48,14 +49,51 @@
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
             
+            <!-- ОБНОВЛЕННЫЕ КНОПКИ УПРАВЛЕНИЯ ВИДОМ -->
             <div class="view-controls">
-                <button class="view-btn active" data-cols="3"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg></button>
-                <button class="view-btn" data-cols="4"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
+                <!-- 3 Columns -->
+                <button class="view-btn active" data-cols="3" title="3 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <rect x="0" y="0" width="4" height="14" fill="currentColor"/>
+                        <rect x="5" y="0" width="4" height="14" fill="currentColor"/>
+                        <rect x="10" y="0" width="4" height="14" fill="currentColor"/>
+                    </svg>
+                </button>
+                <!-- 4 Columns -->
+                <button class="view-btn" data-cols="4" title="4 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <rect x="0" y="0" width="2.5" height="14" fill="currentColor"/>
+                        <rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/>
+                        <rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/>
+                        <rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/>
+                    </svg>
+                </button>
+                <!-- 5 Columns -->
+                <button class="view-btn" data-cols="5" title="5 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <rect x="0" y="0" width="2" height="14" fill="currentColor"/>
+                        <rect x="3" y="0" width="2" height="14" fill="currentColor"/>
+                        <rect x="6" y="0" width="2" height="14" fill="currentColor"/>
+                        <rect x="9" y="0" width="2" height="14" fill="currentColor"/>
+                        <rect x="12" y="0" width="2" height="14" fill="currentColor"/>
+                    </svg>
+                </button>
+                <!-- 6 Columns -->
+                <button class="view-btn" data-cols="6" title="6 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <rect x="0" y="0" width="1.5" height="14" fill="currentColor"/>
+                        <rect x="2.5" y="0" width="1.5" height="14" fill="currentColor"/>
+                        <rect x="5" y="0" width="1.5" height="14" fill="currentColor"/>
+                        <rect x="7.5" y="0" width="1.5" height="14" fill="currentColor"/>
+                        <rect x="10" y="0" width="1.5" height="14" fill="currentColor"/>
+                        <rect x="12.5" y="0" width="1.5" height="14" fill="currentColor"/>
+                    </svg>
+                </button>
             </div>
         </div>
 
         <!-- Сетка карточек -->
-        <div class="grid-cards">
+        <div class="grid-cards cols-3">
             
             <!-- CARD 1: Wuthering Waves -->
             <div class="card" 
@@ -116,14 +154,18 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Дополнительные карточки для теста сетки -->
+            <div class="card" data-category="rpg" data-rank="SR" data-desc="Test Card" data-tags="Test"><div class="card-img" style="background-color: #222;"></div><div class="rank-badge">SR</div><div class="card-content"><div class="card-title">Test Module 01</div><div class="card-meta"><span>TESTING</span></div></div></div>
+            <div class="card" data-category="gacha" data-rank="R" data-desc="Test Card" data-tags="Test"><div class="card-img" style="background-color: #222;"></div><div class="rank-badge">R</div><div class="card-content"><div class="card-title">Test Module 02</div><div class="card-meta"><span>TESTING</span></div></div></div>
+            <div class="card" data-category="rpg" data-rank="SSR" data-desc="Test Card" data-tags="Test"><div class="card-img" style="background-color: #222;"></div><div class="rank-badge ssr">SSR</div><div class="card-content"><div class="card-title">Test Module 03</div><div class="card-meta"><span>TESTING</span></div></div></div>
 
         </div>
     </main>
 
-    <!-- NEW HUD MODAL -->
+    <!-- HUD MODAL -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
-            <!-- Декоративные уголки -->
             <div class="corner t-l"></div><div class="corner t-r"></div>
             <div class="corner b-l"></div><div class="corner b-r"></div>
         
@@ -133,14 +175,12 @@
             </button>
         
             <div class="modal-body">
-                <!-- Левая часть: Визуал -->
                 <div class="modal-visual">
                     <div class="modal-img" id="modalImg"></div>
                     <div class="visual-overlay"></div>
                     <div class="rank-tag-large" id="modalRank">UR</div>
                 </div>
         
-                <!-- Правая часть: Информация -->
                 <div class="modal-info">
                     <div class="modal-header">
                         <div class="sys-row">
@@ -148,15 +188,11 @@
                             <span class="sys-id">ID: #89-XJ</span>
                         </div>
                         <h2 id="modalTitle">TITLE_PLACEHOLDER</h2>
-                        
-                        <!-- Контейнер для тегов -->
                         <div class="tags-container" id="modalTags"></div>
                     </div>
         
                     <div class="modal-content-scroll">
                         <p id="modalDesc" class="modal-desc">Description text...</p>
-                        
-                        <!-- Сетка характеристик -->
                         <div class="stats-grid">
                             <div class="stat-box">
                                 <span class="stat-label">PLATFORM</span>
