@@ -217,7 +217,7 @@ input { outline: none; }
     margin-right: 10px; transform: rotate(45deg); box-shadow: 0 0 5px var(--gold);
 }
 
-/* --- Search Terminal --- */
+/* --- Search Terminal (FIXED) --- */
 .search-terminal {
     position: relative; width: 260px; height: 48px;
     background: var(--border-color); padding: 1px; 
@@ -300,7 +300,7 @@ input { outline: none; }
 @keyframes rotate { to { transform: rotate(360deg); } }
 
 /* =========================================
-   7. CATALOG CARDS (FIXED CORNERS & ZOOM)
+   7. CATALOG CARDS (COVER FIX)
    ========================================= */
 .grid-cards {
     display: grid;
@@ -312,11 +312,15 @@ input { outline: none; }
 .card {
     position: relative;
     height: 420px;
+    
+    /* Рамка создается фоном родителя */
     background: var(--border-color);
-    padding: 1px; /* Рамка */
+    padding: 1px; /* Толщина рамки */
+    
     cursor: pointer;
     z-index: 1;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s;
+    
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
 }
 
@@ -327,14 +331,17 @@ input { outline: none; }
     height: calc(100% - 2px);
     
     background-color: #0a0b10;
-    background-size: 100%; 
+    
+    /* COVER заполняет всё */
+    background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
     
     /* Форма внутренней части */
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
     
-    transition: background-size 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
+    /* Трансформация для зума */
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
     filter: brightness(0.8) grayscale(20%);
     z-index: 1;
 }
@@ -404,7 +411,7 @@ input { outline: none; }
 }
 
 .card:hover .card-img {
-    background-size: 110%; /* ZOOM ФОНА */
+    transform: scale(1.05); /* ZOOM */
     filter: brightness(1.1) grayscale(0%);
 }
 
@@ -488,6 +495,8 @@ input { outline: none; }
 .action-btn.secondary:hover { border-color: var(--cyan); color: var(--cyan); }
 
 @media (max-width: 768px) {
+    .navbar { flex-direction: column; gap: 1rem; padding: 1rem; }
+    .hub-card { width: 100%; height: 380px; }
     .modal-window { height: auto; max-height: 90vh; overflow-y: auto; }
     .modal-body { flex-direction: column; }
     .modal-visual { width: 100%; height: 250px; border-right: none; border-bottom: 1px solid var(--border-color); }
