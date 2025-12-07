@@ -28,10 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 30);
     }
 
-    // --- 3. ФИЛЬТР + ПОИСК (ЕДИНАЯ СИСТЕМА) ---
+    // --- 3. ФИЛЬТР + ПОИСК + ВЫБОР СЕТКИ ---
     const dropdown = document.querySelector('.custom-dropdown');
     const searchInput = document.getElementById('searchInput');
     const items = document.querySelectorAll('.card');
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const gridContainer = document.querySelector('.grid-cards');
 
     let currentCategory = 'all';
     let currentSearch = '';
@@ -92,7 +94,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 4. МОДАЛЬНОЕ ОКНО (DETAIL VIEW) ---
+    // Смена сетки (3/4/5 колонок)
+    if (viewBtns.length > 0 && gridContainer) {
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                viewBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const cols = btn.getAttribute('data-cols');
+                gridContainer.classList.remove('cols-3', 'cols-4', 'cols-5');
+                gridContainer.classList.add(`cols-${cols}`);
+            });
+        });
+    }
+
+    // --- 4. МОДАЛЬНОЕ ОКНО ---
     const modal = document.getElementById('detailModal');
     const closeBtn = document.getElementById('closeModal');
     const modalImg = document.getElementById('modalImg');
@@ -108,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const meta = card.querySelector('.card-meta').innerHTML;
             const rank = card.querySelector('.rank-badge').textContent;
             const rankClass = card.querySelector('.rank-badge').classList[1]; // ur/ssr
-            const desc = card.getAttribute('data-desc') || "No data available in terminal.";
+            const desc = card.getAttribute('data-desc') || "No detailed data available.";
 
             modalImg.style.backgroundImage = bgImage;
             modalTitle.textContent = title;
