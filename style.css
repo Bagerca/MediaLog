@@ -261,8 +261,8 @@ input { outline: none; }
     letter-spacing: 1px;
     background: rgba(0, 0, 0, 0.8);
     border: 1px solid rgba(255,255,255,0.2);
-    /* Скошенный угол только справа снизу */
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+    clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px);
+    
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
