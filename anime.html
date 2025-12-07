@@ -1,4 +1,3 @@
-<!-- START OF FILE anime.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,7 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<!-- ВАЖНО: Атрибут data-page указывает, что мы берем массив "anime" из JSON -->
+<body data-page="anime">
+    
     <div class="background-container">
         <div class="bg-grid"></div>
         <div class="bg-fog"></div>
@@ -48,113 +49,27 @@
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
 
-            <!-- ОБНОВЛЕННЫЕ КНОПКИ УПРАВЛЕНИЯ ВИДОМ -->
             <div class="view-controls">
-                <!-- 3 Columns -->
                 <button class="view-btn active" data-cols="3" title="3 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <rect x="0" y="0" width="4" height="14" fill="currentColor"/>
-                        <rect x="5" y="0" width="4" height="14" fill="currentColor"/>
-                        <rect x="10" y="0" width="4" height="14" fill="currentColor"/>
-                    </svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg>
                 </button>
-                <!-- 4 Columns -->
                 <button class="view-btn" data-cols="4" title="4 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <rect x="0" y="0" width="2.5" height="14" fill="currentColor"/>
-                        <rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/>
-                        <rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/>
-                        <rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/>
-                    </svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg>
                 </button>
-                <!-- 5 Columns -->
                 <button class="view-btn" data-cols="5" title="5 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <rect x="0" y="0" width="2" height="14" fill="currentColor"/>
-                        <rect x="3" y="0" width="2" height="14" fill="currentColor"/>
-                        <rect x="6" y="0" width="2" height="14" fill="currentColor"/>
-                        <rect x="9" y="0" width="2" height="14" fill="currentColor"/>
-                        <rect x="12" y="0" width="2" height="14" fill="currentColor"/>
-                    </svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2" height="14" fill="currentColor"/><rect x="3" y="0" width="2" height="14" fill="currentColor"/><rect x="6" y="0" width="2" height="14" fill="currentColor"/><rect x="9" y="0" width="2" height="14" fill="currentColor"/><rect x="12" y="0" width="2" height="14" fill="currentColor"/></svg>
                 </button>
-                <!-- 6 Columns -->
                 <button class="view-btn" data-cols="6" title="6 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <rect x="0" y="0" width="1.5" height="14" fill="currentColor"/>
-                        <rect x="2.5" y="0" width="1.5" height="14" fill="currentColor"/>
-                        <rect x="5" y="0" width="1.5" height="14" fill="currentColor"/>
-                        <rect x="7.5" y="0" width="1.5" height="14" fill="currentColor"/>
-                        <rect x="10" y="0" width="1.5" height="14" fill="currentColor"/>
-                        <rect x="12.5" y="0" width="1.5" height="14" fill="currentColor"/>
-                    </svg>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="1.5" height="14" fill="currentColor"/><rect x="2.5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="7.5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="10" y="0" width="1.5" height="14" fill="currentColor"/><rect x="12.5" y="0" width="1.5" height="14" fill="currentColor"/></svg>
                 </button>
             </div>
         </div>
 
-        <div class="grid-cards cols-3">
-            
-            <div class="card" 
-                 data-category="series" 
-                 data-desc="Elf mage Frieren and her courageous fellow adventurers have defeated the Demon King and brought peace to the land. But Frieren will long outlive the rest of her former party."
-                 data-tags="Fantasy,Slice of Life,Adventure,Drama"
-                 data-platform="TV Series"
-                 data-dev="Madhouse"
-                 data-rank="UR">
-                <div class="card-img" style="background-image: url('https://images3.alphacoders.com/132/1328972.jpeg');"></div>
-                <div class="rank-badge ur">UR</div>
-                <div class="card-content">
-                    <div class="card-title">Frieren</div>
-                    <div class="card-meta">
-                        <span class="meta-highlight">★★★★★</span>
-                        <span>28 EP // MASTERPIECE</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" 
-                 data-category="movie" 
-                 data-desc="Two strangers find themselves linked in a bizarre way. When a connection forms, will distance be the only thing to keep them apart?"
-                 data-tags="Romance,Drama,Supernatural"
-                 data-platform="Movie"
-                 data-dev="CoMix Wave Films"
-                 data-rank="UR">
-                <div class="card-img" style="background-image: url('https://images.alphacoders.com/846/846313.jpg');"></div>
-                <div class="rank-badge ur">UR</div>
-                <div class="card-content">
-                    <div class="card-title">Your Name</div>
-                    <div class="card-meta">
-                        <span class="meta-highlight">★★★★★</span>
-                        <span>MOVIE // REWATCHED</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" 
-                 data-category="series" 
-                 data-desc="A street kid tries to survive in a technology and body modification-obsessed city of the future. Having everything to lose, he chooses to stay alive by becoming an edgerunner."
-                 data-tags="Cyberpunk,Sci-Fi,Action,Tragedy"
-                 data-platform="Netflix"
-                 data-dev="Studio Trigger"
-                 data-rank="SSR">
-                <div class="card-img" style="background-image: url('https://images4.alphacoders.com/937/937666.jpg');"></div>
-                <div class="rank-badge ssr">SSR</div>
-                <div class="card-content">
-                    <div class="card-title">Edgerunners</div>
-                    <div class="card-meta">
-                        <span class="meta-highlight" style="color:var(--cyan)">★★★★</span>
-                        <span>10 EP // COMPLETED</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Дополнительные карточки для теста -->
-             <div class="card" data-category="series" data-rank="SR" data-desc="Test" data-tags="Test"><div class="card-img" style="background-color: #222;"></div><div class="rank-badge">SR</div><div class="card-content"><div class="card-title">Anime Log 04</div><div class="card-meta"><span>ARCHIVED</span></div></div></div>
-             <div class="card" data-category="movie" data-rank="R" data-desc="Test" data-tags="Test"><div class="card-img" style="background-color: #222;"></div><div class="rank-badge">R</div><div class="card-content"><div class="card-title">Anime Log 05</div><div class="card-meta"><span>ARCHIVED</span></div></div></div>
-
-        </div>
+        <!-- КОНТЕЙНЕР ПУСТОЙ (заполняется через JS) -->
+        <div class="grid-cards cols-3" id="cards-container"></div>
     </main>
 
-    <!-- Тот же блок MODAL -->
+    <!-- HUD MODAL -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="corner t-l"></div><div class="corner t-r"></div>
