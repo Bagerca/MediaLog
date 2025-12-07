@@ -91,4 +91,57 @@ document.addEventListener('DOMContentLoaded', () => {
             updateList();
         });
     }
+
+    // --- 4. МОДАЛЬНОЕ ОКНО (DETAIL VIEW) ---
+    const modal = document.getElementById('detailModal');
+    const closeBtn = document.getElementById('closeModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalRank = document.getElementById('modalRank');
+
+    if (modal) {
+        function openModal(card) {
+            const bgImage = card.querySelector('.card-img').style.backgroundImage;
+            const title = card.querySelector('.card-title').textContent;
+            const meta = card.querySelector('.card-meta').innerHTML;
+            const rank = card.querySelector('.rank-badge').textContent;
+            const rankClass = card.querySelector('.rank-badge').classList[1]; // ur/ssr
+            const desc = card.getAttribute('data-desc') || "No data available in terminal.";
+
+            modalImg.style.backgroundImage = bgImage;
+            modalTitle.textContent = title;
+            modalMeta.innerHTML = meta;
+            modalDesc.textContent = desc;
+            
+            modalRank.textContent = rank;
+            modalRank.className = 'rank-tag'; 
+            modalRank.style.color = (rankClass === 'ur') ? 'var(--gold)' : (rankClass === 'ssr' ? 'var(--cyan)' : '#fff');
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        const grid = document.querySelector('.grid-cards');
+        if(grid) {
+            grid.addEventListener('click', (e) => {
+                const card = e.target.closest('.card');
+                if (card) openModal(card);
+            });
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+    }
 });
