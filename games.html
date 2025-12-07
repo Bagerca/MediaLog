@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaLog // Games</title>
+    <title>MediaLog // Game Simulation</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Подключаем БАЗУ и СПЕЦИФИКУ ИГР -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="games.css">
 </head>
 <body>
     <div class="bg-noise"></div>
@@ -20,44 +23,96 @@
         </div>
     </nav>
 
-    <header class="page-header">
-        <h1>GAME ARCHIVE</h1>
-        <p>Simulation & Combat Logs</p>
+    <header class="page-header games-header">
+        <div class="header-deco">/// SYSTEM: ONLINE</div>
+        <h1>GAME SIMULATIONS</h1>
+        <p>SELECT MODULE TO START...</p>
     </header>
 
     <main class="container">
-        <div class="grid">
-            <!-- Пример карточки Игры -->
-            <div class="card">
-                <div class="card-image" style="background-image: url('https://images5.alphacoders.com/112/1126269.jpg');">
-                    <span class="rating ur">UR</span> <!-- UR для любимых -->
-                </div>
-                <div class="card-info">
-                    <span class="tag">RPG</span>
-                    <h3>Elden Ring</h3>
-                    <div class="stats">
-                        <span>120 HRS</span>
-                        <span class="status playing">PLAYING</span>
-                    </div>
-                </div>
-            </div>
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">ALL</button>
+            <button class="filter-btn" data-filter="rpg">RPG</button>
+            <button class="filter-btn" data-filter="gacha">GACHA</button>
+        </div>
+
+        <div class="games-grid">
             
-             <!-- Вторая карточка -->
-             <div class="card">
-                <div class="card-image" style="background-image: url('https://images8.alphacoders.com/135/1353982.jpeg');">
-                    <span class="rating ssr">SSR</span>
-                </div>
-                <div class="card-info">
-                    <span class="tag">GACHA</span>
-                    <h3>Wuthering Waves</h3>
-                    <div class="stats">
-                        <span>LVL 40</span>
-                        <span class="status playing">Daily</span>
+            <!-- Карточка Игры 1 -->
+            <div class="game-module" data-category="rpg">
+                <div class="module-bg" style="background-image: url('https://images5.alphacoders.com/112/1126269.jpg');"></div>
+                <div class="module-content">
+                    <div class="module-top">
+                        <span class="platform">PC / PS5</span>
+                        <span class="rank ur">UR</span>
+                    </div>
+                    <div class="module-main">
+                        <h2>Elden Ring</h2>
+                        <p class="playtime">TIME: 124 HRS</p>
+                    </div>
+                    <div class="module-footer">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 80%"></div>
+                        </div>
+                        <span class="status">PLAYING</span>
                     </div>
                 </div>
+                <!-- Декоративные углы -->
+                <div class="corner t-l"></div>
+                <div class="corner t-r"></div>
+                <div class="corner b-l"></div>
+                <div class="corner b-r"></div>
             </div>
+
+            <!-- Карточка Игры 2 -->
+            <div class="game-module" data-category="gacha">
+                <div class="module-bg" style="background-image: url('https://images8.alphacoders.com/135/1353982.jpeg');"></div>
+                <div class="module-content">
+                    <div class="module-top">
+                        <span class="platform">PC / MOBILE</span>
+                        <span class="rank ssr">SSR</span>
+                    </div>
+                    <div class="module-main">
+                        <h2>Wuthering Waves</h2>
+                        <p class="playtime">LVL: 45</p>
+                    </div>
+                    <div class="module-footer">
+                        <div class="progress-bar">
+                            <div class="progress infinite"></div>
+                        </div>
+                        <span class="status">DAILY</span>
+                    </div>
+                </div>
+                 <div class="corner t-l"></div><div class="corner t-r"></div>
+                 <div class="corner b-l"></div><div class="corner b-r"></div>
+            </div>
+
+             <!-- Карточка Игры 3 -->
+             <div class="game-module" data-category="rpg">
+                <div class="module-bg" style="background-image: url('https://images6.alphacoders.com/133/1330239.jpeg');"></div>
+                <div class="module-content">
+                    <div class="module-top">
+                        <span class="platform">PC</span>
+                        <span class="rank sr">SR</span>
+                    </div>
+                    <div class="module-main">
+                        <h2>Cyberpunk 2077</h2>
+                        <p class="playtime">COMPLETED</p>
+                    </div>
+                    <div class="module-footer">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 100%; background: var(--gold);"></div>
+                        </div>
+                        <span class="status" style="color: var(--gold);">DONE</span>
+                    </div>
+                </div>
+                 <div class="corner t-l"></div><div class="corner t-r"></div>
+                 <div class="corner b-l"></div><div class="corner b-r"></div>
+            </div>
+
         </div>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>
