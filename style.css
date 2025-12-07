@@ -2,7 +2,7 @@
    1. VARIABLES & RESET
    ========================================= */
 :root {
-    /* ФОН: Глубокий темный космос */
+    /* ФОН: Глубокий темный (Космос/Эхо) */
     --bg-base: #050608;
     --bg-glass: rgba(5, 6, 8, 0.9);
     
@@ -10,7 +10,7 @@
     --text-main: #f2f2f2;
     --text-muted: #808a9f;
     
-    /* ЦВЕТА WUWA (5-Star Theme) */
+    /* ЦВЕТА WUWA (5-Star Gold Theme) */
     --cyan: #5ffbf1;             
     --gold: #e8c686;             
     --gold-dim: rgba(232, 198, 134, 0.3);
@@ -119,18 +119,21 @@ button { border: none; background: none; cursor: pointer; outline: none; }
 
 .page-header { text-align: center; margin: 4rem 0; min-height: 150px; }
 
-/* Золотая табличка (Tag) с анимацией */
+/* --- ИСПРАВЛЕННАЯ ЗОЛОТАЯ ТАБЛИЧКА --- */
 .deco-tag {
     position: relative;
     display: inline-block;
-    padding: 4px 12px;
+    padding: 6px 16px;
     border: 1px solid var(--gold-dim);
     color: var(--gold);
     font-family: var(--font-head);
     font-size: 0.8rem;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     background: rgba(232, 198, 134, 0.05);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    
+    /* Скрываем блик за пределами рамки */
+    overflow: hidden; 
     
     /* Начальное состояние анимации */
     opacity: 0;
@@ -138,12 +141,18 @@ button { border: none; background: none; cursor: pointer; outline: none; }
     animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
 
-/* Блик на табличке */
+/* Блик на табличке (Тонкий и быстрый) */
 .deco-tag::after {
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(232, 198, 134, 0.4), transparent);
-    transform: translateX(-100%);
-    animation: tagShine 3s ease-in-out infinite 1s;
+    content: ''; 
+    position: absolute; 
+    top: 0; left: -50%;
+    width: 20%; height: 100%;
+    
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    transform: skewX(-25deg);
+    
+    /* Бежит быстро, потом пауза */
+    animation: tagShine 4s infinite ease-in-out 1s;
 }
 
 @keyframes tagReveal {
@@ -153,9 +162,10 @@ button { border: none; background: none; cursor: pointer; outline: none; }
 }
 
 @keyframes tagShine {
-    0% { transform: translateX(-100%); }
-    20% { transform: translateX(100%); }
-    100% { transform: translateX(100%); }
+    0% { left: -50%; opacity: 0; }
+    5% { opacity: 1; }
+    20% { left: 150%; opacity: 0; } 
+    100% { left: 150%; opacity: 0; }
 }
 
 /* Заголовок с декодером */
@@ -165,7 +175,7 @@ button { border: none; background: none; cursor: pointer; outline: none; }
 }
 
 /* -----------------------------------------------
-   5. BUTTONS (FIXED CORNERS & VISIBILITY)
+   5. BUTTONS (FIXED - NO TRANSPARENCY BUG)
    ----------------------------------------------- */
 .filter-bar { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
 
@@ -174,17 +184,18 @@ button { border: none; background: none; cursor: pointer; outline: none; }
     font-family: var(--font-head); font-weight: 700; letter-spacing: 1px;
     color: var(--text-muted);
     
-    background: var(--border-color); /* Цвет рамки */
+    /* Цвет будущей рамки (серый по умолчанию) */
+    background: var(--border-color); 
     z-index: 1; cursor: pointer;
     
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
     transition: 0.3s;
 }
 
-/* Внутренняя заглушка (Темная) */
+/* Внутренняя заглушка (Темная, чтобы перекрыть фон) */
 .wuwa-btn::before {
     content: ''; position: absolute;
-    top: 1px; left: 1px; right: 1px; bottom: 1px; /* Отступ 1px */
+    top: 1px; left: 1px; right: 1px; bottom: 1px;
     background: var(--bg-base); /* Непрозрачный темный фон */
     z-index: -1;
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
