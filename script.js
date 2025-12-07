@@ -28,28 +28,73 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 30);
     }
 
-    /* --- 3. ФИЛЬТРАЦИЯ И ПОИСК --- */
+    /* --- 3. ФИЛЬТРАЦИЯ, ПОИСК И СОХРАНЕНИЕ СЕТКИ (ОБНОВЛЕНО) --- */
     const dropdown = document.querySelector('.custom-dropdown');
     const searchInput = document.getElementById('searchInput');
     const items = document.querySelectorAll('.card');
     const viewBtns = document.querySelectorAll('.view-btn');
     const gridContainer = document.querySelector('.grid-cards');
 
+    // Ключ для LocalStorage
+    const STORAGE_KEY_COLS = 'resonance_grid_columns';
+
     let currentCategory = 'all';
     let currentSearch = '';
+
+    // === ЛОГИКА СЕТКИ И LOCAL STORAGE ===
+    
+    // Функция применения сетки (меняет класс контейнера и активную кнопку)
+    function applyGridColumns(cols) {
+        if (!gridContainer) return;
+
+        // Сброс классов сетки и добавление нужного
+        gridContainer.className = 'grid-cards'; 
+        gridContainer.classList.add(`cols-${cols}`);
+
+        // Обновление кнопок
+        if (viewBtns.length > 0) {
+            viewBtns.forEach(b => {
+                b.classList.remove('active');
+                if (b.getAttribute('data-cols') === cols) {
+                    b.classList.add('active');
+                }
+            });
+        }
+    }
+
+    // 1. При загрузке проверяем память
+    if (gridContainer) {
+        const savedCols = localStorage.getItem(STORAGE_KEY_COLS);
+        if (savedCols) {
+            applyGridColumns(savedCols);
+        }
+    }
+
+    // 2. Обработчик клика по кнопкам
+    if (viewBtns.length > 0 && gridContainer) {
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cols = btn.getAttribute('data-cols');
+                // Применяем визуально
+                applyGridColumns(cols);
+                // Сохраняем в память
+                localStorage.setItem(STORAGE_KEY_COLS, cols);
+            });
+        });
+    }
+
+    // === КОНЕЦ ЛОГИКИ СЕТКИ ===
 
     function updateList() {
         items.forEach(item => {
             const itemCategory = item.getAttribute('data-category');
             const itemTitle = item.querySelector('.card-title').textContent.toLowerCase();
             
-            // Логика: если выбрано ALL, то true, иначе проверяем совпадение
             const matchCategory = (currentCategory === 'all' || currentCategory === itemCategory);
             const matchSearch = itemTitle.includes(currentSearch);
 
             if (matchCategory && matchSearch) {
                 item.style.display = 'block';
-                // Небольшой ре-триггер анимации при поиске
                 setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 50);
             } else {
                 item.style.display = 'none';
@@ -92,20 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // View Grid Logic
-    if (viewBtns.length > 0 && gridContainer) {
-        viewBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                viewBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const cols = btn.getAttribute('data-cols');
-                // Удаляем старые классы cols-*
-                gridContainer.className = 'grid-cards'; 
-                gridContainer.classList.add(`cols-${cols}`);
-            });
-        });
-    }
-
     /* --- 4. HUD MODAL WINDOW LOGIC --- */
     const modal = document.getElementById('detailModal');
     const closeBtn = document.getElementById('closeModal');
@@ -114,27 +145,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalImg = document.getElementById('modalImg');
     const modalTitle = document.getElementById('modalTitle');
     const modalDesc = document.getElementById('modalDesc');
-    const modalRankTag = document.getElementById('modalRank'); // Большой текст UR/SSR
-    
-    // Новые элементы
+    const modalRankTag = document.getElementById('modalRank');
     const modalTags = document.getElementById('modalTags');
     const modalPlatform = document.getElementById('modalPlatform');
     const modalDev = document.getElementById('modalDev');
 
     if (modal) {
         function openModal(card) {
-            // 1. Считываем данные из карточки
             const bgImage = card.querySelector('.card-img').style.backgroundImage;
             const title = card.querySelector('.card-title').textContent;
             
-            // Атрибуты данных
             const desc = card.getAttribute('data-desc') || "No description available.";
             const rawTags = card.getAttribute('data-tags') || "ARCHIVE";
             const platform = card.getAttribute('data-platform') || "Unknown";
             const developer = card.getAttribute('data-dev') || "Unknown";
             const rank = card.getAttribute('data-rank') || "N/A";
 
-            // 2. Заполняем модальное окно
             modalImg.style.backgroundImage = bgImage;
             modalTitle.textContent = title;
             modalDesc.textContent = desc;
@@ -142,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if(modalPlatform) modalPlatform.textContent = platform;
             if(modalDev) modalDev.textContent = developer;
 
-            // 3. Обработка ранга (цвет + текст)
             if(modalRankTag) {
                 modalRankTag.textContent = rank;
                 if (rank === 'UR') modalRankTag.style.color = 'var(--gold)';
@@ -150,9 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 else modalRankTag.style.color = 'var(--text-muted)';
             }
 
-            // 4. Генерация Тегов (Chips)
             if(modalTags) {
-                modalTags.innerHTML = ''; // Очистка
+                modalTags.innerHTML = '';
                 const tagsArray = rawTags.split(',');
                 tagsArray.forEach(tag => {
                     const span = document.createElement('span');
@@ -162,17 +186,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // 5. Показать окно
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Блок прокрутки фона
+            document.body.style.overflow = 'hidden';
+            // Компенсация скроллбара, чтобы экран не дергался
+            document.body.style.paddingRight = '17px'; 
         }
 
         function closeModal() {
             modal.classList.remove('active');
             document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
         }
 
-        // Слушатель кликов на карточки
         const grid = document.querySelector('.grid-cards');
         if(grid) {
             grid.addEventListener('click', (e) => {
@@ -181,7 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Закрытие
         closeBtn.addEventListener('click', closeModal);
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
