@@ -3,13 +3,18 @@
    ========================================= */
 :root {
     --bg-base: #050608;
-    --bg-glass: rgba(5, 6, 8, 0.9);
+    /* Чуть темнее стекло для лучшего контраста с ярким оранжевым */
+    --bg-glass: rgba(5, 6, 8, 0.95); 
+    
     --text-main: #f2f2f2;
     --text-muted: #808a9f;
     --cyan: #5ffbf1;             
-    --gold: #e8c686;             
-    --gold-dim: rgba(232, 198, 134, 0.3);
-    --border-color: rgba(255, 255, 255, 0.15);
+
+    /* --- НОВЫЙ ЦВЕТ (SAFETY ORANGE) --- */
+    --gold: #ffae00;             
+    --gold-dim: rgba(255, 174, 0, 0.2); 
+    
+    --border-color: rgba(255, 255, 255, 0.12);
     --font-head: 'Rajdhani', sans-serif;
     --font-body: 'Inter', sans-serif;
 }
@@ -45,7 +50,7 @@ input { outline: none; }
 .gold-dust {
     position: absolute; width: 2px; height: 2px;
     background: var(--gold);
-    box-shadow: 0 0 4px var(--gold);
+    box-shadow: 0 0 4px var(--gold); /* Оранжевое свечение частиц */
     border-radius: 50%;
     animation: floatUp 15s infinite linear;
     opacity: 0;
@@ -93,7 +98,7 @@ input { outline: none; }
 .deco-tag {
     position: relative; display: inline-block; padding: 6px 16px; border: 1px solid var(--gold-dim);
     color: var(--gold); font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 3px;
-    background: rgba(232, 198, 134, 0.05); margin-bottom: 0.5rem;
+    background: rgba(255, 174, 0, 0.05); margin-bottom: 0.5rem;
     opacity: 0; animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
 @keyframes tagReveal { 0% { opacity: 0; transform: scaleX(0); } 100% { opacity: 1; transform: scaleX(1); } }
@@ -119,7 +124,12 @@ input { outline: none; }
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     text-transform: uppercase;
 }
-.dropdown-trigger:hover, .custom-dropdown.open .dropdown-trigger { background: var(--gold); color: #000; }
+
+/* Эффект свечения при наведении на кнопку фильтра */
+.dropdown-trigger:hover, .custom-dropdown.open .dropdown-trigger { 
+    background: var(--gold); color: #000; 
+    box-shadow: 0 0 15px var(--gold-dim);
+}
 
 /* Панель с опциями */
 .dropdown-options {
@@ -165,7 +175,12 @@ input { outline: none; }
     border-color: var(--cyan); color: var(--cyan); 
     background: rgba(95, 251, 241, 0.1); box-shadow: 0 0 10px rgba(95, 251, 241, 0.1);
 }
-.option.active { border-color: var(--gold); background: var(--gold); color: #000; }
+
+/* Активный тег - оранжевое свечение */
+.option.active { 
+    border-color: var(--gold); background: var(--gold); color: #000; font-weight: 700;
+    box-shadow: 0 0 10px rgba(255, 174, 0, 0.4);
+}
 .option[data-filter="all"] { grid-column: span 2; font-weight: bold; border-color: var(--gold-dim); }
 
 /* SEARCH & VIEW BTNS */
@@ -216,7 +231,8 @@ input { outline: none; }
     position: absolute; top: 0; left: 0; z-index: 10; padding: 6px 14px; font-family: var(--font-head); font-weight: 700;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
 }
-.rank-badge.ur { background: var(--gold); color: #000; box-shadow: 0 0 15px rgba(232, 198, 134, 0.4); }
+/* UR Rank - Мощное оранжевое свечение */
+.rank-badge.ur { background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(255, 174, 0, 0.5); }
 .rank-badge.ssr { background: var(--cyan); color: #000; }
 
 .card:hover { transform: translateY(-10px); background: var(--gold); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
@@ -239,9 +255,9 @@ input { outline: none; }
 .hub-icon-circle {
     width: 140px; height: 140px; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%;
     display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;
-    background: radial-gradient(circle, rgba(232, 198, 134, 0.02) 0%, transparent 70%); z-index: 2;
+    background: radial-gradient(circle, rgba(255, 174, 0, 0.02) 0%, transparent 70%); z-index: 2;
 }
-.hub-card:hover .hub-icon-circle { border-color: var(--gold); box-shadow: 0 0 20px rgba(232, 198, 134, 0.1); }
+.hub-card:hover .hub-icon-circle { border-color: var(--gold); box-shadow: 0 0 20px var(--gold-dim); }
 .hub-text { text-align: center; z-index: 2; }
 .hub-text h2 { font-family: var(--font-head); font-size: 2rem; color: #fff; }
 .hub-text p { color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; margin-top: 5px; opacity: 0.7; }
@@ -309,7 +325,7 @@ input { outline: none; }
     border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.02); text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
-.tech-tag:hover { border-color: var(--gold); color: var(--gold); background: rgba(232, 198, 134, 0.1); box-shadow: 0 0 10px rgba(232, 198, 134, 0.1); }
+.tech-tag:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); box-shadow: 0 0 10px var(--gold-dim); }
 .modal-desc { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 1rem; }
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px dashed rgba(255,255,255,0.15); }
 .stat-box { display: flex; flex-direction: column; gap: 4px; }
