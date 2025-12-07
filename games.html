@@ -29,6 +29,7 @@
             <h1>SIMULATION LOGS</h1>
         </header>
 
+        <!-- Controls -->
         <div class="filter-wrapper">
             <div class="custom-dropdown">
                 <button class="dropdown-trigger">
@@ -43,6 +44,7 @@
                     <div class="option" data-filter="rpg">RPG / OPEN WORLD</div>
                 </div>
             </div>
+            
             <div class="search-terminal">
                 <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -50,12 +52,25 @@
                 </svg>
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
+
+            <div class="view-controls">
+                <button class="view-btn active" data-cols="3" title="3 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg>
+                </button>
+                <button class="view-btn" data-cols="4" title="4 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg>
+                </button>
+                <button class="view-btn" data-cols="5" title="5 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2" height="14" fill="currentColor"/><rect x="3" y="0" width="2" height="14" fill="currentColor"/><rect x="6" y="0" width="2" height="14" fill="currentColor"/><rect x="9" y="0" width="2" height="14" fill="currentColor"/><rect x="12" y="0" width="2" height="14" fill="currentColor"/></svg>
+                </button>
+            </div>
         </div>
 
         <div class="grid-cards">
             
-            <div class="card" data-category="gacha" data-desc="Wuthering Waves is an open-world action RPG with a high freedom of combat. You wake up from your slumber as a Rover, greeted by an expansive world.">
-                <div class="card-img" style="background-image: url('https://cdn2.steamgriddb.com/grid/7cee9e13ee29834be975c2164736ad4d.png');"></div>
+            <!-- Wuthering Waves (Local Image Example) -->
+            <div class="card" data-category="gacha" data-desc="Wuthering Waves is an open-world action RPG.">
+                <div class="card-img" style="background-image: url('image.png');"></div>
                 <div class="rank-badge ur">UR</div>
                 <div class="card-content">
                     <div class="card-title">Wuthering Waves</div>
@@ -66,7 +81,7 @@
                 </div>
             </div>
 
-            <div class="card" data-category="rpg" data-desc="The Golden Order has been broken. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord.">
+            <div class="card" data-category="rpg" data-desc="Rise, Tarnished, and become an Elden Lord.">
                 <div class="card-img" style="background-image: url('https://images5.alphacoders.com/112/1126269.jpg');"></div>
                 <div class="rank-badge ur">UR</div>
                 <div class="card-content">
@@ -78,7 +93,7 @@
                 </div>
             </div>
 
-            <div class="card" data-category="rpg" data-desc="Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification.">
+            <div class="card" data-category="rpg" data-desc="Cyberpunk 2077 is an open-world, action-adventure story.">
                 <div class="card-img" style="background-image: url('https://images6.alphacoders.com/133/1330239.jpeg');"></div>
                 <div class="rank-badge ssr">SSR</div>
                 <div class="card-content">
