@@ -29,10 +29,21 @@
             <h1>VISUAL LOGS</h1>
         </header>
 
-        <div class="filter-bar">
-            <button class="wuwa-btn active" data-filter="all">ALL</button>
-            <button class="wuwa-btn" data-filter="series">SERIES</button>
-            <button class="wuwa-btn" data-filter="movie">MOVIES</button>
+        <!-- Dropdown Filter -->
+        <div class="filter-wrapper">
+            <div class="custom-dropdown">
+                <button class="dropdown-trigger">
+                    <span class="selected-text">ALL RECORDS</span>
+                    <svg class="arrow-icon" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                        <path d="M1 1L6 6L11 1" stroke="#e8c686" stroke-width="2"/>
+                    </svg>
+                </button>
+                <div class="dropdown-options">
+                    <div class="option active" data-filter="all">ALL RECORDS</div>
+                    <div class="option" data-filter="series">SERIES</div>
+                    <div class="option" data-filter="movie">MOVIES</div>
+                </div>
+            </div>
         </div>
 
         <div class="grid-cards">
