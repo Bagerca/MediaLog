@@ -111,12 +111,20 @@ input { outline: none; }
 }
 
 /* =========================================
-   4. LAYOUT & HEADER
+   4. LAYOUT & HEADER (COMPACT FIXED)
    ========================================= */
 .container { max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
-.page-header { text-align: center; margin: 4rem 0; min-height: 150px; }
 
-/* Золотая табличка */
+.page-header {
+    text-align: center;
+    /* Уменьшили отступы */
+    margin-top: 3rem;      
+    margin-bottom: 1.5rem; /* Было 4rem, стало меньше */
+    /* Убрали min-height: 150px, который создавал пустую дыру */
+    min-height: auto;      
+}
+
+/* Золотая табличка (FIXED) */
 .deco-tag {
     position: relative; display: inline-block;
     padding: 6px 16px;
@@ -124,7 +132,10 @@ input { outline: none; }
     color: var(--gold);
     font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 3px;
     background: rgba(232, 198, 134, 0.05);
-    margin-bottom: 1.5rem;
+    
+    /* Уменьшили отступ от таблички до заголовка */
+    margin-bottom: 0.5rem; 
+    
     overflow: hidden; 
     opacity: 0; transform: scaleX(0); 
     animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
@@ -149,7 +160,10 @@ input { outline: none; }
 
 .page-header h1 {
     font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px; color: #fff;
-    min-height: 1.2em;
+    /* Убираем лишние отступы у самого заголовка */
+    margin: 0;
+    line-height: 1.1;
+    min-height: 1.1em;
 }
 
 /* =========================================
