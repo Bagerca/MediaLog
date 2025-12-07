@@ -8,8 +8,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="bg-noise"></div>
-    <div class="bg-gradient"></div>
+    <!-- Живой фон -->
+    <div class="background-container">
+        <div class="bg-grid"></div>
+        <div class="bg-orb orb-1"></div>
+        <div class="bg-orb orb-2"></div>
+        <div class="bg-noise"></div>
+        <div class="bg-vignette"></div>
+    </div>
 
     <nav class="navbar">
         <div class="logo">MEDIA<span class="dot">LOG</span></div>
@@ -31,18 +37,17 @@
             <!-- ANIME CARD -->
             <a href="anime.html" class="hub-card anime-card">
                 <svg class="hub-svg" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Base Grid -->
-                    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
-                        <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#2a2d3d" stroke-width="1"/>
-                    </pattern>
+                    <defs>
+                         <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+                            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#2a2d3d" stroke-width="1"/>
+                        </pattern>
+                    </defs>
                     <rect width="100%" height="100%" fill="url(#grid)" opacity="0.3"/>
                     
-                    <!-- Lens/Eye Graphic -->
                     <g transform="translate(150, 210)">
                         <circle r="60" fill="none" stroke="#5ffbf1" stroke-width="1" class="lens-ring" stroke-dasharray="40 10"/>
                         <circle r="40" fill="none" stroke="#5ffbf1" stroke-width="1" opacity="0.5"/>
                         <circle r="5" fill="#5ffbf1" class="rec-dot" opacity="0.5"/>
-                        <!-- Focus Brackets -->
                         <path d="M-80 -80 L-60 -80 M-80 -80 L-80 -60" stroke="#5ffbf1" stroke-width="2" fill="none" class="focus-bracket"/>
                         <path d="M80 -80 L60 -80 M80 -80 L80 -60" stroke="#5ffbf1" stroke-width="2" fill="none" class="focus-bracket"/>
                         <path d="M-80 80 L-60 80 M-80 80 L-80 60" stroke="#5ffbf1" stroke-width="2" fill="none" class="focus-bracket"/>
@@ -61,17 +66,14 @@
                 <svg class="hub-svg" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
                     <rect width="100%" height="100%" fill="url(#grid)" opacity="0.3"/>
                     
-                    <!-- Controller/Chip Graphic -->
                     <g transform="translate(150, 180)">
                         <circle r="90" fill="none" stroke="#5ffbf1" stroke-width="0.5" opacity="0.2" class="ring-outer" stroke-dasharray="10 10"/>
                         <g class="controller-group">
-                            <!-- D-Pad Shape -->
                             <path d="M-20 -60 L20 -60 L30 -20 L70 -20 L70 20 L30 20 L20 60 L-20 60 L-30 20 L-70 20 L-70 -20 L-30 -20 Z" 
                                   fill="#1b1e28" stroke="#5ffbf1" stroke-width="1.5"/>
                             <circle r="10" fill="#5ffbf1" opacity="0.2"/>
                         </g>
                     </g>
-                    <!-- Equalizer Bars -->
                     <g transform="translate(150, 320)">
                         <rect x="-40" y="0" width="6" height="4" fill="#5ffbf1" opacity="0.3" class="eq-bar" style="animation-delay: 0s"/>
                         <rect x="-20" y="0" width="6" height="4" fill="#5ffbf1" opacity="0.3" class="eq-bar" style="animation-delay: 0.1s"/>
