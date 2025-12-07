@@ -1,17 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Плавное появление
-    const cards = document.querySelectorAll('.card, .hub-card');
+    // 1. Анимация появления
+    const cards = document.querySelectorAll('.hub-card, .card');
     cards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        
         setTimeout(() => {
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
         }, index * 100);
     });
 
-    // Фильтры
+    // 2. Фильтры
     const filterBtns = document.querySelectorAll('.wuwa-btn');
     const items = document.querySelectorAll('.card');
 
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const category = item.getAttribute('data-category');
                     if (filterValue === 'all' || filterValue === category) {
                         item.style.display = 'block';
-                        // Ресет анимации
+                        // Сброс анимации
                         item.style.opacity = '0';
                         item.style.transform = 'translateY(10px)';
                         setTimeout(() => {
