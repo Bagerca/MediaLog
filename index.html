@@ -4,20 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resonance // Hub</title>
-    <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-    <!-- Стили -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Темный фон с золотой пылью -->
     <div class="background-container">
         <div class="bg-grid"></div>
         <div class="bg-fog"></div>
-        <div class="gold-dust d1"></div>
-        <div class="gold-dust d2"></div>
-        <div class="gold-dust d3"></div>
-        <div class="gold-dust d4"></div>
+        <div class="gold-dust d1"></div><div class="gold-dust d2"></div>
+        <div class="gold-dust d3"></div><div class="gold-dust d4"></div>
     </div>
 
     <nav class="navbar">
@@ -32,15 +27,13 @@
     <main class="hub-wrapper container">
         <header class="page-header">
             <div class="deco-tag">SYSTEM: ONLINE</div>
+            <!-- Текст ниже будет "декодироваться" при загрузке -->
             <h1>SELECT ARCHIVE</h1>
         </header>
 
         <div class="hub-grid">
-            
-            <!-- Карточка Аниме -->
             <a href="anime.html" class="hub-card">
                 <div class="hub-icon-circle">
-                    <!-- Иконка Линзы (Золотая) -->
                     <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#e8c686" stroke-width="1.5">
                         <circle cx="12" cy="12" r="10" />
                         <circle cx="12" cy="12" r="4" />
@@ -53,10 +46,8 @@
                 </div>
             </a>
 
-            <!-- Карточка Игр -->
             <a href="games.html" class="hub-card">
                 <div class="hub-icon-circle">
-                    <!-- Иконка Геймпада (Золотая) -->
                     <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#e8c686" stroke-width="1.5">
                         <rect x="2" y="6" width="20" height="12" rx="2" />
                         <path d="M6 12h4M8 10v4" />
@@ -68,7 +59,6 @@
                     <p>SIMULATIONS</p>
                 </div>
             </a>
-
         </div>
     </main>
     <script src="script.js"></script>
