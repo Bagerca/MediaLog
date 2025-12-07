@@ -36,6 +36,7 @@ body {
 
 a { text-decoration: none; color: inherit; }
 button { border: none; background: none; cursor: pointer; outline: none; }
+input { outline: none; }
 
 /* =========================================
    2. BACKGROUND SYSTEM
@@ -115,7 +116,7 @@ button { border: none; background: none; cursor: pointer; outline: none; }
 .container { max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
 .page-header { text-align: center; margin: 4rem 0; min-height: 150px; }
 
-/* Золотая табличка (FIXED OVERFLOW) */
+/* Золотая табличка (FIXED) */
 .deco-tag {
     position: relative; display: inline-block;
     padding: 6px 16px;
@@ -124,7 +125,7 @@ button { border: none; background: none; cursor: pointer; outline: none; }
     font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 3px;
     background: rgba(232, 198, 134, 0.05);
     margin-bottom: 1.5rem;
-    overflow: hidden; /* Блик обрезается */
+    overflow: hidden; 
     opacity: 0; transform: scaleX(0); 
     animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
@@ -152,12 +153,14 @@ button { border: none; background: none; cursor: pointer; outline: none; }
 }
 
 /* =========================================
-   5. DROPDOWN FILTER (NEW SOLUTION)
+   5. CONTROLS (DROPDOWN + SEARCH)
    ========================================= */
 .filter-wrapper {
-    display: flex; justify-content: center; margin-bottom: 3rem; position: relative; z-index: 50;
+    display: flex; justify-content: center; align-items: center; gap: 1rem;
+    margin-bottom: 3rem; position: relative; z-index: 50; flex-wrap: wrap;
 }
 
+/* --- Dropdown --- */
 .custom-dropdown {
     position: relative; width: 260px; font-family: var(--font-head);
 }
@@ -171,26 +174,22 @@ button { border: none; background: none; cursor: pointer; outline: none; }
     cursor: pointer; transition: 0.3s;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
-
 .dropdown-trigger:hover, .custom-dropdown.open .dropdown-trigger {
     background: rgba(232, 198, 134, 0.1); border-color: var(--gold);
     text-shadow: 0 0 10px rgba(232, 198, 134, 0.4);
 }
-
 .arrow-icon { transition: 0.3s; }
 .custom-dropdown.open .arrow-icon { transform: rotate(180deg); }
 
 .dropdown-options {
     position: absolute; top: 110%; left: 0; width: 100%;
-    background: #08090d; /* Темный фон */
-    border: 1px solid var(--border-color);
+    background: #08090d; border: 1px solid var(--border-color);
     opacity: 0; visibility: hidden;
     transform: translateY(-10px);
     transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
     box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
-
 .custom-dropdown.open .dropdown-options {
     opacity: 1; visibility: visible; transform: translateY(0); border-color: var(--gold-dim);
 }
@@ -202,17 +201,42 @@ button { border: none; background: none; cursor: pointer; outline: none; }
 }
 .option:last-child { border-bottom: none; }
 .option:hover { background: rgba(232, 198, 134, 0.05); color: var(--text-main); padding-left: 25px; }
-
-.option.active {
-    color: var(--gold); background: linear-gradient(90deg, rgba(232, 198, 134, 0.1), transparent);
-}
+.option.active { color: var(--gold); background: linear-gradient(90deg, rgba(232, 198, 134, 0.1), transparent); }
 .option.active::before {
     content: ''; display: inline-block; width: 6px; height: 6px; background: var(--gold);
     margin-right: 10px; transform: rotate(45deg); box-shadow: 0 0 5px var(--gold);
 }
 
+/* --- Search Terminal --- */
+.search-terminal {
+    position: relative; width: 260px; height: 48px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    display: flex; align-items: center; padding: 0 15px;
+    transition: 0.3s;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+.search-terminal input {
+    background: transparent; border: none;
+    color: var(--gold); font-family: var(--font-head); font-size: 1rem; letter-spacing: 1px;
+    width: 100%; height: 100%; padding-left: 10px; text-transform: uppercase;
+}
+.search-terminal input::placeholder { color: var(--text-muted); opacity: 0.5; }
+.search-icon { transition: 0.3s; }
+
+.search-terminal:focus-within {
+    border-color: var(--gold); background: rgba(232, 198, 134, 0.1);
+    box-shadow: 0 0 15px rgba(232, 198, 134, 0.1);
+}
+.search-terminal:focus-within .search-icon { stroke: var(--gold); }
+
+@media (max-width: 600px) {
+    .filter-wrapper { flex-direction: column; }
+    .custom-dropdown, .search-terminal { width: 100%; }
+}
+
 /* =========================================
-   6. HUB CARDS
+   6. HUB CARDS (Main Menu)
    ========================================= */
 .hub-wrapper { min-height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
@@ -262,7 +286,6 @@ button { border: none; background: none; cursor: pointer; outline: none; }
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
 }
-
 .card::before {
     content: ''; position: absolute; inset: 0; padding: 1px;
     background: var(--border-color);
@@ -270,25 +293,21 @@ button { border: none; background: none; cursor: pointer; outline: none; }
     -webkit-mask-composite: xor; mask-composite: exclude;
     z-index: 5; pointer-events: none; transition: background 0.4s;
 }
-
 .card-img {
     position: absolute; inset: 0; width: 100%; height: 100%;
     background-size: cover; background-position: center;
     transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     filter: brightness(0.8) grayscale(20%);
 }
-
 .card::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(to top, rgba(5,6,8,0.95) 0%, rgba(5,6,8,0.6) 30%, transparent 100%);
     z-index: 1;
 }
-
 .card-content {
     position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem;
     z-index: 2; transform: translateY(0); transition: 0.4s;
 }
-
 .card-title {
     font-family: var(--font-head); font-size: 1.8rem; font-weight: 700; text-transform: uppercase;
     color: #fff; margin-bottom: 0.5rem; line-height: 1; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
@@ -311,7 +330,6 @@ button { border: none; background: none; cursor: pointer; outline: none; }
 .rank-badge.ur { color: var(--gold); border-color: var(--gold); }
 .rank-badge.ssr { color: var(--cyan); border-color: var(--cyan); }
 
-/* Hover */
 .card:hover { transform: translateY(-10px); }
 .card:hover::before { background: var(--gold); box-shadow: 0 0 20px rgba(232, 198, 134, 0.2); }
 .card:hover .card-img { transform: scale(1.1); filter: brightness(1.1) grayscale(0%); }
