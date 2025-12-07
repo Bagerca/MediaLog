@@ -3,76 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaLog // Anime</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <title>Visuals // Anime</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-container">
-        <div class="bg-grid"></div>
-        <div class="bg-orb orb-1"></div>
-        <div class="bg-orb orb-2"></div>
-        <div class="bg-noise"></div>
-        <div class="bg-vignette"></div>
+    <div class="tacet-field">
+        <div class="grid-overlay"></div>
+        <div class="particle"></div><div class="particle"></div>
     </div>
 
     <nav class="navbar">
-        <div class="logo">MEDIA<span class="dot">LOG</span></div>
+        <div class="logo">RESONANCE<span style="color:var(--wuwa-cyan)">.LOG</span></div>
         <div class="nav-links">
-            <a href="index.html" class="nav-item">HUB</a>
-            <a href="anime.html" class="nav-item active">ANIME</a>
-            <a href="games.html" class="nav-item">GAMES</a>
+            <a href="index.html" class="nav-item">TERMINAL</a>
+            <a href="anime.html" class="nav-item active">VISUAL DATA</a>
+            <a href="games.html" class="nav-item">SIMULATIONS</a>
         </div>
     </nav>
 
     <main class="container">
         <header class="page-header">
-            <p class="deco-text">/// REC ● VISUAL ARCHIVE</p>
-            <h1>ANIME LOGS</h1>
+            <div class="deco-tag">/// RECORDING: PAUSED</div>
+            <h1>VISUAL ARCHIVE</h1>
         </header>
 
-        <div class="filter-bar">
-            <button class="filter-btn active" data-filter="all">ALL</button>
-            <button class="filter-btn" data-filter="series">SERIES</button>
-            <button class="filter-btn" data-filter="movie">MOVIES</button>
+        <div class="filter-container">
+            <button class="wuwa-btn active" data-filter="all">ALL RECORDS</button>
+            <button class="wuwa-btn" data-filter="series">SERIES</button>
+            <button class="wuwa-btn" data-filter="movie">MOVIES</button>
         </div>
 
-        <div class="anime-grid">
-            <!-- Example 1 -->
-            <div class="anime-card" data-category="series">
-                <div class="poster-wrapper">
-                    <span class="rating ssr">SSR</span>
-                    <img src="https://images3.alphacoders.com/132/1328972.jpeg" alt="Frieren">
-                </div>
-                <div class="anime-info">
-                    <div class="meta"><span>SERIES</span><span>28 EP</span></div>
-                    <h3>Frieren: Beyond Journey's End</h3>
-                </div>
-            </div>
-
-            <!-- Example 2 -->
-            <div class="anime-card" data-category="movie">
-                <div class="poster-wrapper">
-                    <span class="rating ur">UR</span>
-                    <img src="https://images.alphacoders.com/846/846313.jpg" alt="Your Name">
-                </div>
-                <div class="anime-info">
-                    <div class="meta"><span>MOVIE</span><span>2h 12m</span></div>
-                    <h3>Your Name</h3>
+        <div class="grid-system">
+            
+            <div class="data-card" data-category="series">
+                <div class="card-bg" style="background-image: url('https://images3.alphacoders.com/132/1328972.jpeg');"></div>
+                <div class="card-content">
+                    <div class="card-top">
+                        <span class="rank-stars" style="color: var(--wuwa-cyan)">UR</span>
+                        <div class="wave-visualizer"><div class="bar"></div><div class="bar"></div></div>
+                    </div>
+                    <div class="card-main">
+                        <h2>Frieren</h2>
+                        <p>EPISODES: 28/28 // MASTERPIECE</p>
+                    </div>
                 </div>
             </div>
 
-             <!-- Example 3 -->
-             <div class="anime-card" data-category="series">
-                <div class="poster-wrapper">
-                    <span class="rating sr">SR</span>
-                    <img src="https://images4.alphacoders.com/937/937666.jpg" alt="Cyberpunk">
-                </div>
-                <div class="anime-info">
-                    <div class="meta"><span>SERIES</span><span>10 EP</span></div>
-                    <h3>Cyberpunk: Edgerunners</h3>
+            <div class="data-card" data-category="movie">
+                <div class="card-bg" style="background-image: url('https://images.alphacoders.com/846/846313.jpg');"></div>
+                <div class="card-content">
+                    <div class="card-top">
+                        <span class="rank-stars">SSR</span>
+                        <div class="wave-visualizer"><div class="bar"></div></div>
+                    </div>
+                    <div class="card-main">
+                        <h2>Your Name</h2>
+                        <p>DURATION: 2H 12M // REWATCHED</p>
+                    </div>
                 </div>
             </div>
+
         </div>
     </main>
     <script src="script.js"></script>
