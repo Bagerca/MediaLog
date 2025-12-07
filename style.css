@@ -111,17 +111,12 @@ input { outline: none; }
 }
 
 /* =========================================
-   4. LAYOUT & HEADER (FIXED MARGINS)
+   4. LAYOUT & HEADER
    ========================================= */
 .container { max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
+.page-header { text-align: center; margin: 3rem 0 1.5rem 0; min-height: auto; }
 
-.page-header {
-    text-align: center;
-    margin-top: 3rem; margin-bottom: 1.5rem;
-    min-height: auto;
-}
-
-/* Золотая табличка (FIXED OVERFLOW) */
+/* Золотая табличка */
 .deco-tag {
     position: relative; display: inline-block;
     padding: 6px 16px;
@@ -130,7 +125,7 @@ input { outline: none; }
     font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 3px;
     background: rgba(232, 198, 134, 0.05);
     margin-bottom: 0.5rem;
-    overflow: hidden; /* Блик не вылезает */
+    overflow: hidden; 
     opacity: 0; transform: scaleX(0); 
     animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
@@ -173,7 +168,7 @@ input { outline: none; }
 .dropdown-trigger {
     width: 100%; padding: 12px 24px;
     display: flex; justify-content: space-between; align-items: center;
-    background: var(--border-color); /* Цвет рамки */
+    background: var(--border-color); 
     border: none;
     color: var(--gold); font-weight: 700; letter-spacing: 2px;
     cursor: pointer; transition: 0.3s;
@@ -189,7 +184,7 @@ input { outline: none; }
 .dropdown-trigger span, .dropdown-trigger svg { z-index: 2; }
 
 .dropdown-trigger:hover, .custom-dropdown.open .dropdown-trigger {
-    background: var(--gold); /* Рамка становится золотой */
+    background: var(--gold); 
     text-shadow: 0 0 10px rgba(232, 198, 134, 0.4);
 }
 
@@ -222,36 +217,28 @@ input { outline: none; }
     margin-right: 10px; transform: rotate(45deg); box-shadow: 0 0 5px var(--gold);
 }
 
-/* --- Search Terminal (FIXED ALIGNMENT) --- */
+/* --- Search Terminal --- */
 .search-terminal {
     position: relative; width: 260px; height: 48px;
-    
-    /* Рамка через фон родителя */
     background: var(--border-color);
     padding: 1px; 
-    
-    /* ВЫРАВНИВАНИЕ */
     display: flex; align-items: center;
-    
     transition: 0.3s; z-index: 1;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 
-/* Внутренний фон */
 .search-terminal::before {
     content: ''; position: absolute; inset: 1px;
     background: #08090d; z-index: -1;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 
-/* Иконка */
 .search-icon {
     display: block; width: 16px; height: 16px;
     margin-left: 16px; flex-shrink: 0;
     transition: 0.3s;
 }
 
-/* Поле ввода */
 .search-terminal input {
     background: transparent; border: none; outline: none;
     color: var(--gold); font-family: var(--font-head); font-size: 0.85rem; letter-spacing: 1px;
@@ -264,9 +251,8 @@ input { outline: none; }
     color: var(--text-muted); opacity: 0.5; vertical-align: middle;
 }
 
-/* Эффекты фокуса */
 .search-terminal:focus-within {
-    background: var(--gold); /* Рамка становится золотой */
+    background: var(--gold); 
     box-shadow: 0 0 15px rgba(232, 198, 134, 0.1);
 }
 .search-terminal:focus-within .search-icon { stroke: var(--gold); }
@@ -277,7 +263,7 @@ input { outline: none; }
 }
 
 /* =========================================
-   6. HUB CARDS (Main Menu)
+   6. HUB CARDS
    ========================================= */
 .hub-wrapper { min-height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
@@ -315,66 +301,122 @@ input { outline: none; }
 @keyframes rotate { to { transform: rotate(360deg); } }
 
 /* =========================================
-   7. CATALOG CARDS (FIXED BORDER & ZOOM)
+   7. CATALOG CARDS (FIXED CORNERS & ZOOM)
    ========================================= */
 .grid-cards {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2rem; padding-bottom: 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+    padding-bottom: 4rem;
 }
 
 .card {
-    position: relative; height: 420px;
-    background: var(--border-color); padding: 1px; /* Рамка */
-    cursor: pointer; z-index: 1;
+    position: relative;
+    height: 420px;
+    
+    /* 1. Цвет рамки */
+    background: var(--border-color);
+    padding: 1px; 
+    
+    cursor: pointer;
+    z-index: 1;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s;
+    
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
 }
 
 .card-img {
-    position: absolute; top: 1px; left: 1px; width: calc(100% - 2px); height: calc(100% - 2px);
+    position: absolute;
+    top: 1px; left: 1px; 
+    width: calc(100% - 2px); 
+    height: calc(100% - 2px);
+    
     background-color: #0a0b10;
-    background-size: 100%; background-position: center; background-repeat: no-repeat;
+    background-size: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Форма внутренней части */
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
+    
     transition: background-size 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
     filter: brightness(0.8) grayscale(20%);
     z-index: 1;
 }
 
 .card::after {
-    content: ''; position: absolute; top: 1px; left: 1px; right: 1px; bottom: 1px;
+    content: ''; position: absolute; 
+    top: 1px; left: 1px; right: 1px; bottom: 1px;
+    
     background: linear-gradient(to top, rgba(5,6,8,0.98) 0%, rgba(5,6,8,0.7) 25%, transparent 100%);
     z-index: 2; pointer-events: none;
+    
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
 }
 
 .card-content {
-    position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem;
-    z-index: 3; transform: translateY(0); transition: 0.4s;
+    position: absolute; bottom: 0; left: 0; width: 100%; 
+    padding: 1.5rem;
+    z-index: 3;
+    transform: translateY(0);
+    transition: 0.4s;
 }
 
 .card-title {
     font-family: var(--font-head); font-size: 1.8rem; font-weight: 700; text-transform: uppercase;
     color: #fff; margin-bottom: 0.5rem; line-height: 1; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
 }
+
 .card-meta {
     display: flex; align-items: center; gap: 10px;
     font-family: var(--font-head); font-size: 0.85rem; color: var(--text-muted);
     letter-spacing: 1px; border-top: 1px solid rgba(255,255,255,0.1);
     padding-top: 10px; margin-top: 10px; transition: 0.3s;
 }
+
 .meta-highlight { color: var(--gold); text-shadow: 0 0 5px rgba(232, 198, 134, 0.4); }
 
+/* --- БЕЙДЖИ (RANK) FIXED --- */
 .rank-badge {
-    position: absolute; top: 1px; left: 1px; padding: 6px 14px;
-    background: rgba(5, 6, 8, 0.9); backdrop-filter: blur(8px);
-    border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);
-    z-index: 4; font-family: var(--font-head); font-weight: 700; font-size: 1rem; letter-spacing: 2px;
+    position: absolute; top: 0; left: 0; 
+    z-index: 10;
+    padding: 6px 14px;
+    min-width: 50px;
+    text-align: center;
+    
+    font-family: var(--font-head); font-weight: 700; font-size: 0.9rem; letter-spacing: 2px;
+    
+    /* Рамка */
+    background: var(--border-color); 
+    color: var(--text-muted);
+    
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
 }
-.rank-badge.ur { color: var(--gold); border-color: var(--gold); }
-.rank-badge.ssr { color: var(--cyan); border-color: var(--cyan); }
 
-.card:hover { transform: translateY(-10px); background: var(--gold); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-.card:hover .card-img { background-size: 110%; filter: brightness(1.1) grayscale(0%); }
+.rank-badge::before {
+    content: ''; position: absolute;
+    top: 1px; left: 1px; right: 1px; bottom: 1px;
+    background: rgba(5, 6, 8, 0.95);
+    z-index: -1;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+.rank-badge.ur { background: var(--gold); color: var(--gold); text-shadow: 0 0 10px rgba(232, 198, 134, 0.4); }
+.rank-badge.ssr { background: var(--cyan); color: var(--cyan); text-shadow: 0 0 10px rgba(95, 251, 241, 0.4); }
+.rank-badge.sr { background: #fff; color: #fff; }
+
+/* HOVER */
+.card:hover {
+    transform: translateY(-10px);
+    background: var(--gold); /* Рамка загорается */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.card:hover .card-img {
+    background-size: 110%; /* ZOOM ФОНА */
+    filter: brightness(1.1) grayscale(0%);
+}
+
 .card:hover .card-content { transform: translateY(-5px); }
 .card:hover .card-meta { color: var(--cyan); border-color: var(--cyan); }
 
