@@ -31,7 +31,6 @@
 
         <!-- Controls -->
         <div class="filter-wrapper">
-            <!-- Dropdown -->
             <div class="custom-dropdown">
                 <button class="dropdown-trigger">
                     <span class="selected-text">ALL RECORDS</span>
@@ -45,7 +44,6 @@
                     <div class="option" data-filter="movie">MOVIES</div>
                 </div>
             </div>
-            <!-- Search -->
             <div class="search-terminal">
                 <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -57,7 +55,7 @@
 
         <div class="grid-cards">
             
-            <div class="card" data-category="series">
+            <div class="card" data-category="series" data-desc="Elf mage Frieren and her courageous fellow adventurers have defeated the Demon King and brought peace to the land. But Frieren will long outlive the rest of her former party.">
                 <div class="card-img" style="background-image: url('https://images3.alphacoders.com/132/1328972.jpeg');"></div>
                 <div class="rank-badge ur">UR</div>
                 <div class="card-content">
@@ -69,7 +67,7 @@
                 </div>
             </div>
 
-            <div class="card" data-category="movie">
+            <div class="card" data-category="movie" data-desc="Two strangers find themselves linked in a bizarre way. When a connection forms, will distance be the only thing to keep them apart?">
                 <div class="card-img" style="background-image: url('https://images.alphacoders.com/846/846313.jpg');"></div>
                 <div class="rank-badge ur">UR</div>
                 <div class="card-content">
@@ -81,7 +79,7 @@
                 </div>
             </div>
 
-            <div class="card" data-category="series">
+            <div class="card" data-category="series" data-desc="A street kid tries to survive in a technology and body modification-obsessed city of the future. Having everything to lose, he chooses to stay alive by becoming an Edgerunner.">
                 <div class="card-img" style="background-image: url('https://images4.alphacoders.com/937/937666.jpg');"></div>
                 <div class="rank-badge ssr">SSR</div>
                 <div class="card-content">
@@ -95,6 +93,35 @@
 
         </div>
     </main>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-window">
+            <button class="modal-close" id="closeModal">
+                <span class="close-icon">×</span>
+                <span class="close-text">CLOSE</span>
+            </button>
+            <div class="modal-body">
+                <div class="modal-visual">
+                    <div class="modal-img" id="modalImg"></div>
+                    <div class="rank-tag" id="modalRank">UR</div>
+                </div>
+                <div class="modal-info">
+                    <div class="modal-header">
+                        <p class="sys-msg">/// ARCHIVE DATA: DECRYPTED</p>
+                        <h2 id="modalTitle">TITLE</h2>
+                        <div class="modal-meta" id="modalMeta">STATS</div>
+                    </div>
+                    <div class="modal-desc"><p id="modalDesc">...</p></div>
+                    <div class="modal-actions">
+                        <button class="action-btn primary">LAUNCH</button>
+                        <button class="action-btn secondary">EDIT LOG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
