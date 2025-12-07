@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. Анимация появления карточек ---
+    /* --- 1. АНИМАЦИЯ ПОЯВЛЕНИЯ КАРТОЧЕК --- */
     const cards = document.querySelectorAll('.card, .hub-card');
     cards.forEach((card, index) => {
         card.style.opacity = '0';
@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
-        }, index * 100 + 300);
+        }, index * 100 + 100);
     });
 
-    // --- 2. Декодер заголовка ---
+    /* --- 2. ЭФФЕКТ ДЕКОДИРОВАНИЯ ТЕКСТА --- */
     const headerTitle = document.querySelector('.page-header h1');
     if (headerTitle) {
         const originalText = headerTitle.innerText;
@@ -24,11 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return chars[Math.floor(Math.random() * chars.length)];
             }).join("");
             if (iteration >= originalText.length) clearInterval(interval);
-            iteration += 1 / 3;
+            iteration += 1 / 2;
         }, 30);
     }
 
-    // --- 3. ФИЛЬТР + ПОИСК + ВЫБОР СЕТКИ ---
+    /* --- 3. ФИЛЬТРАЦИЯ И ПОИСК --- */
     const dropdown = document.querySelector('.custom-dropdown');
     const searchInput = document.getElementById('searchInput');
     const items = document.querySelectorAll('.card');
@@ -42,25 +42,22 @@ document.addEventListener('DOMContentLoaded', () => {
         items.forEach(item => {
             const itemCategory = item.getAttribute('data-category');
             const itemTitle = item.querySelector('.card-title').textContent.toLowerCase();
+            
+            // Логика: если выбрано ALL, то true, иначе проверяем совпадение
             const matchCategory = (currentCategory === 'all' || currentCategory === itemCategory);
             const matchSearch = itemTitle.includes(currentSearch);
 
             if (matchCategory && matchSearch) {
                 item.style.display = 'block';
-                if (item.style.opacity !== '1') {
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateY(10px)';
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateY(0)';
-                    }, 50);
-                }
+                // Небольшой ре-триггер анимации при поиске
+                setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 50);
             } else {
                 item.style.display = 'none';
             }
         });
     }
 
+    // Dropdown Logic
     if (dropdown) {
         const trigger = dropdown.querySelector('.dropdown-trigger');
         const options = dropdown.querySelectorAll('.option');
@@ -87,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Search Logic
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             currentSearch = e.target.value.toLowerCase().trim();
@@ -94,48 +92,79 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Смена сетки (3/4/5 колонок)
+    // View Grid Logic
     if (viewBtns.length > 0 && gridContainer) {
         viewBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 viewBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 const cols = btn.getAttribute('data-cols');
-                gridContainer.classList.remove('cols-3', 'cols-4', 'cols-5');
+                // Удаляем старые классы cols-*
+                gridContainer.className = 'grid-cards'; 
                 gridContainer.classList.add(`cols-${cols}`);
             });
         });
     }
 
-    // --- 4. МОДАЛЬНОЕ ОКНО ---
+    /* --- 4. HUD MODAL WINDOW LOGIC --- */
     const modal = document.getElementById('detailModal');
     const closeBtn = document.getElementById('closeModal');
+    
+    // Элементы модального окна
     const modalImg = document.getElementById('modalImg');
     const modalTitle = document.getElementById('modalTitle');
-    const modalMeta = document.getElementById('modalMeta');
     const modalDesc = document.getElementById('modalDesc');
-    const modalRank = document.getElementById('modalRank');
+    const modalRankTag = document.getElementById('modalRank'); // Большой текст UR/SSR
+    
+    // Новые элементы
+    const modalTags = document.getElementById('modalTags');
+    const modalPlatform = document.getElementById('modalPlatform');
+    const modalDev = document.getElementById('modalDev');
 
     if (modal) {
         function openModal(card) {
+            // 1. Считываем данные из карточки
             const bgImage = card.querySelector('.card-img').style.backgroundImage;
             const title = card.querySelector('.card-title').textContent;
-            const meta = card.querySelector('.card-meta').innerHTML;
-            const rank = card.querySelector('.rank-badge').textContent;
-            const rankClass = card.querySelector('.rank-badge').classList[1]; // ur/ssr
-            const desc = card.getAttribute('data-desc') || "No detailed data available.";
+            
+            // Атрибуты данных
+            const desc = card.getAttribute('data-desc') || "No description available.";
+            const rawTags = card.getAttribute('data-tags') || "ARCHIVE";
+            const platform = card.getAttribute('data-platform') || "Unknown";
+            const developer = card.getAttribute('data-dev') || "Unknown";
+            const rank = card.getAttribute('data-rank') || "N/A";
 
+            // 2. Заполняем модальное окно
             modalImg.style.backgroundImage = bgImage;
             modalTitle.textContent = title;
-            modalMeta.innerHTML = meta;
             modalDesc.textContent = desc;
-            
-            modalRank.textContent = rank;
-            modalRank.className = 'rank-tag'; 
-            modalRank.style.color = (rankClass === 'ur') ? 'var(--gold)' : (rankClass === 'ssr' ? 'var(--cyan)' : '#fff');
 
+            if(modalPlatform) modalPlatform.textContent = platform;
+            if(modalDev) modalDev.textContent = developer;
+
+            // 3. Обработка ранга (цвет + текст)
+            if(modalRankTag) {
+                modalRankTag.textContent = rank;
+                if (rank === 'UR') modalRankTag.style.color = 'var(--gold)';
+                else if (rank === 'SSR') modalRankTag.style.color = 'var(--cyan)';
+                else modalRankTag.style.color = 'var(--text-muted)';
+            }
+
+            // 4. Генерация Тегов (Chips)
+            if(modalTags) {
+                modalTags.innerHTML = ''; // Очистка
+                const tagsArray = rawTags.split(',');
+                tagsArray.forEach(tag => {
+                    const span = document.createElement('span');
+                    span.className = 'tech-tag';
+                    span.textContent = tag.trim();
+                    modalTags.appendChild(span);
+                });
+            }
+
+            // 5. Показать окно
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // Блок прокрутки фона
         }
 
         function closeModal() {
@@ -143,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
 
+        // Слушатель кликов на карточки
         const grid = document.querySelector('.grid-cards');
         if(grid) {
             grid.addEventListener('click', (e) => {
@@ -151,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // Закрытие
         closeBtn.addEventListener('click', closeModal);
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
