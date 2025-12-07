@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visuals // Resonance</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <!-- Указываем скрипту загружать раздел "anime" -->
@@ -61,7 +61,7 @@
         <div class="grid-cards cols-3" id="cards-container"></div>
     </main>
 
-    <!-- Модальное окно -->
+    <!-- NEW HUD MODAL (Same as Games) -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="corner t-l"></div><div class="corner t-r"></div>
@@ -71,11 +71,10 @@
             </button>
             <div class="modal-body">
                 <div class="modal-visual">
-                    <div class="modal-img" id="modalImg"></div>
-                    <div class="visual-overlay"></div>
-                    <div class="rank-tag-large" id="modalRank">UR</div>
+                    <img id="modalImg" src="" alt="Cover Art">
                 </div>
                 <div class="modal-info">
+                    <div class="rank-watermark" id="modalRank">UR</div>
                     <div class="modal-header">
                         <div class="sys-row"><span class="sys-msg">/// DECRYPTED_DATA_LOG_01</span><span class="sys-id">ID: #89-XJ</span></div>
                         <h2 id="modalTitle">TITLE</h2>
