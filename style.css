@@ -1,34 +1,33 @@
 /* =========================================
-   WUWA AESTHETIC VARIABLES
+   WUWA 5-STAR AESTHETIC VARIABLES
    ========================================= */
 :root {
-    /* Фон: Грифельные оттенки, а не черный */
-    --bg-deep: #0f1014;
-    --bg-slate: #1d1f26;
-    --bg-panel: rgba(29, 31, 38, 0.6); /* Полупрозрачный слой */
+    /* ФОН: Глубокий темный (как ты хотел) */
+    --bg-base: #050608; 
+    --bg-glass: rgba(20, 22, 28, 0.6);
     
-    /* Текст */
-    --text-white: #f0f0f0;
-    --text-gray: #8b9bb4; /* Холодный серый */
+    /* ТЕКСТ */
+    --text-main: #f2f2f2;
+    --text-muted: #808a9f;
     
-    /* Акценты */
-    --wuwa-cyan: #62eed4; /* Основной цвет интерфейса */
-    --wuwa-gold: #e5c07b; /* Цвет 5* редкости / Эхо */
-    --wuwa-red: #d64d4d;  /* Tacet Discords */
+    /* ЦВЕТА WUWA */
+    --cyan: #5ffbf1;             /* Tech / UI */
+    --gold: #e8c686;             /* Base Gold */
+    --gold-glow: #f9e6b8;        /* Highlight */
+    --gold-grad: linear-gradient(135deg, #c3a06e 0%, #f2e2b3 50%, #c3a06e 100%); /* METAL EFFECT */
     
-    /* Детали */
-    --border-thin: rgba(255, 255, 255, 0.08);
-    --border-active: rgba(98, 238, 212, 0.4);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-gold: rgba(232, 198, 134, 0.5);
     
-    --font-ui: 'Rajdhani', sans-serif; /* Технический шрифт */
+    --font-head: 'Rajdhani', sans-serif;
     --font-body: 'Inter', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: var(--bg-deep);
-    color: var(--text-white);
+    background-color: var(--bg-base);
+    color: var(--text-main);
     font-family: var(--font-body);
     min-height: 100vh;
     overflow-x: hidden;
@@ -36,226 +35,230 @@ body {
 }
 
 a { text-decoration: none; color: inherit; }
-button { border: none; background: none; cursor: pointer; }
+button { border: none; background: none; cursor: pointer; outline: none; }
 
 /* =========================================
-   BACKGROUND: TACET FIELD (Частицы + Волны)
+   BACKGROUND: DEEP RESONANCE (DARK + GOLD)
    ========================================= */
-.tacet-field {
+.background-container {
     position: fixed; inset: 0; z-index: -10; pointer-events: none;
-    background: radial-gradient(circle at 50% 120%, #1a2230 0%, #0f1014 60%);
+    background: #050608;
+    overflow: hidden;
 }
 
-/* Пыль (Particles) летящая вверх */
-.particle {
-    position: absolute;
-    width: 2px; height: 2px;
-    background: var(--wuwa-cyan);
+/* 1. Сетка (еле заметная) */
+.bg-grid {
+    position: absolute; inset: 0;
+    background-size: 60px 60px;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+}
+
+/* 2. Туман (Темный) */
+.bg-fog {
+    position: absolute; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% 120%, rgba(95, 251, 241, 0.05), transparent 60%);
+    opacity: 0.6;
+}
+
+/* 3. Золотые частицы (пыль) */
+.gold-dust {
+    position: absolute; width: 2px; height: 2px;
+    background: var(--gold);
+    box-shadow: 0 0 4px var(--gold);
+    border-radius: 50%;
+    animation: floatUp 15s infinite linear;
     opacity: 0;
-    animation: rise 10s infinite linear;
 }
-.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-.particle:nth-child(2) { left: 30%; animation-delay: 2s; width: 3px; height: 3px; }
-.particle:nth-child(3) { left: 50%; animation-delay: 4s; }
-.particle:nth-child(4) { left: 70%; animation-delay: 1s; width: 1px; height: 1px;}
-.particle:nth-child(5) { left: 90%; animation-delay: 3s; }
+.d1 { left: 10%; animation-delay: 0s; }
+.d2 { left: 30%; animation-delay: 5s; width: 3px; height: 3px; }
+.d3 { left: 60%; animation-delay: 2s; }
+.d4 { left: 80%; animation-delay: 7s; width: 1px; height: 1px; }
 
-@keyframes rise {
-    0% { transform: translateY(100vh); opacity: 0; }
-    50% { opacity: 0.5; }
+@keyframes floatUp {
+    0% { transform: translateY(110vh); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.8; }
     100% { transform: translateY(-10vh); opacity: 0; }
 }
 
-/* Тонкая сетка интерфейса */
-.grid-overlay {
-    position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 100px 100px;
-    mask-image: linear-gradient(to bottom, black 20%, transparent 90%);
-}
-
 /* =========================================
-   NAVBAR: ROVER TERMINAL STYLE
+   NAVBAR (GOLD ACCENTS)
    ========================================= */
 .navbar {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 1.5rem 4rem;
-    border-bottom: 1px solid var(--border-thin);
-    background: rgba(15, 16, 20, 0.8);
-    backdrop-filter: blur(8px);
+    padding: 1.5rem 5%;
+    background: rgba(5, 6, 8, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 100;
 }
 
 .logo {
-    font-family: var(--font-ui); font-weight: 700; font-size: 1.4rem; letter-spacing: 3px;
-    text-transform: uppercase; display: flex; align-items: center; gap: 10px;
-}
-.logo::before {
-    content: ''; display: block; width: 8px; height: 8px; background: var(--wuwa-cyan);
-    transform: rotate(45deg); /* Ромб WuWa */
+    font-family: var(--font-head); font-weight: 700; font-size: 1.6rem; letter-spacing: 3px;
+    background: var(--gold-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(232, 198, 134, 0.3);
 }
 
 .nav-links { display: flex; gap: 3rem; }
 .nav-item {
-    font-family: var(--font-ui); color: var(--text-gray); font-size: 0.9rem; letter-spacing: 2px;
-    font-weight: 600; position: relative; transition: 0.3s;
+    font-family: var(--font-head); font-weight: 600; color: var(--text-muted);
+    letter-spacing: 1px; transition: 0.3s; position: relative;
 }
-.nav-item:hover, .nav-item.active { color: var(--text-white); }
-/* Маркер активной вкладки - маленький ромб */
+.nav-item:hover, .nav-item.active { color: var(--text-main); }
+
+/* Золотая черточка под активным пунктом */
 .nav-item.active::after {
-    content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%) rotate(45deg);
-    width: 4px; height: 4px; background: var(--wuwa-cyan); box-shadow: 0 0 5px var(--wuwa-cyan);
+    content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px;
+    background: var(--gold); box-shadow: 0 0 10px var(--gold);
 }
 
 /* =========================================
-   LAYOUT & HEADER
+   COMMON LAYOUT
    ========================================= */
-.container { max-width: 1400px; margin: 0 auto; padding: 2rem; width: 100%; }
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
 
-.page-header {
-    display: flex; flex-direction: column; align-items: center; margin: 4rem 0; position: relative;
-}
-/* Декоративная линия за заголовком */
-.page-header::before {
-    content: ''; width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--border-thin));
-    margin-bottom: 1rem;
-}
-
+.page-header { text-align: center; margin: 4rem 0; }
 .deco-tag {
-    border: 1px solid var(--border-thin); padding: 4px 8px;
-    font-family: var(--font-ui); font-size: 0.7rem; color: var(--wuwa-cyan);
-    letter-spacing: 2px; margin-bottom: 1rem; background: rgba(98, 238, 212, 0.05);
+    display: inline-block; padding: 4px 12px;
+    border: 1px solid var(--border-gold);
+    color: var(--gold); font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 2px;
+    background: rgba(232, 198, 134, 0.05);
+    margin-bottom: 1rem;
+    box-shadow: 0 0 15px rgba(232, 198, 134, 0.1);
 }
 
 .page-header h1 {
-    font-family: var(--font-ui); font-size: 3.5rem; font-weight: 500; letter-spacing: 6px; text-transform: uppercase;
-    color: var(--text-white); text-shadow: 0 0 20px rgba(255,255,255,0.1);
+    font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px;
+    color: #fff;
 }
 
-/* =========================================
-   CARDS: ECHO / DATA BANK STYLE (CUT CORNERS)
-   ========================================= */
-.grid-system {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;
-}
-
-/* Базовый стиль карточки */
-.data-card {
-    position: relative; height: 240px;
-    background: var(--bg-slate);
-    /* СКОШЕННЫЙ УГОЛ СПРАВА СВЕРХУ - Фишка WuWa */
-    clip-path: polygon(0 0, 90% 0, 100% 15%, 100% 100%, 0 100%);
-    transition: 0.3s ease;
-    border-left: 2px solid transparent;
-    cursor: pointer; overflow: hidden;
-}
-
-/* Эффект при наведении */
-.data-card:hover {
-    background: #252830;
-    border-left: 2px solid var(--wuwa-cyan);
-    transform: translateX(5px); /* Сдвиг вправо, как в меню игры */
-}
-
-/* Фон внутри карточки */
-.card-bg {
-    position: absolute; inset: 0; background-size: cover; background-position: center;
-    opacity: 0.3; filter: grayscale(100%) contrast(1.2); transition: 0.5s;
-}
-.data-card:hover .card-bg { opacity: 0.6; filter: grayscale(0%); transform: scale(1.02); }
-
-/* Контент карточки */
-.card-content {
-    position: absolute; inset: 0; padding: 1.5rem;
-    display: flex; flex-direction: column; justify-content: space-between;
-    background: linear-gradient(90deg, rgba(23,25,31,0.95) 30%, transparent 100%);
-    z-index: 2;
-}
-
-/* Верхняя часть карточки */
-.card-top { display: flex; justify-content: space-between; align-items: flex-start; }
-
-.rank-stars { color: var(--wuwa-gold); font-size: 0.8rem; letter-spacing: 2px; }
-
-/* Типографика карточки */
-.card-main h2 {
-    font-family: var(--font-ui); font-weight: 600; font-size: 1.8rem; text-transform: uppercase; margin-bottom: 0.2rem;
-}
-.card-main p {
-    font-size: 0.75rem; color: var(--text-gray); font-family: var(--font-ui); letter-spacing: 1px;
-    display: flex; align-items: center; gap: 8px;
-}
-.card-main p::before { content: ''; width: 4px; height: 4px; background: var(--wuwa-cyan); transform: rotate(45deg); }
-
-/* Анимация звуковой волны (Echo Wave) */
-.wave-visualizer {
-    display: flex; align-items: flex-end; gap: 3px; height: 20px;
-}
-.bar {
-    width: 3px; background: var(--wuwa-cyan); opacity: 0.5;
-    animation: wave 1s infinite ease-in-out;
-}
-.data-card:hover .bar { opacity: 1; background: var(--text-white); }
-
-@keyframes wave {
-    0%, 100% { height: 20%; }
-    50% { height: 100%; }
-}
-
-/* Хаб Карточки (Большие) */
-.hub-grid { display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; }
-.hub-card {
-    width: 320px; height: 480px;
-    background: rgba(29, 31, 38, 0.4);
-    border: 1px solid var(--border-thin);
-    position: relative;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    transition: 0.4s;
-    /* Двойные уголки */
-    clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
-}
-.hub-card:hover {
-    border-color: var(--wuwa-cyan);
-    background: rgba(98, 238, 212, 0.05);
-}
-
-.hub-icon-container {
-    width: 120px; height: 120px;
-    border: 1px solid var(--border-thin);
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 50%; /* Круг, как Echo */
-    margin-bottom: 2rem;
-    position: relative;
-}
-/* Вращающееся кольцо вокруг иконки */
-.hub-icon-container::after {
-    content: ''; position: absolute; inset: -10px; border-radius: 50%;
-    border: 1px dashed var(--wuwa-cyan); opacity: 0.3;
-    animation: rotate 20s linear infinite;
-}
-.hub-card:hover .hub-icon-container::after { opacity: 0.8; }
-
-.hub-title { font-family: var(--font-ui); font-size: 1.5rem; letter-spacing: 4px; color: var(--text-white); }
-.hub-sub { font-family: var(--font-ui); font-size: 0.8rem; color: var(--wuwa-cyan); margin-top: 5px; opacity: 0.7; }
-
-@keyframes rotate { to { transform: rotate(360deg); } }
-
-/* Фильтры */
-.filter-container { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+/* Кнопки фильтров (WuWa Style) */
+.filter-bar { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
 .wuwa-btn {
-    padding: 8px 20px; font-family: var(--font-ui); font-weight: 600; letter-spacing: 1px;
-    color: var(--text-gray); border: 1px solid transparent; background: rgba(255,255,255,0.03);
+    position: relative; padding: 10px 30px;
+    font-family: var(--font-head); font-weight: 700; letter-spacing: 1px; color: var(--text-muted);
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    /* Скошенные углы */
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     transition: 0.3s;
 }
 .wuwa-btn:hover, .wuwa-btn.active {
-    background: rgba(98, 238, 212, 0.1); color: var(--wuwa-cyan); border-color: rgba(98, 238, 212, 0.3);
+    background: linear-gradient(90deg, rgba(232, 198, 134, 0.1), transparent);
+    color: var(--gold); border-color: var(--gold);
+    text-shadow: 0 0 8px rgba(232, 198, 134, 0.5);
 }
+
+/* =========================================
+   CARDS: THE "EXPENSIVE" LOOK
+   ========================================= */
+.grid-cards {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;
+}
+
+.card {
+    position: relative; height: 400px;
+    background: #0a0b10;
+    border: 1px solid var(--border);
+    overflow: hidden; cursor: pointer;
+    transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Картинка */
+.card-img {
+    height: 70%; width: 100%;
+    background-size: cover; background-position: center;
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    transition: 0.5s;
+    filter: grayscale(40%);
+}
+.card:hover .card-img { transform: scale(1.05); filter: grayscale(0%); }
+
+/* Контент внизу */
+.card-content {
+    position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem;
+    z-index: 2;
+}
+
+.card-title {
+    font-family: var(--font-head); font-size: 1.5rem; text-transform: uppercase;
+    margin-bottom: 0.5rem; color: #fff;
+}
+.card-meta {
+    font-size: 0.8rem; color: var(--cyan); letter-spacing: 1px; font-family: var(--font-head);
+    display: flex; align-items: center; gap: 8px;
+}
+
+/* Золотая рамка при наведении */
+.card::after {
+    content: ''; position: absolute; inset: 0;
+    border: 1px solid transparent;
+    transition: 0.4s; pointer-events: none;
+}
+.card:hover::after {
+    border-color: var(--gold);
+    box-shadow: inset 0 0 20px rgba(232, 198, 134, 0.1);
+}
+
+/* Ранг (SSR/UR) */
+.rank-badge {
+    position: absolute; top: 15px; right: 15px;
+    padding: 2px 8px; font-family: var(--font-head); font-weight: 700; font-size: 0.9rem;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    border: 1px solid var(--border);
+}
+.rank-badge.ur { color: var(--gold); border-color: var(--gold); box-shadow: 0 0 10px rgba(232, 198, 134, 0.3); }
+.rank-badge.ssr { color: var(--cyan); border-color: var(--cyan); }
+
+/* HUB SPECIFIC CARDS (Large) */
+.hub-wrapper {
+    height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
+
+.hub-card {
+    width: 320px; height: 460px;
+    background: linear-gradient(180deg, rgba(20,22,28,0.8) 0%, rgba(10,11,14,0.9) 100%);
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; transition: 0.4s;
+    /* Уголки как в WuWa */
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+}
+
+.hub-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(232, 198, 134, 0.1); /* Золотое свечение */
+}
+
+/* Иконки в хабе */
+.hub-icon-circle {
+    width: 140px; height: 140px;
+    border: 1px solid var(--border); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 2rem; position: relative;
+    background: radial-gradient(circle, rgba(232, 198, 134, 0.05) 0%, transparent 70%);
+}
+.hub-card:hover .hub-icon-circle { border-color: var(--gold); }
+
+/* Вращающаяся обводка */
+.hub-icon-circle::before {
+    content: ''; position: absolute; inset: -5px; border-radius: 50%;
+    border: 1px dashed var(--border-gold); opacity: 0.3;
+    animation: rotate 30s linear infinite;
+}
+.hub-card:hover .hub-icon-circle::before { opacity: 1; border-color: var(--gold); }
+
+.hub-text h2 { font-family: var(--font-head); font-size: 2rem; color: #fff; letter-spacing: 2px; }
+.hub-text p { color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; margin-top: 5px; opacity: 0.7; }
+
+@keyframes rotate { to { transform: rotate(360deg); } }
 
 /* Адаптив */
 @media (max-width: 768px) {
     .navbar { flex-direction: column; gap: 1rem; padding: 1rem; }
-    .page-header h1 { font-size: 2.5rem; }
-    .container { padding: 1rem; }
+    .hub-card { width: 100%; height: 380px; }
 }
