@@ -83,7 +83,7 @@ input { outline: none; }
    ========================================= */
 .container { max-width: 1400px; margin: 0 auto; padding: 2rem; width: 100%; }
 
-/* Для очень широких экранов при использовании 6 колонок даем больше места */
+/* Адаптация для широких сеток (5-6 колонок) */
 @media (min-width: 1600px) {
     .container { max-width: 1800px; }
 }
@@ -100,26 +100,75 @@ input { outline: none; }
 .page-header h1 { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px; color: #fff; margin: 0; line-height: 1.1; }
 
 /* =========================================
-   5. CONTROLS (FILTER)
+   5. CONTROLS (FILTER & SEARCH)
    ========================================= */
 .filter-wrapper { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; z-index: 50; position: relative; }
-.custom-dropdown { position: relative; width: 260px; font-family: var(--font-head); }
+
+/* --- DROPDOWN (MEGA MENU STYLE) --- */
+.custom-dropdown { 
+    position: relative; 
+    width: 280px;
+    font-family: var(--font-head); 
+    z-index: 60;
+}
+
 .dropdown-trigger {
     width: 100%; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;
     background: var(--border-color); border: none; color: var(--gold); font-weight: 700; letter-spacing: 2px;
-    cursor: pointer; transition: 0.3s; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    cursor: pointer; transition: 0.3s; 
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    text-transform: uppercase;
 }
 .dropdown-trigger:hover, .custom-dropdown.open .dropdown-trigger { background: var(--gold); color: #000; }
-.dropdown-options {
-    position: absolute; top: 110%; left: 0; width: 100%; background: #08090d; border: 1px solid var(--border-color);
-    opacity: 0; visibility: hidden; transform: translateY(-10px); transition: 0.3s; z-index: 60;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
-}
-.custom-dropdown.open .dropdown-options { opacity: 1; visibility: visible; transform: translateY(0); border-color: var(--gold-dim); }
-.option { padding: 12px 20px; color: var(--text-muted); cursor: pointer; transition: 0.2s; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.option:hover { background: rgba(232, 198, 134, 0.05); color: var(--text-main); padding-left: 25px; }
-.option.active { color: var(--gold); }
 
+/* Панель с опциями */
+.dropdown-options {
+    position: absolute; top: 110%; left: 0; 
+    width: 340px; 
+    max-height: 400px;
+    overflow-y: auto;
+    
+    background: #0b0c10; 
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 8px;
+    
+    opacity: 0; visibility: hidden; 
+    transform: translateY(-10px); transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.9); 
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+}
+
+/* Custom Scrollbar */
+.dropdown-options::-webkit-scrollbar { width: 4px; }
+.dropdown-options::-webkit-scrollbar-track { background: #050608; }
+.dropdown-options::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+.custom-dropdown.open .dropdown-options { opacity: 1; visibility: visible; transform: translateY(0); border-color: var(--gold-dim); }
+
+/* Tag Button Style */
+.option { 
+    padding: 8px 12px; 
+    font-size: 0.75rem; 
+    text-align: center;
+    color: var(--text-muted); 
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.03);
+    cursor: pointer; transition: 0.2s; 
+    text-transform: uppercase; letter-spacing: 1px;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+.option:hover { 
+    border-color: var(--cyan); color: var(--cyan); 
+    background: rgba(95, 251, 241, 0.1); box-shadow: 0 0 10px rgba(95, 251, 241, 0.1);
+}
+.option.active { border-color: var(--gold); background: var(--gold); color: #000; }
+.option[data-filter="all"] { grid-column: span 2; font-weight: bold; border-color: var(--gold-dim); }
+
+/* SEARCH & VIEW BTNS */
 .search-terminal {
     position: relative; width: 260px; height: 48px; background: var(--border-color); padding: 1px; display: flex; align-items: center;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
@@ -141,15 +190,10 @@ input { outline: none; }
 /* Column Logic */
 .grid-cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-cards.cols-4 { grid-template-columns: repeat(4, 1fr); }
-/* Новые правила для 5 и 6 колонок */
 .grid-cards.cols-5 { grid-template-columns: repeat(5, 1fr); }
 .grid-cards.cols-6 { grid-template-columns: repeat(6, 1fr); }
 
-/* Адаптация шрифтов для плотной сетки */
-.grid-cards.cols-5 .card-title,
-.grid-cards.cols-6 .card-title {
-    font-size: 1.3rem;
-}
+.grid-cards.cols-5 .card-title, .grid-cards.cols-6 .card-title { font-size: 1.3rem; }
 
 .card {
     position: relative; width: 100%; aspect-ratio: 2 / 3; background: var(--border-color); padding: 1px; cursor: pointer; z-index: 1;
@@ -179,7 +223,7 @@ input { outline: none; }
 .card:hover .card-img { transform: scale(1.05); filter: brightness(1.1) grayscale(0%); }
 .card:hover .card-meta { color: var(--cyan); border-color: var(--cyan); }
 
-/* HUB CARDS (Для главной страницы) */
+/* HUB CARDS */
 .hub-wrapper { min-height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
 .hub-card {
@@ -258,10 +302,7 @@ input { outline: none; }
 .sys-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
 .sys-msg { color: var(--cyan); font-size: 0.75rem; letter-spacing: 2px; font-family: var(--font-head); }
 .sys-id { color: var(--text-muted); font-family: var(--font-head); font-size: 0.8rem; }
-
 .modal-header h2 { font-family: var(--font-head); font-size: 3.5rem; letter-spacing: 1px; margin: 10px 0 15px 0; text-transform: uppercase; color: #fff; line-height: 1; text-shadow: 0 0 20px rgba(255,255,255,0.1); }
-
-/* Tags */
 .tags-container { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem; }
 .tech-tag {
     font-family: var(--font-head); font-size: 0.75rem; font-weight: 600; color: var(--text-muted); padding: 4px 12px;
@@ -269,18 +310,13 @@ input { outline: none; }
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
 .tech-tag:hover { border-color: var(--gold); color: var(--gold); background: rgba(232, 198, 134, 0.1); box-shadow: 0 0 10px rgba(232, 198, 134, 0.1); }
-
 .modal-desc { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 1rem; }
-
-/* Stats Grid */
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px dashed rgba(255,255,255,0.15); }
 .stat-box { display: flex; flex-direction: column; gap: 4px; }
 .stat-label { font-family: var(--font-head); font-size: 0.7rem; color: var(--text-muted); opacity: 0.6; }
 .stat-value { font-family: var(--font-body); font-size: 0.9rem; color: #fff; }
 .stat-value.active { color: var(--cyan); text-shadow: 0 0 8px rgba(95, 251, 241, 0.4); }
 .stat-value.highlight { color: var(--gold); }
-
-/* Footer Buttons */
 .modal-footer { margin-top: auto; display: flex; gap: 1rem; }
 .action-btn {
     flex: 1; display: flex; justify-content: center; align-items: center; height: 50px;
@@ -301,4 +337,9 @@ input { outline: none; }
     .filter-wrapper { flex-direction: column; }
     .custom-dropdown, .search-terminal { width: 100%; }
     .view-controls { display: none; }
+}
+
+@media (max-width: 768px) {
+    .dropdown-options { width: 100%; grid-template-columns: 1fr; }
+    .option[data-filter="all"] { grid-column: span 1; }
 }
