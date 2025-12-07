@@ -334,7 +334,7 @@ input { outline: none; }
 .hub-text p { color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; margin-top: 5px; opacity: 0.7; }
 
 /* =========================================
-   7. HUD MODAL WINDOW
+   7. HUD MODAL WINDOW (INTERESTING BORDER)
    ========================================= */
 .modal-overlay {
     position: fixed; inset: 0; background: rgba(5, 6, 8, 0.95); backdrop-filter: blur(10px);
@@ -343,20 +343,41 @@ input { outline: none; }
 }
 .modal-overlay.active { opacity: 1; pointer-events: all; }
 
-/* РАМКА ОКНА (ЦВЕТ ФОНА = РАМКА) */
+/* РАМКА ОКНА (СЛОЖНАЯ ТЕХНО-РАМКА) */
 .modal-window {
     width: 1200px; max-width: 95%; height: 700px;
-    background: #333; /* Темная рамка в покое */
-    padding: 1px; /* Толщина рамки */
     position: relative; display: flex; flex-direction: column;
+    
+    /* 1. Толщина рамки 2px */
+    padding: 2px; 
+    
+    /* 2. ГРАДИЕНТНАЯ РАМКА (СКОБЫ) */
+    background: 
+        /* Оранжевый угол СЛЕВА-СВЕРХУ */
+        linear-gradient(135deg, var(--gold) 0%, var(--gold) 10%, transparent 10%),
+        /* Оранжевый угол СПРАВА-СНИЗУ */
+        linear-gradient(315deg, var(--gold) 0%, var(--gold) 10%, transparent 10%),
+        /* Темно-серый фон для остальной части рамки */
+        #2a2c33;
+        
+    /* Форма */
     clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-    box-shadow: 0 0 80px rgba(0,0,0,0.9);
-    transform: scale(0.95) translateY(20px); transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* Тени для объема */
+    box-shadow: 
+        0 0 0 1px rgba(0,0,0,0.5), 
+        0 20px 50px rgba(0,0,0,0.8);
+        
+    transform: scale(0.95) translateY(20px); 
+    transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+
 .modal-overlay.active .modal-window { transform: scale(1) translateY(0); }
+
+/* При наведении рамка "заряжается" */
 .modal-window:hover {
-    background: var(--gold); /* Рамка загорается */
-    box-shadow: 0 0 40px rgba(255, 174, 0, 0.15);
+    background: var(--gold);
+    box-shadow: 0 0 30px rgba(255, 174, 0, 0.1);
 }
 
 /* ВНУТРЕННИЙ БЛОК (ЧЕРНЫЙ ФОН) */
@@ -368,7 +389,7 @@ input { outline: none; }
     clip-path: polygon(21px 0, 100% 0, 100% calc(100% - 21px), calc(100% - 21px) 100%, 0 100%, 0 21px);
 }
 
-/* Corners - Удалены, так как рамка теперь сделана через padding */
+/* Corners */
 .corner { display: none; }
 
 /* Close Btn */
@@ -466,7 +487,7 @@ input { outline: none; }
 
 @media (max-width: 1024px) {
     .modal-window { height: auto; max-height: 90vh; overflow-y: auto; }
-    .modal-inner { flex-direction: column; overflow-y: auto; }
+    .modal-inner { flex-direction: column; overflow-y: auto; } 
     .modal-body { flex-direction: column; height: auto; }
     .modal-visual { width: 100%; height: 350px; border-right: none; border-bottom: 1px solid var(--border-color); padding: 0;}
     .modal-visual img { object-fit: cover; }
