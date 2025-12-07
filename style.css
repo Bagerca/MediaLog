@@ -1,24 +1,24 @@
 /* =========================================
-   WUWA 5-STAR AESTHETIC VARIABLES
+   1. VARIABLES & RESET
    ========================================= */
 :root {
-    /* ФОН: Глубокий темный (как ты хотел) */
-    --bg-base: #050608; 
-    --bg-glass: rgba(20, 22, 28, 0.6);
+    /* ФОН: Глубокий темный */
+    --bg-base: #050608;
+    --bg-glass: rgba(5, 6, 8, 0.9);
     
     /* ТЕКСТ */
     --text-main: #f2f2f2;
     --text-muted: #808a9f;
     
-    /* ЦВЕТА WUWA */
-    --cyan: #5ffbf1;             /* Tech / UI */
-    --gold: #e8c686;             /* Base Gold */
-    --gold-glow: #f9e6b8;        /* Highlight */
-    --gold-grad: linear-gradient(135deg, #c3a06e 0%, #f2e2b3 50%, #c3a06e 100%); /* METAL EFFECT */
+    /* ЦВЕТА WUWA (5-Star Gold Theme) */
+    --cyan: #5ffbf1;             
+    --gold: #e8c686;             
+    --gold-glow: rgba(232, 198, 134, 0.5);
     
-    --border: rgba(255, 255, 255, 0.08);
-    --border-gold: rgba(232, 198, 134, 0.5);
+    /* РАМКИ */
+    --border-color: rgba(255, 255, 255, 0.15); /* Цвет неактивной рамки */
     
+    /* ШРИФТЫ */
     --font-head: 'Rajdhani', sans-serif;
     --font-body: 'Inter', sans-serif;
 }
@@ -38,15 +38,14 @@ a { text-decoration: none; color: inherit; }
 button { border: none; background: none; cursor: pointer; outline: none; }
 
 /* =========================================
-   BACKGROUND: DEEP RESONANCE (DARK + GOLD)
+   2. BACKGROUND SYSTEM (DARK + GOLD DUST)
    ========================================= */
 .background-container {
     position: fixed; inset: 0; z-index: -10; pointer-events: none;
-    background: #050608;
-    overflow: hidden;
+    background: #050608; overflow: hidden;
 }
 
-/* 1. Сетка (еле заметная) */
+/* Сетка */
 .bg-grid {
     position: absolute; inset: 0;
     background-size: 60px 60px;
@@ -56,14 +55,14 @@ button { border: none; background: none; cursor: pointer; outline: none; }
     mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
 }
 
-/* 2. Туман (Темный) */
+/* Туман */
 .bg-fog {
     position: absolute; width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% 120%, rgba(95, 251, 241, 0.05), transparent 60%);
+    background: radial-gradient(circle at 50% 120%, rgba(95, 251, 241, 0.03), transparent 60%);
     opacity: 0.6;
 }
 
-/* 3. Золотые частицы (пыль) */
+/* Золотая пыль */
 .gold-dust {
     position: absolute; width: 2px; height: 2px;
     background: var(--gold);
@@ -85,21 +84,20 @@ button { border: none; background: none; cursor: pointer; outline: none; }
 }
 
 /* =========================================
-   NAVBAR (GOLD ACCENTS)
+   3. NAVBAR
    ========================================= */
 .navbar {
     display: flex; justify-content: space-between; align-items: center;
     padding: 1.5rem 5%;
     background: rgba(5, 6, 8, 0.85);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-color);
     position: sticky; top: 0; z-index: 100;
 }
 
 .logo {
     font-family: var(--font-head); font-weight: 700; font-size: 1.6rem; letter-spacing: 3px;
-    background: var(--gold-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(232, 198, 134, 0.3);
+    color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.1);
 }
 
 .nav-links { display: flex; gap: 3rem; }
@@ -109,50 +107,136 @@ button { border: none; background: none; cursor: pointer; outline: none; }
 }
 .nav-item:hover, .nav-item.active { color: var(--text-main); }
 
-/* Золотая черточка под активным пунктом */
 .nav-item.active::after {
     content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px;
     background: var(--gold); box-shadow: 0 0 10px var(--gold);
 }
 
 /* =========================================
-   COMMON LAYOUT
+   4. LAYOUT ELEMENTS
    ========================================= */
 .container { max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
 
 .page-header { text-align: center; margin: 4rem 0; }
 .deco-tag {
     display: inline-block; padding: 4px 12px;
-    border: 1px solid var(--border-gold);
+    border: 1px solid rgba(232, 198, 134, 0.3);
     color: var(--gold); font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 2px;
     background: rgba(232, 198, 134, 0.05);
     margin-bottom: 1rem;
-    box-shadow: 0 0 15px rgba(232, 198, 134, 0.1);
 }
 
 .page-header h1 {
-    font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px;
-    color: #fff;
+    font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px; color: #fff;
 }
 
-/* Кнопки фильтров (WuWa Style) */
+/* -----------------------------------------------
+   5. BUTTONS (FIXED CORNERS TECHNIQUE)
+   ----------------------------------------------- */
 .filter-bar { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
+
 .wuwa-btn {
-    position: relative; padding: 10px 30px;
-    font-family: var(--font-head); font-weight: 700; letter-spacing: 1px; color: var(--text-muted);
-    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-    /* Скошенные углы */
-    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    position: relative; padding: 12px 35px;
+    font-family: var(--font-head); font-weight: 700; letter-spacing: 1px;
+    color: var(--text-muted);
+    
+    /* 1. Фон кнопки выступает как цвет рамки */
+    background: var(--border-color); 
+    z-index: 1; 
+    
+    /* Форма среза */
+    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
     transition: 0.3s;
 }
+
+/* 2. Псевдо-элемент создает "внутренность" кнопки */
+.wuwa-btn::before {
+    content: ''; position: absolute;
+    /* Отступ в 1px создает эффект тонкой рамки */
+    top: 1px; left: 1px; right: 1px; bottom: 1px;
+    background: var(--bg-base); /* Темный фон внутри */
+    z-index: -1;
+    /* Та же форма */
+    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+    transition: 0.3s;
+}
+
+/* Hover эффекты (меняем цвет фона-рамки) */
 .wuwa-btn:hover, .wuwa-btn.active {
-    background: linear-gradient(90deg, rgba(232, 198, 134, 0.1), transparent);
-    color: var(--gold); border-color: var(--gold);
-    text-shadow: 0 0 8px rgba(232, 198, 134, 0.5);
+    background: var(--gold); /* Рамка становится золотой */
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(232, 198, 134, 0.6);
+}
+
+.wuwa-btn:hover::before, .wuwa-btn.active::before {
+    background: rgba(232, 198, 134, 0.08); /* Легкое золотое свечение внутри */
 }
 
 /* =========================================
-   CARDS: THE "EXPENSIVE" LOOK
+   6. HUB CARDS (FIXED CORNERS)
+   ========================================= */
+.hub-wrapper {
+    height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
+
+.hub-card {
+    width: 320px; height: 460px;
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 1;
+    transition: 0.4s;
+    
+    /* Цвет "рамки" */
+    background: var(--border-color);
+    
+    /* Сложная форма (двойные углы) */
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+}
+
+/* Внутренний слой карточки */
+.hub-card::before {
+    content: ''; position: absolute;
+    top: 1px; left: 1px; right: 1px; bottom: 1px; /* Толщина рамки 1px */
+    background: linear-gradient(180deg, rgba(20,22,28,0.95) 0%, rgba(10,11,14,0.98) 100%);
+    z-index: -1;
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+}
+
+/* Hover */
+.hub-card:hover {
+    transform: translateY(-10px);
+    background: var(--gold); /* Рамка загорается */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+/* Круг иконки */
+.hub-icon-circle {
+    width: 140px; height: 140px;
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 2rem; position: relative;
+    background: radial-gradient(circle, rgba(232, 198, 134, 0.02) 0%, transparent 70%);
+    z-index: 2;
+}
+
+/* Вращение */
+.hub-icon-circle::before {
+    content: ''; position: absolute; inset: -5px; border-radius: 50%;
+    border: 1px dashed rgba(232, 198, 134, 0.3); opacity: 0.3;
+    animation: rotate 30s linear infinite;
+}
+.hub-card:hover .hub-icon-circle { border-color: var(--gold); box-shadow: 0 0 20px rgba(232, 198, 134, 0.1); }
+.hub-card:hover .hub-icon-circle::before { opacity: 1; border-color: var(--gold); }
+
+.hub-text { text-align: center; z-index: 2; }
+.hub-text h2 { font-family: var(--font-head); font-size: 2rem; color: #fff; letter-spacing: 2px; }
+.hub-text p { color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; margin-top: 5px; opacity: 0.7; }
+
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+/* =========================================
+   7. STANDARD LIST CARDS (Anime/Games)
    ========================================= */
 .grid-cards {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;
@@ -161,101 +245,39 @@ button { border: none; background: none; cursor: pointer; outline: none; }
 .card {
     position: relative; height: 400px;
     background: #0a0b10;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-color); /* Тут обычная рамка, так как форма простая */
     overflow: hidden; cursor: pointer;
-    transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: 0.4s;
 }
 
-/* Картинка */
 .card-img {
     height: 70%; width: 100%;
     background-size: cover; background-position: center;
     mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-    transition: 0.5s;
-    filter: grayscale(40%);
+    transition: 0.5s; filter: grayscale(30%);
 }
 .card:hover .card-img { transform: scale(1.05); filter: grayscale(0%); }
 
-/* Контент внизу */
 .card-content {
-    position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem;
-    z-index: 2;
+    position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; z-index: 2;
 }
-
 .card-title {
-    font-family: var(--font-head); font-size: 1.5rem; text-transform: uppercase;
-    margin-bottom: 0.5rem; color: #fff;
+    font-family: var(--font-head); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 0.5rem; color: #fff;
 }
 .card-meta {
     font-size: 0.8rem; color: var(--cyan); letter-spacing: 1px; font-family: var(--font-head);
     display: flex; align-items: center; gap: 8px;
 }
 
-/* Золотая рамка при наведении */
-.card::after {
-    content: ''; position: absolute; inset: 0;
-    border: 1px solid transparent;
-    transition: 0.4s; pointer-events: none;
-}
-.card:hover::after {
-    border-color: var(--gold);
-    box-shadow: inset 0 0 20px rgba(232, 198, 134, 0.1);
-}
+.card:hover { border-color: var(--gold); box-shadow: 0 0 15px rgba(232, 198, 134, 0.1); }
 
-/* Ранг (SSR/UR) */
 .rank-badge {
     position: absolute; top: 15px; right: 15px;
     padding: 2px 8px; font-family: var(--font-head); font-weight: 700; font-size: 0.9rem;
     background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,255,255,0.2);
 }
 .rank-badge.ur { color: var(--gold); border-color: var(--gold); box-shadow: 0 0 10px rgba(232, 198, 134, 0.3); }
-.rank-badge.ssr { color: var(--cyan); border-color: var(--cyan); }
-
-/* HUB SPECIFIC CARDS (Large) */
-.hub-wrapper {
-    height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-}
-.hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
-
-.hub-card {
-    width: 320px; height: 460px;
-    background: linear-gradient(180deg, rgba(20,22,28,0.8) 0%, rgba(10,11,14,0.9) 100%);
-    border: 1px solid var(--border);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    position: relative; transition: 0.4s;
-    /* Уголки как в WuWa */
-    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-}
-
-.hub-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-10px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(232, 198, 134, 0.1); /* Золотое свечение */
-}
-
-/* Иконки в хабе */
-.hub-icon-circle {
-    width: 140px; height: 140px;
-    border: 1px solid var(--border); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 2rem; position: relative;
-    background: radial-gradient(circle, rgba(232, 198, 134, 0.05) 0%, transparent 70%);
-}
-.hub-card:hover .hub-icon-circle { border-color: var(--gold); }
-
-/* Вращающаяся обводка */
-.hub-icon-circle::before {
-    content: ''; position: absolute; inset: -5px; border-radius: 50%;
-    border: 1px dashed var(--border-gold); opacity: 0.3;
-    animation: rotate 30s linear infinite;
-}
-.hub-card:hover .hub-icon-circle::before { opacity: 1; border-color: var(--gold); }
-
-.hub-text h2 { font-family: var(--font-head); font-size: 2rem; color: #fff; letter-spacing: 2px; }
-.hub-text p { color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; margin-top: 5px; opacity: 0.7; }
-
-@keyframes rotate { to { transform: rotate(360deg); } }
 
 /* Адаптив */
 @media (max-width: 768px) {
