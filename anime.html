@@ -1,3 +1,4 @@
+<!-- START OF FILE anime.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -47,13 +48,50 @@
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
 
+            <!-- ОБНОВЛЕННЫЕ КНОПКИ УПРАВЛЕНИЯ ВИДОМ -->
             <div class="view-controls">
-                <button class="view-btn active" data-cols="3"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg></button>
-                <button class="view-btn" data-cols="4"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
+                <!-- 3 Columns -->
+                <button class="view-btn active" data-cols="3" title="3 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <rect x="0" y="0" width="4" height="14" fill="currentColor"/>
+                        <rect x="5" y="0" width="4" height="14" fill="currentColor"/>
+                        <rect x="10" y="0" width="4" height="14" fill="currentColor"/>
+                    </svg>
+                </button>
+                <!-- 4 Columns -->
+                <button class="view-btn" data-cols="4" title="4 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <rect x="0" y="0" width="2.5" height="14" fill="currentColor"/>
+                        <rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/>
+                        <rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/>
+                        <rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/>
+                    </svg>
+                </button>
+                <!-- 5 Columns -->
+                <button class="view-btn" data-cols="5" title="5 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <rect x="0" y="0" width="2" height="14" fill="currentColor"/>
+                        <rect x="3" y="0" width="2" height="14" fill="currentColor"/>
+                        <rect x="6" y="0" width="2" height="14" fill="currentColor"/>
+                        <rect x="9" y="0" width="2" height="14" fill="currentColor"/>
+                        <rect x="12" y="0" width="2" height="14" fill="currentColor"/>
+                    </svg>
+                </button>
+                <!-- 6 Columns -->
+                <button class="view-btn" data-cols="6" title="6 Columns">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <rect x="0" y="0" width="1.5" height="14" fill="currentColor"/>
+                        <rect x="2.5" y="0" width="1.5" height="14" fill="currentColor"/>
+                        <rect x="5" y="0" width="1.5" height="14" fill="currentColor"/>
+                        <rect x="7.5" y="0" width="1.5" height="14" fill="currentColor"/>
+                        <rect x="10" y="0" width="1.5" height="14" fill="currentColor"/>
+                        <rect x="12.5" y="0" width="1.5" height="14" fill="currentColor"/>
+                    </svg>
+                </button>
             </div>
         </div>
 
-        <div class="grid-cards">
+        <div class="grid-cards cols-3">
             
             <div class="card" 
                  data-category="series" 
@@ -109,10 +147,14 @@
                 </div>
             </div>
 
+            <!-- Дополнительные карточки для теста -->
+             <div class="card" data-category="series" data-rank="SR" data-desc="Test" data-tags="Test"><div class="card-img" style="background-color: #222;"></div><div class="rank-badge">SR</div><div class="card-content"><div class="card-title">Anime Log 04</div><div class="card-meta"><span>ARCHIVED</span></div></div></div>
+             <div class="card" data-category="movie" data-rank="R" data-desc="Test" data-tags="Test"><div class="card-img" style="background-color: #222;"></div><div class="rank-badge">R</div><div class="card-content"><div class="card-title">Anime Log 05</div><div class="card-meta"><span>ARCHIVED</span></div></div></div>
+
         </div>
     </main>
 
-    <!-- Тот же блок MODAL, что и в games.html -->
+    <!-- Тот же блок MODAL -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="corner t-l"></div><div class="corner t-r"></div>
