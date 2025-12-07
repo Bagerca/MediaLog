@@ -1,43 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 0. КОНФИГУРАЦИЯ И ПЕРЕМЕННЫЕ ---
-    const pageType = document.body.getAttribute('data-page'); // 'games' или 'anime'
+    // --- 0. КОНФИГУРАЦИЯ ---
+    const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
     const STORAGE_KEY_COLS = 'resonance_grid_columns';
     
-    // --- 1. ЗАГРУЗКА ДАННЫХ ИЗ JSON ---
+    // --- 1. ЗАГРУЗКА ДАННЫХ ---
     if (pageType && gridContainer) {
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
-                const items = data[pageType]; // Берем массив games или anime
+                const items = data[pageType];
                 renderCards(items);
-                initInterface(); // Запускаем логику интерфейса только после создания карточек
+                generateFilters(items); // НОВАЯ ФУНКЦИЯ: Генерируем фильтры
+                initInterface(); 
             })
-            .catch(error => console.error('Ошибка загрузки базы данных:', error));
+            .catch(error => console.error('Error loading DB:', error));
     } else {
-        // Если мы на главной (index.html), просто запускаем анимации
         initInterface();
     }
 
-    // --- 2. ГЕНЕРАЦИЯ HTML КАРТОЧЕК ---
+    // --- 2. ГЕНЕРАЦИЯ КАРТОЧЕК ---
     function renderCards(items) {
         if (!items) return;
-        
-        gridContainer.innerHTML = items.map((item, index) => {
-            // Определяем цвет звезд/текста в зависимости от ранга
+        gridContainer.innerHTML = items.map(item => {
             const metaColor = (item.rank === 'UR') ? 'var(--gold)' : 
                               (item.rank === 'SSR') ? 'var(--cyan)' : 'var(--text-muted)';
-            
             return `
             <div class="card" 
-                 data-category="${item.category}" 
+                 data-tags="${item.tags}" 
                  data-desc="${item.desc}"
-                 data-tags="${item.tags}"
                  data-platform="${item.platform}"
                  data-dev="${item.dev}"
                  data-rank="${item.rank}"
-                 style="opacity: 0; transform: translateY(20px);"> <!-- Скрыто для анимации -->
+                 style="opacity: 0; transform: translateY(20px);">
                 
                 <div class="card-img" style="background-image: url('${item.image}');"></div>
                 <div class="rank-badge ${item.rank.toLowerCase()}">${item.rank}</div>
@@ -48,15 +44,40 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span>${item.meta_sub}</span>
                     </div>
                 </div>
-            </div>
-            `;
+            </div>`;
         }).join('');
     }
 
-    // --- 3. ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА (ПОСЛЕ ЗАГРУЗКИ) ---
+    // --- НОВОЕ: 2.1 ГЕНЕРАЦИЯ ТЕГОВ-ФИЛЬТРОВ ---
+    function generateFilters(items) {
+        const filterContainer = document.getElementById('filterOptions');
+        if (!filterContainer) return;
+
+        // 1. Собираем все уникальные теги
+        const allTags = new Set();
+        items.forEach(item => {
+            if (item.tags) {
+                // Разбиваем строку "RPG, Action, Open World" на массив и чистим пробелы
+                item.tags.split(',').forEach(tag => allTags.add(tag.trim()));
+            }
+        });
+
+        // 2. Превращаем Set в массив и сортируем
+        const sortedTags = Array.from(allTags).sort();
+
+        // 3. Создаем HTML
+        let html = `<div class="option active" data-filter="all">ALL RECORDS</div>`;
+        sortedTags.forEach(tag => {
+            html += `<div class="option" data-filter="${tag}">${tag}</div>`;
+        });
+
+        filterContainer.innerHTML = html;
+    }
+
+    // --- 3. ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА ---
     function initInterface() {
         
-        // A. АНИМАЦИЯ ПОЯВЛЕНИЯ
+        // A. Animation Stagger
         const cards = document.querySelectorAll('.card, .hub-card');
         cards.forEach((card, index) => {
             card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -66,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, index * 100 + 50);
         });
 
-        // B. ЭФФЕКТ ДЕКОДИРОВАНИЯ ЗАГОЛОВКА
+        // B. Text Decode Effect
         const headerTitle = document.querySelector('.page-header h1');
         if (headerTitle) {
             const originalText = headerTitle.innerText;
@@ -82,13 +103,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 30);
         }
 
-        // C. ЛОГИКА СЕТКИ (COLUMNS MEMORY)
+        // C. Grid Logic (Memory)
         const viewBtns = document.querySelectorAll('.view-btn');
-        const grid = document.querySelector('.grid-cards'); // или cards-container
+        const grid = document.querySelector('.grid-cards');
 
         function applyGridColumns(cols) {
             if (!grid) return;
-            grid.className = 'grid-cards'; // Сброс
+            grid.className = 'grid-cards';
             grid.classList.add(`cols-${cols}`);
             
             viewBtns.forEach(b => {
@@ -110,23 +131,27 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // D. ФИЛЬТРАЦИЯ И ПОИСК
+        // D. ФИЛЬТРАЦИЯ И ПОИСК (ОБНОВЛЕНО)
         const dropdown = document.querySelector('.custom-dropdown');
         const searchInput = document.getElementById('searchInput');
-        const allItems = document.querySelectorAll('.card'); // Берем уже созданные карточки
-
-        let currentCategory = 'all';
+        // Важно: берем опции динамически, так как они созданы через JS
+        
+        let currentFilterTag = 'all';
         let currentSearch = '';
 
         function updateList() {
+            const allItems = document.querySelectorAll('.card');
+            
             allItems.forEach(item => {
-                const itemCategory = item.getAttribute('data-category');
+                // Получаем теги карточки (строка "RPG, Action")
+                const itemTags = item.getAttribute('data-tags') || "";
                 const itemTitle = item.querySelector('.card-title').textContent.toLowerCase();
                 
-                const matchCategory = (currentCategory === 'all' || currentCategory === itemCategory);
+                // Проверка тега: если 'all', то true. Иначе ищем выбранный тег внутри строки тегов карточки
+                const matchTag = (currentFilterTag === 'all' || itemTags.includes(currentFilterTag));
                 const matchSearch = itemTitle.includes(currentSearch);
 
-                if (matchCategory && matchSearch) {
+                if (matchTag && matchSearch) {
                     item.style.display = 'block';
                     setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 50);
                 } else {
@@ -135,10 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Dropdown Events
+        // Dropdown Events (Делегирование событий для динамических кнопок)
         if (dropdown) {
             const trigger = dropdown.querySelector('.dropdown-trigger');
-            const options = dropdown.querySelectorAll('.option');
+            const optionsContainer = dropdown.querySelector('.dropdown-options');
             const selectedText = dropdown.querySelector('.selected-text');
 
             trigger.addEventListener('click', (e) => {
@@ -146,15 +171,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 dropdown.classList.toggle('open');
             });
 
-            options.forEach(option => {
-                option.addEventListener('click', () => {
-                    options.forEach(opt => opt.classList.remove('active'));
-                    option.classList.add('active');
-                    selectedText.textContent = option.textContent;
-                    dropdown.classList.remove('open');
-                    currentCategory = option.getAttribute('data-filter');
-                    updateList();
-                });
+            // Слушаем клик внутри контейнера опций (так как опции создаются динамически)
+            optionsContainer.addEventListener('click', (e) => {
+                const option = e.target.closest('.option');
+                if (!option) return;
+
+                // Убираем active у всех
+                optionsContainer.querySelectorAll('.option').forEach(opt => opt.classList.remove('active'));
+                // Добавляем нажатому
+                option.classList.add('active');
+                
+                // Обновляем текст кнопки (если ALL - возвращаем дефолт)
+                const filterValue = option.getAttribute('data-filter');
+                selectedText.textContent = (filterValue === 'all') ? 'FILTER BY TAGS' : option.textContent;
+
+                dropdown.classList.remove('open');
+                currentFilterTag = filterValue;
+                updateList();
             });
 
             document.addEventListener('click', (e) => {
@@ -162,7 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Search Events
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
                 currentSearch = e.target.value.toLowerCase().trim();
@@ -170,16 +202,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // E. MODAL LOGIC (HUD)
         initModal(); 
     }
 
-    // --- 4. ЛОГИКА МОДАЛЬНОГО ОКНА ---
+    // --- 4. MODAL LOGIC ---
     function initModal() {
         const modal = document.getElementById('detailModal');
         const closeBtn = document.getElementById('closeModal');
         const grid = document.querySelector('.grid-cards');
-
         if (!modal) return;
 
         const modalImg = document.getElementById('modalImg');
@@ -191,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalDev = document.getElementById('modalDev');
 
         function openModal(card) {
-            // Данные берем из data-атрибутов, которые мы сгенерировали
             const bgImage = card.querySelector('.card-img').style.backgroundImage;
             const title = card.querySelector('.card-title').textContent;
             
@@ -237,10 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.paddingRight = '';
         }
 
-        // Используем делегирование событий, так как карточки создаются динамически
         if(grid) {
-            // Удаляем старые слушатели (если есть) через cloneNode (хак) или просто вешаем новый
-            // Но так как initInterface вызывается один раз, просто вешаем listener
             grid.addEventListener('click', (e) => {
                 const card = e.target.closest('.card');
                 if (card) openModal(card);
