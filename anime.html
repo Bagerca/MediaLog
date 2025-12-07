@@ -29,8 +29,9 @@
             <h1>VISUAL LOGS</h1>
         </header>
 
-        <!-- Dropdown Filter -->
+        <!-- Controls -->
         <div class="filter-wrapper">
+            <!-- Dropdown -->
             <div class="custom-dropdown">
                 <button class="dropdown-trigger">
                     <span class="selected-text">ALL RECORDS</span>
@@ -43,6 +44,14 @@
                     <div class="option" data-filter="series">SERIES</div>
                     <div class="option" data-filter="movie">MOVIES</div>
                 </div>
+            </div>
+            <!-- Search -->
+            <div class="search-terminal">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
         </div>
 
