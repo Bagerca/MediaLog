@@ -3,92 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaLog // Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <title>Resonance // Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Живой фон -->
-    <div class="background-container">
-        <div class="bg-grid"></div>
-        <div class="bg-orb orb-1"></div>
-        <div class="bg-orb orb-2"></div>
-        <div class="bg-noise"></div>
-        <div class="bg-vignette"></div>
+    <!-- Фон: Tacet Field -->
+    <div class="tacet-field">
+        <div class="grid-overlay"></div>
+        <div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div>
     </div>
 
     <nav class="navbar">
-        <div class="logo">MEDIA<span class="dot">LOG</span></div>
+        <div class="logo">RESONANCE<span style="color:var(--wuwa-cyan)">.LOG</span></div>
         <div class="nav-links">
-            <a href="index.html" class="nav-item active">HUB</a>
-            <a href="anime.html" class="nav-item">ANIME</a>
-            <a href="games.html" class="nav-item">GAMES</a>
+            <a href="index.html" class="nav-item active">TERMINAL</a>
+            <a href="anime.html" class="nav-item">VISUAL DATA</a>
+            <a href="games.html" class="nav-item">SIMULATIONS</a>
         </div>
     </nav>
 
-    <main class="hub-wrapper container">
+    <main class="container">
         <header class="page-header">
-            <p class="deco-text">SYSTEM READY // WELCOME ROVER</p>
-            <h1>SELECT ARCHIVE</h1>
+            <div class="deco-tag">SYSTEM STATUS: NORMAL</div>
+            <h1>DATA BANK</h1>
         </header>
 
         <div class="hub-grid">
             
-            <!-- ANIME CARD -->
-            <a href="anime.html" class="hub-card anime-card">
-                <svg class="hub-svg" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                         <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
-                            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#2a2d3d" stroke-width="1"/>
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#grid)" opacity="0.3"/>
-                    
-                    <g transform="translate(150, 210)">
-                        <circle r="60" fill="none" stroke="#5ffbf1" stroke-width="1" class="lens-ring" stroke-dasharray="40 10"/>
-                        <circle r="40" fill="none" stroke="#5ffbf1" stroke-width="1" opacity="0.5"/>
-                        <circle r="5" fill="#5ffbf1" class="rec-dot" opacity="0.5"/>
-                        <path d="M-80 -80 L-60 -80 M-80 -80 L-80 -60" stroke="#5ffbf1" stroke-width="2" fill="none" class="focus-bracket"/>
-                        <path d="M80 -80 L60 -80 M80 -80 L80 -60" stroke="#5ffbf1" stroke-width="2" fill="none" class="focus-bracket"/>
-                        <path d="M-80 80 L-60 80 M-80 80 L-80 60" stroke="#5ffbf1" stroke-width="2" fill="none" class="focus-bracket"/>
-                        <path d="M80 80 L60 80 M80 80 L80 60" stroke="#5ffbf1" stroke-width="2" fill="none" class="focus-bracket"/>
-                    </g>
-                </svg>
-                <div class="hub-content">
-                    <h2>ANIME LOG</h2>
-                    <p>VISUAL DATA STREAMS</p>
-                    <div class="deco-line"></div>
+            <!-- Anime Hub Card -->
+            <a href="anime.html" class="hub-card">
+                <div class="hub-icon-container">
+                    <!-- Eye / Lens Icon SVG -->
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#62eed4" stroke-width="1.5">
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 5V3M12 21v-2M5 12H3M21 12h-2" stroke-opacity="0.5"/>
+                    </svg>
                 </div>
+                <div class="hub-title">VISUAL LOGS</div>
+                <div class="hub-sub">/// VIEW ANIME RECORDS</div>
             </a>
 
-            <!-- GAMES CARD -->
-            <a href="games.html" class="hub-card game-card">
-                <svg class="hub-svg" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100%" height="100%" fill="url(#grid)" opacity="0.3"/>
-                    
-                    <g transform="translate(150, 180)">
-                        <circle r="90" fill="none" stroke="#5ffbf1" stroke-width="0.5" opacity="0.2" class="ring-outer" stroke-dasharray="10 10"/>
-                        <g class="controller-group">
-                            <path d="M-20 -60 L20 -60 L30 -20 L70 -20 L70 20 L30 20 L20 60 L-20 60 L-30 20 L-70 20 L-70 -20 L-30 -20 Z" 
-                                  fill="#1b1e28" stroke="#5ffbf1" stroke-width="1.5"/>
-                            <circle r="10" fill="#5ffbf1" opacity="0.2"/>
-                        </g>
-                    </g>
-                    <g transform="translate(150, 320)">
-                        <rect x="-40" y="0" width="6" height="4" fill="#5ffbf1" opacity="0.3" class="eq-bar" style="animation-delay: 0s"/>
-                        <rect x="-20" y="0" width="6" height="4" fill="#5ffbf1" opacity="0.3" class="eq-bar" style="animation-delay: 0.1s"/>
-                        <rect x="0" y="0" width="6" height="4" fill="#5ffbf1" opacity="0.3" class="eq-bar" style="animation-delay: 0.2s"/>
-                        <rect x="20" y="0" width="6" height="4" fill="#5ffbf1" opacity="0.3" class="eq-bar" style="animation-delay: 0.3s"/>
-                        <rect x="40" y="0" width="6" height="4" fill="#5ffbf1" opacity="0.3" class="eq-bar" style="animation-delay: 0.4s"/>
-                    </g>
-                    
-                    <text x="280" y="400" text-anchor="end" fill="#5ffbf1" font-family="Rajdhani" font-size="12" opacity="0.5" class="status-text">OFFLINE</text>
-                </svg>
-                <div class="hub-content">
-                    <h2>GAME LOG</h2>
-                    <p>SIMULATION MODULES</p>
-                    <div class="deco-line"></div>
+            <!-- Games Hub Card -->
+            <a href="games.html" class="hub-card">
+                <div class="hub-icon-container">
+                    <!-- Wave / Frequency Icon SVG -->
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#62eed4" stroke-width="1.5">
+                        <path d="M2 12h2l2-5 3 10 3-10 3 10 3-10 2 5h2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
+                <div class="hub-title">SIMULATIONS</div>
+                <div class="hub-sub">/// VIEW GAME DATA</div>
             </a>
 
         </div>
