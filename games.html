@@ -66,50 +66,50 @@
         <div class="grid-cards cols-3" id="cards-container"></div>
     </main>
 
-    <!-- NEW HUD MODAL -->
+    <!-- HUD MODAL (ОБНОВЛЕННАЯ СТРУКТУРА) -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
-            <!-- Декоративные уголки -->
-            <div class="corner t-l"></div><div class="corner t-r"></div>
-            <div class="corner b-l"></div><div class="corner b-r"></div>
-        
-            <button class="modal-close" id="closeModal">
-                <span class="close-text">ABORT SIGNAL</span><span class="close-icon">✕</span>
-            </button>
-        
-            <div class="modal-body">
-                <!-- ЛЕВАЯ ЧАСТЬ: Арт (теперь это IMG) -->
-                <div class="modal-visual">
-                    <img id="modalImg" src="" alt="Cover Art">
-                </div>
-        
-                <!-- ПРАВАЯ ЧАСТЬ: Инфо -->
-                <div class="modal-info">
-                    <!-- ФОНОВЫЙ ВОДЯНОЙ ЗНАК РАНГА -->
-                    <div class="rank-watermark" id="modalRank">UR</div>
-
-                    <div class="modal-header">
-                        <div class="sys-row"><span class="sys-msg">/// DECRYPTED_DATA_LOG_01</span><span class="sys-id">ID: #89-XJ</span></div>
-                        <h2 id="modalTitle">TITLE</h2>
-                        <div class="tags-container" id="modalTags"></div>
+            <!-- Внутренний контейнер для правильной обводки -->
+            <div class="modal-inner">
+                
+                <button class="modal-close" id="closeModal">
+                    <span class="close-text">ABORT SIGNAL</span><span class="close-icon">✕</span>
+                </button>
+            
+                <div class="modal-body">
+                    <!-- ЛЕВАЯ ЧАСТЬ: Арт -->
+                    <div class="modal-visual">
+                        <img id="modalImg" src="" alt="Cover Art">
                     </div>
-        
-                    <div class="modal-content-scroll">
-                        <p id="modalDesc" class="modal-desc">Description...</p>
-                        <div class="stats-grid">
-                            <div class="stat-box"><span class="stat-label">PLATFORM</span><span class="stat-value" id="modalPlatform">-</span></div>
-                            <div class="stat-box"><span class="stat-label">DEVELOPER</span><span class="stat-value" id="modalDev">-</span></div>
-                            <div class="stat-box"><span class="stat-label">STATUS</span><span class="stat-value active">ACCESSIBLE</span></div>
-                            <div class="stat-box"><span class="stat-label">INTEGRITY</span><span class="stat-value highlight">100%</span></div>
+            
+                    <!-- ПРАВАЯ ЧАСТЬ: Инфо -->
+                    <div class="modal-info">
+                        <!-- Водяной знак ранга -->
+                        <div class="rank-watermark" id="modalRank">UR</div>
+    
+                        <div class="modal-header">
+                            <div class="sys-row"><span class="sys-msg">/// DECRYPTED_DATA_LOG_01</span><span class="sys-id">ID: #89-XJ</span></div>
+                            <h2 id="modalTitle">TITLE</h2>
+                            <div class="tags-container" id="modalTags"></div>
+                        </div>
+            
+                        <div class="modal-content-scroll">
+                            <p id="modalDesc" class="modal-desc">Description...</p>
+                            <div class="stats-grid">
+                                <div class="stat-box"><span class="stat-label">PLATFORM</span><span class="stat-value" id="modalPlatform">-</span></div>
+                                <div class="stat-box"><span class="stat-label">DEVELOPER</span><span class="stat-value" id="modalDev">-</span></div>
+                                <div class="stat-box"><span class="stat-label">STATUS</span><span class="stat-value active">ACCESSIBLE</span></div>
+                                <div class="stat-box"><span class="stat-label">INTEGRITY</span><span class="stat-value highlight">100%</span></div>
+                            </div>
+                        </div>
+            
+                        <div class="modal-footer">
+                            <button class="action-btn primary"><span class="btn-text">INITIATE LAUNCH</span></button>
+                            <button class="action-btn secondary"><span class="btn-text">EDIT RECORD</span></button>
                         </div>
                     </div>
-        
-                    <div class="modal-footer">
-                        <button class="action-btn primary"><span class="btn-text">INITIATE LAUNCH</span></button>
-                        <button class="action-btn secondary"><span class="btn-text">EDIT RECORD</span></button>
-                    </div>
                 </div>
-            </div>
+            </div> <!-- End of modal-inner -->
         </div>
     </div>
 
