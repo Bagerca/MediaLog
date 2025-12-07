@@ -29,9 +29,7 @@
             <h1>SIMULATION LOGS</h1>
         </header>
 
-        <!-- Controls -->
         <div class="filter-wrapper">
-            <!-- Dropdown -->
             <div class="custom-dropdown">
                 <button class="dropdown-trigger">
                     <span class="selected-text">ALL SIMULATIONS</span>
@@ -45,7 +43,6 @@
                     <div class="option" data-filter="rpg">RPG / OPEN WORLD</div>
                 </div>
             </div>
-            <!-- Search -->
             <div class="search-terminal">
                 <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -57,7 +54,7 @@
 
         <div class="grid-cards">
             
-            <div class="card" data-category="gacha">
+            <div class="card" data-category="gacha" data-desc="Wuthering Waves is an open-world action RPG with a high freedom of combat. You wake up from your slumber as a Rover, greeted by an expansive world.">
                 <div class="card-img" style="background-image: url('https://images8.alphacoders.com/135/1353982.jpeg');"></div>
                 <div class="rank-badge ur">UR</div>
                 <div class="card-content">
@@ -69,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="card" data-category="rpg">
+            <div class="card" data-category="rpg" data-desc="The Golden Order has been broken. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord.">
                 <div class="card-img" style="background-image: url('https://images5.alphacoders.com/112/1126269.jpg');"></div>
                 <div class="rank-badge ur">UR</div>
                 <div class="card-content">
@@ -81,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="card" data-category="rpg">
+            <div class="card" data-category="rpg" data-desc="Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification.">
                 <div class="card-img" style="background-image: url('https://images6.alphacoders.com/133/1330239.jpeg');"></div>
                 <div class="rank-badge ssr">SSR</div>
                 <div class="card-content">
@@ -95,6 +92,35 @@
 
         </div>
     </main>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-window">
+            <button class="modal-close" id="closeModal">
+                <span class="close-icon">×</span>
+                <span class="close-text">CLOSE</span>
+            </button>
+            <div class="modal-body">
+                <div class="modal-visual">
+                    <div class="modal-img" id="modalImg"></div>
+                    <div class="rank-tag" id="modalRank">UR</div>
+                </div>
+                <div class="modal-info">
+                    <div class="modal-header">
+                        <p class="sys-msg">/// ARCHIVE DATA: DECRYPTED</p>
+                        <h2 id="modalTitle">TITLE</h2>
+                        <div class="modal-meta" id="modalMeta">STATS</div>
+                    </div>
+                    <div class="modal-desc"><p id="modalDesc">...</p></div>
+                    <div class="modal-actions">
+                        <button class="action-btn primary">LAUNCH</button>
+                        <button class="action-btn secondary">EDIT LOG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
