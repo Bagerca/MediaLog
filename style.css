@@ -1,14 +1,19 @@
-/* --- GLOBAL RESET & VARIABLES --- */
+/* =========================================
+   GLOBAL VARIABLES & RESET
+   ========================================= */
 :root {
-    --bg-dark: #0b0c10;
+    --bg-base: #08090d;
     --bg-panel: #15171e;
     --text-main: #eeeeee;
     --text-muted: #8892b0;
-    --accent: #5ffbf1; /* WuWa Cyan */
-    --gold: #d4b16a;   /* 5-Star */
-    --red: #ff4d4d;    /* Alert */
+    
+    /* WuWa Palette */
+    --accent: #5ffbf1; /* Tacet Mark Cyan */
+    --gold: #d4b16a;   /* 5-Star Rarity */
+    --red: #ff4d4d;    /* Danger/Record */
+    
     --border: rgba(255, 255, 255, 0.08);
-    --glass: rgba(11, 12, 16, 0.8);
+    --glass: rgba(8, 9, 13, 0.7);
     
     --font-head: 'Rajdhani', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -17,7 +22,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: var(--bg-dark);
+    background-color: var(--bg-base);
     color: var(--text-main);
     font-family: var(--font-body);
     min-height: 100vh;
@@ -26,19 +31,68 @@ body {
 }
 
 a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
+button { border: none; outline: none; }
 
-/* --- BACKGROUNDS --- */
+/* =========================================
+   NEW BACKGROUND SYSTEM (ATMOSPHERIC)
+   ========================================= */
+.background-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -10; overflow: hidden; pointer-events: none;
+    background-color: var(--bg-base);
+}
+
+/* 1. Tech Grid with Fade */
+.bg-grid {
+    position: absolute; inset: 0;
+    background-size: 50px 50px;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+}
+
+/* 2. Floating Orbs (Fog) */
+.bg-orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(100px); opacity: 0.3;
+    animation: floatOrb 20s infinite ease-in-out;
+}
+.orb-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, #2a5a66 0%, transparent 70%); /* Cyan tint */
+    top: -10%; left: -10%;
+}
+.orb-2 {
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, #1a1d2e 0%, transparent 70%); /* Deep Blue */
+    bottom: -10%; right: -10%; animation-delay: -10s;
+}
+
+@keyframes floatOrb {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, 50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* 3. Noise Texture */
 .bg-noise {
-    position: fixed; inset: 0; pointer-events: none; z-index: -2; opacity: 0.05;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-.bg-gradient {
-    position: fixed; inset: 0; pointer-events: none; z-index: -1;
-    background: radial-gradient(circle at 50% 0%, rgba(95, 251, 241, 0.05), transparent 70%);
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04; mix-blend-mode: overlay;
 }
 
-/* --- NAVIGATION --- */
+/* 4. Vignette */
+.bg-vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at center, transparent 40%, #000 100%);
+}
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
 .navbar {
     position: sticky; top: 0; z-index: 1000;
     display: flex; justify-content: space-between; align-items: center;
@@ -47,17 +101,13 @@ ul { list-style: none; }
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
 }
-
-.logo {
-    font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; letter-spacing: 2px;
-}
+.logo { font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; letter-spacing: 2px; }
 .dot { color: var(--accent); }
 
 .nav-links { display: flex; gap: 2rem; }
 .nav-item {
     font-family: var(--font-head); font-weight: 600; font-size: 0.9rem;
-    color: var(--text-muted); transition: 0.3s; position: relative;
-    letter-spacing: 1px;
+    color: var(--text-muted); transition: 0.3s; position: relative; letter-spacing: 1px;
 }
 .nav-item:hover, .nav-item.active { color: var(--text-main); }
 .nav-item.active::after {
@@ -65,13 +115,12 @@ ul { list-style: none; }
     background: var(--accent); box-shadow: 0 0 8px var(--accent);
 }
 
-/* --- SHARED LAYOUT --- */
-.container {
-    max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%;
-}
-.page-header {
-    text-align: center; margin: 3rem 0;
-}
+/* =========================================
+   SHARED LAYOUT ELEMENTS
+   ========================================= */
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
+
+.page-header { text-align: center; margin: 3rem 0; }
 .page-header h1 {
     font-family: var(--font-head); font-size: 3rem; text-transform: uppercase; letter-spacing: 4px;
     background: linear-gradient(180deg, #fff, #8a8f9d); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -80,10 +129,8 @@ ul { list-style: none; }
     font-family: var(--font-head); color: var(--accent); letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 0.5rem;
 }
 
-/* --- FILTER BUTTONS --- */
-.filter-bar {
-    display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;
-}
+/* Filter Buttons */
+.filter-bar { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
 .filter-btn {
     background: transparent; border: 1px solid var(--border);
     color: var(--text-muted); padding: 0.6rem 1.8rem;
@@ -95,65 +142,51 @@ ul { list-style: none; }
 }
 
 /* =========================================
-   HUB PAGE (INDEX) STYLES
+   HUB PAGE (Home)
    ========================================= */
-.hub-wrapper {
-    min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-}
-.hub-grid {
-    display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem;
-}
+.hub-wrapper { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.hub-grid { display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
 
 .hub-card {
     position: relative; width: 300px; height: 420px;
     background: var(--bg-panel); border: 1px solid var(--border);
     display: flex; align-items: flex-end; overflow: hidden;
-    transition: 0.4s ease;
+    transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.hub-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.hub-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 
-/* SVG Handling */
-.hub-svg {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-    pointer-events: none; /* Let clicks pass through */
-}
+/* SVG Inside Hub Card */
+.hub-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+
 .hub-content {
-    position: relative; z-index: 2; padding: 2rem; width: 100%;
-    pointer-events: none; text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+    position: relative; z-index: 2; padding: 2rem; width: 100%; pointer-events: none;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
 }
-.hub-content h2 { font-family: var(--font-head); font-size: 2rem; color: #fff; }
+.hub-content h2 { font-family: var(--font-head); font-size: 2rem; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
 .hub-content p { color: var(--accent); font-family: var(--font-head); letter-spacing: 2px; font-size: 0.8rem; }
-.deco-line {
-    width: 40px; height: 2px; background: var(--accent); margin-top: 10px; transition: 0.4s;
-}
+.deco-line { width: 40px; height: 2px; background: var(--accent); margin-top: 10px; transition: 0.4s; }
 .hub-card:hover .deco-line { width: 100%; box-shadow: 0 0 8px var(--accent); }
 
-
 /* =========================================
-   ANIME PAGE STYLES
+   ANIME PAGE
    ========================================= */
-.anime-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2rem;
-}
-.anime-card {
-    background: transparent; transition: 0.3s;
-}
+.anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2rem; }
+.anime-card { background: transparent; transition: 0.3s; cursor: pointer; }
+
 .poster-wrapper {
     position: relative; aspect-ratio: 2/3; overflow: hidden;
     border: 1px solid var(--border); border-radius: 4px;
 }
-.poster-wrapper img {
-    width: 100%; height: 100%; object-fit: cover; transition: 0.5s;
-}
+.poster-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
 .anime-card:hover img { transform: scale(1.08); }
-.anime-card:hover .poster-wrapper { border-color: var(--accent); box-shadow: 0 5px 20px rgba(0,0,0,0.4); }
+.anime-card:hover .poster-wrapper { border-color: var(--accent); box-shadow: 0 5px 20px rgba(95, 251, 241, 0.1); }
 
 .rating {
     position: absolute; top: 0; left: 0; padding: 4px 8px;
     font-family: var(--font-head); font-weight: bold; font-size: 0.8rem;
     border-bottom-right-radius: 4px; z-index: 2;
 }
-.rating.ur { background: var(--accent); color: #000; }
+.rating.ur { background: var(--accent); color: #000; box-shadow: 0 0 10px var(--accent); }
 .rating.ssr { background: var(--gold); color: #000; }
 .rating.sr { background: #333; color: #fff; }
 
@@ -162,11 +195,10 @@ ul { list-style: none; }
 .meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
 
 /* =========================================
-   GAMES PAGE STYLES
+   GAMES PAGE
    ========================================= */
-.games-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;
-}
+.games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+
 .game-module {
     position: relative; height: 180px; background: var(--bg-panel);
     border: 1px solid var(--border); overflow: hidden; cursor: pointer;
@@ -183,7 +215,7 @@ ul { list-style: none; }
 }
 
 .game-module:hover { border-color: var(--accent); transform: translateY(-4px); }
-.game-module:hover .game-bg { opacity: 0.7; filter: grayscale(0%); transform: scale(1.05); }
+.game-module:hover .game-bg { opacity: 0.6; filter: grayscale(0%); transform: scale(1.05); }
 
 .game-header { display: flex; justify-content: space-between; align-items: start; }
 .game-rank { font-family: var(--font-head); font-weight: bold; font-size: 1.2rem; }
@@ -193,11 +225,8 @@ ul { list-style: none; }
 .game-title h2 { font-family: var(--font-head); font-size: 1.5rem; line-height: 1; text-transform: uppercase; }
 .game-title span { font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px; }
 
-.game-footer { margin-top: auto; }
 .progress-bar { height: 3px; background: rgba(255,255,255,0.1); width: 100%; margin-top: 10px; position: relative; overflow: hidden;}
 .progress-fill { height: 100%; background: var(--accent); box-shadow: 0 0 5px var(--accent); }
-
-/* Infinite loading animation for gacha games */
 .progress-fill.infinite { width: 30%; position: absolute; animation: loadInf 2s infinite ease-in-out; }
 @keyframes loadInf { 0% { left: -30%; } 100% { left: 100%; } }
 
@@ -209,29 +238,26 @@ ul { list-style: none; }
 .br { bottom: 0; right: 0; border-bottom-color: var(--border); border-right-color: var(--border); }
 .game-module:hover .corner { border-color: var(--accent); width: 10px; height: 10px; }
 
-
 /* =========================================
-   SVG ANIMATIONS (MERGED)
+   ANIMATIONS (SVG & General)
    ========================================= */
-/* Animation: Spin */
 @keyframes spin { to { transform: rotate(360deg); } }
-/* Animation: Blink/Glow */
 @keyframes neonPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; filter: drop-shadow(0 0 2px var(--accent)); } }
-/* Animation: Equalizer */
 @keyframes eqWave { 0%, 100% { transform: scaleY(1); opacity: 0.3; } 50% { transform: scaleY(6); opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Game Card Specifics */
+/* Game Card Animations */
 .hub-card.game-card:hover .controller-group { transform: translateY(-10px) scale(1.05); transition: 0.4s; }
 .hub-card.game-card:hover .ring-outer { animation: spin 10s linear infinite; opacity: 0.6; stroke: #fff; }
 .hub-card.game-card:hover .eq-bar { animation: eqWave 1s ease-in-out infinite; fill: #fff; }
 .hub-card.game-card:hover .status-text { opacity: 1; fill: #fff; }
 
-/* Anime Card Specifics */
+/* Anime Card Animations */
 .hub-card.anime-card:hover .focus-bracket { transform: scale(1.1); opacity: 1; transition: 0.4s; }
 .hub-card.anime-card:hover .lens-ring { animation: spin 12s linear infinite; opacity: 0.8; stroke: #fff; }
 .hub-card.anime-card:hover .rec-dot { fill: var(--red); opacity: 1; animation: neonPulse 1s infinite; }
 
-/* Mobile */
+/* Responsive */
 @media (max-width: 768px) {
     .navbar { padding: 1rem; flex-direction: column; gap: 1rem; }
     .hub-grid { gap: 1.5rem; }
