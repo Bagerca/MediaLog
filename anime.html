@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visuals // Resonance</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -29,15 +29,11 @@
             <h1>VISUAL LOGS</h1>
         </header>
 
-        <!-- Controls -->
         <div class="filter-wrapper">
-            <!-- Dropdown -->
             <div class="custom-dropdown">
                 <button class="dropdown-trigger">
                     <span class="selected-text">ALL RECORDS</span>
-                    <svg class="arrow-icon" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                        <path d="M1 1L6 6L11 1" stroke="#e8c686" stroke-width="2"/>
-                    </svg>
+                    <svg class="arrow-icon" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="#e8c686" stroke-width="2"/></svg>
                 </button>
                 <div class="dropdown-options">
                     <div class="option active" data-filter="all">ALL RECORDS</div>
@@ -46,32 +42,26 @@
                 </div>
             </div>
             
-            <!-- Search -->
             <div class="search-terminal">
-                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
 
-            <!-- View Controls -->
             <div class="view-controls">
-                <button class="view-btn active" data-cols="3" title="3 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg>
-                </button>
-                <button class="view-btn" data-cols="4" title="4 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg>
-                </button>
-                <button class="view-btn" data-cols="5" title="5 Columns">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2" height="14" fill="currentColor"/><rect x="3" y="0" width="2" height="14" fill="currentColor"/><rect x="6" y="0" width="2" height="14" fill="currentColor"/><rect x="9" y="0" width="2" height="14" fill="currentColor"/><rect x="12" y="0" width="2" height="14" fill="currentColor"/></svg>
-                </button>
+                <button class="view-btn active" data-cols="3"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg></button>
+                <button class="view-btn" data-cols="4"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
             </div>
         </div>
 
         <div class="grid-cards">
             
-            <div class="card" data-category="series" data-desc="Elf mage Frieren and her courageous fellow adventurers have defeated the Demon King.">
+            <div class="card" 
+                 data-category="series" 
+                 data-desc="Elf mage Frieren and her courageous fellow adventurers have defeated the Demon King and brought peace to the land. But Frieren will long outlive the rest of her former party."
+                 data-tags="Fantasy,Slice of Life,Adventure,Drama"
+                 data-platform="TV Series"
+                 data-dev="Madhouse"
+                 data-rank="UR">
                 <div class="card-img" style="background-image: url('https://images3.alphacoders.com/132/1328972.jpeg');"></div>
                 <div class="rank-badge ur">UR</div>
                 <div class="card-content">
@@ -83,7 +73,13 @@
                 </div>
             </div>
 
-            <div class="card" data-category="movie" data-desc="Two strangers find themselves linked in a bizarre way.">
+            <div class="card" 
+                 data-category="movie" 
+                 data-desc="Two strangers find themselves linked in a bizarre way. When a connection forms, will distance be the only thing to keep them apart?"
+                 data-tags="Romance,Drama,Supernatural"
+                 data-platform="Movie"
+                 data-dev="CoMix Wave Films"
+                 data-rank="UR">
                 <div class="card-img" style="background-image: url('https://images.alphacoders.com/846/846313.jpg');"></div>
                 <div class="rank-badge ur">UR</div>
                 <div class="card-content">
@@ -95,7 +91,13 @@
                 </div>
             </div>
 
-            <div class="card" data-category="series" data-desc="A street kid tries to survive in a technology and body modification-obsessed city.">
+            <div class="card" 
+                 data-category="series" 
+                 data-desc="A street kid tries to survive in a technology and body modification-obsessed city of the future. Having everything to lose, he chooses to stay alive by becoming an edgerunner."
+                 data-tags="Cyberpunk,Sci-Fi,Action,Tragedy"
+                 data-platform="Netflix"
+                 data-dev="Studio Trigger"
+                 data-rank="SSR">
                 <div class="card-img" style="background-image: url('https://images4.alphacoders.com/937/937666.jpg');"></div>
                 <div class="rank-badge ssr">SSR</div>
                 <div class="card-content">
@@ -110,34 +112,43 @@
         </div>
     </main>
 
-    <!-- MODAL -->
+    <!-- Тот же блок MODAL, что и в games.html -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
+            <div class="corner t-l"></div><div class="corner t-r"></div>
+            <div class="corner b-l"></div><div class="corner b-r"></div>
             <button class="modal-close" id="closeModal">
-                <span class="close-icon">×</span>
-                <span class="close-text">CLOSE</span>
+                <span class="close-text">ABORT SIGNAL</span><span class="close-icon">✕</span>
             </button>
             <div class="modal-body">
                 <div class="modal-visual">
                     <div class="modal-img" id="modalImg"></div>
-                    <div class="rank-tag" id="modalRank">UR</div>
+                    <div class="visual-overlay"></div>
+                    <div class="rank-tag-large" id="modalRank">UR</div>
                 </div>
                 <div class="modal-info">
                     <div class="modal-header">
-                        <p class="sys-msg">/// ARCHIVE DATA: DECRYPTED</p>
+                        <div class="sys-row"><span class="sys-msg">/// DECRYPTED_DATA_LOG_01</span><span class="sys-id">ID: #89-XJ</span></div>
                         <h2 id="modalTitle">TITLE</h2>
-                        <div class="modal-meta" id="modalMeta">STATS</div>
+                        <div class="tags-container" id="modalTags"></div>
                     </div>
-                    <div class="modal-desc"><p id="modalDesc">...</p></div>
-                    <div class="modal-actions">
-                        <button class="action-btn primary">LAUNCH</button>
-                        <button class="action-btn secondary">EDIT LOG</button>
+                    <div class="modal-content-scroll">
+                        <p id="modalDesc" class="modal-desc">...</p>
+                        <div class="stats-grid">
+                            <div class="stat-box"><span class="stat-label">PLATFORM</span><span class="stat-value" id="modalPlatform">-</span></div>
+                            <div class="stat-box"><span class="stat-label">DEVELOPER</span><span class="stat-value" id="modalDev">-</span></div>
+                            <div class="stat-box"><span class="stat-label">STATUS</span><span class="stat-value active">ACCESSIBLE</span></div>
+                            <div class="stat-box"><span class="stat-label">INTEGRITY</span><span class="stat-value highlight">100%</span></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="action-btn primary"><span class="btn-text">INITIATE LAUNCH</span></button>
+                        <button class="action-btn secondary"><span class="btn-text">EDIT RECORD</span></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
