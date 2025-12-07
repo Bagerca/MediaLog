@@ -3,97 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaLog // Games</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <title>Simulations // Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-container">
-        <div class="bg-grid"></div>
-        <div class="bg-orb orb-1"></div>
-        <div class="bg-orb orb-2"></div>
-        <div class="bg-noise"></div>
-        <div class="bg-vignette"></div>
+    <div class="tacet-field">
+        <div class="grid-overlay"></div>
+        <div class="particle"></div><div class="particle"></div>
     </div>
 
     <nav class="navbar">
-        <div class="logo">MEDIA<span class="dot">LOG</span></div>
+        <div class="logo">RESONANCE<span style="color:var(--wuwa-cyan)">.LOG</span></div>
         <div class="nav-links">
-            <a href="index.html" class="nav-item">HUB</a>
-            <a href="anime.html" class="nav-item">ANIME</a>
-            <a href="games.html" class="nav-item active">GAMES</a>
+            <a href="index.html" class="nav-item">TERMINAL</a>
+            <a href="anime.html" class="nav-item">VISUAL DATA</a>
+            <a href="games.html" class="nav-item active">SIMULATIONS</a>
         </div>
     </nav>
 
     <main class="container">
         <header class="page-header">
-            <p class="deco-text">/// SYSTEM ONLINE</p>
-            <h1>SIMULATION MODULES</h1>
+            <div class="deco-tag">/// FREQUENCY: STABLE</div>
+            <h1>SIMULATION LOGS</h1>
         </header>
 
-        <div class="filter-bar">
-            <button class="filter-btn active" data-filter="all">ALL</button>
-            <button class="filter-btn" data-filter="rpg">RPG</button>
-            <button class="filter-btn" data-filter="gacha">GACHA</button>
+        <div class="filter-container">
+            <button class="wuwa-btn active" data-filter="all">ALL</button>
+            <button class="wuwa-btn" data-filter="rpg">OPEN WORLD</button>
+            <button class="wuwa-btn" data-filter="gacha">GACHA</button>
         </div>
 
-        <div class="games-grid">
-            <!-- Example 1 -->
-            <div class="game-module" data-category="rpg">
-                <div class="game-bg" style="background-image: url('https://images5.alphacoders.com/112/1126269.jpg');"></div>
-                <div class="game-content">
-                    <div class="game-header">
-                        <span class="game-rank ur">UR</span>
+        <div class="grid-system">
+            
+            <!-- Card: WuWa -->
+            <div class="data-card" data-category="gacha">
+                <div class="card-bg" style="background-image: url('https://images8.alphacoders.com/135/1353982.jpeg');"></div>
+                <div class="card-content">
+                    <div class="card-top">
+                        <span class="rank-stars">★★★★★</span>
+                        <!-- Sound Vizualizer -->
+                        <div class="wave-visualizer">
+                            <div class="bar" style="animation-delay: 0s"></div>
+                            <div class="bar" style="animation-delay: 0.2s"></div>
+                            <div class="bar" style="animation-delay: 0.4s"></div>
+                            <div class="bar" style="animation-delay: 0.1s"></div>
+                        </div>
                     </div>
-                    <div class="game-title">
-                        <h2>Elden Ring</h2>
-                        <span>124 HRS // STEAM</span>
-                    </div>
-                    <div class="game-footer">
-                        <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
+                    <div class="card-main">
+                        <h2>Wuthering Waves</h2>
+                        <p>STATUS: ACTIVE // UNION LVL 45</p>
                     </div>
                 </div>
-                <div class="corner tl"></div><div class="corner tr"></div>
-                <div class="corner bl"></div><div class="corner br"></div>
             </div>
 
-            <!-- Example 2 -->
-            <div class="game-module" data-category="gacha">
-                <div class="game-bg" style="background-image: url('https://images8.alphacoders.com/135/1353982.jpeg');"></div>
-                <div class="game-content">
-                    <div class="game-header">
-                        <span class="game-rank ssr">SSR</span>
+            <!-- Card: Elden Ring -->
+            <div class="data-card" data-category="rpg">
+                <div class="card-bg" style="background-image: url('https://images5.alphacoders.com/112/1126269.jpg');"></div>
+                <div class="card-content">
+                    <div class="card-top">
+                        <span class="rank-stars">★★★★★</span>
+                        <div class="wave-visualizer">
+                            <div class="bar" style="animation-delay: 0.5s"></div>
+                            <div class="bar" style="animation-delay: 0.1s"></div>
+                            <div class="bar" style="animation-delay: 0.3s"></div>
+                        </div>
                     </div>
-                    <div class="game-title">
-                        <h2>Wuthering Waves</h2>
-                        <span>LVL 45 // DAILY</span>
-                    </div>
-                    <div class="game-footer">
-                        <div class="progress-bar"><div class="progress-fill infinite"></div></div>
+                    <div class="card-main">
+                        <h2>Elden Ring</h2>
+                        <p>STATUS: COMPLETED // 120 HRS</p>
                     </div>
                 </div>
-                <div class="corner tl"></div><div class="corner tr"></div>
-                <div class="corner bl"></div><div class="corner br"></div>
             </div>
-            
-             <!-- Example 3 -->
-             <div class="game-module" data-category="rpg">
-                <div class="game-bg" style="background-image: url('https://images6.alphacoders.com/133/1330239.jpeg');"></div>
-                <div class="game-content">
-                    <div class="game-header">
-                        <span class="game-rank sr">SR</span>
+
+            <!-- Card: Cyberpunk -->
+            <div class="data-card" data-category="rpg">
+                <div class="card-bg" style="background-image: url('https://images6.alphacoders.com/133/1330239.jpeg');"></div>
+                <div class="card-content">
+                    <div class="card-top">
+                        <span class="rank-stars">★★★★</span>
+                        <div class="wave-visualizer">
+                            <div class="bar" style="animation-delay: 0.2s"></div>
+                            <div class="bar" style="animation-delay: 0.6s"></div>
+                        </div>
                     </div>
-                    <div class="game-title">
+                    <div class="card-main">
                         <h2>Cyberpunk 2077</h2>
-                        <span>COMPLETED</span>
-                    </div>
-                    <div class="game-footer">
-                        <div class="progress-bar"><div class="progress-fill" style="width: 100%; background: var(--gold)"></div></div>
+                        <p>STATUS: ARCHIVED</p>
                     </div>
                 </div>
-                <div class="corner tl"></div><div class="corner tr"></div>
-                <div class="corner bl"></div><div class="corner br"></div>
             </div>
+
         </div>
     </main>
     <script src="script.js"></script>
