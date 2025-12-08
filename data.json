@@ -120,6 +120,13 @@
             "dev": "Warm Lamp Games"
         },
         {
+            "title": "Beholder: Blissful Sleep",
+            "image": "https://cdn2.steamgriddb.com/grid/f05b1137c86a34c99596001140225d57.jpg",
+            "tags": "Strategy, Dystopian, DLC",
+            "platform": "PC",
+            "dev": "Warm Lamp Games"
+        },
+        {
             "title": "Beholder 2",
             "image": "https://cdn2.steamgriddb.com/grid/d421fe849ec913c735125ad646aa4445.jpg",
             "tags": "Strategy, Simulation, Dark",
@@ -226,28 +233,28 @@
         },
         {
             "title": "DOOM Eternal",
-            "image": "https://cdn2.steamgriddb.com/grid/17171717171717171717171717171717.png",
+            "image": "https://cdn2.steamgriddb.com/grid/587984f88e36d4f75b713c7d6e6a18d1.png",
             "tags": "FPS, Action, Demons",
             "platform": "Multi-platform",
             "dev": "id Software"
         },
         {
             "title": "DOOM (2016)",
-            "image": "https://cdn2.steamgriddb.com/grid/32323232323232323232323232323232.png",
+            "image": "https://cdn2.steamgriddb.com/grid/921694b281c9533b04b9012e8451a9e3.png",
             "tags": "FPS, Action, Sci-Fi",
             "platform": "Multi-platform",
             "dev": "id Software"
         },
         {
             "title": "DOOM: The Dark Ages",
-            "image": "https://cdn2.steamgriddb.com/grid/a0f0a0f0a0f0a0f0a0f0a0f0a0f0a0f0.png",
+            "image": "https://cdn2.steamgriddb.com/grid/c47e85233157581b24e4d5801c4e746d.png",
             "tags": "FPS, Action, Medieval",
             "platform": "PC / Console",
             "dev": "id Software"
         },
         {
             "title": "Mouthwashing",
-            "image": "https://cdn2.steamgriddb.com/grid/39939939939939939939939939939939.png",
+            "image": "https://cdn2.steamgriddb.com/grid/9f4a0a1f734493a31c19b35d642e13eb.png",
             "tags": "Psychological Horror, Retro, Story",
             "platform": "PC",
             "dev": "Wrong Organ"
@@ -426,6 +433,188 @@
             "tags": "RPG, Story Rich, Great Soundtrack",
             "platform": "Multi-platform",
             "dev": "tobyfox"
+        },
+        {
+            "title": "Dota 2",
+            "image": "https://cdn2.steamgriddb.com/grid/433a01047240c21e6c27b2f0b40e2954.png",
+            "tags": "MOBA, Multiplayer, Strategy, Free to Play",
+            "platform": "Steam",
+            "dev": "Valve"
+        },
+        {
+            "title": "Untitled Goose Game",
+            "image": "https://cdn2.steamgriddb.com/grid/112aa2035904f43405b63309a15f5b21.png",
+            "tags": "Indie, Puzzle, Stealth, Comedy",
+            "platform": "Steam",
+            "dev": "House House"
+        },
+        {
+            "title": "60 Seconds!",
+            "image": "https://cdn2.steamgriddb.com/grid/374023c7210e7428801d90097f5a04a3.png",
+            "tags": "Survival, Dark Comedy, Post-apocalyptic, Indie",
+            "platform": "Steam",
+            "dev": "Robot Gentleman"
+        },
+        {
+            "title": "Oxygen Not Included",
+            "image": "https://cdn2.steamgriddb.com/grid/67041a7d18a09f87f466b02a9446d1f9.png",
+            "tags": "Colony Sim, Survival, Simulation, Base Building",
+            "platform": "Steam",
+            "dev": "Klei Entertainment"
+        },
+        {
+            "title": "Little Nightmares",
+            "image": "https://cdn2.steamgriddb.com/grid/2070e17818bbd0a3384a56c3216c59d8.png",
+            "tags": "Horror, Puzzle, Platformer, Atmospheric",
+            "platform": "Steam",
+            "dev": "Tarsier Studios"
+        },
+        {
+            "title": "Little Nightmares II",
+            "image": "https://cdn2.steamgriddb.com/grid/bb2f6e5250005a60e0a5c4e4210a47a1.png",
+            "tags": "Horror, Puzzle, Adventure, Sequel",
+            "platform": "Steam",
+            "dev": "Tarsier Studios"
+        },
+        {
+            "title": "Little Nightmares III",
+            "image": "https://cdn2.steamgriddb.com/grid/835697626920f26284f29d2f2b3b7ed6.png",
+            "tags": "Horror, Co-op, Adventure, Upcoming",
+            "platform": "Steam",
+            "dev": "Supermassive Games"
+        },
+        {
+            "title": "Little Misfortune",
+            "image": "https://cdn2.steamgriddb.com/grid/587d55d648f86419d287413669a94da4.png",
+            "tags": "Adventure, Indie, Dark Humor, Choices Matter",
+            "platform": "Steam",
+            "dev": "Killmonday Games"
+        },
+        {
+            "title": "Scrap Mechanic",
+            "image": "https://cdn2.steamgriddb.com/grid/f19f61b001099684124378822533c30a.png",
+            "tags": "Sandbox, Building, Survival, Open World",
+            "platform": "Steam",
+            "dev": "Axolot Games"
+        },
+        {
+            "title": "VRChat",
+            "image": "https://cdn2.steamgriddb.com/grid/593e430c5e3f32420f135b6b4f7b2e35.png",
+            "tags": "VR, Social, Free to Play, Massively Multiplayer",
+            "platform": "Steam",
+            "dev": "VRChat Inc."
+        },
+        {
+            "title": "Raft",
+            "image": "https://cdn2.steamgriddb.com/grid/3739818805f15a31c6a2c00f735d46e3.png",
+            "tags": "Survival, Crafting, Open World, Co-op",
+            "platform": "Steam",
+            "dev": "Redbeet Interactive"
+        },
+        {
+            "title": "Protocol",
+            "image": "https://cdn2.steamgriddb.com/grid/77d9c66f97c4146a4e3df5d34208a543.png",
+            "tags": "Adventure, Sci-fi, First-Person, Story Rich",
+            "platform": "Steam",
+            "dev": "Fair Games Studio"
+        },
+        {
+            "title": "Deltarune",
+            "image": "https://cdn2.steamgriddb.com/grid/7ca3f707f59d20c5674332f146f34e32.png",
+            "tags": "RPG, Indie, Pixel Graphics, Story Rich",
+            "platform": "Steam",
+            "dev": "tobyfox"
+        },
+        {
+            "title": "Alice: Madness Returns",
+            "image": "https://cdn2.steamgriddb.com/grid/835697a6f23c72b1d300d8109d941aaf.png",
+            "tags": "Action, Adventure, Dark Fantasy, Platformer",
+            "platform": "Steam",
+            "dev": "Spicy Horse"
+        },
+        {
+            "title": "The Stanley Parable: Ultra Deluxe",
+            "image": "https://cdn2.steamgriddb.com/grid/d40d9d309148d80c6c7477c1969a473f.png",
+            "tags": "Adventure, Comedy, First-Person, Choices Matter",
+            "platform": "Steam",
+            "dev": "Crows Crows Crows"
+        },
+        {
+            "title": "We Happy Few",
+            "image": "https://cdn2.steamgriddb.com/grid/06d2035293de5420d41e7a5c12368161.png",
+            "tags": "Action, Adventure, Dystopian, Survival",
+            "platform": "Steam",
+            "dev": "Compulsion Games"
+        },
+        {
+            "title": "NieR:Automata",
+            "image": "https://cdn2.steamgriddb.com/grid/921a37651a24d7d13b318d157a0572e4.png",
+            "tags": "Action RPG, Story Rich, Sci-fi, Post-apocalyptic",
+            "platform": "Steam",
+            "dev": "PlatinumGames"
+        },
+        {
+            "title": "Clea",
+            "image": "https://cdn2.steamgriddb.com/grid/f661c9e88939c381b2123517173e047f.png",
+            "tags": "Horror, Survival, Indie, 2D",
+            "platform": "Steam",
+            "dev": "InvertMouse"
+        },
+        {
+            "title": "Clea 2",
+            "image": "https://cdn2.steamgriddb.com/grid/789e5a1900a35b11a43d9b4b08b35582.png",
+            "tags": "Horror, Survival, Indie, Sequel",
+            "platform": "Steam",
+            "dev": "InvertMouse"
+        },
+        {
+            "title": "Plants vs. Zombies",
+            "image": "https://cdn2.steamgriddb.com/grid/0d55e3427958a74b321e25e9d9b68a2d.png",
+            "tags": "Tower Defense, Strategy, Casual, Classic",
+            "platform": "Steam",
+            "dev": "PopCap Games"
+        },
+        {
+            "title": "DEEEER Simulator",
+            "image": "https://cdn2.steamgriddb.com/grid/c4573b306b83f345a9a83a0050e04f14.png",
+            "tags": "Sandbox, Physics, Comedy, Indie",
+            "platform": "Steam",
+            "dev": "Gibier Games"
+        },
+        {
+            "title": "Broforce",
+            "image": "https://cdn2.steamgriddb.com/grid/b3d4f6c49c86ead8364811a7f722a9ff.png",
+            "tags": "Action, Pixel Graphics, Co-op, Platformer",
+            "platform": "Steam",
+            "dev": "Free Lives"
+        },
+        {
+            "title": "Farlight 84",
+            "image": "https://cdn2.steamgriddb.com/grid/8357f86234b415ba247343e74b3d4f82.png",
+            "tags": "Battle Royale, Hero Shooter, Free to Play, Multiplayer",
+            "platform": "Steam",
+            "dev": "Farlight"
+        },
+        {
+            "title": "The Dispatcher",
+            "image": "https://cdn2.steamgriddb.com/grid/5053787752e5d59048a1215b02a2810a.png",
+            "tags": "Horror, Indie, Walking Simulator, Short",
+            "platform": "PC",
+            "dev": "Civil Savages"
+        },
+        {
+            "title": "Beholder: Conductor",
+            "image": "https://cdn2.steamgriddb.com/grid/e6a57f005085e683344d5d36e768114f.png",
+            "tags": "Short Film, Dystopian, Story Rich, Lore",
+            "platform": "YouTube / Steam",
+            "dev": "Paintbucket Games"
+        },
+        {
+            "title": "Overwatch",
+            "image": "https://cdn2.steamgriddb.com/grid/2275b6f2f51859b6572545d1b1e36ccd.png",
+            "tags": "Hero Shooter, FPS, Multiplayer, Team-Based",
+            "platform": "Multi-platform",
+            "dev": "Blizzard"
         }
     ],
     "anime": [
