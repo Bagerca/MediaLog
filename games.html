@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games // Resonance</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Стили: Глобальные + Специфические для Игр -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="games.css">
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="style.css"> <!-- Глобальный каркас -->
+    <link rel="stylesheet" href="games.css"> <!-- Специфичные стили для игр -->
 </head>
 
-<!-- data-page="games" сообщает JS, что нужно загружать игры и использовать шаблон для игр -->
+<!-- data-page="games" указывает JS использовать классы .game-card -->
 <body data-page="games">
     
-    <!-- Фоновая анимация -->
+    <!-- Фон -->
     <div class="background-container">
         <div class="bg-grid"></div>
         <div class="bg-fog"></div>
@@ -43,13 +44,14 @@
         </div>
     </nav>
 
+    <!-- Основной контент -->
     <main class="container">
         <header class="page-header">
             <div class="deco-tag">/// FREQUENCY: STABLE</div>
             <h1>SIMULATION LOGS</h1>
         </header>
 
-        <!-- Панель управления (Фильтр, Поиск, Вид) -->
+        <!-- Панель управления -->
         <div class="filter-wrapper">
             <!-- Выпадающий список -->
             <div class="custom-dropdown">
@@ -66,18 +68,18 @@
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
             
-            <!-- Кнопки управления сеткой -->
+            <!-- Кнопки сетки -->
             <div class="view-controls">
                 <button class="view-btn active" data-cols="3" title="3 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg></button>
                 <button class="view-btn" data-cols="4" title="4 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
             </div>
         </div>
 
-        <!-- ГЛАВНЫЙ КОНТЕЙНЕР ДЛЯ КАРТОЧЕК -->
+        <!-- Контейнер карточек (JS наполнит его) -->
         <div class="grid-cards cols-3" id="cards-container"></div>
     </main>
 
-    <!-- МОДАЛЬНОЕ ОКНО (Общее для обоих разделов) -->
+    <!-- Модальное окно -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="modal-inner">
@@ -89,7 +91,6 @@
                     </div>
             
                     <div class="modal-info">
-                        <!-- Водяной знак ранга -->
                         <div class="rank-watermark" id="modalRank" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); font-size: 10rem; opacity: 0.05; font-weight: 900; pointer-events: none;">UR</div>
     
                         <div class="modal-header">
