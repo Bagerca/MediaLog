@@ -6,17 +6,20 @@
     <title>Visuals // Resonance</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Подключаем общие стили и стили для Аниме -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="anime.css"> <!-- Подключен специфичный стиль -->
+    <link rel="stylesheet" href="anime.css">
 </head>
 <body data-page="anime">
     
+    <!-- Фон -->
     <div class="background-container">
         <div class="bg-grid"></div>
         <div class="bg-fog"></div>
         <div class="gold-dust d2"></div><div class="gold-dust d4"></div>
     </div>
 
+    <!-- Навигация -->
     <nav class="navbar">
         <a href="index.html" class="brand-logo">
             <svg class="logo-icon" viewBox="0 0 40 40">
@@ -36,7 +39,7 @@
             <a href="games.html" class="nav-item">SIMULATIONS</a>
         </div>
 
-        <!-- Кнопка Входа -->
+        <!-- Панель пользователя / Вход -->
         <div class="user-panel" style="margin-left: 2rem;">
             <button id="navAuthBtn" class="filter-btn" style="border: 1px solid var(--gold); color: var(--gold); background: transparent; padding: 5px 15px; font-family: var(--font-head); cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
                 LOGIN
@@ -46,11 +49,15 @@
 
     <main class="container">
         <header class="page-header anime-header">
-            <div class="header-deco">/// ARCHIVE: OPEN</div>
+            <!-- Вернул deco-tag и покрасил в красный -->
+            <div class="deco-tag" style="border-color: #ff4d4d; color: #ff4d4d; background: rgba(255, 77, 77, 0.05);">
+                /// ARCHIVE: OPEN
+            </div>
             <h1>VISUAL LOGS</h1>
         </header>
 
         <div class="filter-wrapper">
+            <!-- Фильтр -->
             <div class="custom-dropdown">
                 <button class="dropdown-trigger">
                     <span class="selected-text">FILTER BY TAGS</span>
@@ -59,35 +66,36 @@
                 <div class="dropdown-options" id="filterOptions"></div>
             </div>
             
+            <!-- Поиск -->
             <div class="search-terminal">
                 <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
 
+            <!-- Управление сеткой (4, 5, 6 колонок) -->
             <div class="view-controls">
-                <button class="view-btn active" data-cols="3" title="3 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg></button>
-                <button class="view-btn" data-cols="4" title="4 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
+                <button class="view-btn active" data-cols="4" title="4 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
                 <button class="view-btn" data-cols="5" title="5 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2" height="14" fill="currentColor"/><rect x="3" y="0" width="2" height="14" fill="currentColor"/><rect x="6" y="0" width="2" height="14" fill="currentColor"/><rect x="9" y="0" width="2" height="14" fill="currentColor"/><rect x="12" y="0" width="2" height="14" fill="currentColor"/></svg></button>
+                <button class="view-btn" data-cols="6" title="6 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="1.5" height="14" fill="currentColor"/><rect x="2.5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="7.5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="10" y="0" width="1.5" height="14" fill="currentColor"/><rect x="12.5" y="0" width="1.5" height="14" fill="currentColor"/></svg></button>
             </div>
         </div>
 
-        <div class="grid-cards cols-3" id="cards-container"></div>
+        <!-- Контейнер карточек (По умолчанию 4 колонки) -->
+        <div class="grid-cards cols-4" id="cards-container"></div>
     </main>
 
-    <!-- AUTH MODAL -->
+    <!-- Модальное окно ВХОДА -->
     <div class="modal-overlay" id="authModal">
         <div class="modal-window" style="height: auto; max-width: 450px;">
             <div class="modal-inner">
                 <button class="modal-close" id="closeAuth">
                     <span class="close-text">TERMINATE</span><span class="close-icon">✕</span>
                 </button>
-                
                 <div class="modal-body" style="flex-direction: column; padding: 3rem;">
                     <div class="modal-header">
                         <div class="sys-row"><span class="sys-msg">/// SECURITY_CHECK</span></div>
                         <h2 style="font-size: 2.5rem; margin-top: 10px; color: #fff;">NET.ACCESS</h2>
                     </div>
-
                     <form id="authForm" style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem;">
                         <div class="search-terminal" style="width: 100%;">
                             <input type="email" id="emailInput" placeholder="CODENAME (EMAIL)" required style="width: 100%;">
@@ -95,7 +103,6 @@
                         <div class="search-terminal" style="width: 100%;">
                             <input type="password" id="passInput" placeholder="ACCESS KEY (PASSWORD)" required style="width: 100%;">
                         </div>
-
                         <div style="display: flex; gap: 1rem; margin-top: 1rem;">
                             <button type="button" id="btnLogin" class="action-btn primary"><span class="btn-text">CONNECT</span></button>
                             <button type="button" id="btnRegister" class="action-btn secondary"><span class="btn-text">NEW ID</span></button>
@@ -107,19 +114,17 @@
         </div>
     </div>
 
-    <!-- DETAIL MODAL -->
+    <!-- Модальное окно ДЕТАЛЕЙ -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="modal-inner">
                 <button class="modal-close" id="closeModal">
                     <span class="close-text">ABORT SIGNAL</span><span class="close-icon">✕</span>
                 </button>
-            
                 <div class="modal-body">
                     <div class="modal-visual">
                         <img id="modalImg" src="" alt="Cover Art">
                     </div>
-            
                     <div class="modal-info">
                         <div class="rank-watermark" id="modalRank">UR</div>
                         <div class="modal-header">
