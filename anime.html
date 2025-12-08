@@ -7,8 +7,8 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="anime.css"> <!-- Подключен специфичный стиль -->
 </head>
-<!-- Указываем скрипту загружать раздел "anime" -->
 <body data-page="anime">
     
     <div class="background-container">
@@ -18,7 +18,6 @@
     </div>
 
     <nav class="navbar">
-        <!-- ЛОГОТИП -->
         <a href="index.html" class="brand-logo">
             <svg class="logo-icon" viewBox="0 0 40 40">
                 <path d="M20 2 L37 11 V29 L20 38 L3 29 V11 Z" />
@@ -36,16 +35,22 @@
             <a href="anime.html" class="nav-item active">VISUALS</a>
             <a href="games.html" class="nav-item">SIMULATIONS</a>
         </div>
+
+        <!-- Кнопка Входа -->
+        <div class="user-panel" style="margin-left: 2rem;">
+            <button id="navAuthBtn" class="filter-btn" style="border: 1px solid var(--gold); color: var(--gold); background: transparent; padding: 5px 15px; font-family: var(--font-head); cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
+                LOGIN
+            </button>
+        </div>
     </nav>
 
     <main class="container">
-        <header class="page-header">
-            <div class="deco-tag">/// ARCHIVE: OPEN</div>
+        <header class="page-header anime-header">
+            <div class="header-deco">/// ARCHIVE: OPEN</div>
             <h1>VISUAL LOGS</h1>
         </header>
 
         <div class="filter-wrapper">
-            <!-- Выпадающий список -->
             <div class="custom-dropdown">
                 <button class="dropdown-trigger">
                     <span class="selected-text">FILTER BY TAGS</span>
@@ -54,30 +59,58 @@
                 <div class="dropdown-options" id="filterOptions"></div>
             </div>
             
-            <!-- Поиск -->
             <div class="search-terminal">
                 <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
 
-            <!-- Кнопки управления сеткой -->
             <div class="view-controls">
                 <button class="view-btn active" data-cols="3" title="3 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg></button>
                 <button class="view-btn" data-cols="4" title="4 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
                 <button class="view-btn" data-cols="5" title="5 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2" height="14" fill="currentColor"/><rect x="3" y="0" width="2" height="14" fill="currentColor"/><rect x="6" y="0" width="2" height="14" fill="currentColor"/><rect x="9" y="0" width="2" height="14" fill="currentColor"/><rect x="12" y="0" width="2" height="14" fill="currentColor"/></svg></button>
-                <button class="view-btn" data-cols="6" title="6 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="1.5" height="14" fill="currentColor"/><rect x="2.5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="7.5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="10" y="0" width="1.5" height="14" fill="currentColor"/><rect x="12.5" y="0" width="1.5" height="14" fill="currentColor"/></svg></button>
             </div>
         </div>
 
-        <!-- ГЛАВНЫЙ КОНТЕЙНЕР (Пустой, для JS) -->
         <div class="grid-cards cols-3" id="cards-container"></div>
     </main>
 
-    <!-- HUD MODAL -->
+    <!-- AUTH MODAL -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-window" style="height: auto; max-width: 450px;">
+            <div class="modal-inner">
+                <button class="modal-close" id="closeAuth">
+                    <span class="close-text">TERMINATE</span><span class="close-icon">✕</span>
+                </button>
+                
+                <div class="modal-body" style="flex-direction: column; padding: 3rem;">
+                    <div class="modal-header">
+                        <div class="sys-row"><span class="sys-msg">/// SECURITY_CHECK</span></div>
+                        <h2 style="font-size: 2.5rem; margin-top: 10px; color: #fff;">NET.ACCESS</h2>
+                    </div>
+
+                    <form id="authForm" style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem;">
+                        <div class="search-terminal" style="width: 100%;">
+                            <input type="email" id="emailInput" placeholder="CODENAME (EMAIL)" required style="width: 100%;">
+                        </div>
+                        <div class="search-terminal" style="width: 100%;">
+                            <input type="password" id="passInput" placeholder="ACCESS KEY (PASSWORD)" required style="width: 100%;">
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                            <button type="button" id="btnLogin" class="action-btn primary"><span class="btn-text">CONNECT</span></button>
+                            <button type="button" id="btnRegister" class="action-btn secondary"><span class="btn-text">NEW ID</span></button>
+                        </div>
+                    </form>
+                    <div id="authMsg" style="margin-top: 15px; color: var(--gold); font-family: var(--font-head); font-size: 0.8rem; height: 1rem;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETAIL MODAL -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="modal-inner">
-                
                 <button class="modal-close" id="closeModal">
                     <span class="close-text">ABORT SIGNAL</span><span class="close-icon">✕</span>
                 </button>
@@ -89,13 +122,11 @@
             
                     <div class="modal-info">
                         <div class="rank-watermark" id="modalRank">UR</div>
-    
                         <div class="modal-header">
                             <div class="sys-row"><span class="sys-msg">/// DECRYPTED_DATA_LOG_01</span><span class="sys-id">ID: #89-XJ</span></div>
                             <h2 id="modalTitle">TITLE</h2>
                             <div class="tags-container" id="modalTags"></div>
                         </div>
-            
                         <div class="modal-content-scroll">
                             <p id="modalDesc" class="modal-desc">Description...</p>
                             <div class="stats-grid">
@@ -105,7 +136,6 @@
                                 <div class="stat-box"><span class="stat-label">INTEGRITY</span><span class="stat-value highlight">100%</span></div>
                             </div>
                         </div>
-            
                         <div class="modal-footer">
                             <button class="action-btn primary"><span class="btn-text">INITIATE LAUNCH</span></button>
                             <button class="action-btn secondary"><span class="btn-text">EDIT RECORD</span></button>
@@ -115,6 +145,7 @@
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script type="module" src="script.js"></script>
 </body>
 </html>
