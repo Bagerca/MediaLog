@@ -4,7 +4,6 @@
    1. СТИЛИ КАРТОЧКИ (ANIME - HUD DESIGN)
    ================================================================= */
 
-/* База карточки */
 .anime-card {
     position: relative; width: 100%; aspect-ratio: 2 / 3;
     background: #2a2c33; padding: 1px; cursor: pointer; z-index: 1;
@@ -13,13 +12,11 @@
     transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Внутренний контейнер */
 .anime-card-inner {
     position: relative; width: 100%; height: 100%; background: #0a0b10; overflow: hidden;
     clip-path: polygon(21px 0, 100% 0, 100% calc(100% - 21px), calc(100% - 21px) 100%, 0 100%, 0 21px);
 }
 
-/* Изображение */
 .anime-card-img {
     position: absolute; inset: 0; background-size: cover; background-position: center;
     transition: transform 0.5s ease, filter 0.5s ease; 
@@ -27,7 +24,6 @@
     z-index: 1;
 }
 
-/* Техно-сетка */
 .anime-card-inner::before {
     content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
     background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
@@ -35,14 +31,13 @@
     background-size: 30px 30px; opacity: 0.3; transition: 0.3s;
 }
 
-/* Градиент снизу */
 .anime-card-inner::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(to top, rgba(5,6,8,1) 0%, rgba(5,6,8,0.9) 25%, transparent 60%);
     z-index: 2; pointer-events: none;
 }
 
-/* --- HUD ЭЛЕМЕНТЫ: РАНГ (5 Цветов) --- */
+/* РАНГИ */
 .anime-rank-badge {
     position: absolute; top: 0; left: 20px; z-index: 10;
     width: 36px; height: 48px;
@@ -51,42 +46,15 @@
     border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1);
     font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; letter-spacing: 1px;
     clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: 0.3s;
 }
+.anime-rank-badge.ur { color: var(--gold); border-top: 2px solid var(--gold); text-shadow: 0 0 15px rgba(255, 174, 0, 0.6); box-shadow: 0 5px 20px rgba(255, 174, 0, 0.15); }
+.anime-rank-badge.ssr { color: var(--cyan); border-top: 2px solid var(--cyan); text-shadow: 0 0 15px rgba(95, 251, 241, 0.6); box-shadow: 0 5px 20px rgba(95, 251, 241, 0.15); }
+.anime-rank-badge.sr { color: #00ff9d; border-top: 2px solid #00ff9d; text-shadow: 0 0 15px rgba(0, 255, 157, 0.6); box-shadow: 0 5px 20px rgba(0, 255, 157, 0.15); }
+.anime-rank-badge.r { color: #ff8e3c; border-top: 2px solid #ff8e3c; text-shadow: 0 0 15px rgba(255, 142, 60, 0.6); box-shadow: 0 5px 20px rgba(255, 142, 60, 0.15); }
+.anime-rank-badge.n { color: #ff003c; border-top: 2px solid #ff003c; text-shadow: 0 0 15px rgba(255, 0, 60, 0.6); box-shadow: 0 5px 20px rgba(255, 0, 60, 0.15); }
 
-/* 1. UR - Gold */
-.anime-rank-badge.ur { 
-    color: var(--gold); border-top: 2px solid var(--gold); 
-    text-shadow: 0 0 15px rgba(255, 174, 0, 0.6);
-    box-shadow: 0 5px 20px rgba(255, 174, 0, 0.15);
-}
-/* 2. SSR - Cyan */
-.anime-rank-badge.ssr { 
-    color: var(--cyan); border-top: 2px solid var(--cyan); 
-    text-shadow: 0 0 15px rgba(95, 251, 241, 0.6);
-    box-shadow: 0 5px 20px rgba(95, 251, 241, 0.15);
-}
-/* 3. SR - Green */
-.anime-rank-badge.sr { 
-    color: #00ff9d; border-top: 2px solid #00ff9d; 
-    text-shadow: 0 0 15px rgba(0, 255, 157, 0.6);
-    box-shadow: 0 5px 20px rgba(0, 255, 157, 0.15);
-}
-/* 4. R - Orange */
-.anime-rank-badge.r { 
-    color: #ff8e3c; border-top: 2px solid #ff8e3c; 
-    text-shadow: 0 0 15px rgba(255, 142, 60, 0.6);
-    box-shadow: 0 5px 20px rgba(255, 142, 60, 0.15);
-}
-/* 5. N - Red */
-.anime-rank-badge.n { 
-    color: #ff003c; border-top: 2px solid #ff003c; 
-    text-shadow: 0 0 15px rgba(255, 0, 60, 0.6);
-    box-shadow: 0 5px 20px rgba(255, 0, 60, 0.15);
-}
-
-/* --- КНОПКА СТАТУСА --- */
+/* КНОПКА */
 .status-btn {
     position: absolute; top: 0; right: 0; z-index: 20;
     width: 48px; height: 48px;
@@ -100,7 +68,7 @@
 .status-btn svg { width: 20px; height: 20px; fill: currentColor; transition: 0.3s; margin-bottom: 5px; margin-left: 5px; }
 .status-btn.active { background: var(--cyan); color: #000; border-color: var(--cyan); }
 
-/* --- КОНТЕНТ КАРТОЧКИ --- */
+/* КОНТЕНТ */
 .anime-card-content { 
     position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; z-index: 10; 
     transform: translateY(5px); transition: 0.3s;
@@ -121,11 +89,8 @@
     color: var(--text-muted); opacity: 0.8; transition: 0.3s;
 }
 
-/* --- HOVER --- */
-.anime-card:hover {
-    transform: translateY(-8px); background: var(--cyan);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-}
+/* HOVER */
+.anime-card:hover { transform: translateY(-8px); background: var(--cyan); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
 .anime-card:hover .anime-card-img { transform: scale(1.08); filter: brightness(1.1) grayscale(0%); }
 .anime-card:hover .anime-card-inner::before { opacity: 0; }
 .anime-card:hover .anime-card-content { transform: translateY(0); }
@@ -134,7 +99,7 @@
 
 
 /* =================================================================
-   2. МОДАЛЬНОЕ ОКНО (ANIME - WIDE TACTICAL)
+   2. МОДАЛЬНОЕ ОКНО (ANIME - FIXED PROPORTIONS)
    ================================================================= */
 
 .modal-overlay {
@@ -156,15 +121,10 @@
 
 /* 2. CLIPPER */
 .modal-clipper {
-    width: 100%; height: 100%;
-    background: #0b0c10;
-    clip-path: polygon(
-        20px 0, 100% 0, 100% calc(100% - 20px), 
-        calc(100% - 20px) 100%, 0 100%, 0 20px
-    );
+    width: 100%; height: 100%; background: #0b0c10;
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-    display: flex; flex-direction: column;
-    position: relative; z-index: 1;
+    display: flex; flex-direction: column; position: relative; z-index: 1;
 }
 .modal-clipper::before {
     content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
@@ -173,7 +133,7 @@
     background-size: 40px 40px;
 }
 
-/* 3. УГОЛКИ (Cyan) */
+/* 3. УГОЛКИ */
 .modal-corner {
     position: absolute; width: 15px; height: 15px;
     background: var(--cyan); z-index: 20; pointer-events: none;
@@ -184,20 +144,21 @@
 .btm-left { bottom: 0; left: 0; }
 .btm-right { bottom: 0; right: 0; }
 
-/* ВНУТРЕННОСТИ */
 .modal-inner { position: relative; width: 100%; height: 100%; z-index: 1; display: flex; overflow: hidden; }
 .modal-body { display: flex; flex-direction: row; width: 100%; height: 100%; }
 
-/* VISUAL */
+/* --- VISUAL (ИСПРАВЛЕНО) --- */
 .modal-visual { 
-    flex: 0 0 40%; height: 100%; position: relative; 
+    flex: 0 0 466px; /* Пропорция 2:3 */
+    height: 100%; position: relative; 
     background: #000; overflow: hidden;
     border-right: 1px solid rgba(255,255,255,0.1);
 }
 .modal-visual img { 
-    width: 100%; height: 100%; object-fit: cover; 
+    width: 100%; height: 100%; 
+    object-fit: cover; object-position: center top; 
     opacity: 0.8; transition: 0.5s;
-    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    /* Убрали mask-image */
 }
 .visual-overlay {
     position: absolute; inset: 0; z-index: 2; pointer-events: none;
@@ -215,8 +176,7 @@
 .modal-info { 
     flex: 1; padding: 40px; position: relative; 
     display: flex; flex-direction: column; 
-    overflow-y: auto; overflow-x: hidden;
-    height: 100%;
+    overflow-y: auto; overflow-x: hidden; height: 100%;
 }
 
 .modal-close { 
@@ -233,8 +193,7 @@
 
 .modal-header h2 { 
     font-family: var(--font-head); font-size: 3.5rem; color: #fff; margin: 0; 
-    line-height: 0.9; text-transform: uppercase; letter-spacing: 1px;
-    word-break: break-word;
+    line-height: 0.9; text-transform: uppercase; letter-spacing: 1px; word-break: break-word;
 }
 .header-line {
     width: 60px; height: 4px; background: var(--cyan); margin: 15px 0 20px 0;
@@ -249,31 +208,20 @@
 }
 
 /* MODE CONTENT */
-.mode-content { 
-    display: flex; flex-direction: column; 
-    flex-grow: 1; min-height: 0; 
-    animation: fadeIn 0.3s ease;
-}
+.mode-content { display: flex; flex-direction: column; flex-grow: 1; min-height: 0; animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
 /* VIEW GRID */
-.view-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-    margin-bottom: 20px; width: 100%; flex-shrink: 0;
-}
+.view-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; width: 100%; flex-shrink: 0; }
 .info-block { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .rank-block { grid-column: 1 / 2; }
 .platform-block { grid-column: 2 / 3; }
 .note-block { grid-column: 1 / -1; margin-top: 10px; }
 
-.block-label {
-    font-family: var(--font-head); font-size: 0.7rem; color: var(--text-muted); 
-    letter-spacing: 2px; text-transform: uppercase; opacity: 0.7;
-}
+.block-label { font-family: var(--font-head); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; }
 
 .rank-display-box {
-    font-family: var(--font-head); font-size: 3rem; font-weight: 800; 
-    color: #fff; /* JS задает цвет */
+    font-family: var(--font-head); font-size: 3rem; font-weight: 800; color: #fff;
     background: rgba(95, 251, 241, 0.05); border: 1px solid var(--cyan);
     padding: 10px 20px; width: fit-content; min-width: 100px; text-align: center;
     box-shadow: 0 0 20px rgba(95, 251, 241, 0.1), inset 0 0 20px rgba(95, 251, 241, 0.1);
@@ -281,27 +229,15 @@
     text-shadow: 0 0 10px rgba(255,255,255,0.3);
 }
 
-.data-value {
-    font-family: var(--font-head); font-size: 1.2rem; color: #fff; font-weight: 600;
-    padding: 15px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);
-}
+.data-value { font-family: var(--font-head); font-size: 1.2rem; color: #fff; font-weight: 600; padding: 15px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); }
 
-.note-terminal {
-    background: #050608; border: 1px solid rgba(255,255,255,0.15);
-    padding: 20px; min-height: 100px; position: relative;
-}
-.terminal-line { 
-    position: absolute; left: 0; top: 20px; bottom: 20px; width: 3px; background: var(--text-muted); opacity: 0.3; 
-}
-.view-text {
-    font-family: 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6; color: #ccc;
-    white-space: pre-wrap; margin-left: 15px;
-}
+.note-terminal { background: #050608; border: 1px solid rgba(255,255,255,0.15); padding: 20px; min-height: 100px; position: relative; }
+.terminal-line { position: absolute; left: 0; top: 20px; bottom: 20px; width: 3px; background: var(--text-muted); opacity: 0.3; }
+.view-text { font-family: 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6; color: #ccc; white-space: pre-wrap; margin-left: 15px; }
 
 .rank-watermark {
     position: absolute; top: 50%; right: 20px; transform: translateY(-50%) rotate(-10deg);
-    font-family: var(--font-head); font-weight: 900; font-size: 20rem; 
-    color: var(--cyan); opacity: 0.03; pointer-events: none; z-index: 0;
+    font-family: var(--font-head); font-weight: 900; font-size: 20rem; color: var(--cyan); opacity: 0.03; pointer-events: none; z-index: 0;
 }
 
 /* EDIT FORM */
@@ -309,57 +245,40 @@
 .rank-selector { display: flex; gap: 10px; }
 .rank-opt {
     flex: 1; padding: 15px 0; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-    color: var(--text-muted); font-family: var(--font-head); font-weight: 800; font-size: 1.2rem;
-    cursor: pointer; transition: 0.2s;
+    color: var(--text-muted); font-family: var(--font-head); font-weight: 800; font-size: 1.2rem; cursor: pointer; transition: 0.2s;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 .rank-opt:hover { border-color: #fff; color: #fff; }
 
-/* Подсветка кнопок (Edit Mode) */
 .rank-opt.active[data-value="UR"]  { background: var(--gold); border-color: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
 .rank-opt.active[data-value="SSR"] { background: var(--cyan); border-color: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan); }
 .rank-opt.active[data-value="SR"]  { background: #00ff9d; border-color: #00ff9d; color: #000; box-shadow: 0 0 15px #00ff9d; }
 .rank-opt.active[data-value="R"]   { background: #ff8e3c; border-color: #ff8e3c; color: #000; box-shadow: 0 0 15px #ff8e3c; }
 .rank-opt.active[data-value="N"]   { background: #ff003c; border-color: #ff003c; color: #000; box-shadow: 0 0 15px #ff003c; }
 
-/* Inputs */
 .terminal-input, textarea#userNoteInput {
-    width: 100%; 
-    background: #050608; border: 1px solid rgba(255,255,255,0.2);
-    color: var(--cyan); padding: 0 20px;
-    font-family: 'Consolas', monospace; font-size: 0.9rem; letter-spacing: 1px;
-    outline: none; transition: 0.3s;
+    width: 100%; background: #050608; border: 1px solid rgba(255,255,255,0.2);
+    color: var(--cyan); padding: 0 20px; font-family: 'Consolas', monospace; font-size: 0.9rem; letter-spacing: 1px; outline: none; transition: 0.3s;
 }
 .terminal-input { height: 50px; }
 textarea#userNoteInput { height: 100%; min-height: 150px; padding: 20px; resize: none; }
-
 .terminal-input:focus, textarea#userNoteInput:focus { border-color: var(--cyan); box-shadow: 0 0 15px rgba(95, 251, 241, 0.1); }
 .terminal-input::placeholder, textarea#userNoteInput::placeholder { color: rgba(255,255,255,0.2); }
 
-/* FOOTER BUTTONS */
-.modal-footer { 
-    display: flex; gap: 15px; margin-top: auto; 
-    width: 100%; padding-top: 20px; 
-    border-top: 1px dashed rgba(255,255,255,0.1);
-    flex-shrink: 0; z-index: 10;
-}
+/* FOOTER */
+.modal-footer { display: flex; gap: 15px; margin-top: auto; width: 100%; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1); flex-shrink: 0; z-index: 10; }
 .action-btn { 
     height: 55px; display: flex; align-items: center; justify-content: center;
     font-family: var(--font-head); font-weight: 800; font-size: 0.9rem; letter-spacing: 2px;
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); 
-    text-transform: uppercase; cursor: pointer; transition: 0.3s;
-    white-space: nowrap;
+    text-transform: uppercase; cursor: pointer; transition: 0.3s; white-space: nowrap;
 }
-
 .primary-btn { flex: 1; background: var(--cyan); color: #000; box-shadow: 0 0 20px rgba(95, 251, 241, 0.2); }
 .primary-btn:hover { background: #fff; box-shadow: 0 0 30px rgba(255,255,255,0.4); }
-
 .edit-btn, .save-btn { flex: 2; background: var(--cyan); color: #000; min-width: 150px; }
 .edit-btn:hover, .save-btn:hover { background: #fff; }
-
 .delete-btn { flex: 1; background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; min-width: 100px; }
 .delete-btn:hover { background: #ff4d4d; color: #000; box-shadow: 0 0 20px rgba(255, 77, 77, 0.4); }
-
 .cancel-btn { flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); }
 .cancel-btn:hover { border-color: #fff; color: #fff; }
 
