@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <!-- Стили внутри SVG (Цвет #ffae00) -->
+  <style>
+    .stroke { fill: none; stroke: #ffae00; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .fill { fill: #ffae00; stroke: none; }
+    /* Поддержка темной/светлой темы браузера (опционально добавляем тень для контраста на светлом) */
+    @media (prefers-color-scheme: light) {
+      svg { filter: drop-shadow(0 0 1px rgba(0,0,0,0.5)); }
+    }
+  </style>
+  
+  <!-- Гексагон -->
+  <path class="stroke" d="M20 2 L37 11 V29 L20 38 L3 29 V11 Z" />
+  
+  <!-- Внутреннее кольцо -->
+  <circle class="stroke" cx="20" cy="20" r="10" stroke-dasharray="8 6" />
+  
+  <!-- Точка -->
+  <circle class="fill" cx="20" cy="20" r="3" />
+</svg>
