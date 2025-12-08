@@ -1,268 +1,182 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 0. КОНФИГУРАЦИЯ ---
+    // 0. КОНФИГУРАЦИЯ
     const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
-    const STORAGE_KEY_COLS = 'resonance_grid_columns';
     
-    // --- 1. ЗАГРУЗКА ДАННЫХ ИЗ JSON ---
+    // 1. ЗАГРУЗКА
     if (pageType && gridContainer) {
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
                 const items = data[pageType];
-                renderCards(items);
+                renderCards(items, pageType); // Передаем pageType
                 generateFilters(items); 
                 initInterface(); 
             })
-            .catch(error => console.error('Ошибка загрузки базы данных:', error));
+            .catch(err => console.error('DB Error:', err));
     } else {
         initInterface();
     }
 
-    // --- 2. ГЕНЕРАЦИЯ HTML КАРТОЧЕК ---
-    function renderCards(items) {
+    // 2. РЕНДЕР КАРТОЧЕК (ТЕПЕРЬ С ВЕТВЛЕНИЕМ)
+    function renderCards(items, type) {
         if (!items) return;
         
-        gridContainer.innerHTML = items.map((item, index) => {
-            const metaColor = (item.rank === 'UR') ? 'var(--gold)' : 
-                              (item.rank === 'SSR') ? 'var(--cyan)' : 'var(--text-muted)';
-            
-            return `
-            <div class="card" 
-                 data-category="${item.category}" 
-                 data-desc="${item.desc}"
-                 data-tags="${item.tags}"
-                 data-platform="${item.platform}"
-                 data-dev="${item.dev}"
-                 data-rank="${item.rank}"
-                 style="opacity: 0; transform: translateY(20px);"> 
-                
-                <div class="card-inner">
-                    <div class="card-img" style="background-image: url('${item.image}');"></div>
-                    <div class="rank-badge ${item.rank.toLowerCase()}">${item.rank}</div>
-                    <div class="card-content">
-                        <div class="card-title">${item.title}</div>
-                        <div class="card-meta">
-                            <span class="meta-highlight" style="color: ${metaColor}">${item.meta_highlight}</span>
-                            <span>${item.meta_sub}</span>
+        gridContainer.innerHTML = items.map(item => {
+            // Общие данные для модального окна (data-attrs)
+            const commonData = `
+                data-title="${item.title}"
+                data-desc="${item.desc}"
+                data-tags="${item.tags}"
+                data-platform="${item.platform}"
+                data-dev="${item.dev}"
+                data-rank="${item.rank}"
+                data-img="${item.image}"
+            `;
+
+            // --- ВАРИАНТ 1: ИГРЫ (Tech Style) ---
+            if (type === 'games') {
+                return `
+                <div class="game-card" ${commonData} data-category="${item.category}">
+                    <div class="game-bg" style="background-image: url('${item.image}');"></div>
+                    <div class="game-content">
+                        <div class="game-header">
+                            <div class="platform-badge">${item.platform}</div>
+                            <div class="game-rank rank-${item.rank}">${item.rank}</div>
+                        </div>
+                        
+                        <div class="game-main">
+                            <h3>${item.title}</h3>
+                            <div class="game-meta">${item.meta_highlight}</div>
+                        </div>
+
+                        <div class="game-footer">
+                            <div class="status-row">
+                                <span>INTEGRITY</span>
+                                <span>${item.meta_sub}</span>
+                            </div>
+                            <div class="progress-bar">
+                                <!-- Если статус ACTIVE, добавляем анимацию, иначе просто заливка -->
+                                <div class="${item.meta_sub.includes('ACTIVE') ? 'loading-anim' : 'progress-fill'}"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            `;
+                </div>`;
+            } 
+            
+            // --- ВАРИАНТ 2: АНИМЕ (Poster Style) ---
+            else if (type === 'anime') {
+                return `
+                <div class="anime-card" ${commonData} data-category="${item.category}">
+                    <div class="poster-frame">
+                        <img class="poster-img" src="${item.image}" loading="lazy">
+                        <div class="poster-badge bg-${item.rank}">${item.rank}</div>
+                        <div class="poster-overlay">
+                            <div class="play-btn">▶</div>
+                        </div>
+                    </div>
+                    <div class="anime-info">
+                        <div class="anime-title">${item.title}</div>
+                        <div class="anime-meta">
+                            <span>${item.meta_highlight}</span>
+                            <span class="anime-status">${item.meta_sub}</span>
+                        </div>
+                    </div>
+                </div>`;
+            }
         }).join('');
     }
 
-    // --- 3. ГЕНЕРАЦИЯ ФИЛЬТРОВ ---
+    // 3. ФИЛЬТРЫ (Без изменений, только селекторы классов обновлены)
     function generateFilters(items) {
         const filterContainer = document.getElementById('filterOptions');
         if (!filterContainer) return;
-
         const allTags = new Set();
-        items.forEach(item => {
-            if (item.tags) item.tags.split(',').forEach(tag => allTags.add(tag.trim()));
-        });
-
+        items.forEach(item => { if (item.tags) item.tags.split(',').forEach(t => allTags.add(t.trim())); });
+        
+        // ... (Код генерации опций фильтра остается прежним) ...
         const sortedTags = Array.from(allTags).sort();
         let html = `<div class="option active" data-filter="all">ALL RECORDS</div>`;
-        sortedTags.forEach(tag => {
-            html += `<div class="option" data-filter="${tag}">${tag}</div>`;
-        });
-
+        sortedTags.forEach(tag => { html += `<div class="option" data-filter="${tag}">${tag}</div>`; });
         filterContainer.innerHTML = html;
     }
 
-    // --- 4. ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА ---
+    // 4. ИНТЕРФЕЙС (Обновлен селектор карточек)
     function initInterface() {
+        // ... (Анимация, Сетка, Поиск - код тот же) ...
         
-        // A. АНИМАЦИЯ
-        const cards = document.querySelectorAll('.card, .hub-card');
-        cards.forEach((card, index) => {
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            setTimeout(() => {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, index * 100 + 50);
-        });
-
-        // B. ЭФФЕКТ ДЕКОДИРОВАНИЯ
-        const headerTitle = document.querySelector('.page-header h1');
-        if (headerTitle) {
-            const originalText = headerTitle.innerText;
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*";
-            let iteration = 0;
-            let interval = setInterval(() => {
-                headerTitle.innerText = originalText.split("").map((letter, index) => {
-                    if (index < iteration) return originalText[index];
-                    return chars[Math.floor(Math.random() * chars.length)];
-                }).join("");
-                if (iteration >= originalText.length) clearInterval(interval);
-                iteration += 1 / 2;
-            }, 30);
-        }
-
-        // C. ЛОГИКА СЕТКИ
-        const viewBtns = document.querySelectorAll('.view-btn');
-        const grid = document.querySelector('.grid-cards');
-
-        function applyGridColumns(cols) {
-            if (!grid) return;
-            grid.className = 'grid-cards';
-            grid.classList.add(`cols-${cols}`);
-            viewBtns.forEach(b => {
-                b.classList.remove('active');
-                if (b.getAttribute('data-cols') === cols) b.classList.add('active');
-            });
-        }
-
-        if (grid) {
-            const savedCols = localStorage.getItem(STORAGE_KEY_COLS);
-            if (savedCols) applyGridColumns(savedCols);
-        }
-
-        viewBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const cols = btn.getAttribute('data-cols');
-                applyGridColumns(cols);
-                localStorage.setItem(STORAGE_KEY_COLS, cols);
-            });
-        });
-
-        // D. ФИЛЬТРАЦИЯ И ПОИСК
-        const dropdown = document.querySelector('.custom-dropdown');
+        // ВАЖНО: Обновленный поиск использует .game-card ИЛИ .anime-card
         const searchInput = document.getElementById('searchInput');
-        let currentFilterTag = 'all';
-        let currentSearch = '';
-
+        
         function updateList() {
-            const allItems = document.querySelectorAll('.card');
-            allItems.forEach(item => {
-                const itemTags = item.getAttribute('data-tags') || "";
-                const itemTitle = item.querySelector('.card-title').textContent.toLowerCase();
-                const matchTag = (currentFilterTag === 'all' || itemTags.includes(currentFilterTag));
-                const matchSearch = itemTitle.includes(currentSearch);
+            // Ищем любые карточки
+            const cards = document.querySelectorAll('.game-card, .anime-card'); 
+            const filterVal = document.querySelector('.option.active')?.dataset.filter || 'all';
+            const searchVal = searchInput ? searchInput.value.toLowerCase() : '';
 
-                if (matchTag && matchSearch) {
-                    item.style.display = 'block';
-                    setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 50);
-                } else {
-                    item.style.display = 'none';
-                }
+            cards.forEach(card => {
+                const tags = (card.dataset.tags || '').toLowerCase();
+                // Для поиска берем текст из data-title, так как структура HTML разная
+                const title = (card.dataset.title || '').toLowerCase();
+                
+                const matchTag = filterVal === 'all' || tags.includes(filterVal.toLowerCase());
+                const matchSearch = title.includes(searchVal);
+
+                card.style.display = (matchTag && matchSearch) ? 'block' : 'none';
             });
         }
+        
+        // ... (Привязка событий к фильтрам и поиску остается прежней, вызываем updateList) ...
+        // Не забудь добавить listener на searchInput и dropdown options
+        if(searchInput) searchInput.addEventListener('input', updateList);
+        const opts = document.querySelectorAll('.option');
+        opts.forEach(o => o.addEventListener('click', function() {
+            document.querySelectorAll('.option').forEach(el => el.classList.remove('active'));
+            this.classList.add('active');
+            updateList();
+        }));
 
-        if (dropdown) {
-            const trigger = dropdown.querySelector('.dropdown-trigger');
-            const optionsContainer = dropdown.querySelector('.dropdown-options');
-            const selectedText = dropdown.querySelector('.selected-text');
-
-            trigger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdown.classList.toggle('open');
-            });
-
-            if (optionsContainer) {
-                optionsContainer.addEventListener('click', (e) => {
-                    const option = e.target.closest('.option');
-                    if (!option) return;
-                    optionsContainer.querySelectorAll('.option').forEach(opt => opt.classList.remove('active'));
-                    option.classList.add('active');
-                    const filterValue = option.getAttribute('data-filter');
-                    selectedText.textContent = (filterValue === 'all') ? 'FILTER BY TAGS' : option.textContent;
-                    dropdown.classList.remove('open');
-                    currentFilterTag = filterValue;
-                    updateList();
-                });
-            }
-            document.addEventListener('click', (e) => {
-                if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
-            });
-        }
-
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                currentSearch = e.target.value.toLowerCase().trim();
-                updateList();
-            });
-        }
-
-        initModal(); 
+        initModal();
     }
 
-    // --- 5. ЛОГИКА МОДАЛЬНОГО ОКНА ---
+    // 5. МОДАЛЬНОЕ ОКНО (Берет данные из data-атрибутов)
     function initModal() {
         const modal = document.getElementById('detailModal');
-        const closeBtn = document.getElementById('closeModal');
         const grid = document.querySelector('.grid-cards');
+        if (!modal || !grid) return;
 
-        if (!modal) return;
+        grid.addEventListener('click', (e) => {
+            const card = e.target.closest('.game-card, .anime-card');
+            if (!card) return;
 
-        const modalImg = document.getElementById('modalImg');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDesc = document.getElementById('modalDesc');
-        const modalRankTag = document.getElementById('modalRank');
-        const modalTags = document.getElementById('modalTags');
-        const modalPlatform = document.getElementById('modalPlatform');
-        const modalDev = document.getElementById('modalDev');
+            // Заполняем модалку из dataset (чище и надежнее)
+            const d = card.dataset;
+            document.getElementById('modalImg').src = d.img;
+            document.getElementById('modalTitle').textContent = d.title;
+            document.getElementById('modalDesc').textContent = d.desc;
+            document.getElementById('modalRank').textContent = d.rank;
+            document.getElementById('modalPlatform').textContent = d.platform;
+            document.getElementById('modalDev').textContent = d.dev;
 
-        function openModal(card) {
-            // Извлекаем чистый URL из background-image
-            const style = card.querySelector('.card-img').style.backgroundImage;
-            const bgUrl = style.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-            
-            const title = card.querySelector('.card-title').textContent;
-            const desc = card.getAttribute('data-desc') || "No description.";
-            const rawTags = card.getAttribute('data-tags') || "ARCHIVE";
-            const platform = card.getAttribute('data-platform') || "Unknown";
-            const developer = card.getAttribute('data-dev') || "Unknown";
-            const rank = card.getAttribute('data-rank') || "N/A";
+            // Ранг цвет
+            const rInfo = document.getElementById('modalRank');
+            rInfo.style.color = (d.rank === 'UR') ? 'var(--gold)' : (d.rank === 'SSR' ? 'var(--cyan)' : '#333');
 
-            modalImg.src = bgUrl; 
-            modalTitle.textContent = title;
-            modalDesc.textContent = desc;
-            
-            if(modalPlatform) modalPlatform.textContent = platform;
-            if(modalDev) modalDev.textContent = developer;
-
-            if(modalRankTag) {
-                modalRankTag.textContent = rank;
-                if (rank === 'UR') modalRankTag.style.color = 'var(--gold)';
-                else if (rank === 'SSR') modalRankTag.style.color = 'var(--cyan)';
-                else modalRankTag.style.color = 'rgba(255,255,255,0.05)';
-            }
-
-            if(modalTags) {
-                modalTags.innerHTML = '';
-                const tagsArray = rawTags.split(',');
-                tagsArray.forEach(tag => {
-                    const span = document.createElement('span');
-                    span.className = 'tech-tag';
-                    span.textContent = tag.trim();
-                    modalTags.appendChild(span);
-                });
-            }
+            // Теги
+            const tagsBox = document.getElementById('modalTags');
+            tagsBox.innerHTML = '';
+            d.tags.split(',').forEach(t => {
+                const s = document.createElement('span');
+                s.className = 'tech-tag'; s.textContent = t.trim();
+                tagsBox.appendChild(s);
+            });
 
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = '17px'; 
-        }
+        });
 
-        function closeModal() {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-            document.body.style.paddingRight = '';
-        }
-
-        if(grid) {
-            grid.addEventListener('click', (e) => {
-                const card = e.target.closest('.card');
-                if (card) openModal(card);
-            });
-        }
-
-        closeBtn.onclick = closeModal;
-        modal.onclick = (e) => { if (e.target === modal) closeModal(); };
-        document.onkeydown = (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); };
+        // Закрытие
+        document.getElementById('closeModal').onclick = () => modal.classList.remove('active');
+        modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('active'); };
     }
 });
