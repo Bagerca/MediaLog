@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
     const STORAGE_KEY = `resonance_data_${pageType}`;
+    const GRID_PREF_KEY = 'resonance_grid_density'; // Ключ для настройки сетки
     
     // Элементы контекстного меню
     const ctxMenu = document.getElementById('ctxMenu');
@@ -20,13 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let userLibrary = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     
     // Состояние фильтров
-    let currentMode = 'mine'; // 'mine' или 'all'
+    let currentMode = 'mine'; 
     let activeTags = new Set();
     let activeRanks = new Set();
     let onlyFavorites = false;
     let currentSort = 'date_desc';
 
-    // Веса рангов для сортировки
+    // Веса рангов
     const rankWeight = { 'UR': 5, 'SSR': 4, 'SR': 3, 'R': 2, 'N': 1 };
 
     // --- 1. ЗАГРУЗКА ДАННЫХ ---
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderContent() {
         if (!gridContainer) return;
 
-        let items = [...allItemsDB]; // Копия массива для манипуляций
+        let items = [...allItemsDB]; 
 
         // 1. Фильтр: Источник
         if (currentMode === 'mine') {
@@ -77,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (activeRanks.size > 0) {
             items = items.filter(i => {
                 const userData = userLibrary[i.title];
-                if (!userData) return false; // Если нет в библиотеке, не показываем при фильтре рангов
+                if (!userData) return false; 
                 return activeRanks.has(userData.rank);
             });
         }
@@ -90,31 +91,27 @@ document.addEventListener('DOMContentLoaded', () => {
             switch (currentSort) {
                 case 'name_asc': 
                     return a.title.localeCompare(b.title);
-                
                 case 'rank_desc':
                     var rA = dataA ? rankWeight[dataA.rank] || 0 : 0;
                     var rB = dataB ? rankWeight[dataB.rank] || 0 : 0;
-                    return rB - rA; // High -> Low
-                
+                    return rB - rA; 
                 case 'rank_asc':
                     var rA = dataA ? rankWeight[dataA.rank] || 0 : 0;
                     var rB = dataB ? rankWeight[dataB.rank] || 0 : 0;
-                    return rA - rB; // Low -> High
-
+                    return rA - rB; 
                 case 'date_asc':
                     var dA = dataA ? dataA.timestamp : 0;
                     var dB = dataB ? dataB.timestamp : 0;
                     return dA - dB;
-
                 case 'date_desc':
                 default:
                     var dA = dataA ? dataA.timestamp : 0;
                     var dB = dataB ? dataB.timestamp : 0;
-                    return dB - dA; // Newest first
+                    return dB - dA; 
             }
         });
 
-        // Пустое состояние
+        // Empty State
         if (items.length === 0) {
             const msg = 'NO RECORDS FOUND WITH CURRENT FILTERS';
             gridContainer.innerHTML = `<div class="empty-state">${msg}</div>`;
@@ -123,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const prefix = (pageType === 'games') ? 'game' : 'anime';
         
-        // SVG
         const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
         const iconPlus = `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
         const iconStar = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
@@ -133,11 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const userRank = userData ? userData.rank : null;
             const isFav = userData ? userData.isFavorite : false;
             
-            // Бейджи
             const rankHtml = userRank ? `<div class="${prefix}-rank-badge ${userRank.toLowerCase()}">${userRank}</div>` : '';
             const favHtml = isFav ? `<div class="fav-icon">${iconStar}</div>` : '';
 
-            // Кнопка (показываем только в Global DB)
             let btnHtml = '';
             if (currentMode === 'all') {
                 const btnClass = userData ? 'status-btn active' : 'status-btn';
@@ -145,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnHtml = `<div class="${btnClass}">${btnIcon}</div>`;
             }
 
-            // Статус текст
             let statusText = "STATUS: MISSING";
             let statusColor = "inherit";
             if (userData) {
@@ -223,20 +216,44 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // 6. Плотность сетки
+        // --- 6. НАСТРОЙКА СЕТКИ (GRID DENSITY) С ЗАПОМИНАНИЕМ ---
         const grid = document.getElementById('cards-container');
-        document.querySelectorAll('.view-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        const viewBtns = document.querySelectorAll('.view-btn');
+        
+        // Загружаем сохраненную настройку или ставим '5' по умолчанию
+        let savedCols = localStorage.getItem(GRID_PREF_KEY) || '5';
+        
+        // Применяем сразу при загрузке
+        if(grid) grid.className = `grid-cards cols-${savedCols}`;
+        
+        // Обновляем активную кнопку
+        viewBtns.forEach(btn => {
+            if(btn.dataset.cols === savedCols) {
                 btn.classList.add('active');
-                if(grid) grid.className = `grid-cards cols-${btn.dataset.cols}`;
+            } else {
+                btn.classList.remove('active');
+            }
+
+            // Обработчик клика
+            btn.addEventListener('click', () => {
+                // Визуальное переключение кнопок
+                viewBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Применение стиля сетки
+                const cols = btn.dataset.cols;
+                if(grid) grid.className = `grid-cards cols-${cols}`;
+                
+                // Сохранение выбора в LocalStorage
+                localStorage.setItem(GRID_PREF_KEY, cols);
             });
         });
 
-        // 7. Закрытие контекстного меню
+
+        // 7. Закрытие меню
         document.addEventListener('click', () => { if(ctxMenu) ctxMenu.style.display = 'none'; });
         
-        // 8. Закрытие модального окна
+        // 8. Закрытие модалки
         document.getElementById('closeModal').onclick = () => els.modal.classList.remove('active');
         els.modal.onclick = (e) => { 
             if(e.target === els.modal || e.target.classList.contains('modal-window-wrapper')) {
@@ -245,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         document.onkeydown = (e) => { if (e.key === 'Escape') els.modal.classList.remove('active'); };
 
-        // 9. Анимация заголовка (Хакер эффект)
+        // 9. Анимация заголовка
         const h1 = document.querySelector('.page-header h1');
         if(h1) {
             const txt = h1.innerText;
@@ -264,17 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 4. КОНТЕКСТНОЕ МЕНЮ ---
     window.handleRightClick = function(e, title) {
-        // Только если игра есть в библиотеке
         if (!userLibrary[title]) return; 
-
         e.preventDefault(); 
         contextTargetTitle = title; 
-        
-        const x = e.pageX; 
-        const y = e.pageY;
-        
-        ctxMenu.style.left = `${x}px`; 
-        ctxMenu.style.top = `${y}px`;
+        const x = e.pageX; const y = e.pageY;
+        ctxMenu.style.left = `${x}px`; ctxMenu.style.top = `${y}px`;
         ctxMenu.style.display = 'flex';
     };
 
@@ -343,7 +354,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const userData = userLibrary[currentItemTitle];
         const rankBox = els.viewRank;
 
-        // Конфигурация цветов (5 рангов)
         const rankConfig = {
             'UR':  { color: 'var(--gold)', shadow: 'rgba(255, 174, 0, 0.4)' },
             'SSR': { color: 'var(--cyan)', shadow: 'rgba(95, 251, 241, 0.4)' },
@@ -407,48 +417,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- КНОПКИ МОДАЛЬНОГО ОКНА ---
-
+    // Modal Actions
     if(els.btnAdd) els.btnAdd.onclick = () => {
-        // Создаем
         userLibrary[currentItemTitle] = { rank: 'N', note: '', customStatus: '', isFavorite: false, timestamp: Date.now() };
-        saveToStorage();
-        updateViewModeUI();
-        renderContent();
-        // Сразу в Edit Mode
-        switchMode('edit');
-        showToast('ENTRY CREATED // INPUT DETAILS');
+        saveToStorage(); updateViewModeUI(); renderContent(); switchMode('edit'); showToast('ENTRY CREATED // INPUT DETAILS');
     };
-
     if(els.btnEdit) els.btnEdit.onclick = () => switchMode('edit');
     if(els.btnCancel) els.btnCancel.onclick = () => switchMode('view');
-
     if(els.btnSave) els.btnSave.onclick = () => {
         const selectedRank = document.querySelector('.rank-opt.active')?.dataset.value || 'N';
         const note = els.noteInput.value;
         const customStatus = els.statusInput.value.trim();
         const oldData = userLibrary[currentItemTitle] || {};
-
-        userLibrary[currentItemTitle] = { 
-            ...oldData, 
-            rank: selectedRank, 
-            note: note, 
-            customStatus: customStatus,
-            timestamp: Date.now() 
-        };
-        
-        saveToStorage(); showToast('DATA LOG UPDATED');
-        updateViewModeUI(); switchMode('view'); renderContent();
+        userLibrary[currentItemTitle] = { ...oldData, rank: selectedRank, note: note, customStatus: customStatus, timestamp: Date.now() };
+        saveToStorage(); showToast('DATA LOG UPDATED'); updateViewModeUI(); switchMode('view'); renderContent();
     };
-
     if(els.btnDelete) els.btnDelete.onclick = () => {
         if(confirm('DELETE RECORD PERMANENTLY?')) {
             delete userLibrary[currentItemTitle];
-            saveToStorage(); showToast('RECORD DELETED');
-            updateViewModeUI(); renderContent(); els.modal.classList.remove('active');
+            saveToStorage(); showToast('RECORD DELETED'); updateViewModeUI(); renderContent(); els.modal.classList.remove('active');
         }
     };
-
     els.rankBtns.forEach(btn => {
         btn.onclick = () => {
             els.rankBtns.forEach(b => b.classList.remove('active'));
@@ -456,9 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // --- UTILS ---
     function saveToStorage() { localStorage.setItem(STORAGE_KEY, JSON.stringify(userLibrary)); }
-    
     function showToast(msg) {
         const toast = document.getElementById('sysToast');
         if(!toast) return;
@@ -471,12 +458,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('filterOptions');
         const clearBtn = document.getElementById('clearTagsBtn');
         if(!container) return;
-
         const tags = new Set();
         items.forEach(i => (i.tags || '').split(',').forEach(t => tags.add(t.trim())));
-        
         container.innerHTML = Array.from(tags).sort().map(t => `<button class="tag-btn" data-tag="${t}">${t}</button>`).join('');
-
         container.querySelectorAll('.tag-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const tag = btn.dataset.tag;
@@ -486,7 +470,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderContent();
             });
         });
-        
         if(clearBtn) clearBtn.onclick = () => {
             activeTags.clear();
             container.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
