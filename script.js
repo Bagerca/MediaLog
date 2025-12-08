@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 const items = data[pageType];
-                renderCards(items, pageType); // Передаем тип страницы
+                renderCards(items, pageType); 
                 generateFilters(items); 
                 initInterface(pageType); 
             })
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initInterface(null);
     }
 
-    // 2. РЕНДЕР КАРТОЧЕК (С разным префиксом классов)
+    // 2. РЕНДЕР КАРТОЧЕК
     function renderCards(items, type) {
         if (!items) return;
         
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const metaColor = (item.rank === 'UR') ? 'var(--gold)' : 
                               (item.rank === 'SSR') ? 'var(--cyan)' : 'var(--text-muted)';
             
-            // Используем prefix в классах
+            // Сохраняем все данные в dataset
             return `
             <div class="${prefix}-card" 
                  data-title="${item.title}"
@@ -73,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. ИНТЕРФЕЙС
     function initInterface(pageType) {
-        // Определяем селектор для поиска
         const cardSelector = pageType ? `.${(pageType === 'games' ? 'game' : 'anime')}-card` : '.card';
         const searchInput = document.getElementById('searchInput');
         
@@ -132,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initModal(cardSelector);
     }
 
-    // 5. МОДАЛЬНОЕ ОКНО
+    // 5. МОДАЛЬНОЕ ОКНО (С защитой от ошибок)
     function initModal(cardSelector) {
         const modal = document.getElementById('detailModal');
         const grid = document.querySelector('.grid-cards');
@@ -146,25 +145,35 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('modalImg').src = d.img;
             document.getElementById('modalTitle').textContent = d.title;
             document.getElementById('modalDesc').textContent = d.desc;
-            document.getElementById('modalRank').textContent = d.rank;
             document.getElementById('modalPlatform').textContent = d.platform;
             document.getElementById('modalDev').textContent = d.dev;
-
+            
+            // Безопасное обновление ранга
             const rInfo = document.getElementById('modalRank');
-            rInfo.style.color = (d.rank === 'UR') ? 'var(--gold)' : (d.rank === 'SSR' ? 'var(--cyan)' : 'rgba(255,255,255,0.05)');
+            if(rInfo) {
+                rInfo.textContent = d.rank;
+                rInfo.style.color = (d.rank === 'UR') ? 'var(--gold)' : (d.rank === 'SSR' ? 'var(--cyan)' : 'rgba(255,255,255,0.05)');
+            }
 
+            // Безопасная обработка тегов (чтобы не падало если тегов нет)
             const tagsBox = document.getElementById('modalTags');
-            tagsBox.innerHTML = '';
-            d.tags.split(',').forEach(t => {
-                const s = document.createElement('span');
-                s.className = 'tech-tag'; s.textContent = t.trim();
-                tagsBox.appendChild(s);
-            });
+            if(tagsBox) {
+                tagsBox.innerHTML = '';
+                if (d.tags) {
+                    d.tags.split(',').forEach(t => {
+                        const s = document.createElement('span');
+                        s.className = 'tech-tag'; s.textContent = t.trim();
+                        tagsBox.appendChild(s);
+                    });
+                }
+            }
 
             modal.classList.add('active');
         });
 
-        document.getElementById('closeModal').onclick = () => modal.classList.remove('active');
+        const closeBtn = document.getElementById('closeModal');
+        if(closeBtn) closeBtn.onclick = () => modal.classList.remove('active');
+        
         modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('active'); };
     }
 });
