@@ -162,7 +162,6 @@ input { outline: none; }
 /* =========================================
    6. CONTENT CARDS (GRID)
    ========================================= */
-
 .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; padding-bottom: 4rem; }
 .grid-cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-cards.cols-4 { grid-template-columns: repeat(4, 1fr); }
@@ -225,17 +224,15 @@ input { outline: none; }
 .hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
 
 /* =========================================
-   8. GAME CARD (HEXAGON)
+   8. NEW GAME CARD (QUANTUM CORE)
    ========================================= */
 .sim-card {
     position: relative; width: 320px; height: 460px;
     background: transparent; border: none;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-decoration: none; cursor: pointer;
-    filter: drop-shadow(0 0 0 transparent); 
-    transition: 0.4s ease; z-index: 1;
+    text-decoration: none; cursor: pointer; transition: 0.4s ease; z-index: 1;
 }
-/* Рамка и фон через слои */
+/* Рамка и Фон */
 .sim-card::before {
     content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.1); z-index: -2;
     clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
@@ -245,51 +242,68 @@ input { outline: none; }
     content: ''; position: absolute; inset: 1px; background: #0e0f14; z-index: -1;
     clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px);
 }
-/* Фон-сетка */
-.sim-card .bg-grid {
+/* Микросхема (Фон) */
+.bg-circuit {
     position: absolute; inset: 1px;
-    background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
-    background-size: 20px 20px; opacity: 0.3; transition: 0.5s;
+    background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px; mask-image: radial-gradient(circle, black 40%, transparent 90%);
+    opacity: 0.4; transition: 0.5s; pointer-events: none;
     clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px);
-    pointer-events: none;
+}
+/* Потоки данных (Бока) */
+.data-stream { position: absolute; top: 20px; bottom: 20px; width: 4px; overflow: hidden; }
+.ds-left { left: 25px; border-right: 1px solid rgba(255,255,255,0.05); }
+.ds-right { right: 25px; border-left: 1px solid rgba(255,255,255,0.05); }
+.stream-bits {
+    width: 100%; height: 200%;
+    background: repeating-linear-gradient(to bottom, transparent 0%, transparent 5%, var(--gold) 5%, var(--gold) 10%);
+    opacity: 0.1; animation: streamFlow 4s linear infinite;
 }
 /* Ядро */
 .core-wrapper { position: relative; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
-.tech-ring {
-    position: absolute; width: 100%; height: 100%;
-    border: 1px dashed var(--gold); border-radius: 50%; opacity: 0.3;
-    animation: spinRing 20s linear infinite;
+.spinner-outer {
+    position: absolute; width: 100%; height: 100%; border: 1px solid transparent; border-top-color: var(--gold); border-bottom-color: var(--gold);
+    border-radius: 50%; opacity: 0.2; animation: spinCW 10s linear infinite;
 }
-.hex-shape {
-    position: relative; width: 100px; height: 110px;
-    background: var(--gold-dim); display: flex; align-items: center; justify-content: center;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    transition: 0.4s ease;
+.spinner-mid {
+    position: absolute; width: 75%; height: 75%; border: 1px dashed var(--gold); border-radius: 50%;
+    opacity: 0.4; animation: spinCCW 15s linear infinite;
 }
-.hex-shape::after {
-    content: ''; position: absolute; inset: 0; background: var(--gold); opacity: 0.1; clip-path: inherit; z-index: -1;
+.hex-core {
+    position: relative; width: 90px; height: 100px; background: var(--gold-dim);
+    display: flex; align-items: center; justify-content: center;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); transition: 0.4s;
 }
+.hex-core::after { content: ''; position: absolute; inset: 2px; background: #0e0f14; clip-path: inherit; z-index: 1; transition: 0.4s; }
+.icon-box { position: relative; z-index: 5; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
 .game-icon {
-    width: 54px; height: 54px; color: var(--gold); fill: none; stroke: currentColor;
-    stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
-    filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.4)); transition: 0.4s; z-index: 2;
+    width: 100%; height: 100%; color: var(--gold); fill: none; stroke: currentColor; stroke-width: 2;
+    stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.5)); transition: 0.3s;
+}
+.scan-line {
+    position: absolute; top: 0; left: -10%; width: 120%; height: 2px; background: var(--gold);
+    box-shadow: 0 0 10px var(--gold); opacity: 0; z-index: 10;
 }
 /* Текст */
 .text-content { text-align: center; z-index: 5; }
 .card-title { font-family: var(--font-head); font-size: 2.2rem; color: #fff; margin: 0; text-transform: uppercase; letter-spacing: 2px; line-height: 1; }
 .card-sub { font-family: var(--font-head); font-size: 0.75rem; color: var(--gold); letter-spacing: 4px; margin-top: 10px; font-weight: 700; opacity: 0.7; }
-/* Декор */
-.side-deco { position: absolute; top: 50%; transform: translateY(-50%); width: 3px; height: 40px; background: rgba(255,255,255,0.1); transition: 0.4s; z-index: 2; }
-.side-left { left: 0; } .side-right { right: 0; }
-/* Анимация */
-@keyframes spinRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+/* Анимации */
+@keyframes streamFlow { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+@keyframes spinCW { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes spinCCW { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+@keyframes scanMove { 0% { top: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
 /* Hover */
-.sim-card:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
+.sim-card:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); }
 .sim-card:hover::before { background: var(--gold); }
-.sim-card:hover .tech-ring { opacity: 0.8; border-style: solid; border-width: 2px; animation-duration: 4s; box-shadow: 0 0 15px rgba(255, 174, 0, 0.2); }
-.sim-card:hover .hex-shape { background: rgba(255, 174, 0, 0.25); transform: scale(1.1); }
-.sim-card:hover .game-icon { color: #fff; transform: scale(1.1); filter: drop-shadow(0 0 10px var(--gold)); stroke-width: 2; }
-.sim-card:hover .side-deco { background: var(--gold); height: 60px; box-shadow: 0 0 8px var(--gold); }
+.sim-card:hover .stream-bits { opacity: 0.6; animation-duration: 1s; background: repeating-linear-gradient(to bottom, transparent 0%, transparent 10%, var(--gold) 10%, #fff 12%); }
+.sim-card:hover .spinner-outer { border-color: #fff; opacity: 0.8; animation-duration: 2s; box-shadow: 0 0 20px var(--gold-dim); }
+.sim-card:hover .spinner-mid { border-style: solid; opacity: 0.6; animation-duration: 3s; }
+.sim-card:hover .hex-core { background: rgba(255, 174, 0, 0.4); transform: scale(1.1); }
+.sim-card:hover .hex-core::after { background: transparent; }
+.sim-card:hover .game-icon { color: #fff; filter: drop-shadow(0 0 10px var(--gold)); transform: scale(1.1); }
+.sim-card:hover .scan-line { animation: scanMove 1.5s linear infinite; }
 
 
 /* =========================================
