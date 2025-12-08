@@ -7,13 +7,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const gridContainer = document.getElementById('cards-container');
     const STORAGE_KEY = `resonance_data_${pageType}`;
     
+    // Элементы контекстного меню
+    const ctxMenu = document.getElementById('ctxMenu');
+    const ctxEdit = document.getElementById('ctxEdit');
+    const ctxFav = document.getElementById('ctxFav');
+    const ctxDel = document.getElementById('ctxDel');
+    
+    // Переменная для хранения "какую карточку мы нажали ПКМ"
+    let contextTargetTitle = null;
+
     // --- СОСТОЯНИЕ ---
     let allItemsDB = [];
     let userLibrary = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-    let currentMode = 'mine'; // 'mine' или 'all'
+    let currentMode = 'mine'; // По умолчанию 'mine'
     let activeTags = new Set();
 
-    // --- 1. ЗАГРУЗКА ДАННЫХ ---
+    // --- 1. ЗАГРУЗКА ---
     if (pageType && gridContainer) {
         fetch('data.json')
             .then(res => res.json())
@@ -28,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initInterface();
     }
 
-    // --- 2. РЕНДЕР КАРТОЧЕК (HUD DESIGN) ---
+    // --- 2. РЕНДЕР КАРТОЧЕК ---
     function renderContent() {
         if (!gridContainer) return;
 
@@ -61,49 +70,57 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Определяем префикс класса (game или anime)
         const prefix = (pageType === 'games') ? 'game' : 'anime';
         
-        // SVG Иконки
+        // Иконки SVG
         const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
         const iconPlus = `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
+        const iconStar = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
 
         gridContainer.innerHTML = items.map(item => {
             const userData = userLibrary[item.title];
             const userRank = userData ? userData.rank : null;
+            const isFav = userData ? userData.isFavorite : false;
             
-            // HTML для ранга (флажок)
+            // Ранг (Флажок)
             const rankHtml = userRank 
                 ? `<div class="${prefix}-rank-badge ${userRank.toLowerCase()}">${userRank}</div>` 
                 : '';
             
-            // Классы и контент для кнопки статуса
-            const btnClass = userData ? 'status-btn active' : 'status-btn';
-            const btnIcon = userData ? iconCheck : iconPlus;
-            
-            // --- ЛОГИКА СТАТУСА ---
+            // Звездочка избранного
+            const favHtml = isFav ? `<div class="fav-icon">${iconStar}</div>` : '';
+
+            // ЛОГИКА КНОПКИ СТАТУСА:
+            // Если мы в "Моей коллекции" - кнопку НЕ показываем (чтобы не мусорить).
+            // Если в "Global DB" - показываем, чтобы можно было добавить.
+            let btnHtml = '';
+            if (currentMode === 'all') {
+                const btnClass = userData ? 'status-btn active' : 'status-btn';
+                const btnIcon = userData ? iconCheck : iconPlus;
+                btnHtml = `<div class="${btnClass}">${btnIcon}</div>`;
+            }
+
+            // Статус текст
             let statusText = "STATUS: MISSING";
             let statusColor = "inherit";
-
             if (userData) {
-                // Если есть кастомный статус - показываем его, иначе OWNED
                 const custom = userData.customStatus ? userData.customStatus.toUpperCase() : "OWNED";
                 statusText = `STATUS: ${custom}`;
-                
-                // Цвет в зависимости от страницы (золото или циан)
                 statusColor = (pageType === 'games' ? 'var(--gold)' : 'var(--cyan)');
             }
 
+            // Добавляем oncontextmenu для ПКМ
             return `
-            <div class="${prefix}-card" onclick="openModal('${item.title.replace(/'/g, "\\'")}')">
+            <div class="${prefix}-card" 
+                 onclick="openModal('${item.title.replace(/'/g, "\\'")}')"
+                 oncontextmenu="handleRightClick(event, '${item.title.replace(/'/g, "\\'")}')">
+                
                 <div class="${prefix}-card-inner">
                     <div class="${prefix}-card-img" style="background-image: url('${item.image}');"></div>
                     
                     ${rankHtml}
-                    
-                    <div class="${btnClass}">
-                        ${btnIcon}
-                    </div>
+                    ${favHtml}
+                    ${btnHtml}
 
                     <div class="${prefix}-card-content">
                         <div class="card-line"></div>
@@ -118,7 +135,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     }
 
-    // --- 3. ЛОГИКА МОДАЛЬНОГО ОКНА ---
+    // --- 3. ОБРАБОТКА ПКМ (КОНТЕКСТНОЕ МЕНЮ) ---
+    
+    window.handleRightClick = function(e, title) {
+        // Меню работает только если игра есть в библиотеке
+        if (!userLibrary[title]) return; 
+
+        e.preventDefault(); // Блокируем стандартное меню браузера
+        contextTargetTitle = title; // Запоминаем, на кого нажали
+
+        // Позиционируем меню
+        const x = e.pageX;
+        const y = e.pageY;
+        
+        ctxMenu.style.left = `${x}px`;
+        ctxMenu.style.top = `${y}px`;
+        ctxMenu.style.display = 'flex';
+    };
+
+    // Закрытие меню при клике в любом месте
+    document.addEventListener('click', () => {
+        if(ctxMenu) ctxMenu.style.display = 'none';
+    });
+
+    // --- ЛОГИКА ПУНКТОВ МЕНЮ ---
+
+    // 1. ИЗМЕНИТЬ (Открывает модалку сразу в Edit)
+    if(ctxEdit) ctxEdit.onclick = () => {
+        openModal(contextTargetTitle);
+        setTimeout(() => switchMode('edit'), 50); // Небольшая задержка, чтобы модалка открылась
+    };
+
+    // 2. ИЗБРАННОЕ (Toggle)
+    if(ctxFav) ctxFav.onclick = () => {
+        const item = userLibrary[contextTargetTitle];
+        if(item) {
+            item.isFavorite = !item.isFavorite; // Переключаем
+            saveToStorage();
+            renderContent(); // Перерисовываем (появится/исчезнет звезда)
+            showToast(item.isFavorite ? 'ADDED TO FAVORITES' : 'REMOVED FROM FAVORITES');
+        }
+    };
+
+    // 3. УДАЛИТЬ
+    if(ctxDel) ctxDel.onclick = () => {
+        if(confirm(`DELETE "${contextTargetTitle}" FROM DATABASE?`)) {
+            delete userLibrary[contextTargetTitle];
+            saveToStorage();
+            renderContent();
+            showToast('RECORD DELETED');
+        }
+    };
+
+
+    // --- 4. ЛОГИКА МОДАЛЬНОГО ОКНА ---
     
     const els = {
         modal: document.getElementById('detailModal'),
@@ -132,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnSave: document.getElementById('btnSave'),
         btnCancel: document.getElementById('btnCancel'),
         noteInput: document.getElementById('userNoteInput'),
-        statusInput: document.getElementById('userStatusInput'), // Поле статуса
+        statusInput: document.getElementById('userStatusInput'),
         rankBtns: document.querySelectorAll('.rank-opt'),
         viewRank: document.getElementById('viewRankDisplay'),
         viewNote: document.getElementById('viewNoteDisplay'),
@@ -141,14 +211,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentItemTitle = null;
 
-    // Открыть окно
     window.openModal = function(title) {
         currentItemTitle = title;
         const item = allItemsDB.find(i => i.title === title);
-        
         if (!item) return;
 
-        // Заполняем статику
         document.getElementById('modalImg').src = item.image;
         document.getElementById('modalTitle').textContent = item.title;
         document.getElementById('modalDev').textContent = item.dev || 'UNKNOWN';
@@ -162,42 +229,37 @@ document.addEventListener('DOMContentLoaded', () => {
         els.modal.classList.add('active');
     };
 
-    // Обновление View Mode (Логика цветов ранга)
     function updateViewModeUI() {
         const userData = userLibrary[currentItemTitle];
         const rankBox = els.viewRank;
 
-        // Конфигурация цветов (5 уровней)
+        // Цвета рангов (5 уровней)
         const rankConfig = {
             'UR':  { color: 'var(--gold)', shadow: 'rgba(255, 174, 0, 0.4)' },
             'SSR': { color: 'var(--cyan)', shadow: 'rgba(95, 251, 241, 0.4)' },
-            'SR':  { color: '#00ff9d',     shadow: 'rgba(0, 255, 157, 0.4)' }, // Green
-            'R':   { color: '#ff8e3c',     shadow: 'rgba(255, 142, 60, 0.4)' }, // Orange
-            'N':   { color: '#ff003c',     shadow: 'rgba(255, 0, 60, 0.4)' }    // Red
+            'SR':  { color: '#00ff9d',     shadow: 'rgba(0, 255, 157, 0.4)' },
+            'R':   { color: '#ff8e3c',     shadow: 'rgba(255, 142, 60, 0.4)' },
+            'N':   { color: '#ff003c',     shadow: 'rgba(255, 0, 60, 0.4)' }
         };
 
         if (userData) {
             els.btnAdd.style.display = 'none';
             els.grpActions.style.display = 'flex';
             
-            // Получаем настройки для текущего ранга
             const rInfo = rankConfig[userData.rank] || rankConfig['N'];
             
-            // Применяем стили к большому индикатору
             rankBox.textContent = userData.rank;
             rankBox.style.color = rInfo.color;
             rankBox.style.borderColor = rInfo.color;
             rankBox.style.boxShadow = `0 0 20px ${rInfo.shadow}, inset 0 0 10px ${rInfo.shadow}`;
             rankBox.style.textShadow = `0 0 10px ${rInfo.shadow}`;
             
-            // Красим фоновую букву
             els.bgRank.textContent = userData.rank;
             els.bgRank.style.color = rInfo.color;
             
             els.viewNote.textContent = userData.note || "No notes recorded.";
             els.viewNote.style.color = userData.note ? "#ccc" : "#666";
         } else {
-            // Если не в библиотеке
             els.btnAdd.style.display = 'block';
             els.grpActions.style.display = 'none';
             
@@ -212,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Переключение режимов (View / Edit)
     function switchMode(mode) {
         if (mode === 'view') {
             els.viewMode.style.display = 'flex';
@@ -220,13 +281,10 @@ document.addEventListener('DOMContentLoaded', () => {
             els.sysLabel.textContent = "/// SYSTEM: VIEW_MODE";
             els.sysLabel.style.color = "var(--text-muted)";
         } else {
-            // Загрузка данных в поля ввода
             const userData = userLibrary[currentItemTitle] || { rank: 'N', note: '', customStatus: '' };
-            
             els.noteInput.value = userData.note || '';
-            els.statusInput.value = userData.customStatus || ''; // Загружаем статус
+            els.statusInput.value = userData.customStatus || '';
             
-            // Активная кнопка ранга
             els.rankBtns.forEach(btn => {
                 btn.classList.remove('active');
                 if(btn.dataset.value === userData.rank) btn.classList.add('active');
@@ -239,37 +297,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- ОБРАБОТЧИКИ КНОПОК ---
+    // --- КНОПКИ МОДАЛЬНОГО ОКНА ---
 
-    // 1. ДОБАВИТЬ В БИБЛИОТЕКУ (СРАЗУ В EDIT MODE)
     if(els.btnAdd) els.btnAdd.onclick = () => {
-        // Создаем запись по умолчанию
-        userLibrary[currentItemTitle] = { rank: 'N', note: '', customStatus: '', timestamp: Date.now() };
+        userLibrary[currentItemTitle] = { rank: 'N', note: '', customStatus: '', isFavorite: false, timestamp: Date.now() };
         saveToStorage();
-        
-        // Обновляем UI (чтобы галочка появилась на фоне)
         updateViewModeUI();
         renderContent();
-
-        // Сразу переходим в редактирование
         switchMode('edit');
-        
         showToast('ENTRY CREATED // INPUT DETAILS');
     };
 
-    // 2. РЕДАКТИРОВАТЬ
     if(els.btnEdit) els.btnEdit.onclick = () => switchMode('edit');
-
-    // 3. ОТМЕНА
     if(els.btnCancel) els.btnCancel.onclick = () => switchMode('view');
 
-    // 4. СОХРАНИТЬ (Включая кастомный статус)
     if(els.btnSave) els.btnSave.onclick = () => {
         const selectedRank = document.querySelector('.rank-opt.active')?.dataset.value || 'N';
         const note = els.noteInput.value;
-        const customStatus = els.statusInput.value.trim(); // Берем статус
+        const customStatus = els.statusInput.value.trim();
+        // Сохраняем и старые поля (isFavorite), чтобы не стереть их
+        const oldData = userLibrary[currentItemTitle] || {};
 
         userLibrary[currentItemTitle] = { 
+            ...oldData, // разворачиваем старые данные (там лежит isFavorite)
             rank: selectedRank, 
             note: note, 
             customStatus: customStatus,
@@ -278,13 +328,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         saveToStorage();
         showToast('DATA LOG UPDATED');
-        
         updateViewModeUI();
         switchMode('view');
-        renderContent(); // Перерисовка карточки с новым статусом
+        renderContent();
     };
 
-    // 5. УДАЛИТЬ
     if(els.btnDelete) els.btnDelete.onclick = () => {
         if(confirm('DELETE RECORD PERMANENTLY?')) {
             delete userLibrary[currentItemTitle];
@@ -296,7 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Выбор ранга
     els.rankBtns.forEach(btn => {
         btn.onclick = () => {
             els.rankBtns.forEach(b => b.classList.remove('active'));
@@ -315,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.classList.remove('show'), 2000);
     }
 
-    // --- ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА ---
+    // --- INIT ---
     function initInterface() {
         document.querySelectorAll('.mode-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -328,10 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('searchInput')?.addEventListener('input', renderContent);
 
-        // Закрытие модального окна
         document.getElementById('closeModal').onclick = () => els.modal.classList.remove('active');
         els.modal.onclick = (e) => { 
-            // Клик по обертке (фон) закрывает окно
             if(e.target === els.modal || e.target.classList.contains('modal-window-wrapper')) {
                  els.modal.classList.remove('active');
             }
@@ -347,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        // Анимация заголовка
+        // Anim header
         const h1 = document.querySelector('.page-header h1');
         if(h1) {
             const txt = h1.innerText;
