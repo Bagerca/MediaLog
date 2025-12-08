@@ -70,11 +70,21 @@ input { outline: none; }
 /* 4. ЛЕЙАУТ И КОНТРОЛЫ */
 .container { max-width: 1400px; margin: 0 auto; padding: 2rem; width: 100%; }
 .page-header { text-align: center; margin: 3rem 0 1.5rem 0; }
+
+/* -- АНИМАЦИЯ ТЕГА -- */
 .deco-tag {
     display: inline-block; padding: 6px 16px; border: 1px solid var(--gold-dim);
     color: var(--gold); font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 3px;
     background: rgba(255, 174, 0, 0.05); margin-bottom: 0.5rem;
+    /* Анимация появления */
+    opacity: 0; 
+    animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
+@keyframes tagReveal { 
+    0% { opacity: 0; transform: scaleX(0); } 
+    100% { opacity: 1; transform: scaleX(1); } 
+}
+
 .page-header h1 { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px; color: #fff; margin: 0; }
 
 .filter-wrapper { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; z-index: 50; }
@@ -112,9 +122,8 @@ input { outline: none; }
 .grid-cards.cols-5 { grid-template-columns: repeat(5, 1fr); }
 
 /* =================================================================
-   8. HUB / INDEX STYLES (ГЛАВНАЯ СТРАНИЦА)
+   8. HUB / INDEX STYLES (Главная страница)
    ================================================================= */
-
 .hub-wrapper { min-height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
 
