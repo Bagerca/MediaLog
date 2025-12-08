@@ -38,7 +38,7 @@
         <div class="nav-links">
             <a href="index.html" class="nav-item">TERMINAL</a>
             <a href="anime.html" class="nav-item active">VISUALS</a>
-            <a href="games.html" class="nav-item">SIMULATIONS</a>
+            <a href="games.html" class="nav-item active">SIMULATIONS</a>
         </div>
     </nav>
 
@@ -48,49 +48,70 @@
             <h1>VISUAL LOGS</h1>
         </header>
 
-        <!-- CONTROL DECK -->
+        <!-- CONTROL DECK (ОБНОВЛЕННАЯ СТРУКТУРА) -->
         <div class="control-deck">
             
-            <!-- Верхний ряд -->
-            <div class="deck-top">
-                <!-- 1. Режим -->
-                <div class="mode-module">
-                    <span class="module-label">DATA_SOURCE</span>
+            <!-- РЯД 1: ОСНОВНЫЕ ИНСТРУМЕНТЫ -->
+            <div class="deck-row top-row">
+                
+                <!-- Источник + Избранное -->
+                <div class="group-left">
                     <div class="mode-switch">
                         <button class="mode-btn" data-mode="all">GLOBAL_DB</button>
                         <button class="mode-btn active" data-mode="mine">MY_COLLECTION</button>
                     </div>
+                    <button class="fav-toggle-btn" id="favFilterBtn" title="Show Favorites Only">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <span>FAV_ONLY</span>
+                    </button>
                 </div>
 
-                <!-- 2. Поиск -->
-                <div class="search-module">
-                    <span class="module-label">QUERY_INPUT</span>
-                    <div class="search-input-wrapper">
-                        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
+                <!-- Поиск -->
+                <div class="search-wrapper">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
+                </div>
+
+                <!-- Сортировка + Вид -->
+                <div class="group-right">
+                    <div class="sort-module">
+                        <span class="module-label-mini">SORT_BY</span>
+                        <select id="sortSelect" class="sort-select">
+                            <option value="date_desc">DATE (NEWEST)</option>
+                            <option value="date_asc">DATE (OLDEST)</option>
+                            <option value="rank_desc">RANK (HIGH>LOW)</option>
+                            <option value="rank_asc">RANK (LOW>HIGH)</option>
+                            <option value="name_asc">NAME (A-Z)</option>
+                        </select>
                     </div>
-                </div>
-
-                <!-- 3. Сетка -->
-                <div class="view-module">
-                    <span class="module-label">DENSITY</span>
+                    
                     <div class="view-controls">
-                        <button class="view-btn active" data-cols="4" title="4 Columns"><span class="btn-icon">||||</span></button>
-                        <button class="view-btn" data-cols="5" title="5 Columns"><span class="btn-icon">|||||</span></button>
-                        <button class="view-btn" data-cols="6" title="6 Columns"><span class="btn-icon">||||||</span></button>
+                        <button class="view-btn active" data-cols="4"><span class="btn-icon">||||</span></button>
+                        <button class="view-btn" data-cols="5"><span class="btn-icon">|||||</span></button>
+                        <button class="view-btn" data-cols="6"><span class="btn-icon">||||||</span></button>
                     </div>
                 </div>
             </div>
 
-            <!-- Нижний ряд -->
-            <div class="deck-bottom">
-                <div class="filter-module">
-                    <div class="filter-header">
-                        <span class="module-label">TAG_FILTERS // MULTI-SELECT SYSTEM</span>
-                        <button id="clearTagsBtn" class="clear-btn" style="display: none;">RESET [X]</button>
-                    </div>
-                    <div class="tag-matrix" id="filterOptions"></div>
+            <!-- РЯД 2: ФИЛЬТРЫ РАНГОВ -->
+            <div class="deck-row middle-row">
+                <span class="module-label">RANK_FILTERS</span>
+                <div class="rank-filter-group">
+                    <button class="rank-filter-btn" data-rank="UR">UR</button>
+                    <button class="rank-filter-btn" data-rank="SSR">SSR</button>
+                    <button class="rank-filter-btn" data-rank="SR">SR</button>
+                    <button class="rank-filter-btn" data-rank="R">R</button>
+                    <button class="rank-filter-btn" data-rank="N">N</button>
                 </div>
+            </div>
+
+            <!-- РЯД 3: ТЕГИ -->
+            <div class="deck-row bottom-row">
+                <div class="filter-header">
+                    <span class="module-label">TAG_FILTERS</span>
+                    <button id="clearTagsBtn" class="clear-btn" style="display: none;">RESET ALL [X]</button>
+                </div>
+                <div class="tag-matrix" id="filterOptions"></div>
             </div>
         </div>
 
