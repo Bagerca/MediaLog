@@ -3,15 +3,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // 0. КОНФИГУРАЦИЯ
     const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
+    const STORAGE_KEY_COLS = 'resonance_grid_columns'; // Для сохранения выбора колонок
     
-    // 1. ЗАГРУЗКА
+    // Хранилище активных тегов (Set гарантирует уникальность)
+    let activeTags = new Set(); 
+
+    // 1. ЗАГРУЗКА ДАННЫХ
     if (pageType && gridContainer) {
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
                 const items = data[pageType];
                 renderCards(items, pageType); 
-                generateFilters(items); 
+                generateTagMatrix(items); // Генерируем новые кнопки
                 initInterface(pageType); 
             })
             .catch(err => console.error('DB Error:', err));
@@ -19,18 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
         initInterface(null);
     }
 
-    // 2. РЕНДЕР КАРТОЧЕК
+    // 2. РЕНДЕР КАРТОЧЕК (Без изменений)
     function renderCards(items, type) {
         if (!items) return;
-        
-        // Определяем префикс класса (game или anime)
         const prefix = (type === 'games') ? 'game' : 'anime';
 
         gridContainer.innerHTML = items.map(item => {
             const metaColor = (item.rank === 'UR') ? 'var(--gold)' : 
                               (item.rank === 'SSR') ? 'var(--cyan)' : 'var(--text-muted)';
             
-            // Сохраняем все данные в dataset
             return `
             <div class="${prefix}-card" 
                  data-title="${item.title}"
@@ -58,104 +59,163 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     }
 
-    // 3. ФИЛЬТРЫ
-    function generateFilters(items) {
+    // 3. ГЕНЕРАЦИЯ МАТРИЦЫ ТЕГОВ (МУЛЬТИ-ВЫБОР)
+    function generateTagMatrix(items) {
         const filterContainer = document.getElementById('filterOptions');
+        const clearBtn = document.getElementById('clearTagsBtn');
         if (!filterContainer) return;
+
+        // Собираем уникальные теги
         const allTags = new Set();
-        items.forEach(item => { if (item.tags) item.tags.split(',').forEach(t => allTags.add(t.trim())); });
-        
+        items.forEach(item => { 
+            if (item.tags) item.tags.split(',').forEach(t => allTags.add(t.trim())); 
+        });
         const sortedTags = Array.from(allTags).sort();
-        let html = `<div class="option active" data-filter="all">ALL RECORDS</div>`;
-        sortedTags.forEach(tag => { html += `<div class="option" data-filter="${tag}">${tag}</div>`; });
-        filterContainer.innerHTML = html;
+
+        // Создаем кнопки
+        filterContainer.innerHTML = sortedTags.map(tag => 
+            `<button class="tag-btn" data-tag="${tag}">${tag}</button>`
+        ).join('');
+
+        // Добавляем обработчики клика на теги
+        const tagButtons = filterContainer.querySelectorAll('.tag-btn');
+        tagButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tag = btn.getAttribute('data-tag');
+                
+                // Логика переключения
+                if (activeTags.has(tag)) {
+                    activeTags.delete(tag);
+                    btn.classList.remove('active');
+                } else {
+                    activeTags.add(tag);
+                    btn.classList.add('active');
+                }
+
+                // Показать/скрыть кнопку сброса
+                if (clearBtn) clearBtn.style.display = activeTags.size > 0 ? 'block' : 'none';
+                
+                updateList(); // Обновляем сетку
+            });
+        });
+
+        // Кнопка сброса (RESET)
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                activeTags.clear();
+                tagButtons.forEach(b => b.classList.remove('active'));
+                clearBtn.style.display = 'none';
+                updateList();
+            });
+        }
     }
 
-    // 4. ИНТЕРФЕЙС
+    // 4. ГЛАВНАЯ ФУНКЦИЯ ОБНОВЛЕНИЯ (ФИЛЬТР + ПОИСК)
+    function updateList() {
+        const pageType = document.body.getAttribute('data-page');
+        const cardSelector = pageType ? `.${(pageType === 'games' ? 'game' : 'anime')}-card` : '.card';
+        const cards = document.querySelectorAll(cardSelector);
+        const searchInput = document.getElementById('searchInput');
+        const searchVal = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+        cards.forEach(card => {
+            const cardTags = (card.dataset.tags || '').toLowerCase();
+            const cardTitle = (card.dataset.title || '').toLowerCase();
+            
+            // 1. Проверка поиска
+            const matchesSearch = cardTitle.includes(searchVal);
+
+            // 2. Проверка тегов (Мульти-выбор)
+            let matchesTags = true;
+            if (activeTags.size > 0) {
+                // Превращаем Set активных тегов в массив
+                const activeArray = Array.from(activeTags).map(t => t.toLowerCase());
+                
+                // ЛОГИКА: Показать, если у карточки есть ХОТЯ БЫ ОДИН из выбранных тегов
+                matchesTags = activeArray.some(tag => cardTags.includes(tag));
+                
+                // Если нужна СТРОГАЯ логика (карточка должна иметь ВСЕ выбранные теги), раскомментируй строку ниже:
+                // matchesTags = activeArray.every(tag => cardTags.includes(tag));
+            }
+
+            // Финальное решение
+            if (matchesSearch && matchesTags) {
+                card.style.display = 'block';
+                // Небольшая задержка для плавности
+                requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; });
+            } else {
+                card.style.display = 'none';
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+            }
+        });
+    }
+
+    // 5. ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА
     function initInterface(pageType) {
         
-        // --- A. ХАКЕРСКИЙ ЭФФЕКТ ЗАГОЛОВКА (ВОССТАНОВЛЕНО) ---
+        // --- A. ЭФФЕКТ ЗАГОЛОВКА ---
         const headerTitle = document.querySelector('.page-header h1');
         if (headerTitle) {
             const originalText = headerTitle.innerText;
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*";
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890///";
             let iteration = 0;
             let interval = setInterval(() => {
                 headerTitle.innerText = originalText.split("").map((letter, index) => {
                     if (index < iteration) return originalText[index];
                     return chars[Math.floor(Math.random() * chars.length)];
                 }).join("");
-                
                 if (iteration >= originalText.length) clearInterval(interval);
-                
-                // Скорость анимации
-                iteration += 1 / 2; 
+                iteration += 1 / 2;
             }, 30);
         }
-        
-        // --- B. ПОИСК И ФИЛЬТРЫ ---
-        const cardSelector = pageType ? `.${(pageType === 'games' ? 'game' : 'anime')}-card` : '.card';
+
+        // --- B. ПОИСК ---
         const searchInput = document.getElementById('searchInput');
-        
-        function updateList() {
-            const cards = document.querySelectorAll(cardSelector); 
-            const filterVal = document.querySelector('.option.active')?.dataset.filter || 'all';
-            const searchVal = searchInput ? searchInput.value.toLowerCase() : '';
-
-            cards.forEach(card => {
-                const tags = (card.dataset.tags || '').toLowerCase();
-                const title = (card.dataset.title || '').toLowerCase();
-                
-                const matchTag = filterVal === 'all' || tags.includes(filterVal.toLowerCase());
-                const matchSearch = title.includes(searchVal);
-
-                if (matchTag && matchSearch) {
-                    card.style.display = 'block';
-                    setTimeout(() => card.style.opacity = '1', 50);
-                } else {
-                    card.style.display = 'none';
-                    card.style.opacity = '0';
-                }
-            });
-        }
-        
-        if(searchInput) searchInput.addEventListener('input', updateList);
-        
-        const dropdown = document.querySelector('.custom-dropdown');
-        const trigger = dropdown?.querySelector('.dropdown-trigger');
-        const opts = dropdown?.querySelectorAll('.option');
-        
-        if (trigger) {
-            trigger.addEventListener('click', (e) => { e.stopPropagation(); dropdown.classList.toggle('open'); });
-            document.addEventListener('click', () => dropdown.classList.remove('open'));
-        }
-        
-        if (opts) {
-            opts.forEach(o => o.addEventListener('click', function() {
-                opts.forEach(el => el.classList.remove('active'));
-                this.classList.add('active');
-                dropdown.querySelector('.selected-text').textContent = (this.dataset.filter === 'all') ? 'FILTER BY TAGS' : this.textContent;
-                updateList();
-            }));
+        if(searchInput) {
+            searchInput.addEventListener('input', updateList);
         }
 
+        // --- C. УПРАВЛЕНИЕ СЕТКОЙ (4, 5, 6 колонок) ---
         const viewBtns = document.querySelectorAll('.view-btn');
         const grid = document.querySelector('.grid-cards');
+        
+        // Восстановление сохраненной настройки
+        const savedCols = localStorage.getItem(STORAGE_KEY_COLS);
+        if (savedCols && grid) {
+            grid.className = `grid-cards cols-${savedCols}`;
+            viewBtns.forEach(b => {
+                b.classList.remove('active');
+                if(b.dataset.cols === savedCols) b.classList.add('active');
+            });
+        }
+
         viewBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                // Визуальное переключение
                 viewBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                if(grid) grid.className = `grid-cards cols-${btn.dataset.cols}`;
+                
+                // Применение класса
+                const cols = btn.dataset.cols;
+                if(grid) grid.className = `grid-cards cols-${cols}`;
+                
+                // Сохранение
+                localStorage.setItem(STORAGE_KEY_COLS, cols);
             });
         });
 
+        // Инициализация модалки
+        const cardSelector = pageType ? `.${(pageType === 'games' ? 'game' : 'anime')}-card` : '.card';
         initModal(cardSelector);
     }
 
-    // 5. МОДАЛЬНОЕ ОКНО
+    // 6. МОДАЛЬНОЕ ОКНО
     function initModal(cardSelector) {
         const modal = document.getElementById('detailModal');
         const grid = document.querySelector('.grid-cards');
+        const closeBtn = document.getElementById('closeModal');
+        
         if (!modal || !grid) return;
 
         grid.addEventListener('click', (e) => {
@@ -169,14 +229,12 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('modalPlatform').textContent = d.platform;
             document.getElementById('modalDev').textContent = d.dev;
             
-            // Безопасное обновление ранга
             const rInfo = document.getElementById('modalRank');
             if(rInfo) {
                 rInfo.textContent = d.rank;
                 rInfo.style.color = (d.rank === 'UR') ? 'var(--gold)' : (d.rank === 'SSR' ? 'var(--cyan)' : 'rgba(255,255,255,0.05)');
             }
 
-            // Безопасная обработка тегов
             const tagsBox = document.getElementById('modalTags');
             if(tagsBox) {
                 tagsBox.innerHTML = '';
@@ -188,13 +246,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
             }
-
             modal.classList.add('active');
         });
 
-        const closeBtn = document.getElementById('closeModal');
         if(closeBtn) closeBtn.onclick = () => modal.classList.remove('active');
-        
         modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('active'); };
+        document.onkeydown = (e) => { if (e.key === 'Escape') modal.classList.remove('active'); };
     }
 });
