@@ -9,7 +9,7 @@
     
     <!-- СТИЛИ -->
     <link rel="stylesheet" href="style.css"> <!-- Глобальные -->
-    <link rel="stylesheet" href="games.css"> <!-- Специфичные для игр -->
+    <link rel="stylesheet" href="games.css"> <!-- Специфичные для игр (Gold) -->
 </head>
 
 <body data-page="games">
@@ -53,7 +53,7 @@
             
             <!-- Верхний ряд -->
             <div class="deck-top">
-                <!-- 1. Режим (По умолчанию MY_COLLECTION) -->
+                <!-- 1. Режим -->
                 <div class="mode-module">
                     <span class="module-label">DATA_SOURCE</span>
                     <div class="mode-switch">
@@ -94,54 +94,73 @@
             </div>
         </div>
 
-        <!-- ГЛАВНЫЙ КОНТЕЙНЕР -->
+        <!-- ГЛАВНЫЙ КОНТЕЙНЕР ДЛЯ КАРТОЧЕК -->
         <div class="grid-cards cols-4" id="cards-container"></div>
     </main>
 
-    <!-- МОДАЛЬНОЕ ОКНО -->
+    <!-- МОДАЛЬНОЕ ОКНО (НОВАЯ СТРУКТУРА) -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
+            <!-- Декоративные уголки -->
+            <div class="modal-frame-corner top-left"></div>
+            <div class="modal-frame-corner top-right"></div>
+            <div class="modal-frame-corner btm-left"></div>
+            <div class="modal-frame-corner btm-right"></div>
+
             <div class="modal-inner">
-                <button class="modal-close" id="closeModal">ABORT [X]</button>
+                <button class="modal-close" id="closeModal">ABORT PROCESS [X]</button>
             
                 <div class="modal-body">
-                    <!-- Визуал -->
+                    <!-- Визуал (Левая часть) -->
                     <div class="modal-visual">
+                        <div class="visual-overlay"></div>
                         <img id="modalImg" src="" alt="Cover Art">
+                        <div class="visual-tech-line"></div>
                     </div>
             
-                    <!-- Инфо -->
+                    <!-- Инфо (Правая часть) -->
                     <div class="modal-info">
                         <div class="rank-watermark" id="modalBgRank">N</div>
     
                         <div class="modal-header">
                             <div class="sys-row">
-                                <span class="sys-msg" id="sysModeLabel">/// VIEW_MODE</span>
-                                <span class="sys-id" id="modalDev">DEV_NAME</span>
+                                <span class="sys-msg" id="sysModeLabel">/// SYSTEM: VIEW_MODE</span>
+                                <span class="sys-id">ID: <span id="modalDev">DEV_NAME</span></span>
                             </div>
                             <h2 id="modalTitle">TITLE_HOLDER</h2>
+                            <div class="header-line"></div>
                             <div class="tags-container" id="modalTags"></div>
                         </div>
 
                         <!-- РЕЖИМ ПРОСМОТРА -->
                         <div id="viewMode" class="mode-content">
-                            <div class="view-data">
-                                <div class="view-rank-wrapper">
-                                    <span class="view-label">CURRENT RANK</span>
-                                    <span class="view-rank-value" id="viewRankDisplay">N/A</span>
+                            <div class="view-grid">
+                                <!-- Блок ранга -->
+                                <div class="info-block rank-block">
+                                    <span class="block-label">CLASSIFICATION (RANK)</span>
+                                    <div class="rank-display-box" id="viewRankDisplay">N/A</div>
                                 </div>
-                                <div class="view-note-wrapper">
-                                    <span class="view-label">DATA LOG // NOTES</span>
-                                    <p id="viewNoteDisplay" class="view-text">No data recorded.</p>
+                                
+                                <!-- Блок платформы -->
+                                <div class="info-block platform-block">
+                                    <span class="block-label">PLATFORM / SOURCE</span>
+                                    <div class="data-value" id="modalPlatform">-</div>
                                 </div>
-                                <div class="stats-grid">
-                                    <div class="stat-box"><span class="stat-label">PLATFORM</span><span class="stat-value" id="modalPlatform">-</span></div>
+
+                                <!-- Блок заметок -->
+                                <div class="info-block note-block">
+                                    <span class="block-label">DATA LOG // USER NOTES</span>
+                                    <div class="note-terminal">
+                                        <div class="terminal-line"></div>
+                                        <p id="viewNoteDisplay" class="view-text">No data recorded.</p>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="modal-footer">
-                                <button class="action-btn primary-btn" id="btnAddLib">ADD TO LIBRARY</button>
-                                <div id="libActions" class="lib-actions" style="display: none; width: 100%; gap: 10px;">
-                                    <button class="action-btn edit-btn" id="btnEdit">MODIFY RECORD</button>
+                                <button class="action-btn primary-btn" id="btnAddLib">INITIALIZE RECORD</button>
+                                <div id="libActions" class="lib-actions" style="display: none; width: 100%; gap: 15px;">
+                                    <button class="action-btn edit-btn" id="btnEdit">MODIFY DATA</button>
                                     <button class="action-btn delete-btn" id="btnDelete">DELETE</button>
                                 </div>
                             </div>
@@ -151,7 +170,7 @@
                         <div id="editMode" class="mode-content" style="display: none;">
                             <div class="edit-form">
                                 <div class="input-group">
-                                    <label>UPDATE RANK</label>
+                                    <label>UPDATE CLASSIFICATION</label>
                                     <div class="rank-selector">
                                         <button class="rank-opt" data-value="UR">UR</button>
                                         <button class="rank-opt" data-value="SSR">SSR</button>
@@ -161,12 +180,12 @@
                                     </div>
                                 </div>
                                 <div class="input-group full-height">
-                                    <label>UPDATE NOTES</label>
-                                    <textarea id="userNoteInput" placeholder="ENTER NEW DATA..."></textarea>
+                                    <label>UPDATE LOG ENTRY</label>
+                                    <textarea id="userNoteInput" placeholder="> ENTER NEW DATA..."></textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button class="action-btn save-btn" id="btnSave">CONFIRM CHANGES</button>
+                                <button class="action-btn save-btn" id="btnSave">SAVE CHANGES</button>
                                 <button class="action-btn cancel-btn" id="btnCancel">CANCEL</button>
                             </div>
                         </div>
