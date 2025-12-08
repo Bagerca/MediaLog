@@ -7,18 +7,18 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Подключаем спец. стили аниме -->
+    <link rel="stylesheet" href="anime.css">
 </head>
-<!-- Указываем скрипту загружать раздел "anime" -->
 <body data-page="anime">
     
     <div class="background-container">
         <div class="bg-grid"></div>
         <div class="bg-fog"></div>
-        <div class="gold-dust d2"></div><div class="gold-dust d4"></div>
+        <div class="gold-dust d1"></div><div class="gold-dust d3"></div>
     </div>
 
     <nav class="navbar">
-        <!-- ЛОГОТИП -->
         <a href="index.html" class="brand-logo">
             <svg class="logo-icon" viewBox="0 0 40 40">
                 <path d="M20 2 L37 11 V29 L20 38 L3 29 V11 Z" />
@@ -35,17 +35,18 @@
             <a href="index.html" class="nav-item">TERMINAL</a>
             <a href="anime.html" class="nav-item active">VISUALS</a>
             <a href="games.html" class="nav-item">SIMULATIONS</a>
+            <!-- КНОПКА ВХОДА -->
+            <a href="#" id="navLoginBtn" class="nav-item" style="border: 1px solid var(--border-color); padding: 5px 15px; margin-left: 20px;">LOGIN // ID</a>
         </div>
     </nav>
 
     <main class="container">
         <header class="page-header">
-            <div class="deco-tag">/// ARCHIVE: OPEN</div>
+            <div class="deco-tag">/// FREQUENCY: STABLE</div>
             <h1>VISUAL LOGS</h1>
         </header>
 
         <div class="filter-wrapper">
-            <!-- Выпадающий список -->
             <div class="custom-dropdown">
                 <button class="dropdown-trigger">
                     <span class="selected-text">FILTER BY TAGS</span>
@@ -54,13 +55,11 @@
                 <div class="dropdown-options" id="filterOptions"></div>
             </div>
             
-            <!-- Поиск -->
             <div class="search-terminal">
                 <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
-
-            <!-- Кнопки управления сеткой -->
+            
             <div class="view-controls">
                 <button class="view-btn active" data-cols="3" title="3 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg></button>
                 <button class="view-btn" data-cols="4" title="4 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
@@ -69,33 +68,25 @@
             </div>
         </div>
 
-        <!-- ГЛАВНЫЙ КОНТЕЙНЕР (Пустой, для JS) -->
         <div class="grid-cards cols-3" id="cards-container"></div>
     </main>
 
-    <!-- HUD MODAL -->
+    <!-- ИНФО MODAL -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="modal-inner">
-                
                 <button class="modal-close" id="closeModal">
                     <span class="close-text">ABORT SIGNAL</span><span class="close-icon">✕</span>
                 </button>
-            
                 <div class="modal-body">
-                    <div class="modal-visual">
-                        <img id="modalImg" src="" alt="Cover Art">
-                    </div>
-            
+                    <div class="modal-visual"><img id="modalImg" src="" alt="Cover Art"></div>
                     <div class="modal-info">
                         <div class="rank-watermark" id="modalRank">UR</div>
-    
                         <div class="modal-header">
                             <div class="sys-row"><span class="sys-msg">/// DECRYPTED_DATA_LOG_01</span><span class="sys-id">ID: #89-XJ</span></div>
                             <h2 id="modalTitle">TITLE</h2>
                             <div class="tags-container" id="modalTags"></div>
                         </div>
-            
                         <div class="modal-content-scroll">
                             <p id="modalDesc" class="modal-desc">Description...</p>
                             <div class="stats-grid">
@@ -105,7 +96,6 @@
                                 <div class="stat-box"><span class="stat-label">INTEGRITY</span><span class="stat-value highlight">100%</span></div>
                             </div>
                         </div>
-            
                         <div class="modal-footer">
                             <button class="action-btn primary"><span class="btn-text">INITIATE LAUNCH</span></button>
                             <button class="action-btn secondary"><span class="btn-text">EDIT RECORD</span></button>
@@ -115,6 +105,41 @@
             </div>
         </div>
     </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ВХОДА (AUTH) -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-window" style="height: auto; max-width: 450px; transform: scale(0.95);">
+            <div class="modal-inner" style="padding: 3rem 2rem; overflow: visible;">
+                
+                <button class="modal-close" id="closeAuthModal">
+                    <span class="close-text">ABORT</span><span class="close-icon">✕</span>
+                </button>
+
+                <div class="modal-header" style="text-align: center;">
+                    <div class="deco-tag">/// SECURE CONNECTION</div>
+                    <h2 id="authTitle" style="font-size: 2.5rem; margin-bottom: 2rem;">SYSTEM ACCESS</h2>
+                </div>
+
+                <form id="authForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div class="search-terminal" id="nickContainer" style="width: 100%; display: none;">
+                        <input type="text" id="authNick" placeholder="CODENAME (NICKNAME)" style="background:transparent; width:100%; height:100%; border:none; color:var(--gold); padding:0 15px; font-family:var(--font-head);">
+                    </div>
+                    <div class="search-terminal" style="width: 100%;">
+                        <input type="email" id="authEmail" placeholder="EMAIL ADDRESS" required style="background:transparent; width:100%; height:100%; border:none; color:var(--gold); padding:0 15px; font-family:var(--font-head);">
+                    </div>
+                    <div class="search-terminal" style="width: 100%;">
+                        <input type="password" id="authPass" placeholder="ACCESS KEY (PASSWORD)" required style="background:transparent; width:100%; height:100%; border:none; color:var(--gold); padding:0 15px; font-family:var(--font-head);">
+                    </div>
+                    <button type="button" id="authSubmit" class="action-btn primary" style="margin-top: 1rem;">CONNECT</button>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <span id="authToggle" style="font-family: var(--font-head); color: var(--text-muted); cursor: pointer; font-size: 0.9rem; letter-spacing: 1px;">>> CREATE NEW ID</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script type="module" src="auth.js"></script>
 </body>
 </html>
