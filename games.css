@@ -157,7 +157,7 @@
     background-size: 40px 40px;
 }
 
-/* 3. УГОЛКИ (Позиционируются относительно Wrapper) */
+/* 3. УГОЛКИ (Теперь позиционируются относительно Wrapper) */
 .modal-corner {
     position: absolute; width: 15px; height: 15px;
     background: var(--gold); 
@@ -304,14 +304,19 @@
 .rank-opt:hover { border-color: #fff; color: #fff; }
 .rank-opt.active { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 0 20px rgba(255, 174, 0, 0.4); }
 
-textarea#userNoteInput {
-    width: 100%; height: 100%; min-height: 150px;
+/* ПОЛЯ ВВОДА (TEXTAREA + NEW INPUT) */
+.terminal-input, textarea#userNoteInput {
+    width: 100%; 
     background: #050608; border: 1px solid rgba(255,255,255,0.2);
-    color: var(--gold); padding: 20px; font-family: 'Consolas', monospace; font-size: 0.9rem;
-    resize: none; outline: none; transition: 0.3s;
+    color: var(--gold); padding: 0 20px;
+    font-family: 'Consolas', monospace; font-size: 0.9rem; letter-spacing: 1px;
+    outline: none; transition: 0.3s;
 }
-textarea#userNoteInput:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 174, 0, 0.1); }
-textarea#userNoteInput::placeholder { color: rgba(255,255,255,0.2); }
+.terminal-input { height: 50px; }
+textarea#userNoteInput { height: 100%; min-height: 150px; padding: 20px; resize: none; }
+
+.terminal-input:focus, textarea#userNoteInput:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 174, 0, 0.1); }
+.terminal-input::placeholder, textarea#userNoteInput::placeholder { color: rgba(255,255,255,0.2); }
 
 /* FOOTER BUTTONS (Прижаты к низу, без наложения) */
 .modal-footer { 
