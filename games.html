@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- СТИЛИ -->
-    <link rel="stylesheet" href="style.css"> <!-- Общий стиль -->
-    <link rel="stylesheet" href="games.css"> <!-- Стиль для игр -->
+    <link rel="stylesheet" href="style.css"> <!-- Глобальные -->
+    <link rel="stylesheet" href="games.css"> <!-- Для Игр -->
 </head>
 
 <body data-page="games">
@@ -48,25 +48,35 @@
             <h1>SIMULATION LOGS</h1>
         </header>
 
-        <!-- CONTROL DECK (ПАНЕЛЬ УПРАВЛЕНИЯ) -->
+        <!-- CONTROL DECK (НОВАЯ ПАНЕЛЬ) -->
         <div class="control-deck">
             
-            <!-- Верхний ряд: Поиск и Сетка -->
+            <!-- Верхний ряд: Режим, Поиск, Сетка -->
             <div class="deck-top">
-                <!-- Поиск -->
-                <div class="search-module">
-                    <span class="module-label">DB_SEARCH</span>
-                    <div class="search-input-wrapper">
-                        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" id="searchInput" placeholder="ENTER QUERY...">
+                
+                <!-- 1. Режим Библиотеки -->
+                <div class="mode-module">
+                    <span class="module-label">DATA_SOURCE</span>
+                    <div class="mode-switch">
+                        <button class="mode-btn active" data-mode="all">GLOBAL_DB</button>
+                        <button class="mode-btn" data-mode="mine">MY_COLLECTION</button>
                     </div>
                 </div>
 
-                <!-- Кнопки сетки (4, 5, 6) -->
+                <!-- 2. Поиск -->
+                <div class="search-module">
+                    <span class="module-label">QUERY_INPUT</span>
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
+                    </div>
+                </div>
+
+                <!-- 3. Сетка -->
                 <div class="view-module">
-                    <span class="module-label">GRID_DENSITY</span>
+                    <span class="module-label">DENSITY</span>
                     <div class="view-controls">
-                        <button class="view-btn" data-cols="4" title="4 Columns">
+                        <button class="view-btn active" data-cols="4" title="4 Columns">
                             <span class="btn-icon">||||</span>
                         </button>
                         <button class="view-btn" data-cols="5" title="5 Columns">
@@ -83,16 +93,16 @@
             <div class="deck-bottom">
                 <div class="filter-module">
                     <div class="filter-header">
-                        <span class="module-label">TAG_FILTERS // MULTI-SELECT ACTIVE</span>
+                        <span class="module-label">TAG_FILTERS // MULTI-SELECT SYSTEM</span>
                         <button id="clearTagsBtn" class="clear-btn" style="display: none;">RESET [X]</button>
                     </div>
-                    <!-- Сюда JS генерирует кнопки -->
+                    <!-- Сюда JS генерирует кнопки тегов -->
                     <div class="tag-matrix" id="filterOptions"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ГЛАВНЫЙ КОНТЕЙНЕР (Сюда грузятся карточки) -->
+        <!-- КОНТЕЙНЕР КАРТОЧЕК -->
         <div class="grid-cards cols-4" id="cards-container"></div>
     </main>
 
@@ -108,7 +118,7 @@
                     </div>
             
                     <div class="modal-info">
-                        <div class="rank-watermark" id="modalRank" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); font-size: 10rem; opacity: 0.05; font-weight: 900; pointer-events: none;">UR</div>
+                        <div class="rank-watermark" id="modalRank">UR</div>
     
                         <div class="modal-header">
                             <div style="border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; padding-bottom: 5px; display:flex; justify-content:space-between;">
@@ -126,11 +136,18 @@
                             <div class="stat-box"><span class="stat-label">DEVELOPER</span><span class="stat-value" id="modalDev">-</span></div>
                         </div>
             
+                        <!-- Кнопка действия (Добавить/Удалить) -->
                         <button class="action-btn">INITIATE LAUNCH</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- УВЕДОМЛЕНИЕ (TOAST) -->
+    <div id="sysToast" class="sys-toast">
+        <div class="toast-icon">!</div>
+        <div class="toast-msg">DATA UPDATED</div>
     </div>
 
     <script src="script.js"></script>
