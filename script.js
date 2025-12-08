@@ -1,138 +1,180 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- КОНФИГУРАЦИЯ ---
-    const pageType = document.body.getAttribute('data-page'); // 'games' или 'anime'
+    const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
-    const STORAGE_KEY_LIB = `resonance_library_${pageType}`; // Уникальный ключ для каждого раздела
-    const STORAGE_KEY_COLS = 'resonance_grid_columns';
+    const STORAGE_KEY = `resonance_data_${pageType}`; // Уникальная база для игр и аниме
     
     // --- СОСТОЯНИЕ ---
-    let allItemsData = []; // Все загруженные данные
-    let myLibrary = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY_LIB)) || []);
-    let activeTags = new Set();
+    let allItemsDB = []; // Данные из JSON (база)
+    let userLibrary = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; // Твои данные { "Title": {rank, note} }
     let currentMode = 'all'; // 'all' или 'mine'
+    let activeTags = new Set();
 
-    // --- 1. ЗАГРУЗКА ---
+    // --- 1. ИНИЦИАЛИЗАЦИЯ ---
     if (pageType && gridContainer) {
         fetch('data.json')
             .then(res => res.json())
             .then(data => {
-                allItemsData = data[pageType]; // Сохраняем в глобальную переменную
-                generateTagMatrix(allItemsData);
+                allItemsDB = data[pageType];
+                generateTagMatrix(allItemsDB);
                 initInterface();
-                renderContent(); // Первичный рендер
-            })
-            .catch(err => console.error('System Failure:', err));
+                renderContent();
+            });
     } else {
         initInterface();
     }
 
-    // --- 2. РЕНДЕР КОНТЕНТА (УМНЫЙ) ---
+    // --- 2. РЕНДЕР КАРТОЧЕК ---
     function renderContent() {
         if (!gridContainer) return;
 
-        // 1. Фильтр по режиму (Все или Мои)
-        let itemsToRender = allItemsData;
+        let items = allItemsDB;
+
+        // Фильтр: Мои / Все
         if (currentMode === 'mine') {
-            itemsToRender = allItemsData.filter(item => myLibrary.has(item.title));
+            items = items.filter(i => userLibrary[i.title]);
         }
 
-        // 2. Фильтр по поиску
-        const searchVal = document.getElementById('searchInput')?.value.toLowerCase().trim() || '';
-        if (searchVal) {
-            itemsToRender = itemsToRender.filter(item => item.title.toLowerCase().includes(searchVal));
-        }
+        // Фильтр: Поиск
+        const searchVal = document.getElementById('searchInput')?.value.toLowerCase().trim();
+        if (searchVal) items = items.filter(i => i.title.toLowerCase().includes(searchVal));
 
-        // 3. Фильтр по тегам
+        // Фильтр: Теги
         if (activeTags.size > 0) {
-            const activeArray = Array.from(activeTags).map(t => t.toLowerCase());
-            itemsToRender = itemsToRender.filter(item => {
-                const itemTags = (item.tags || '').toLowerCase();
-                return activeArray.some(tag => itemTags.includes(tag));
+            const tagsArr = Array.from(activeTags);
+            items = items.filter(i => {
+                const iTags = (i.tags || '').toLowerCase();
+                return tagsArr.some(t => iTags.includes(t.toLowerCase()));
             });
         }
 
-        // 4. Отрисовка или Пустое состояние
-        if (itemsToRender.length === 0) {
-            gridContainer.innerHTML = `<div class="empty-state">/// NO RECORDS FOUND IN SECTOR</div>`;
+        if (items.length === 0) {
+            gridContainer.innerHTML = `<div class="empty-state">NO DATA FOUND</div>`;
             return;
         }
 
-        // Генерация HTML
         const prefix = (pageType === 'games') ? 'game' : 'anime';
-        
-        gridContainer.innerHTML = itemsToRender.map(item => {
-            const isOwned = myLibrary.has(item.title);
-            const btnClass = isOwned ? 'in-lib' : '';
-            const btnIcon = isOwned ? '✓' : '+';
+
+        gridContainer.innerHTML = items.map(item => {
+            // Проверяем, есть ли пользовательские данные
+            const userData = userLibrary[item.title];
+            const userRank = userData ? userData.rank : null;
             
-            // Цвет ранга
-            const metaColor = (item.rank === 'UR') ? 'var(--gold)' : (item.rank === 'SSR') ? 'var(--cyan)' : 'var(--text-muted)';
+            // Если есть данные, показываем ранг пользователя, иначе пусто
+            const rankHtml = userRank ? `<div class="${prefix}-rank-badge ${userRank.toLowerCase()}">${userRank}</div>` : '';
+            const addedClass = userData ? 'in-lib' : '';
+            
+            // Мета данные: если есть заметка, пишем "EDITED", иначе дефолт
+            const metaText = userData ? "IN LIBRARY" : "DATABASE";
+            const metaColor = userData ? (pageType === 'games' ? 'var(--gold)' : 'var(--cyan)') : 'var(--text-muted)';
 
             return `
-            <div class="${prefix}-card" 
-                 onclick="openModal('${item.title.replace(/'/g, "\\'")}')"> 
-                
-                <!-- Кнопка быстрого добавления (останавливаем всплытие клика) -->
-                <div class="card-add-btn ${btnClass}" onclick="toggleItem(event, '${item.title.replace(/'/g, "\\'")}')">
-                    ${btnIcon}
-                </div>
-
+            <div class="${prefix}-card" onclick="openEditor('${item.title.replace(/'/g, "\\'")}')">
                 <div class="${prefix}-card-inner">
                     <div class="${prefix}-card-img" style="background-image: url('${item.image}');"></div>
-                    <div class="${prefix}-rank-badge ${item.rank.toLowerCase()}">${item.rank}</div>
-                    
+                    ${rankHtml}
                     <div class="${prefix}-card-content">
                         <div class="${prefix}-card-title">${item.title}</div>
                         <div class="${prefix}-card-meta">
-                            <span style="color: ${metaColor}; font-weight: bold;">${item.meta_highlight}</span>
-                            <span>${item.meta_sub}</span>
+                            <span style="color: ${metaColor}; font-weight: bold;">${metaText}</span>
                         </div>
                     </div>
                 </div>
-            </div>
-            `;
+                <!-- Индикатор наличия в библиотеке -->
+                <div class="card-add-btn ${addedClass}">✓</div>
+            </div>`;
         }).join('');
     }
 
-    // --- 3. ЛОГИКА БИБЛИОТЕКИ ---
-    
-    // Глобальная функция для вызова из HTML (onclick)
-    window.toggleItem = function(e, title) {
-        if(e) e.stopPropagation(); // Чтобы не открывалась модалка
+    // --- 3. РЕДАКТОР (МОДАЛЬНОЕ ОКНО) ---
+    window.openEditor = function(title) {
+        const item = allItemsDB.find(i => i.title === title);
+        const userData = userLibrary[title] || { rank: 'N', note: '' }; // Дефолт
+        
+        const modal = document.getElementById('detailModal');
+        
+        // Заполняем статику
+        document.getElementById('modalImg').src = item.image;
+        document.getElementById('modalTitle').textContent = item.title;
+        document.getElementById('modalDev').textContent = item.dev;
+        document.getElementById('modalPlatform').textContent = item.platform;
+        
+        // Заполняем теги
+        const tagsBox = document.getElementById('modalTags');
+        tagsBox.innerHTML = item.tags.split(',').map(t => `<span class="tech-tag">${t.trim()}</span>`).join('');
 
-        if (myLibrary.has(title)) {
-            myLibrary.delete(title);
-            showToast(`REMOVED: ${title}`);
-        } else {
-            myLibrary.add(title);
-            showToast(`ADDED: ${title}`);
-        }
+        // --- ФОРМА ---
+        // 1. Заполняем заметку
+        const noteInput = document.getElementById('userNoteInput');
+        noteInput.value = userData.note;
+
+        // 2. Выставляем ранг
+        const rankBtns = document.querySelectorAll('.rank-opt');
+        rankBtns.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.value === userData.rank) btn.classList.add('active');
+            
+            // Клик по рангу
+            btn.onclick = () => {
+                rankBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateRankWatermark(btn.dataset.value);
+            };
+        });
+        updateRankWatermark(userData.rank);
+
+        // 3. Кнопки Сохранить / Удалить
+        const saveBtn = document.getElementById('saveBtn');
+        const delBtn = document.getElementById('deleteBtn');
         
-        // Сохраняем и перерисовываем
-        localStorage.setItem(STORAGE_KEY_LIB, JSON.stringify(Array.from(myLibrary)));
-        
-        // Если мы в модальном окне, обновляем кнопку там
-        updateModalButton(title);
-        
-        renderContent();
+        // Если запись уже есть, показываем кнопку Удалить
+        delBtn.style.display = userLibrary[title] ? 'block' : 'none';
+
+        // ЛОГИКА СОХРАНЕНИЯ
+        saveBtn.onclick = () => {
+            const selectedRank = document.querySelector('.rank-opt.active')?.dataset.value || 'N';
+            const userNote = noteInput.value;
+
+            // Сохраняем в объект
+            userLibrary[title] = {
+                rank: selectedRank,
+                note: userNote,
+                timestamp: Date.now()
+            };
+
+            // Пишем в LocalStorage
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(userLibrary));
+            
+            showToast('RECORD SAVED');
+            modal.classList.remove('active');
+            renderContent();
+        };
+
+        // ЛОГИКА УДАЛЕНИЯ
+        delBtn.onclick = () => {
+            if(confirm('DELETE RECORD FROM ARCHIVE?')) {
+                delete userLibrary[title];
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(userLibrary));
+                showToast('RECORD DELETED');
+                modal.classList.remove('active');
+                renderContent();
+            }
+        };
+
+        modal.classList.add('active');
     };
 
-    function updateModalButton(title) {
-        const btn = document.getElementById('modalActionBtn');
-        if (!btn) return;
-        
-        if (myLibrary.has(title)) {
-            btn.textContent = "REMOVE FROM LIBRARY";
-            btn.style.background = "#333";
-            btn.style.color = "#fff";
-        } else {
-            btn.textContent = "ADD TO COLLECTION";
-            btn.style.background = (pageType === 'games') ? 'var(--gold)' : 'var(--cyan)';
-            btn.style.color = "#000";
+    function updateRankWatermark(rank) {
+        const wm = document.getElementById('modalBgRank');
+        if(wm) {
+            wm.textContent = rank;
+            wm.style.color = (rank === 'UR') ? 'var(--gold)' : (rank === 'SSR' ? 'var(--cyan)' : 'rgba(255,255,255,0.05)');
         }
     }
 
+    // --- 4. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
+    
     function showToast(msg) {
         const toast = document.getElementById('sysToast');
         if(!toast) return;
@@ -141,135 +183,74 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.classList.remove('show'), 2000);
     }
 
-    // --- 4. МОДАЛЬНОЕ ОКНО ---
-    window.openModal = function(title) {
-        const item = allItemsData.find(i => i.title === title);
-        if (!item) return;
+    function generateTagMatrix(items) {
+        const container = document.getElementById('filterOptions');
+        const clearBtn = document.getElementById('clearTagsBtn');
+        if(!container) return;
 
-        const modal = document.getElementById('detailModal');
+        const tags = new Set();
+        items.forEach(i => i.tags.split(',').forEach(t => tags.add(t.trim())));
         
-        document.getElementById('modalImg').src = item.image;
-        document.getElementById('modalTitle').textContent = item.title;
-        document.getElementById('modalDesc').textContent = item.desc;
-        document.getElementById('modalPlatform').textContent = item.platform;
-        document.getElementById('modalDev').textContent = item.dev;
-        
-        // Ранг
-        const rInfo = document.getElementById('modalRank');
-        rInfo.textContent = item.rank;
-        rInfo.style.color = (item.rank === 'UR') ? 'var(--gold)' : (item.rank === 'SSR' ? 'var(--cyan)' : '#333');
+        container.innerHTML = Array.from(tags).sort().map(t => 
+            `<button class="tag-btn" data-tag="${t}">${t}</button>`
+        ).join('');
 
-        // Теги
-        const tagsBox = document.getElementById('modalTags');
-        tagsBox.innerHTML = '';
-        if (item.tags) {
-            item.tags.split(',').forEach(t => {
-                const s = document.createElement('span');
-                s.className = 'tech-tag'; s.textContent = t.trim();
-                tagsBox.appendChild(s);
-            });
-        }
-
-        // Настраиваем главную кнопку
-        const actionBtn = document.querySelector('.action-btn');
-        actionBtn.id = 'modalActionBtn'; // Даем ID для поиска
-        actionBtn.onclick = () => toggleItem(null, item.title);
-        updateModalButton(item.title);
-
-        modal.classList.add('active');
-    };
-
-    // --- 5. ИНТЕРФЕЙС И СОБЫТИЯ ---
-    function initInterface() {
-        
-        // А. Переключатель режимов (Global / My)
-        const modeBtns = document.querySelectorAll('.mode-btn');
-        modeBtns.forEach(btn => {
+        container.querySelectorAll('.tag-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                modeBtns.forEach(b => b.classList.remove('active'));
+                const tag = btn.dataset.tag;
+                if(activeTags.has(tag)) { activeTags.delete(tag); btn.classList.remove('active'); }
+                else { activeTags.add(tag); btn.classList.add('active'); }
+                clearBtn.style.display = activeTags.size ? 'block' : 'none';
+                renderContent();
+            });
+        });
+        
+        if(clearBtn) {
+            clearBtn.onclick = () => {
+                activeTags.clear();
+                container.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+                clearBtn.style.display = 'none';
+                renderContent();
+            }
+        }
+    }
+
+    function initInterface() {
+        // Переключатель режимов
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentMode = btn.dataset.mode;
                 renderContent();
             });
         });
 
-        // Б. Поиск
-        const searchInput = document.getElementById('searchInput');
-        if(searchInput) searchInput.addEventListener('input', renderContent);
+        // Поиск
+        document.getElementById('searchInput')?.addEventListener('input', renderContent);
 
-        // В. Сетка
-        const grid = document.querySelector('.grid-cards');
-        const savedCols = localStorage.getItem(STORAGE_KEY_COLS);
-        if (savedCols && grid) {
-            grid.className = `grid-cards cols-${savedCols}`;
-            document.querySelector(`.view-btn[data-cols="${savedCols}"]`)?.classList.add('active');
-        }
-        document.querySelectorAll('.view-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const cols = btn.dataset.cols;
-                if(grid) grid.className = `grid-cards cols-${cols}`;
-                localStorage.setItem(STORAGE_KEY_COLS, cols);
-            });
-        });
-
-        // Г. Модалка закрытие
+        // Модалка
         const modal = document.getElementById('detailModal');
-        document.getElementById('closeModal').onclick = () => modal.classList.remove('active');
-        modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('active'); };
-        document.onkeydown = (e) => { if (e.key === 'Escape') modal.classList.remove('active'); };
+        if(modal) {
+            document.getElementById('closeModal').onclick = () => modal.classList.remove('active');
+            modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('active'); };
+            document.onkeydown = (e) => { if(e.key === 'Escape') modal.classList.remove('active'); };
+        }
 
-        // Д. Анимация заголовка
+        // Анимация заголовка
         const h1 = document.querySelector('.page-header h1');
         if(h1) {
             const txt = h1.innerText;
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            let iter = 0;
+            let i = 0;
             let timer = setInterval(() => {
-                h1.innerText = txt.split("").map((l, i) => {
-                    if (i < iter) return txt[i];
+                h1.innerText = txt.split("").map((l, idx) => {
+                    if (idx < i) return txt[idx];
                     return chars[Math.floor(Math.random() * chars.length)];
                 }).join("");
-                if(iter >= txt.length) clearInterval(timer);
-                iter += 1/2;
+                if(i >= txt.length) clearInterval(timer);
+                i += 1/2;
             }, 30);
         }
-    }
-
-    // --- 6. ГЕНЕРАЦИЯ ТЕГОВ ---
-    function generateTagMatrix(items) {
-        const container = document.getElementById('filterOptions');
-        const clearBtn = document.getElementById('clearTagsBtn');
-        if (!container) return;
-
-        const allTags = new Set();
-        items.forEach(i => i.tags && i.tags.split(',').forEach(t => allTags.add(t.trim())));
-        
-        container.innerHTML = Array.from(allTags).sort().map(tag => 
-            `<button class="tag-btn" data-tag="${tag}">${tag}</button>`
-        ).join('');
-
-        container.querySelectorAll('.tag-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tag = btn.dataset.tag;
-                if (activeTags.has(tag)) {
-                    activeTags.delete(tag);
-                    btn.classList.remove('active');
-                } else {
-                    activeTags.add(tag);
-                    btn.classList.add('active');
-                }
-                clearBtn.style.display = activeTags.size ? 'block' : 'none';
-                renderContent();
-            });
-        });
-
-        clearBtn.addEventListener('click', () => {
-            activeTags.clear();
-            container.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
-            clearBtn.style.display = 'none';
-            renderContent();
-        });
     }
 });
