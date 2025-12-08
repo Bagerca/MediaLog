@@ -7,8 +7,6 @@
     --text-main: #f2f2f2;
     --text-muted: #808a9f;
     --cyan: #5ffbf1;             
-
-    /* --- ЦВЕТ: SAFETY ORANGE --- */
     --gold: #ffae00;             
     --gold-dim: rgba(255, 174, 0, 0.15);
     
@@ -85,13 +83,9 @@ input { outline: none; }
    4. LAYOUT & HEADER
    ========================================= */
 .container { max-width: 1400px; margin: 0 auto; padding: 2rem; width: 100%; }
-
-@media (min-width: 1600px) {
-    .container { max-width: 1800px; }
-}
+@media (min-width: 1600px) { .container { max-width: 1800px; } }
 
 .page-header { text-align: center; margin: 3rem 0 1.5rem 0; }
-
 .deco-tag {
     position: relative; display: inline-block; padding: 6px 16px; border: 1px solid var(--gold-dim);
     color: var(--gold); font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 3px;
@@ -115,9 +109,7 @@ input { outline: none; }
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     text-transform: uppercase;
 }
-.dropdown-trigger:hover, .custom-dropdown.open .dropdown-trigger { 
-    background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold-dim);
-}
+.dropdown-trigger:hover, .custom-dropdown.open .dropdown-trigger { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold-dim); }
 .dropdown-options {
     position: absolute; top: 110%; left: 0; width: 340px; max-height: 400px; overflow-y: auto;
     background: #0b0c10; border: 1px solid var(--border-color); padding: 10px;
@@ -136,17 +128,11 @@ input { outline: none; }
     cursor: pointer; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px;
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
-.option:hover { 
-    border-color: var(--cyan); color: var(--cyan); 
-    background: rgba(95, 251, 241, 0.1); box-shadow: 0 0 10px rgba(95, 251, 241, 0.1);
-}
-.option.active { 
-    border-color: var(--gold); background: var(--gold); color: #000; font-weight: 700;
-    box-shadow: 0 0 10px rgba(255, 174, 0, 0.4);
-}
+.option:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(95, 251, 241, 0.1); box-shadow: 0 0 10px rgba(95, 251, 241, 0.1); }
+.option.active { border-color: var(--gold); background: var(--gold); color: #000; font-weight: 700; box-shadow: 0 0 10px rgba(255, 174, 0, 0.4); }
 .option[data-filter="all"] { grid-column: span 2; font-weight: bold; border-color: var(--gold-dim); }
 
-/* SEARCH & VIEW BTNS */
+/* SEARCH & VIEW */
 .search-terminal {
     position: relative; width: 260px; height: 48px; background: var(--border-color); padding: 1px; display: flex; align-items: center;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
@@ -160,7 +146,7 @@ input { outline: none; }
 .view-btn:hover, .view-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
 
 /* =========================================
-   6. CONTENT CARDS (GRID)
+   6. GRID & INTERNAL CARDS (Для страниц anime/games)
    ========================================= */
 .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; padding-bottom: 4rem; }
 .grid-cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
@@ -224,7 +210,66 @@ input { outline: none; }
 .hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
 
 /* =========================================
-   8. NEW GAME CARD (QUANTUM CORE)
+   8. VISUAL CARD (LENS / ANIME)
+   ========================================= */
+.movie-card {
+    position: relative; width: 320px; height: 460px;
+    background: transparent; border: none;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-decoration: none; cursor: pointer;
+    filter: drop-shadow(0 0 0 transparent); transition: 0.4s ease; z-index: 1;
+}
+.movie-card::before {
+    content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.1); z-index: -2;
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+    transition: background 0.4s ease;
+}
+.movie-card::after {
+    content: ''; position: absolute; inset: 1px; background: #0e0f14; z-index: -1;
+    clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px);
+}
+.bg-grain {
+    position: absolute; inset: 1px;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+    opacity: 0.3; transition: 0.5s;
+    clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px); pointer-events: none;
+}
+.lens-wrapper { position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
+.focus-ring {
+    position: absolute; width: 100%; height: 100%;
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 50%;
+    background: repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(255, 174, 0, 0.2) 10deg 11deg);
+    animation: slowRotate 30s linear infinite; transition: 0.4s;
+}
+.inner-ring {
+    position: absolute; width: 70%; height: 70%; border: 1px solid var(--gold); border-radius: 50%; opacity: 0.3; transition: 0.4s;
+}
+.play-icon {
+    width: 40px; height: 40px; fill: var(--gold); filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.5));
+    transform: translateX(3px); transition: 0.4s; z-index: 2;
+}
+.film-strip { position: absolute; top: 0; bottom: 0; width: 20px; overflow: hidden; opacity: 0.15; transition: 0.4s; pointer-events: none; }
+.fs-left { left: 30px; border-right: 1px solid rgba(255,255,255,0.1); }
+.fs-right { right: 30px; border-left: 1px solid rgba(255,255,255,0.1); }
+.film-holes {
+    width: 8px; height: 100%; margin: 0 auto;
+    background-image: linear-gradient(var(--gold) 4px, transparent 4px);
+    background-size: 8px 16px; opacity: 0.3;
+}
+@keyframes slowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes filmRoll { from { transform: translateY(0); } to { transform: translateY(-16px); } }
+/* Hover */
+.movie-card:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
+.movie-card:hover::before { background: var(--gold); }
+.movie-card:hover .film-strip { opacity: 0.5; border-color: rgba(255, 174, 0, 0.3); }
+.movie-card:hover .film-holes { opacity: 0.8; animation: filmRoll 0.5s linear infinite; }
+.movie-card:hover .focus-ring { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 174, 0, 0.1); animation-duration: 5s; }
+.movie-card:hover .inner-ring { width: 85%; height: 85%; opacity: 0.8; box-shadow: inset 0 0 20px rgba(255, 174, 0, 0.2); }
+.movie-card:hover .play-icon { transform: translateX(3px) scale(1.2); filter: drop-shadow(0 0 15px var(--gold)); fill: #fff; }
+
+
+/* =========================================
+   9. GAME CARD (QUANTUM CORE)
    ========================================= */
 .sim-card {
     position: relative; width: 320px; height: 460px;
@@ -293,7 +338,6 @@ input { outline: none; }
 @keyframes spinCW { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes spinCCW { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 @keyframes scanMove { 0% { top: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
-
 /* Hover */
 .sim-card:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); }
 .sim-card:hover::before { background: var(--gold); }
@@ -304,70 +348,6 @@ input { outline: none; }
 .sim-card:hover .hex-core::after { background: transparent; }
 .sim-card:hover .game-icon { color: #fff; filter: drop-shadow(0 0 10px var(--gold)); transform: scale(1.1); }
 .sim-card:hover .scan-line { animation: scanMove 1.5s linear infinite; }
-
-
-/* =========================================
-   9. VISUAL CARD (LENS / ANIME)
-   ========================================= */
-.movie-card {
-    position: relative; width: 320px; height: 460px;
-    background: transparent; border: none;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-decoration: none; cursor: pointer;
-    filter: drop-shadow(0 0 0 transparent); transition: 0.4s ease; z-index: 1;
-}
-/* Рамка и фон */
-.movie-card::before {
-    content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.1); z-index: -2;
-    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-    transition: background 0.4s ease;
-}
-.movie-card::after {
-    content: ''; position: absolute; inset: 1px; background: #0e0f14; z-index: -1;
-    clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px);
-}
-/* Фон Шум */
-.bg-grain {
-    position: absolute; inset: 1px;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
-    opacity: 0.3; transition: 0.5s;
-    clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px); pointer-events: none;
-}
-/* Линза */
-.lens-wrapper { position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
-.focus-ring {
-    position: absolute; width: 100%; height: 100%;
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 50%;
-    background: repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(255, 174, 0, 0.2) 10deg 11deg);
-    animation: slowRotate 30s linear infinite; transition: 0.4s;
-}
-.inner-ring {
-    position: absolute; width: 70%; height: 70%; border: 1px solid var(--gold); border-radius: 50%; opacity: 0.3; transition: 0.4s;
-}
-.play-icon {
-    width: 40px; height: 40px; fill: var(--gold); filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.5));
-    transform: translateX(3px); transition: 0.4s; z-index: 2;
-}
-/* Перфорация */
-.film-strip { position: absolute; top: 0; bottom: 0; width: 20px; overflow: hidden; opacity: 0.15; transition: 0.4s; pointer-events: none; }
-.fs-left { left: 30px; border-right: 1px solid rgba(255,255,255,0.1); }
-.fs-right { right: 30px; border-left: 1px solid rgba(255,255,255,0.1); }
-.film-holes {
-    width: 8px; height: 100%; margin: 0 auto;
-    background-image: linear-gradient(var(--gold) 4px, transparent 4px);
-    background-size: 8px 16px; opacity: 0.3;
-}
-/* Анимация */
-@keyframes slowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes filmRoll { from { transform: translateY(0); } to { transform: translateY(-16px); } }
-/* Hover */
-.movie-card:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
-.movie-card:hover::before { background: var(--gold); }
-.movie-card:hover .film-strip { opacity: 0.5; border-color: rgba(255, 174, 0, 0.3); }
-.movie-card:hover .film-holes { opacity: 0.8; animation: filmRoll 0.5s linear infinite; }
-.movie-card:hover .focus-ring { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 174, 0, 0.1); animation-duration: 5s; }
-.movie-card:hover .inner-ring { width: 85%; height: 85%; opacity: 0.8; box-shadow: inset 0 0 20px rgba(255, 174, 0, 0.2); }
-.movie-card:hover .play-icon { transform: translateX(3px) scale(1.2); filter: drop-shadow(0 0 15px var(--gold)); fill: #fff; }
 
 
 /* =========================================
