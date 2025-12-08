@@ -105,31 +105,46 @@ select { outline: none; }
 .nav-item.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
 
 /* =========================================
-   4. LAYOUT & HEADER
+   4. LAYOUT & HEADER (С АНИМАЦИЕЙ)
    ========================================= */
 .container { 
-    max-width: 1850px; /* Увеличена ширина для widescreen */
+    max-width: 1850px; /* Wide screen support */
     width: 95%; 
     margin: 0 auto; 
     padding: 2rem; 
 }
 .page-header { text-align: center; margin: 3rem 0 1.5rem 0; }
 
+/* Тег над заголовком */
 .deco-tag {
     position: relative; display: inline-block; padding: 6px 16px; border: 1px solid var(--gold-dim);
     color: var(--gold); font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 3px;
     background: rgba(255, 174, 0, 0.05); margin-bottom: 0.5rem;
     opacity: 0; animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
-@keyframes tagReveal { 0% { opacity: 0; transform: scaleX(0); } 100% { opacity: 1; transform: scaleX(1); } }
+@keyframes tagReveal { 
+    0% { opacity: 0; transform: scaleX(0); } 
+    100% { opacity: 1; transform: scaleX(1); } 
+}
 
-.page-header h1 { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px; color: #fff; margin: 0; line-height: 1.1; }
+/* ЗАГОЛОВОК (H1) С АНИМАЦИЕЙ ПОЯВЛЕНИЯ */
+.page-header h1 { 
+    font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px; color: #fff; margin: 0; line-height: 1.1; 
+    opacity: 0; 
+    transform: translateY(20px);
+    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.1s;
+}
+
+@keyframes slideUpFade {
+    to { opacity: 1; transform: translateY(0); }
+}
 
 /* =========================================
    5. CONTROL DECK (3 РЯДА)
    ========================================= */
 .control-deck {
     width: 100%; margin-bottom: 3rem; display: flex; flex-direction: column; gap: 10px; z-index: 50; position: relative;
+    opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s; /* Тоже анимируем появление */
 }
 
 /* Общие стили рядов */
