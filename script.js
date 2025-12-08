@@ -73,6 +73,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. ИНТЕРФЕЙС
     function initInterface(pageType) {
+        
+        // --- A. ХАКЕРСКИЙ ЭФФЕКТ ЗАГОЛОВКА (ВОССТАНОВЛЕНО) ---
+        const headerTitle = document.querySelector('.page-header h1');
+        if (headerTitle) {
+            const originalText = headerTitle.innerText;
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*";
+            let iteration = 0;
+            let interval = setInterval(() => {
+                headerTitle.innerText = originalText.split("").map((letter, index) => {
+                    if (index < iteration) return originalText[index];
+                    return chars[Math.floor(Math.random() * chars.length)];
+                }).join("");
+                
+                if (iteration >= originalText.length) clearInterval(interval);
+                
+                // Скорость анимации
+                iteration += 1 / 2; 
+            }, 30);
+        }
+        
+        // --- B. ПОИСК И ФИЛЬТРЫ ---
         const cardSelector = pageType ? `.${(pageType === 'games' ? 'game' : 'anime')}-card` : '.card';
         const searchInput = document.getElementById('searchInput');
         
@@ -131,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initModal(cardSelector);
     }
 
-    // 5. МОДАЛЬНОЕ ОКНО (С защитой от ошибок)
+    // 5. МОДАЛЬНОЕ ОКНО
     function initModal(cardSelector) {
         const modal = document.getElementById('detailModal');
         const grid = document.querySelector('.grid-cards');
@@ -155,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 rInfo.style.color = (d.rank === 'UR') ? 'var(--gold)' : (d.rank === 'SSR' ? 'var(--cyan)' : 'rgba(255,255,255,0.05)');
             }
 
-            // Безопасная обработка тегов (чтобы не падало если тегов нет)
+            // Безопасная обработка тегов
             const tagsBox = document.getElementById('modalTags');
             if(tagsBox) {
                 tagsBox.innerHTML = '';
