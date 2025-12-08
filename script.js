@@ -1,9 +1,9 @@
-// --- 1. ИМПОРТЫ FIREBASE (В самом верху!) ---
+// --- 1. ИМПОРТЫ FIREBASE ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-// --- 2. КОНФИГУРАЦИЯ (Твоя) ---
+// --- 2. КОНФИГУРАЦИЯ ---
 const firebaseConfig = {
     apiKey: "AIzaSyBUt7-YdXbbkJy6KGksI-2xXBRcZeQsqjk",
     authDomain: "medialog-981d1.firebaseapp.com",
@@ -20,28 +20,30 @@ const db = getFirestore(app);
 
 console.log("/// SYSTEM: FIREBASE ONLINE");
 
-// --- 3. ОСНОВНОЙ КОД САЙТА ---
+// --- 3. ОСНОВНОЙ КОД ---
 document.addEventListener('DOMContentLoaded', () => {
     
-    // === ЛОГИКА АВТОРИЗАЦИИ ===
+    // ==========================================
+    // ЛОГИКА АВТОРИЗАЦИИ (LOGIN / REGISTER)
+    // ==========================================
     const authModal = document.getElementById('authModal');
     const navAuthBtn = document.getElementById('navAuthBtn');
     const closeAuthBtn = document.getElementById('closeAuth');
     const btnLogin = document.getElementById('btnLogin');
     const btnRegister = document.getElementById('btnRegister');
-    const authMsg = document.getElementById('authMsg'); // Для сообщений об ошибках
+    const authMsg = document.getElementById('authMsg');
 
-    // Открыть окно
+    // Открыть окно / Выйти
     if(navAuthBtn) {
         navAuthBtn.addEventListener('click', () => {
             const currentUser = auth.currentUser;
             if (currentUser) {
-                // Если уже вошли -> Выходим
-                signOut(auth).then(() => {
-                    alert("SYSTEM: DISCONNECTED");
-                });
+                if(confirm("TERMINATE SESSION?")) {
+                    signOut(auth).then(() => {
+                        alert("/// DISCONNECTED");
+                    });
+                }
             } else {
-                // Если не вошли -> Открываем окно
                 authModal.classList.add('active');
             }
         });
@@ -51,11 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if(closeAuthBtn) {
         closeAuthBtn.addEventListener('click', () => {
             authModal.classList.remove('active');
-            authMsg.textContent = "";
+            if(authMsg) authMsg.textContent = "";
         });
     }
 
-    // ВХОД
+    // Вход
     if(btnLogin) {
         btnLogin.addEventListener('click', async () => {
             const email = document.getElementById('emailInput').value;
@@ -63,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             authMsg.textContent = "/// PROCESSING...";
 
             try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+                await signInWithEmailAndPassword(auth, email, pass);
                 authMsg.style.color = "var(--cyan)";
                 authMsg.textContent = "ACCESS GRANTED";
                 setTimeout(() => authModal.classList.remove('active'), 1000);
@@ -74,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // РЕГИСТРАЦИЯ
+    // Регистрация
     if(btnRegister) {
         btnRegister.addEventListener('click', async () => {
             const email = document.getElementById('emailInput').value;
@@ -82,13 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
             authMsg.textContent = "/// CREATING ID...";
 
             try {
-                // 1. Создаем пользователя
                 const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
                 const user = userCredential.user;
 
-                // 2. Записываем профиль в базу данных
+                // Создаем профиль в базе
                 await setDoc(doc(db, "users", user.uid), {
-                    username: email.split('@')[0], // Делаем ник из почты
+                    username: email.split('@')[0],
                     email: email,
                     rank: "ROOKIE",
                     createdAt: serverTimestamp()
@@ -105,17 +106,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // СЛУШАТЕЛЬ СОСТОЯНИЯ (Кто сейчас на сайте?)
+    // Слушатель состояния (Меняем кнопку в меню)
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // Пользователь вошел
             if(navAuthBtn) {
-                navAuthBtn.textContent = `LOGOUT [${user.email.split('@')[0]}]`;
+                navAuthBtn.textContent = `[${user.email.split('@')[0]}]`;
                 navAuthBtn.style.borderColor = "var(--cyan)";
                 navAuthBtn.style.color = "var(--cyan)";
             }
         } else {
-            // Пользователь вышел
             if(navAuthBtn) {
                 navAuthBtn.textContent = "LOGIN";
                 navAuthBtn.style.borderColor = "var(--gold)";
@@ -125,7 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // === СТАРЫЙ КОД (КАРТОЧКИ И ФИЛЬТРЫ) ===
+    // ==========================================
+    // ЛОГИКА КАРТОЧЕК И ИНТЕРФЕЙСА
+    // ==========================================
     const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
     const STORAGE_KEY_COLS = 'resonance_grid_columns';
@@ -135,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 const items = data[pageType];
-                renderCards(items, pageType); // Передал pageType
+                renderCards(items, pageType);
                 generateFilters(items); 
                 initInterface(); 
             })
@@ -144,19 +145,19 @@ document.addEventListener('DOMContentLoaded', () => {
         initInterface();
     }
 
-    // ГЕНЕРАЦИЯ HTML КАРТОЧЕК
+    // 1. ГЕНЕРАЦИЯ HTML
     function renderCards(items, type) {
         if (!items) return;
         
-        gridContainer.innerHTML = items.map((item, index) => {
-            // Логика для разных типов карточек
-            // ЕСЛИ ЭТО ИГРЫ
+        gridContainer.innerHTML = items.map((item) => {
+            // --- ЛОГИКА ДЛЯ ИГР (Широкие модули) ---
             if (type === 'games') {
                 const isOnline = item.meta_sub && (item.meta_sub.includes('ACTIVE') || item.meta_sub.includes('DAILY'));
                 const rankClass = item.rank.toLowerCase();
                 
+                // ВАЖНО: Тут НЕТ класса .card, чтобы не ломались стили games.css
                 return `
-                <div class="game-module card" 
+                <div class="game-module" 
                      data-tags="${item.tags}" 
                      data-platform="${item.platform}"
                      data-dev="${item.dev}"
@@ -165,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="module-bg" style="background-image: url('${item.image}');"></div>
                     
-                    <!-- Углы -->
+                    <!-- Декор углы -->
                     <div class="corner t-l"></div><div class="corner t-r"></div>
                     <div class="corner b-l"></div><div class="corner b-r"></div>
 
@@ -189,12 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                      <!-- Скрытое изображение для модалки -->
-                    <div class="card-img" style="display:none; background-image: url('${item.image}');"></div>
+                    <div class="card-img-hidden" style="display:none; background-image: url('${item.image}');"></div>
                 </div>
                 `;
             } 
             
-            // ЕСЛИ ЭТО АНИМЕ (Или другое)
+            // --- ЛОГИКА ДЛЯ АНИМЕ (Высокие карточки) ---
             else {
                 return `
                 <div class="anime-card card"
@@ -206,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="poster-wrapper">
                         <div class="rating-badge ${item.rank.toLowerCase()}">${item.rank}</div>
-                        <img src="${item.image}" alt="${item.title}" class="card-img" style="background-image: url('${item.image}')"> <!-- Хак для модалки -->
+                        <img src="${item.image}" alt="${item.title}" class="card-img" style="background-image: url('${item.image}')"> 
                         
                         <div class="poster-overlay">
                             <button class="view-btn">ACCESS DATA</button>
@@ -231,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     }
 
+    // 2. ФИЛЬТРЫ
     function generateFilters(items) {
         const filterContainer = document.getElementById('filterOptions');
         if (!filterContainer) return;
@@ -249,9 +251,10 @@ document.addEventListener('DOMContentLoaded', () => {
         filterContainer.innerHTML = html;
     }
 
+    // 3. ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА
     function initInterface() {
-        // АНИМАЦИЯ ПОЯВЛЕНИЯ
-        const cards = document.querySelectorAll('.card, .hub-card');
+        // Анимация появления (добавлен .game-module)
+        const cards = document.querySelectorAll('.card, .game-module, .hub-card');
         cards.forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(20px)';
@@ -262,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, index * 100 + 50);
         });
 
-        // ЭФФЕКТ ДЕКОДИРОВАНИЯ ЗАГОЛОВКА
+        // Эффект текста заголовка
         const headerTitle = document.querySelector('.page-header h1');
         if (headerTitle) {
             const originalText = headerTitle.innerText;
@@ -278,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 30);
         }
 
-        // ЛОГИКА СЕТКИ
+        // Логика Сетки
         const viewBtns = document.querySelectorAll('.view-btn');
         const grid = document.querySelector('.grid-cards');
 
@@ -286,8 +289,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!grid) return;
             grid.className = 'grid-cards';
             grid.classList.add(`cols-${cols}`);
-            if(pageType === 'games') grid.classList.add('games-grid'); // Спец класс
-            if(pageType === 'anime') grid.classList.add('anime-grid'); // Спец класс
+            
+            // Спец классы для CSS
+            if(pageType === 'games') grid.classList.add('games-grid'); 
+            if(pageType === 'anime') grid.classList.add('anime-grid'); 
 
             viewBtns.forEach(b => {
                 b.classList.remove('active');
@@ -298,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (grid) {
             const savedCols = localStorage.getItem(STORAGE_KEY_COLS);
             if (savedCols) applyGridColumns(savedCols);
-            else applyGridColumns('4');
+            else applyGridColumns('4'); // ПО УМОЛЧАНИЮ 4
         }
 
         viewBtns.forEach(btn => {
@@ -309,14 +314,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // ФИЛЬТРАЦИЯ И ПОИСК
+        // Поиск и Фильтрация
         const dropdown = document.querySelector('.custom-dropdown');
         const searchInput = document.getElementById('searchInput');
         let currentFilterTag = 'all';
         let currentSearch = '';
 
         function updateList() {
-            const allItems = document.querySelectorAll('.card');
+            // Ищем и карточки аниме, и модули игр
+            const allItems = document.querySelectorAll('.card, .game-module');
+            
             allItems.forEach(item => {
                 const itemTags = item.getAttribute('data-tags') || "";
                 const titleEl = item.querySelector('.card-title');
@@ -326,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const matchSearch = itemTitle.includes(currentSearch);
 
                 if (matchTag && matchSearch) {
-                    item.style.display = 'block'; // Вернуть display
+                    item.style.display = 'block'; 
                     setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 50);
                 } else {
                     item.style.display = 'none';
@@ -373,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initModal(); 
     }
 
-    // ЛОГИКА ДЕТАЛЬНОГО МОДАЛЬНОГО ОКНА
+    // 4. ДЕТАЛЬНОЕ ОКНО (HUD)
     function initModal() {
         const modal = document.getElementById('detailModal');
         const closeBtn = document.getElementById('closeModal');
@@ -390,20 +397,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalDev = document.getElementById('modalDev');
 
         function openModal(card) {
-            // Пытаемся найти картинку разными способами (т.к. у нас разные типы карточек)
             let bgUrl = "";
-            const imgDiv = card.querySelector('.card-img');
-            const bgDiv = card.querySelector('.module-bg');
-            const animeImg = card.querySelector('img.card-img');
             
-            if (bgDiv) {
-                 const style = bgDiv.style.backgroundImage;
+            // Ищем картинку (для игр скрытую, для аниме обычную)
+            const hiddenImg = card.querySelector('.card-img-hidden');
+            const animeImg = card.querySelector('img.card-img');
+            const moduleBg = card.querySelector('.module-bg'); // fallback
+
+            if (hiddenImg) {
+                 const style = hiddenImg.style.backgroundImage;
                  bgUrl = style.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
             } else if (animeImg) {
                 bgUrl = animeImg.src;
-            } else if (imgDiv) {
-                const style = imgDiv.style.backgroundImage;
-                bgUrl = style.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+            } else if (moduleBg) {
+                 const style = moduleBg.style.backgroundImage;
+                 bgUrl = style.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
             }
 
             const title = card.querySelector('.card-title').textContent;
@@ -449,7 +457,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(grid) {
             grid.addEventListener('click', (e) => {
-                const card = e.target.closest('.card');
+                // Клик по карточке (или игре, или аниме)
+                const card = e.target.closest('.card') || e.target.closest('.game-module');
                 if (card) openModal(card);
             });
         }
