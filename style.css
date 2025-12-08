@@ -63,7 +63,7 @@ input { outline: none; }
 }
 
 /* =========================================
-   3. NAVBAR (ИСПРАВЛЕННЫЙ ЛОГОТИП)
+   3. NAVBAR (ФИНАЛЬНЫЙ ЛОГОТИП)
    ========================================= */
 .navbar {
     display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%;
@@ -71,13 +71,13 @@ input { outline: none; }
     position: sticky; top: 0; z-index: 100;
 }
 
-/* Логотип */
+/* Логотип-контейнер */
 .brand-logo { 
     display: flex; align-items: center; gap: 12px; 
     text-decoration: none; cursor: pointer;
 }
 
-/* SVG Иконка */
+/* SVG Иконка (С обводкой и заливкой) */
 .logo-icon { 
     width: 42px; height: 42px; 
     fill: none; 
@@ -86,10 +86,11 @@ input { outline: none; }
     stroke-linecap: round;
     stroke-linejoin: round;
     transition: 0.3s ease;
-    filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.3));
-    position: relative; top: -3px;
+    filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.3)); 
+    position: relative; top: -3px; 
 }
 
+/* Внутренние элементы логотипа */
 .inner-circle { 
     transform-origin: center; 
     transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
@@ -97,7 +98,7 @@ input { outline: none; }
 
 .rec-dot { 
     fill: var(--gold); 
-    stroke: none; /* Без обводки, только заливка */
+    stroke: none; /* Точка без обводки */
     animation: pulseRecord 3s infinite; 
     transform-origin: center; 
 }
@@ -107,18 +108,19 @@ input { outline: none; }
     50% { opacity: 0.6; transform: scale(0.7); } 
 }
 
+/* Текстовая часть */
 .logo-text { display: flex; flex-direction: column; line-height: 0.9; }
 .logo-title { font-family: var(--font-head); font-weight: 800; font-size: 1.6rem; letter-spacing: 2px; color: #fff; }
 .logo-title span { color: var(--gold); }
-.logo-sub { font-family: var(--font-head); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 3px; font-weight: 600; margin-top: 3px; transition: 0.3s; }
+.logo-sub { font-family: var(--font-head); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 3px; font-weight: 600; margin-top: 3px; transition: 0.3s;}
 
-/* Hover эффекты логотипа */
+/* Hover эффекты для логотипа */
 .brand-logo:hover .logo-icon { filter: drop-shadow(0 0 12px var(--gold)); transform: scale(1.05); }
 .brand-logo:hover .inner-circle { transform: rotate(180deg); stroke: #fff; }
 .brand-logo:hover .rec-dot { fill: #fff; }
 .brand-logo:hover .logo-sub { color: var(--gold); letter-spacing: 4px; }
 
-/* Ссылки */
+/* Ссылки меню */
 .nav-links { display: flex; gap: 3rem; }
 .nav-item { font-family: var(--font-head); font-weight: 600; color: var(--text-muted); letter-spacing: 1px; transition: 0.3s; position: relative; }
 .nav-item:hover, .nav-item.active { color: var(--text-main); }
@@ -135,7 +137,8 @@ input { outline: none; }
     position: relative; display: inline-block; padding: 6px 16px; border: 1px solid var(--gold-dim);
     color: var(--gold); font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 3px;
     background: rgba(255, 174, 0, 0.05); margin-bottom: 0.5rem;
-    opacity: 0; animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+    opacity: 0; 
+    animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
 @keyframes tagReveal { 
     0% { opacity: 0; transform: scaleX(0); } 
@@ -145,41 +148,118 @@ input { outline: none; }
 .page-header h1 { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px; color: #fff; margin: 0; line-height: 1.1; }
 
 /* =========================================
-   5. CONTROLS (FILTER & SEARCH)
+   5. CONTROL DECK (НОВАЯ ПАНЕЛЬ УПРАВЛЕНИЯ)
    ========================================= */
-.filter-wrapper { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; z-index: 50; }
+.control-deck {
+    width: 100%;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    z-index: 50;
+}
 
-.custom-dropdown { position: relative; width: 280px; font-family: var(--font-head); z-index: 60; }
-.dropdown-trigger {
-    width: 100%; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;
-    background: var(--border-color); color: var(--gold); font-weight: 700; letter-spacing: 2px;
-    cursor: pointer; transition: 0.3s; 
+.module-label {
+    font-family: var(--font-head);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    display: block;
+    opacity: 0.7;
+}
+
+/* --- ВЕРХНИЙ РЯД --- */
+.deck-top {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+/* Поиск */
+.search-module { flex-grow: 1; }
+.search-input-wrapper {
+    position: relative;
+    height: 46px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    display: flex; align-items: center;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: 0.3s;
 }
-.dropdown-options {
-    position: absolute; top: 110%; left: 0; width: 340px; background: #0b0c10; border: 1px solid var(--border-color);
-    padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    opacity: 0; visibility: hidden; transform: translateY(-10px); transition: 0.3s;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.9); z-index: 100;
+.search-input-wrapper:focus-within {
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(255, 174, 0, 0.1);
+    background: rgba(0, 0, 0, 0.3);
 }
-.custom-dropdown.open .dropdown-options { opacity: 1; visibility: visible; transform: translateY(0); }
-.option { 
-    padding: 8px 12px; font-size: 0.75rem; color: var(--text-muted); 
-    border: 1px solid rgba(255,255,255,0.1); cursor: pointer; text-align: center;
-    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-}
-.option:hover, .option.active { border-color: var(--gold); background: var(--gold); color: #000; }
+.search-icon { margin-left: 15px; stroke: var(--text-muted); transition: 0.3s;}
+.search-input-wrapper:focus-within .search-icon { stroke: var(--gold); }
 
-.search-terminal {
-    width: 260px; height: 48px; background: var(--border-color); padding: 1px; display: flex; align-items: center;
-    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+.search-input-wrapper input {
+    background: transparent; border: none; width: 100%; height: 100%;
+    color: #fff; padding-left: 12px;
+    font-family: var(--font-head); font-size: 1rem; letter-spacing: 1px;
+    text-transform: uppercase;
 }
-.search-icon { margin-left: 16px; flex-shrink: 0; stroke: var(--text-muted); }
-.search-terminal input { background: #08090d; border: none; color: var(--gold); width: 100%; height: 100%; padding-left: 12px; font-family: var(--font-head); text-transform: uppercase; }
+.search-input-wrapper input::placeholder { color: rgba(255,255,255,0.2); }
 
-.view-controls { display: flex; gap: 5px; margin-left: 1rem; }
-.view-btn { width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); transition: 0.3s; }
-.view-btn:hover, .view-btn.active { background: var(--gold); color: #000; }
+/* Сетка */
+.view-module { flex-shrink: 0; }
+.view-controls { display: flex; gap: 4px; }
+.view-btn {
+    width: 46px; height: 46px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: 0.2s;
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+.btn-icon { font-family: monospace; font-weight: 900; letter-spacing: -2px; font-size: 0.8rem; }
+.view-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.view-btn.active {
+    background: var(--gold); color: #000; border-color: var(--gold);
+    box-shadow: 0 0 10px var(--gold-dim);
+}
+
+/* --- НИЖНИЙ РЯД (Теги) --- */
+.deck-bottom {
+    background: rgba(14, 15, 20, 0.5);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+}
+.filter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.clear-btn {
+    font-family: var(--font-head); font-size: 0.7rem; color: #ff4d4d;
+    cursor: pointer; letter-spacing: 1px;
+}
+.clear-btn:hover { text-decoration: underline; }
+
+.tag-matrix { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag-btn {
+    padding: 6px 12px;
+    font-family: var(--font-head); font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-muted);
+    cursor: pointer; transition: 0.2s; user-select: none;
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+.tag-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(95, 251, 241, 0.05); }
+.tag-btn.active {
+    background: var(--gold); color: #000; border-color: var(--gold);
+    box-shadow: 0 0 8px rgba(255, 174, 0, 0.4);
+}
+
+/* Адаптив панели */
+@media (max-width: 768px) {
+    .deck-top { flex-direction: column; align-items: stretch; gap: 15px; }
+    .view-controls { justify-content: space-between; }
+    .view-btn { flex-grow: 1; }
+}
 
 /* =========================================
    6. GRID SYSTEM
@@ -188,6 +268,7 @@ input { outline: none; }
 .grid-cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-cards.cols-4 { grid-template-columns: repeat(4, 1fr); }
 .grid-cards.cols-5 { grid-template-columns: repeat(5, 1fr); }
+.grid-cards.cols-6 { grid-template-columns: repeat(6, 1fr); }
 
 
 /* =================================================================
