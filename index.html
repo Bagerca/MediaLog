@@ -23,7 +23,6 @@
             <a href="index.html" class="nav-item active">TERMINAL</a>
             <a href="anime.html" class="nav-item">VISUALS</a>
             <a href="games.html" class="nav-item">SIMULATIONS</a>
-            <a href="movies.html" class="nav-item">CINEMA</a>
         </div>
     </nav>
 
@@ -36,22 +35,34 @@
 
         <div class="hub-grid">
             
-            <!-- 1. КАРТОЧКА: АНИМЕ (Visual Logs) -->
-            <a href="anime.html" class="hub-card">
-                <div class="hub-icon-circle">
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#e8c686" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10" />
-                        <circle cx="12" cy="12" r="4" />
-                        <path d="M12 2v2M12 22v-2M2 12h2M22 12h-2" />
+            <!-- 1. КАРТОЧКА: VISUAL LOGS (Anime) -> Стиль "Объектив" -->
+            <a href="anime.html" class="movie-card">
+                <!-- Фон: Зернистость -->
+                <div class="bg-grain"></div>
+
+                <!-- Боковая перфорация (пленка) -->
+                <div class="film-strip fs-left"><div class="film-holes"></div></div>
+                <div class="film-strip fs-right"><div class="film-holes"></div></div>
+
+                <!-- Ядро: Объектив + Play -->
+                <div class="lens-wrapper">
+                    <div class="focus-ring"></div> <!-- Внешнее кольцо -->
+                    <div class="inner-ring"></div> <!-- Внутреннее светящееся -->
+                    
+                    <!-- SVG Play Icon -->
+                    <svg class="play-icon" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
                     </svg>
                 </div>
-                <div class="hub-text">
-                    <h2>VISUAL LOGS</h2>
-                    <p>ANIME RECORDS</p>
+
+                <!-- Текст -->
+                <div class="text-content">
+                    <h2 class="card-title">VISUAL LOGS</h2>
+                    <div class="card-sub">ANIME RECORDS</div>
                 </div>
             </a>
 
-            <!-- 2. КАРТОЧКА: ИГРЫ (Game Logs - Hexagon) -->
+            <!-- 2. КАРТОЧКА: GAME LOGS (Simulations) -> Стиль "Гексагон" -->
             <a href="games.html" class="sim-card">
                 <!-- Фон-сетка -->
                 <div class="bg-grid"></div>
@@ -78,33 +89,6 @@
                 <div class="text-content">
                     <h2 class="card-title">GAME LOGS</h2>
                     <div class="card-sub">SIMULATIONS</div>
-                </div>
-            </a>
-
-            <!-- 3. КАРТОЧКА: КИНО (Movie Logs - Lens) -->
-            <a href="movies.html" class="movie-card">
-                <!-- Фон: Зернистость -->
-                <div class="bg-grain"></div>
-
-                <!-- Боковая перфорация (пленка) -->
-                <div class="film-strip fs-left"><div class="film-holes"></div></div>
-                <div class="film-strip fs-right"><div class="film-holes"></div></div>
-
-                <!-- Ядро: Объектив + Play -->
-                <div class="lens-wrapper">
-                    <div class="focus-ring"></div> <!-- Внешнее кольцо -->
-                    <div class="inner-ring"></div> <!-- Внутреннее светящееся -->
-                    
-                    <!-- SVG Play Icon -->
-                    <svg class="play-icon" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                    </svg>
-                </div>
-
-                <!-- Текст -->
-                <div class="text-content">
-                    <h2 class="card-title">MOVIE LOGS</h2>
-                    <div class="card-sub">CINEMA ARCHIVE</div>
                 </div>
             </a>
 
