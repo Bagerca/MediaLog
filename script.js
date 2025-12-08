@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? `<div class="${prefix}-rank-badge ${userRank.toLowerCase()}">${userRank}</div>` 
                 : '';
             
-            // Кнопка статуса
+            // Классы и контент для кнопки статуса
             const btnClass = userData ? 'status-btn active' : 'status-btn';
             const btnIcon = userData ? iconCheck : iconPlus;
             
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const custom = userData.customStatus ? userData.customStatus.toUpperCase() : "OWNED";
                 statusText = `STATUS: ${custom}`;
                 
-                // Цвет в зависимости от страницы
+                // Цвет в зависимости от страницы (золото или циан)
                 statusColor = (pageType === 'games' ? 'var(--gold)' : 'var(--cyan)');
             }
 
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="card-line"></div>
                         <div class="${prefix}-card-title">${item.title}</div>
                         <div class="${prefix}-card-meta">
-                            <span style="color: ${statusColor};">${statusText}</span>
+                            <span style="color: ${statusColor}; font-weight: 700;">${statusText}</span>
                             <span>/// ${item.platform || 'DB'}</span>
                         </div>
                     </div>
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnSave: document.getElementById('btnSave'),
         btnCancel: document.getElementById('btnCancel'),
         noteInput: document.getElementById('userNoteInput'),
-        statusInput: document.getElementById('userStatusInput'), // <--- Поле статуса
+        statusInput: document.getElementById('userStatusInput'), // Поле статуса
         rankBtns: document.querySelectorAll('.rank-opt'),
         viewRank: document.getElementById('viewRankDisplay'),
         viewNote: document.getElementById('viewNoteDisplay'),
@@ -162,35 +162,37 @@ document.addEventListener('DOMContentLoaded', () => {
         els.modal.classList.add('active');
     };
 
-    // Обновление View Mode
+    // Обновление View Mode (Логика цветов ранга)
     function updateViewModeUI() {
         const userData = userLibrary[currentItemTitle];
         const rankBox = els.viewRank;
+
+        // Конфигурация цветов (5 уровней)
+        const rankConfig = {
+            'UR':  { color: 'var(--gold)', shadow: 'rgba(255, 174, 0, 0.4)' },
+            'SSR': { color: 'var(--cyan)', shadow: 'rgba(95, 251, 241, 0.4)' },
+            'SR':  { color: '#00ff9d',     shadow: 'rgba(0, 255, 157, 0.4)' }, // Green
+            'R':   { color: '#ff8e3c',     shadow: 'rgba(255, 142, 60, 0.4)' }, // Orange
+            'N':   { color: '#ff003c',     shadow: 'rgba(255, 0, 60, 0.4)' }    // Red
+        };
 
         if (userData) {
             els.btnAdd.style.display = 'none';
             els.grpActions.style.display = 'flex';
             
+            // Получаем настройки для текущего ранга
+            const rInfo = rankConfig[userData.rank] || rankConfig['N'];
+            
+            // Применяем стили к большому индикатору
             rankBox.textContent = userData.rank;
+            rankBox.style.color = rInfo.color;
+            rankBox.style.borderColor = rInfo.color;
+            rankBox.style.boxShadow = `0 0 20px ${rInfo.shadow}, inset 0 0 10px ${rInfo.shadow}`;
+            rankBox.style.textShadow = `0 0 10px ${rInfo.shadow}`;
             
-            // --- ЦВЕТА РАНГОВ ---
-            // Сброс к дефолту (Белый)
-            rankBox.style.color = '#fff';
-            rankBox.style.borderColor = 'rgba(255,255,255,0.2)';
-            rankBox.style.boxShadow = 'none';
-
-            // Подсветка для UR и SSR
-            if (userData.rank === 'UR') {
-                rankBox.style.color = 'var(--gold)';
-                rankBox.style.borderColor = 'var(--gold)';
-                rankBox.style.boxShadow = '0 0 15px rgba(255, 174, 0, 0.2)';
-            } else if (userData.rank === 'SSR') {
-                rankBox.style.color = 'var(--cyan)';
-                rankBox.style.borderColor = 'var(--cyan)';
-                rankBox.style.boxShadow = '0 0 15px rgba(95, 251, 241, 0.2)';
-            }
-            
+            // Красим фоновую букву
             els.bgRank.textContent = userData.rank;
+            els.bgRank.style.color = rInfo.color;
             
             els.viewNote.textContent = userData.note || "No notes recorded.";
             els.viewNote.style.color = userData.note ? "#ccc" : "#666";
@@ -203,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rankBox.style.color = "#666";
             rankBox.style.borderColor = "rgba(255,255,255,0.1)";
             rankBox.style.boxShadow = "none";
+            rankBox.style.textShadow = "none";
             
             els.bgRank.textContent = "";
             els.viewNote.textContent = "Item not in collection. Add to library to edit.";
@@ -244,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userLibrary[currentItemTitle] = { rank: 'N', note: '', customStatus: '', timestamp: Date.now() };
         saveToStorage();
         
-        // Обновляем UI
+        // Обновляем UI (чтобы галочка появилась на фоне)
         updateViewModeUI();
         renderContent();
 
@@ -325,9 +328,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('searchInput')?.addEventListener('input', renderContent);
 
-        // Закрытие модального окна (клик мимо)
+        // Закрытие модального окна
         document.getElementById('closeModal').onclick = () => els.modal.classList.remove('active');
         els.modal.onclick = (e) => { 
+            // Клик по обертке (фон) закрывает окно
             if(e.target === els.modal || e.target.classList.contains('modal-window-wrapper')) {
                  els.modal.classList.remove('active');
             }
