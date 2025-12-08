@@ -35,7 +35,7 @@
     background-size: 30px 30px; opacity: 0.3; transition: 0.3s;
 }
 
-/* Градиент */
+/* Градиент снизу */
 .anime-card-inner::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(to top, rgba(5,6,8,1) 0%, rgba(5,6,8,0.9) 25%, transparent 60%);
@@ -134,7 +134,7 @@
 
 
 /* =================================================================
-   2. МОДАЛЬНОЕ ОКНО (ANIME - FIXED STRUCTURE)
+   2. МОДАЛЬНОЕ ОКНО (ANIME - WIDE TACTICAL)
    ================================================================= */
 
 .modal-overlay {
@@ -146,7 +146,7 @@
 
 /* 1. WRAPPER */
 .modal-window-wrapper {
-    width: 1100px; max-width: 95%; height: 650px; 
+    width: 1400px; max-width: 95%; height: 700px; 
     position: relative;
     transform: scale(0.95) translateY(20px); 
     transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
