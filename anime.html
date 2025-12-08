@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visuals // Resonance</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Стили: Глобальные + Специфические для Аниме -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="anime.css">
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="style.css"> <!-- Глобальный каркас -->
+    <link rel="stylesheet" href="anime.css"> <!-- Специфичные стили для аниме -->
 </head>
 
-<!-- data-page="anime" сообщает JS использовать шаблон постеров -->
+<!-- data-page="anime" указывает JS использовать классы .anime-card -->
 <body data-page="anime">
     
-    <!-- Фоновая анимация (немного другие частицы для разнообразия) -->
+    <!-- Фон (немного другие частицы) -->
     <div class="background-container">
         <div class="bg-grid"></div>
         <div class="bg-fog"></div>
@@ -43,6 +44,7 @@
         </div>
     </nav>
 
+    <!-- Основной контент -->
     <main class="container">
         <header class="page-header">
             <div class="deco-tag">/// ARCHIVE: OPEN</div>
@@ -65,20 +67,19 @@
                 <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
             </div>
-
-            <!-- Кнопки управления сеткой (Здесь по умолчанию активна 4 колонка, так как постеры уже) -->
+            
+            <!-- Кнопки сетки -->
             <div class="view-controls">
                 <button class="view-btn" data-cols="3" title="3 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg></button>
                 <button class="view-btn active" data-cols="4" title="4 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
-                <button class="view-btn" data-cols="5" title="5 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2" height="14" fill="currentColor"/><rect x="3" y="0" width="2" height="14" fill="currentColor"/><rect x="6" y="0" width="2" height="14" fill="currentColor"/><rect x="9" y="0" width="2" height="14" fill="currentColor"/><rect x="12" y="0" width="2" height="14" fill="currentColor"/></svg></button>
             </div>
         </div>
 
-        <!-- ГЛАВНЫЙ КОНТЕЙНЕР (cols-4 для вертикальных постеров) -->
+        <!-- Контейнер карточек (cols-4 лучше для вертикальных постеров) -->
         <div class="grid-cards cols-4" id="cards-container"></div>
     </main>
 
-    <!-- МОДАЛЬНОЕ ОКНО -->
+    <!-- Модальное окно -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="modal-inner">
