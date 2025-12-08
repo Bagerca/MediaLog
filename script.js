@@ -1,142 +1,17 @@
-// --- 1. ИМПОРТЫ FIREBASE ---
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-
-// --- 2. КОНФИГУРАЦИЯ ---
-const firebaseConfig = {
-    apiKey: "AIzaSyBUt7-YdXbbkJy6KGksI-2xXBRcZeQsqjk",
-    authDomain: "medialog-981d1.firebaseapp.com",
-    projectId: "medialog-981d1",
-    storageBucket: "medialog-981d1.firebasestorage.app",
-    messagingSenderId: "928778294488",
-    appId: "1:928778294488:web:9a0cdfa99190957dde73ad"
-};
-
-// Инициализация
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-console.log("/// SYSTEM: FIREBASE ONLINE");
-
-// --- 3. ОСНОВНОЙ КОД ---
 document.addEventListener('DOMContentLoaded', () => {
     
-    // ==========================================
-    // ЛОГИКА АВТОРИЗАЦИИ (LOGIN / REGISTER)
-    // ==========================================
-    const authModal = document.getElementById('authModal');
-    const navAuthBtn = document.getElementById('navAuthBtn');
-    const closeAuthBtn = document.getElementById('closeAuth');
-    const btnLogin = document.getElementById('btnLogin');
-    const btnRegister = document.getElementById('btnRegister');
-    const authMsg = document.getElementById('authMsg');
-
-    // Открыть окно / Выйти
-    if(navAuthBtn) {
-        navAuthBtn.addEventListener('click', () => {
-            const currentUser = auth.currentUser;
-            if (currentUser) {
-                if(confirm("TERMINATE SESSION?")) {
-                    signOut(auth).then(() => {
-                        alert("/// DISCONNECTED");
-                    });
-                }
-            } else {
-                authModal.classList.add('active');
-            }
-        });
-    }
-
-    // Закрыть окно
-    if(closeAuthBtn) {
-        closeAuthBtn.addEventListener('click', () => {
-            authModal.classList.remove('active');
-            if(authMsg) authMsg.textContent = "";
-        });
-    }
-
-    // Вход
-    if(btnLogin) {
-        btnLogin.addEventListener('click', async () => {
-            const email = document.getElementById('emailInput').value;
-            const pass = document.getElementById('passInput').value;
-            authMsg.textContent = "/// PROCESSING...";
-
-            try {
-                await signInWithEmailAndPassword(auth, email, pass);
-                authMsg.style.color = "var(--cyan)";
-                authMsg.textContent = "ACCESS GRANTED";
-                setTimeout(() => authModal.classList.remove('active'), 1000);
-            } catch (error) {
-                authMsg.style.color = "#ff4d4d";
-                authMsg.textContent = "ERROR: " + error.code;
-            }
-        });
-    }
-
-    // Регистрация
-    if(btnRegister) {
-        btnRegister.addEventListener('click', async () => {
-            const email = document.getElementById('emailInput').value;
-            const pass = document.getElementById('passInput').value;
-            authMsg.textContent = "/// CREATING ID...";
-
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-                const user = userCredential.user;
-
-                // Создаем профиль в базе
-                await setDoc(doc(db, "users", user.uid), {
-                    username: email.split('@')[0],
-                    email: email,
-                    rank: "ROOKIE",
-                    createdAt: serverTimestamp()
-                });
-
-                authMsg.style.color = "var(--gold)";
-                authMsg.textContent = "ID REGISTERED. WELCOME.";
-                setTimeout(() => authModal.classList.remove('active'), 1500);
-
-            } catch (error) {
-                authMsg.style.color = "#ff4d4d";
-                authMsg.textContent = "ERROR: " + error.code;
-            }
-        });
-    }
-
-    // Слушатель состояния (Меняем кнопку в меню)
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            if(navAuthBtn) {
-                navAuthBtn.textContent = `[${user.email.split('@')[0]}]`;
-                navAuthBtn.style.borderColor = "var(--cyan)";
-                navAuthBtn.style.color = "var(--cyan)";
-            }
-        } else {
-            if(navAuthBtn) {
-                navAuthBtn.textContent = "LOGIN";
-                navAuthBtn.style.borderColor = "var(--gold)";
-                navAuthBtn.style.color = "var(--gold)";
-            }
-        }
-    });
-
-
-    // ==========================================
-    // ЛОГИКА КАРТОЧЕК И ИНТЕРФЕЙСА
-    // ==========================================
+    // --- 0. КОНФИГУРАЦИЯ ---
     const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
     const STORAGE_KEY_COLS = 'resonance_grid_columns';
     
+    // --- 1. ЗАГРУЗКА ДАННЫХ ИЗ JSON ---
     if (pageType && gridContainer) {
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
                 const items = data[pageType];
-                renderCards(items, pageType);
+                renderCards(items);
                 generateFilters(items); 
                 initInterface(); 
             })
@@ -145,94 +20,41 @@ document.addEventListener('DOMContentLoaded', () => {
         initInterface();
     }
 
-    // 1. ГЕНЕРАЦИЯ HTML
-    function renderCards(items, type) {
+    // --- 2. ГЕНЕРАЦИЯ HTML КАРТОЧЕК ---
+    function renderCards(items) {
         if (!items) return;
         
-        gridContainer.innerHTML = items.map((item) => {
-            // --- ЛОГИКА ДЛЯ ИГР (Широкие модули) ---
-            if (type === 'games') {
-                const isOnline = item.meta_sub && (item.meta_sub.includes('ACTIVE') || item.meta_sub.includes('DAILY'));
-                const rankClass = item.rank.toLowerCase();
-                
-                // ВАЖНО: Тут НЕТ класса .card, чтобы не ломались стили games.css
-                return `
-                <div class="game-module" 
-                     data-tags="${item.tags}" 
-                     data-platform="${item.platform}"
-                     data-dev="${item.dev}"
-                     data-desc="${item.desc}"
-                     data-rank="${item.rank}">
-                    
-                    <div class="module-bg" style="background-image: url('${item.image}');"></div>
-                    
-                    <!-- Декор углы -->
-                    <div class="corner t-l"></div><div class="corner t-r"></div>
-                    <div class="corner b-l"></div><div class="corner b-r"></div>
-
-                    <div class="module-content">
-                        <div class="module-top">
-                            <span class="platform">${item.platform}</span>
-                            <span class="rank ${rankClass}">${item.rank}</span>
-                        </div>
-
-                        <div class="module-main">
-                            <h2 class="card-title">${item.title}</h2>
-                            <div class="playtime">${item.meta_highlight}</div>
-                        </div>
-
-                        <div class="module-footer">
-                            <div class="status">${item.meta_sub}</div>
-                            ${isOnline ? 
-                                `<div class="progress-bar"><div class="progress infinite"></div></div>` : 
-                                `<div class="progress-bar"><div class="progress" style="width: 100%"></div></div>`
-                            }
-                        </div>
-                    </div>
-                     <!-- Скрытое изображение для модалки -->
-                    <div class="card-img-hidden" style="display:none; background-image: url('${item.image}');"></div>
-                </div>
-                `;
-            } 
+        gridContainer.innerHTML = items.map((item, index) => {
+            const metaColor = (item.rank === 'UR') ? 'var(--gold)' : 
+                              (item.rank === 'SSR') ? 'var(--cyan)' : 'var(--text-muted)';
             
-            // --- ЛОГИКА ДЛЯ АНИМЕ (Высокие карточки) ---
-            else {
-                return `
-                <div class="anime-card card"
-                     data-tags="${item.tags}" 
-                     data-platform="${item.platform}"
-                     data-dev="${item.dev}"
-                     data-desc="${item.desc}"
-                     data-rank="${item.rank}">
-                    
-                    <div class="poster-wrapper">
-                        <div class="rating-badge ${item.rank.toLowerCase()}">${item.rank}</div>
-                        <img src="${item.image}" alt="${item.title}" class="card-img" style="background-image: url('${item.image}')"> 
-                        
-                        <div class="poster-overlay">
-                            <button class="view-btn">ACCESS DATA</button>
-                        </div>
-                    </div>
-
-                    <div class="anime-info">
-                        <h3 class="card-title">${item.title}</h3>
-                        <div class="meta-row">
-                            <span>${item.dev}</span>
-                            <span class="type-tag">${item.platform}</span>
-                        </div>
-                        <div class="status-bar ${item.meta_sub === 'COMPLETED' ? 'completed' : ''}">
-                            <span>${item.meta_highlight}</span>
-                            <div class="bar-fill"></div>
+            return `
+            <div class="card" 
+                 data-category="${item.category}" 
+                 data-desc="${item.desc}"
+                 data-tags="${item.tags}"
+                 data-platform="${item.platform}"
+                 data-dev="${item.dev}"
+                 data-rank="${item.rank}"
+                 style="opacity: 0; transform: translateY(20px);"> 
+                
+                <div class="card-inner">
+                    <div class="card-img" style="background-image: url('${item.image}');"></div>
+                    <div class="rank-badge ${item.rank.toLowerCase()}">${item.rank}</div>
+                    <div class="card-content">
+                        <div class="card-title">${item.title}</div>
+                        <div class="card-meta">
+                            <span class="meta-highlight" style="color: ${metaColor}">${item.meta_highlight}</span>
                             <span>${item.meta_sub}</span>
                         </div>
                     </div>
                 </div>
-                `;
-            }
+            </div>
+            `;
         }).join('');
     }
 
-    // 2. ФИЛЬТРЫ
+    // --- 3. ГЕНЕРАЦИЯ ФИЛЬТРОВ ---
     function generateFilters(items) {
         const filterContainer = document.getElementById('filterOptions');
         if (!filterContainer) return;
@@ -251,13 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
         filterContainer.innerHTML = html;
     }
 
-    // 3. ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА
+    // --- 4. ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА ---
     function initInterface() {
-        // Анимация появления (добавлен .game-module)
-        const cards = document.querySelectorAll('.card, .game-module, .hub-card');
+        
+        // A. АНИМАЦИЯ
+        const cards = document.querySelectorAll('.card, .hub-card');
         cards.forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
             card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             setTimeout(() => {
                 card.style.opacity = '1';
@@ -265,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, index * 100 + 50);
         });
 
-        // Эффект текста заголовка
+        // B. ЭФФЕКТ ДЕКОДИРОВАНИЯ
         const headerTitle = document.querySelector('.page-header h1');
         if (headerTitle) {
             const originalText = headerTitle.innerText;
@@ -281,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 30);
         }
 
-        // Логика Сетки
+        // C. ЛОГИКА СЕТКИ
         const viewBtns = document.querySelectorAll('.view-btn');
         const grid = document.querySelector('.grid-cards');
 
@@ -289,11 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!grid) return;
             grid.className = 'grid-cards';
             grid.classList.add(`cols-${cols}`);
-            
-            // Спец классы для CSS
-            if(pageType === 'games') grid.classList.add('games-grid'); 
-            if(pageType === 'anime') grid.classList.add('anime-grid'); 
-
             viewBtns.forEach(b => {
                 b.classList.remove('active');
                 if (b.getAttribute('data-cols') === cols) b.classList.add('active');
@@ -303,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (grid) {
             const savedCols = localStorage.getItem(STORAGE_KEY_COLS);
             if (savedCols) applyGridColumns(savedCols);
-            else applyGridColumns('4'); // ПО УМОЛЧАНИЮ 4
         }
 
         viewBtns.forEach(btn => {
@@ -314,30 +129,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Поиск и Фильтрация
+        // D. ФИЛЬТРАЦИЯ И ПОИСК
         const dropdown = document.querySelector('.custom-dropdown');
         const searchInput = document.getElementById('searchInput');
         let currentFilterTag = 'all';
         let currentSearch = '';
 
         function updateList() {
-            // Ищем и карточки аниме, и модули игр
-            const allItems = document.querySelectorAll('.card, .game-module');
-            
+            const allItems = document.querySelectorAll('.card');
             allItems.forEach(item => {
                 const itemTags = item.getAttribute('data-tags') || "";
-                const titleEl = item.querySelector('.card-title');
-                const itemTitle = titleEl ? titleEl.textContent.toLowerCase() : "";
-                
+                const itemTitle = item.querySelector('.card-title').textContent.toLowerCase();
                 const matchTag = (currentFilterTag === 'all' || itemTags.includes(currentFilterTag));
                 const matchSearch = itemTitle.includes(currentSearch);
 
                 if (matchTag && matchSearch) {
-                    item.style.display = 'block'; 
+                    item.style.display = 'block';
                     setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 50);
                 } else {
                     item.style.display = 'none';
-                    item.style.opacity = '0';
                 }
             });
         }
@@ -380,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initModal(); 
     }
 
-    // 4. ДЕТАЛЬНОЕ ОКНО (HUD)
+    // --- 5. ЛОГИКА МОДАЛЬНОГО ОКНА ---
     function initModal() {
         const modal = document.getElementById('detailModal');
         const closeBtn = document.getElementById('closeModal');
@@ -397,23 +207,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalDev = document.getElementById('modalDev');
 
         function openModal(card) {
-            let bgUrl = "";
+            // Извлекаем чистый URL из background-image
+            const style = card.querySelector('.card-img').style.backgroundImage;
+            const bgUrl = style.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
             
-            // Ищем картинку (для игр скрытую, для аниме обычную)
-            const hiddenImg = card.querySelector('.card-img-hidden');
-            const animeImg = card.querySelector('img.card-img');
-            const moduleBg = card.querySelector('.module-bg'); // fallback
-
-            if (hiddenImg) {
-                 const style = hiddenImg.style.backgroundImage;
-                 bgUrl = style.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-            } else if (animeImg) {
-                bgUrl = animeImg.src;
-            } else if (moduleBg) {
-                 const style = moduleBg.style.backgroundImage;
-                 bgUrl = style.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-            }
-
             const title = card.querySelector('.card-title').textContent;
             const desc = card.getAttribute('data-desc') || "No description.";
             const rawTags = card.getAttribute('data-tags') || "ARCHIVE";
@@ -421,9 +218,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const developer = card.getAttribute('data-dev') || "Unknown";
             const rank = card.getAttribute('data-rank') || "N/A";
 
-            if(modalImg) modalImg.src = bgUrl; 
-            if(modalTitle) modalTitle.textContent = title;
-            if(modalDesc) modalDesc.textContent = desc;
+            modalImg.src = bgUrl; 
+            modalTitle.textContent = title;
+            modalDesc.textContent = desc;
             
             if(modalPlatform) modalPlatform.textContent = platform;
             if(modalDev) modalDev.textContent = developer;
@@ -448,22 +245,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = '17px'; 
         }
 
         function closeModal() {
             modal.classList.remove('active');
             document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
         }
 
         if(grid) {
             grid.addEventListener('click', (e) => {
-                // Клик по карточке (или игре, или аниме)
-                const card = e.target.closest('.card') || e.target.closest('.game-module');
+                const card = e.target.closest('.card');
                 if (card) openModal(card);
             });
         }
 
-        if(closeBtn) closeBtn.onclick = closeModal;
+        closeBtn.onclick = closeModal;
         modal.onclick = (e) => { if (e.target === modal) closeModal(); };
         document.onkeydown = (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); };
     }
