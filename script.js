@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initInterface();
     }
 
-    // --- 2. РЕНДЕР КАРТОЧЕК (ОБНОВЛЕННЫЙ HUD ДИЗАЙН) ---
+    // --- 2. РЕНДЕР КАРТОЧЕК (НОВЫЙ HUD ДИЗАЙН) ---
     function renderContent() {
         if (!gridContainer) return;
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const userData = userLibrary[item.title];
             const userRank = userData ? userData.rank : null;
             
-            // HTML для ранга (если он есть)
+            // HTML для ранга (флажок)
             const rankHtml = userRank 
                 ? `<div class="${prefix}-rank-badge ${userRank.toLowerCase()}">${userRank}</div>` 
                 : '';
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const btnClass = userData ? 'status-btn active' : 'status-btn';
             const btnIcon = userData ? iconCheck : iconPlus;
             
-            // Текст и цвет статуса
+            // Текст и цвет статуса (Meta)
             const statusText = userData ? "STATUS: OWNED" : "STATUS: MISSING";
             // Для игр - золото, для аниме - циан (если в коллекции)
             const statusColor = userData 
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnCancel: document.getElementById('btnCancel'),
         noteInput: document.getElementById('userNoteInput'),
         rankBtns: document.querySelectorAll('.rank-opt'),
-        viewRank: document.getElementById('viewRankDisplay'),
+        viewRank: document.getElementById('viewRankDisplay'), // Большой бокс ранга
         viewNote: document.getElementById('viewNoteDisplay'),
         bgRank: document.getElementById('modalBgRank')
     };
@@ -155,27 +155,47 @@ document.addEventListener('DOMContentLoaded', () => {
         els.modal.classList.add('active');
     };
 
-    // Обновление View Mode
+    // Обновление View Mode (Логика цветов ранга)
     function updateViewModeUI() {
         const userData = userLibrary[currentItemTitle];
+        const rankBox = els.viewRank;
 
         if (userData) {
             els.btnAdd.style.display = 'none';
             els.grpActions.style.display = 'flex';
             
-            els.viewRank.textContent = userData.rank;
-            els.viewRank.style.color = getRankColor(userData.rank);
-            els.bgRank.textContent = userData.rank;
-            els.bgRank.style.color = getRankColor(userData.rank);
+            rankBox.textContent = userData.rank;
+            
+            // СБРОС СТИЛЕЙ (Базовый белый вид для N, R, SR)
+            rankBox.style.color = '#fff';
+            rankBox.style.borderColor = 'rgba(255,255,255,0.2)';
+            rankBox.style.boxShadow = 'none';
+
+            // ЦВЕТОВЫЕ АКЦЕНТЫ ТОЛЬКО ДЛЯ ВЫСОКИХ РАНГОВ
+            if (userData.rank === 'UR') {
+                rankBox.style.color = 'var(--gold)';
+                rankBox.style.borderColor = 'var(--gold)';
+                rankBox.style.boxShadow = '0 0 15px rgba(255, 174, 0, 0.2)';
+            } else if (userData.rank === 'SSR') {
+                rankBox.style.color = 'var(--cyan)';
+                rankBox.style.borderColor = 'var(--cyan)';
+                rankBox.style.boxShadow = '0 0 15px rgba(95, 251, 241, 0.2)';
+            }
+            
+            els.bgRank.textContent = userData.rank; // Фоновая буква
             
             els.viewNote.textContent = userData.note || "No notes recorded.";
-            els.viewNote.style.color = userData.note ? "#fff" : "#666";
+            els.viewNote.style.color = userData.note ? "#ccc" : "#666";
         } else {
+            // Если нет в библиотеке
             els.btnAdd.style.display = 'block';
             els.grpActions.style.display = 'none';
             
-            els.viewRank.textContent = "N/A";
-            els.viewRank.style.color = "#666";
+            rankBox.textContent = "N/A";
+            rankBox.style.color = "#666";
+            rankBox.style.borderColor = "rgba(255,255,255,0.1)";
+            rankBox.style.boxShadow = "none";
+            
             els.bgRank.textContent = "";
             els.viewNote.textContent = "Item not in collection. Add to library to edit.";
         }
@@ -186,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mode === 'view') {
             els.viewMode.style.display = 'flex';
             els.editMode.style.display = 'none';
-            els.sysLabel.textContent = "/// VIEW_MODE";
+            els.sysLabel.textContent = "/// SYSTEM: VIEW_MODE";
             els.sysLabel.style.color = "var(--text-muted)";
         } else {
             const userData = userLibrary[currentItemTitle] || { rank: 'N', note: '' };
@@ -200,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             els.viewMode.style.display = 'none';
             els.editMode.style.display = 'flex';
-            els.sysLabel.textContent = "/// EDITING_MODE";
+            els.sysLabel.textContent = "/// SYSTEM: EDITING_MODE";
             els.sysLabel.style.color = (pageType === 'games') ? "var(--gold)" : "var(--cyan)";
         }
     }
@@ -209,9 +229,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if(els.btnAdd) els.btnAdd.onclick = () => {
         userLibrary[currentItemTitle] = { rank: 'N', note: '', timestamp: Date.now() };
         saveToStorage();
-        showToast('ADDED TO LIBRARY');
+        showToast('RECORD INITIALIZED');
         updateViewModeUI();
-        renderContent(); // Перерисовка карточек, чтобы обновилась галочка
+        renderContent(); // Обновляем галочку на карточке
     };
 
     if(els.btnEdit) els.btnEdit.onclick = () => switchMode('edit');
@@ -222,10 +242,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const note = els.noteInput.value;
         userLibrary[currentItemTitle] = { rank: selectedRank, note: note, timestamp: Date.now() };
         saveToStorage();
-        showToast('RECORD UPDATED');
+        showToast('DATA LOG UPDATED');
         updateViewModeUI();
         switchMode('view');
-        renderContent(); // Перерисовка, чтобы обновился ранг на карточке
+        renderContent(); // Обновляем ранг на карточке
     };
 
     if(els.btnDelete) els.btnDelete.onclick = () => {
@@ -234,8 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
             saveToStorage();
             showToast('RECORD DELETED');
             updateViewModeUI();
-            renderContent(); // Перерисовка
-            els.modal.classList.remove('active'); // Закрываем модалку после удаления
+            renderContent(); // Обновляем статус на карточке
+            els.modal.classList.remove('active');
         }
     };
 
@@ -249,12 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- UTILS ---
     function saveToStorage() { localStorage.setItem(STORAGE_KEY, JSON.stringify(userLibrary)); }
-    
-    function getRankColor(rank) {
-        if (rank === 'UR') return 'var(--gold)';
-        if (rank === 'SSR') return 'var(--cyan)';
-        return 'rgba(255,255,255,0.1)';
-    }
     
     function showToast(msg) {
         const toast = document.getElementById('sysToast');
@@ -281,7 +295,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Управление модальным окном
         document.getElementById('closeModal').onclick = () => els.modal.classList.remove('active');
-        els.modal.onclick = (e) => { if(e.target === els.modal) els.modal.classList.remove('active'); };
+        els.modal.onclick = (e) => { 
+            // Кликаем по оверлею (но не по wrapper/clipper)
+            if(e.target === els.modal || e.target.classList.contains('modal-window-wrapper')) {
+                 els.modal.classList.remove('active');
+            }
+        };
         document.onkeydown = (e) => { if (e.key === 'Escape') els.modal.classList.remove('active'); };
 
         // Переключение колонок
@@ -294,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        // Хакерская анимация заголовка (эффект расшифровки)
+        // Хакерская анимация заголовка
         const h1 = document.querySelector('.page-header h1');
         if(h1) {
             const txt = h1.innerText;
