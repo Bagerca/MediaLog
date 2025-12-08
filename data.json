@@ -29,11 +29,60 @@
             "dev": "Riot Games"
         },
         {
-            "title": "BioShock",
+            "title": "BioShock Remastered",
             "image": "https://cdn2.steamgriddb.com/grid/a265437321f8e7339486e92028a15101.png",
             "tags": "FPS, Story Rich, Sci-Fi",
             "platform": "PC / Console",
             "dev": "Irrational Games"
+        },
+        {
+            "title": "BioShock 2 Remastered",
+            "image": "https://cdn2.steamgriddb.com/grid/f00936b8c99e9dc7d3257df7372d62a9.png",
+            "tags": "FPS, Sci-Fi, Underwater",
+            "platform": "PC / Console",
+            "dev": "2K Marin"
+        },
+        {
+            "title": "BioShock Infinite",
+            "image": "https://cdn2.steamgriddb.com/grid/20703f5ce728277274092b6044733390.png",
+            "tags": "FPS, Steampunk, Story Rich",
+            "platform": "PC / Console",
+            "dev": "Irrational Games"
+        },
+        {
+            "title": "Tiny Bunny",
+            "image": "https://cdn2.steamgriddb.com/grid/d69e48797449339e767424608c02c933.png",
+            "tags": "Visual Novel, Horror, Mystery",
+            "platform": "PC",
+            "dev": "Saikono"
+        },
+        {
+            "title": "Hollow Knight",
+            "image": "https://cdn2.steamgriddb.com/grid/585573c09b9f7fb909033488730b2098.png",
+            "tags": "Metroidvania, Souls-like, 2D",
+            "platform": "Multi-platform",
+            "dev": "Team Cherry"
+        },
+        {
+            "title": "Bendy and the Ink Machine",
+            "image": "https://cdn2.steamgriddb.com/grid/f9349df8477023302062309f30200839.png",
+            "tags": "Horror, Puzzle, Survival",
+            "platform": "Multi-platform",
+            "dev": "Joey Drew Studios"
+        },
+        {
+            "title": "Bendy and the Dark Revival",
+            "image": "https://cdn2.steamgriddb.com/grid/f233f0249267926227494391629707e4.png",
+            "tags": "Horror, Action, Story Rich",
+            "platform": "PC / Console",
+            "dev": "Joey Drew Studios"
+        },
+        {
+            "title": "Undertale",
+            "image": "https://cdn2.steamgriddb.com/grid/f2732924373322437374eb378b9a9244.png",
+            "tags": "RPG, Story Rich, Great Soundtrack",
+            "platform": "Multi-platform",
+            "dev": "tobyfox"
         }
     ],
     "anime": [
