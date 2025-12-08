@@ -42,7 +42,7 @@
 .game-rank-badge.ssr { background: var(--cyan); color: var(--cyan); box-shadow: 0 0 15px rgba(95, 251, 241, 0.4); }
 .game-rank-badge:not(.ur):not(.ssr) { background: var(--text-muted); color: var(--text-muted); }
 
-/* Контент */
+/* Контент карточки */
 .game-card-content { position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; z-index: 10; }
 .game-card-title {
     font-family: var(--font-head); font-size: 1.6rem; font-weight: 700; text-transform: uppercase;
@@ -63,7 +63,7 @@
 
 
 /* =================================================================
-   2. МОДАЛЬНОЕ ОКНО (GAMES STYLE)
+   2. МОДАЛЬНОЕ ОКНО (ИСПРАВЛЕННАЯ СТРУКТУРА)
    ================================================================= */
 
 .modal-overlay {
@@ -76,24 +76,30 @@
 .modal-window {
     width: 1200px; max-width: 95%; height: 700px; background: #0b0c10;
     clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-    /* Оранжевая подсветка для игр */
+    /* Оранжевая подсветка (Games) */
     box-shadow: 0 0 0 1px var(--gold-dim), 0 20px 50px rgba(0,0,0,0.8);
     transform: scale(0.95) translateY(20px); transition: 0.4s;
-    overflow: hidden; /* Важно, чтобы ничего не вылезало */
+    overflow: hidden; 
 }
 .modal-overlay.active .modal-window { transform: scale(1) translateY(0); }
 
-/* --- ИСПРАВЛЕНИЕ ЛЕЙАУТА --- */
+/* Внутренний контейнер */
 .modal-inner { 
-    display: flex;       /* Включает Flexbox */
-    flex-direction: row; /* Строго горизонтально */
-    height: 100%; 
+    width: 100%; height: 100%; 
+    position: relative;
+}
+
+/* !!! ИСПРАВЛЕНИЕ ЗДЕСЬ !!! */
+/* Применяем Flexbox именно к .modal-body, который держит картинку и текст */
+.modal-body {
+    display: flex;
+    flex-direction: row;
     width: 100%;
+    height: 100%;
 }
 
 .modal-visual { 
-    width: 45%;          /* Фиксированная ширина картинки */
-    min-width: 45%;      /* Не сжимать */
+    flex: 0 0 45%; /* Картинка занимает ровно 45% */
     height: 100%;
     background: #000; 
     position: relative; 
@@ -101,19 +107,24 @@
 .modal-visual img { width: 100%; height: 100%; object-fit: cover; }
 
 .modal-info { 
-    width: 55%; 
+    flex: 1; /* Текст занимает всё оставшееся место */
     height: 100%;
     padding: 3rem; 
     position: relative; 
     display: flex; flex-direction: column; 
     background: #0b0c10;
+    overflow-y: auto; /* Если текст слишком длинный, появится скролл */
 }
 
 /* Кнопка закрытия */
-.modal-close { position: absolute; top: 20px; right: 20px; color: var(--text-muted); font-family: var(--font-head); font-weight: bold; cursor: pointer; transition: 0.3s; z-index: 20; }
+.modal-close { 
+    position: absolute; top: 20px; right: 20px; 
+    color: var(--text-muted); font-family: var(--font-head); font-weight: bold; 
+    cursor: pointer; transition: 0.3s; z-index: 50; 
+}
 .modal-close:hover { color: #fff; text-shadow: 0 0 5px var(--gold); }
 
-/* Z-index фикс для текста */
+/* Контент внутри инфо */
 .modal-header, .modal-desc, .stats-grid, .action-btn { position: relative; z-index: 2; }
 
 .modal-header h2 { font-family: var(--font-head); font-size: 3rem; color: #fff; margin: 10px 0; line-height: 1; text-transform: uppercase; }
@@ -132,10 +143,10 @@
 }
 .action-btn:hover { background: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
 
-/* Адаптив для мобилок */
+/* Адаптив */
 @media (max-width: 1024px) {
     .modal-window { height: auto; max-height: 90vh; overflow-y: auto; }
-    .modal-inner { flex-direction: column; }
-    .modal-visual { width: 100%; height: 300px; }
-    .modal-info { width: 100%; padding: 2rem; }
+    .modal-body { flex-direction: column; }
+    .modal-visual { width: 100%; height: 300px; flex: none; }
+    .modal-info { width: 100%; padding: 2rem; flex: none; height: auto; }
 }
