@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initInterface();
     }
 
-    // --- 2. РЕНДЕР КАРТОЧЕК (НОВЫЙ HUD ДИЗАЙН) ---
+    // --- 2. РЕНДЕР КАРТОЧЕК (HUD DESIGN) ---
     function renderContent() {
         if (!gridContainer) return;
 
@@ -166,12 +166,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             rankBox.textContent = userData.rank;
             
-            // СБРОС СТИЛЕЙ (Базовый белый вид для N, R, SR)
+            // СБРОС СТИЛЕЙ
             rankBox.style.color = '#fff';
             rankBox.style.borderColor = 'rgba(255,255,255,0.2)';
             rankBox.style.boxShadow = 'none';
 
-            // ЦВЕТОВЫЕ АКЦЕНТЫ ТОЛЬКО ДЛЯ ВЫСОКИХ РАНГОВ
+            // ЦВЕТОВЫЕ АКЦЕНТЫ
             if (userData.rank === 'UR') {
                 rankBox.style.color = 'var(--gold)';
                 rankBox.style.borderColor = 'var(--gold)';
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 rankBox.style.boxShadow = '0 0 15px rgba(95, 251, 241, 0.2)';
             }
             
-            els.bgRank.textContent = userData.rank; // Фоновая буква
+            els.bgRank.textContent = userData.rank;
             
             els.viewNote.textContent = userData.note || "No notes recorded.";
             els.viewNote.style.color = userData.note ? "#ccc" : "#666";
@@ -225,18 +225,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Обработчики кнопок
+    // --- ОБРАБОТЧИКИ КНОПОК ---
+
+    // 1. ДОБАВИТЬ В БИБЛИОТЕКУ (СРАЗУ В EDIT MODE)
     if(els.btnAdd) els.btnAdd.onclick = () => {
+        // Создаем запись по умолчанию
         userLibrary[currentItemTitle] = { rank: 'N', note: '', timestamp: Date.now() };
         saveToStorage();
-        showToast('RECORD INITIALIZED');
+        
+        // Обновляем UI (галочка на карточке)
         updateViewModeUI();
-        renderContent(); // Обновляем галочку на карточке
+        renderContent();
+
+        // Сразу переходим в редактирование
+        switchMode('edit');
+        
+        // Уведомление
+        showToast('ENTRY CREATED // SELECT RANK');
     };
 
+    // 2. ИЗМЕНИТЬ
     if(els.btnEdit) els.btnEdit.onclick = () => switchMode('edit');
+
+    // 3. ОТМЕНА
     if(els.btnCancel) els.btnCancel.onclick = () => switchMode('view');
 
+    // 4. СОХРАНИТЬ ИЗМЕНЕНИЯ
     if(els.btnSave) els.btnSave.onclick = () => {
         const selectedRank = document.querySelector('.rank-opt.active')?.dataset.value || 'N';
         const note = els.noteInput.value;
@@ -248,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderContent(); // Обновляем ранг на карточке
     };
 
+    // 5. УДАЛИТЬ
     if(els.btnDelete) els.btnDelete.onclick = () => {
         if(confirm('DELETE RECORD PERMANENTLY?')) {
             delete userLibrary[currentItemTitle];
