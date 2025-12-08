@@ -115,7 +115,7 @@
 
 
 /* =================================================================
-   2. МОДАЛЬНОЕ ОКНО (GAMES STYLE - TACTICAL TERMINAL)
+   2. МОДАЛЬНОЕ ОКНО (GAMES STYLE - FIXED TACTICAL)
    ================================================================= */
 
 .modal-overlay {
@@ -125,44 +125,55 @@
 }
 .modal-overlay.active { opacity: 1; pointer-events: all; }
 
-.modal-window {
+/* 1. ОБЕРТКА (Не имеет clip-path, держит уголки) */
+.modal-window-wrapper {
     width: 1100px; max-width: 95%; height: 650px; 
-    background: #0b0c10;
     position: relative;
-    /* Сложная форма окна */
+    transform: scale(0.95) translateY(20px); 
+    transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* Тень перенесена сюда */
+    filter: drop-shadow(0 20px 50px rgba(0,0,0,0.8));
+}
+.modal-overlay.active .modal-window-wrapper { transform: scale(1) translateY(0); }
+
+/* 2. СРЕЗАННЫЙ КОНТЕЙНЕР (Внутри обертки) */
+.modal-clipper {
+    width: 100%; height: 100%;
+    background: #0b0c10;
     clip-path: polygon(
         20px 0, 100% 0, 100% calc(100% - 20px), 
         calc(100% - 20px) 100%, 0 100%, 0 20px
     );
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 30px 80px rgba(0,0,0,0.9);
-    transform: scale(0.95) translateY(20px); transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
     display: flex; flex-direction: column;
+    position: relative; z-index: 1;
 }
-/* Фоновая сетка внутри окна */
-.modal-window::before {
+
+/* Фоновая сетка */
+.modal-clipper::before {
     content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
     background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
 }
 
-.modal-overlay.active .modal-window { transform: scale(1) translateY(0); }
-
-/* ДЕКОРАТИВНЫЕ УГОЛКИ */
-.modal-frame-corner {
-    position: absolute; width: 20px; height: 20px;
-    border: 2px solid var(--gold); z-index: 20; pointer-events: none;
+/* 3. УГОЛКИ (Теперь позиционируются относительно Wrapper) */
+.modal-corner {
+    position: absolute; width: 15px; height: 15px;
+    background: var(--gold); /* Полная заливка квадратика */
+    z-index: 20; pointer-events: none;
     box-shadow: 0 0 10px var(--gold);
 }
-.top-left { top: 0; left: 0; border-right: none; border-bottom: none; }
-.top-right { top: 0; right: 0; border-left: none; border-bottom: none; }
-.btm-left { bottom: 0; left: 0; border-right: none; border-top: none; }
-.btm-right { bottom: 0; right: 0; border-left: none; border-top: none; }
+.top-left { top: 0; left: 0; }
+.top-right { top: 0; right: 0; }
+.btm-left { bottom: 0; left: 0; }
+.btm-right { bottom: 0; right: 0; }
 
-.modal-inner { position: relative; width: 100%; height: 100%; z-index: 1; display: flex; }
+/* ВНУТРЕННОСТИ */
+.modal-inner { position: relative; width: 100%; height: 100%; z-index: 1; display: flex; overflow: hidden; }
 .modal-body { display: flex; flex-direction: row; width: 100%; height: 100%; }
 
-/* --- ЛЕВАЯ ЧАСТЬ (ВИЗУАЛ) --- */
+/* ЛЕВАЯ ЧАСТЬ */
 .modal-visual { 
     flex: 0 0 40%; height: 100%; position: relative; 
     background: #000; overflow: hidden;
@@ -185,13 +196,13 @@
 }
 @keyframes scanUp { 0% { bottom: -10%; opacity: 0; } 50% { opacity: 1; } 100% { bottom: 110%; opacity: 0; } }
 
-/* --- ПРАВАЯ ЧАСТЬ (ИНФО) --- */
+/* ПРАВАЯ ЧАСТЬ */
 .modal-info { 
     flex: 1; padding: 40px; position: relative; 
-    display: flex; flex-direction: column; overflow-y: auto;
+    display: flex; flex-direction: column; 
+    overflow-y: auto; overflow-x: hidden;
 }
 
-/* Кнопка закрытия */
 .modal-close { 
     position: absolute; top: 25px; right: 30px; 
     color: var(--text-muted); font-family: var(--font-head); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px;
@@ -199,7 +210,6 @@
 }
 .modal-close:hover { color: #ff4d4d; text-shadow: 0 0 10px #ff4d4d; }
 
-/* Header */
 .sys-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
 .sys-msg { color: var(--gold); font-family: var(--font-head); font-size: 0.75rem; letter-spacing: 3px; font-weight: 700; }
 .sys-id { color: var(--text-muted); font-family: var(--font-head); font-size: 0.75rem; letter-spacing: 1px; }
@@ -208,6 +218,7 @@
 .modal-header h2 { 
     font-family: var(--font-head); font-size: 3.5rem; color: #fff; margin: 0; 
     line-height: 0.9; text-transform: uppercase; letter-spacing: 1px;
+    word-break: break-word;
 }
 .header-line {
     width: 60px; height: 4px; background: var(--gold); margin: 15px 0 20px 0;
@@ -221,12 +232,12 @@
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
 
-/* VIEW MODE GRID */
+/* VIEW GRID */
 .view-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-    margin-bottom: auto;
+    margin-bottom: 20px; width: 100%;
 }
-.info-block { display: flex; flex-direction: column; gap: 8px; }
+.info-block { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .rank-block { grid-column: 1 / 2; }
 .platform-block { grid-column: 2 / 3; }
 .note-block { grid-column: 1 / -1; margin-top: 10px; }
@@ -236,7 +247,6 @@
     letter-spacing: 2px; text-transform: uppercase; opacity: 0.7;
 }
 
-/* Rank Display Box */
 .rank-display-box {
     font-family: var(--font-head); font-size: 3rem; font-weight: 800; color: var(--gold);
     background: rgba(255, 174, 0, 0.05); border: 1px solid var(--gold);
@@ -250,7 +260,6 @@
     padding: 15px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* Terminal Note */
 .note-terminal {
     background: #050608; border: 1px solid rgba(255,255,255,0.15);
     padding: 20px; min-height: 100px; position: relative;
@@ -263,7 +272,6 @@
     white-space: pre-wrap; margin-left: 15px;
 }
 
-/* Watermark */
 .rank-watermark {
     position: absolute; top: 50%; right: 20px; transform: translateY(-50%) rotate(-10deg);
     font-family: var(--font-head); font-weight: 900; font-size: 20rem; 
@@ -292,7 +300,10 @@ textarea#userNoteInput:focus { border-color: var(--gold); box-shadow: 0 0 15px r
 textarea#userNoteInput::placeholder { color: rgba(255,255,255,0.2); }
 
 /* FOOTER BUTTONS */
-.modal-footer { display: flex; gap: 15px; margin-top: 20px; }
+.modal-footer { 
+    display: flex; gap: 15px; margin-top: auto; /* Прижимает к низу */
+    width: 100%; z-index: 10;
+}
 .action-btn { 
     height: 55px; display: flex; align-items: center; justify-content: center;
     font-family: var(--font-head); font-weight: 800; font-size: 0.9rem; letter-spacing: 2px;
@@ -314,10 +325,11 @@ textarea#userNoteInput::placeholder { color: rgba(255,255,255,0.2); }
 
 /* MEDIA */
 @media (max-width: 1024px) {
-    .modal-window { height: auto; max-height: 90vh; overflow-y: auto; }
+    .modal-window-wrapper { height: auto; max-height: 90vh; }
     .modal-body { flex-direction: column; }
     .modal-visual { width: 100%; height: 250px; flex: none; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .modal-info { padding: 25px; }
+    .modal-info { padding: 25px; overflow-y: visible; }
+    .modal-clipper { overflow-y: auto; }
     .view-grid { grid-template-columns: 1fr; }
     .rank-block, .platform-block { grid-column: 1 / -1; }
 }
