@@ -4,21 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games // Resonance</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Стили: Глобальные + Специфические для Игр -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="games.css">
 </head>
-<!-- Указываем скрипту загружать раздел "games" -->
+
+<!-- data-page="games" сообщает JS, что нужно загружать игры и использовать шаблон для игр -->
 <body data-page="games">
     
+    <!-- Фоновая анимация -->
     <div class="background-container">
         <div class="bg-grid"></div>
         <div class="bg-fog"></div>
         <div class="gold-dust d1"></div><div class="gold-dust d3"></div>
     </div>
 
+    <!-- Навигация -->
     <nav class="navbar">
-        <!-- ЛОГОТИП -->
         <a href="index.html" class="brand-logo">
             <svg class="logo-icon" viewBox="0 0 40 40">
                 <path d="M20 2 L37 11 V29 L20 38 L3 29 V11 Z" />
@@ -44,12 +49,13 @@
             <h1>SIMULATION LOGS</h1>
         </header>
 
+        <!-- Панель управления (Фильтр, Поиск, Вид) -->
         <div class="filter-wrapper">
             <!-- Выпадающий список -->
             <div class="custom-dropdown">
                 <button class="dropdown-trigger">
                     <span class="selected-text">FILTER BY TAGS</span>
-                    <svg class="arrow-icon" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="#ffae00" stroke-width="2"/></svg>
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="#ffae00" stroke-width="2"/></svg>
                 </button>
                 <div class="dropdown-options" id="filterOptions"></div>
             </div>
@@ -64,22 +70,18 @@
             <div class="view-controls">
                 <button class="view-btn active" data-cols="3" title="3 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg></button>
                 <button class="view-btn" data-cols="4" title="4 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
-                <button class="view-btn" data-cols="5" title="5 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2" height="14" fill="currentColor"/><rect x="3" y="0" width="2" height="14" fill="currentColor"/><rect x="6" y="0" width="2" height="14" fill="currentColor"/><rect x="9" y="0" width="2" height="14" fill="currentColor"/><rect x="12" y="0" width="2" height="14" fill="currentColor"/></svg></button>
-                <button class="view-btn" data-cols="6" title="6 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="1.5" height="14" fill="currentColor"/><rect x="2.5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="7.5" y="0" width="1.5" height="14" fill="currentColor"/><rect x="10" y="0" width="1.5" height="14" fill="currentColor"/><rect x="12.5" y="0" width="1.5" height="14" fill="currentColor"/></svg></button>
             </div>
         </div>
 
-        <!-- ГЛАВНЫЙ КОНТЕЙНЕР -->
+        <!-- ГЛАВНЫЙ КОНТЕЙНЕР ДЛЯ КАРТОЧЕК -->
         <div class="grid-cards cols-3" id="cards-container"></div>
     </main>
 
-    <!-- HUD MODAL -->
+    <!-- МОДАЛЬНОЕ ОКНО (Общее для обоих разделов) -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="modal-inner">
-                <button class="modal-close" id="closeModal">
-                    <span class="close-text">ABORT SIGNAL</span><span class="close-icon">✕</span>
-                </button>
+                <button class="modal-close" id="closeModal">ABORT [X]</button>
             
                 <div class="modal-body">
                     <div class="modal-visual">
@@ -87,28 +89,26 @@
                     </div>
             
                     <div class="modal-info">
-                        <div class="rank-watermark" id="modalRank">UR</div>
+                        <!-- Водяной знак ранга -->
+                        <div class="rank-watermark" id="modalRank" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg); font-size: 10rem; opacity: 0.05; font-weight: 900; pointer-events: none;">UR</div>
     
                         <div class="modal-header">
-                            <div class="sys-row"><span class="sys-msg">/// DECRYPTED_DATA_LOG_01</span><span class="sys-id">ID: #89-XJ</span></div>
+                            <div style="border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; padding-bottom: 5px; display:flex; justify-content:space-between;">
+                                <span style="color:var(--cyan); font-size: 0.8rem; letter-spacing: 2px;">/// DECRYPTED_LOG</span>
+                                <span style="color:var(--text-muted); font-size: 0.8rem;">ID: #89-XJ</span>
+                            </div>
                             <h2 id="modalTitle">TITLE</h2>
                             <div class="tags-container" id="modalTags"></div>
                         </div>
             
-                        <div class="modal-content-scroll">
-                            <p id="modalDesc" class="modal-desc">Description...</p>
-                            <div class="stats-grid">
-                                <div class="stat-box"><span class="stat-label">PLATFORM</span><span class="stat-value" id="modalPlatform">-</span></div>
-                                <div class="stat-box"><span class="stat-label">DEVELOPER</span><span class="stat-value" id="modalDev">-</span></div>
-                                <div class="stat-box"><span class="stat-label">STATUS</span><span class="stat-value active">ACCESSIBLE</span></div>
-                                <div class="stat-box"><span class="stat-label">INTEGRITY</span><span class="stat-value highlight">100%</span></div>
-                            </div>
+                        <p id="modalDesc" class="modal-desc">Description...</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-box"><span class="stat-label">PLATFORM</span><span class="stat-value" id="modalPlatform">-</span></div>
+                            <div class="stat-box"><span class="stat-label">DEVELOPER</span><span class="stat-value" id="modalDev">-</span></div>
                         </div>
             
-                        <div class="modal-footer">
-                            <button class="action-btn primary"><span class="btn-text">INITIATE LAUNCH</span></button>
-                            <button class="action-btn secondary"><span class="btn-text">EDIT RECORD</span></button>
-                        </div>
+                        <button class="action-btn">INITIATE LAUNCH</button>
                     </div>
                 </div>
             </div>
