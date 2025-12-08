@@ -36,6 +36,8 @@
             <a href="index.html" class="nav-item active">TERMINAL</a>
             <a href="anime.html" class="nav-item">VISUALS</a>
             <a href="games.html" class="nav-item">SIMULATIONS</a>
+            <!-- КНОПКА ВХОДА -->
+            <a href="#" id="navLoginBtn" class="nav-item" style="border: 1px solid var(--border-color); padding: 5px 15px; margin-left: 20px;">LOGIN // ID</a>
         </div>
     </nav>
 
@@ -50,20 +52,14 @@
             
             <!-- 1. КАРТОЧКА: VISUALS (Стиль: Cinema Lens) -->
             <a href="anime.html" class="movie-card">
-                <!-- Фон: Зернистость -->
                 <div class="bg-grain"></div>
-
-                <!-- Боковая перфорация (Пленка) -->
                 <div class="film-strip fs-left"><div class="film-holes"></div></div>
                 <div class="film-strip fs-right"><div class="film-holes"></div></div>
-
-                <!-- Ядро: Объектив + Play -->
                 <div class="lens-wrapper">
                     <div class="focus-ring"></div>
                     <div class="inner-ring"></div>
                     <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                 </div>
-
                 <div class="text-content">
                     <h2 class="card-title">VISUAL LOGS</h2>
                     <div class="card-sub">ANIME RECORDS</div>
@@ -72,20 +68,13 @@
 
             <!-- 2. КАРТОЧКА: GAMES (Стиль: Quantum Core) -->
             <a href="games.html" class="sim-card">
-                <!-- Фон: Микросхема -->
                 <div class="bg-circuit"></div>
-
-                <!-- Бока: Потоки данных -->
                 <div class="data-stream ds-left"><div class="stream-bits"></div></div>
                 <div class="data-stream ds-right"><div class="stream-bits"></div></div>
-
-                <!-- Ядро: Реактор -->
                 <div class="core-wrapper">
                     <div class="spinner-outer"></div>
                     <div class="spinner-mid"></div>
-                    
                     <div class="hex-core">
-                        <!-- Лазер сканирования -->
                         <div class="scan-line"></div>
                         <div class="icon-box">
                             <svg class="game-icon" viewBox="0 0 24 24">
@@ -97,7 +86,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="text-content">
                     <h2 class="card-title">GAME LOGS</h2>
                     <div class="card-sub">SIMULATIONS</div>
@@ -107,6 +95,48 @@
         </div>
     </main>
 
+    <!-- МОДАЛЬНОЕ ОКНО ВХОДА (AUTH) -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-window" style="height: auto; max-width: 450px; transform: scale(0.95);">
+            <div class="modal-inner" style="padding: 3rem 2rem; overflow: visible;">
+                
+                <button class="modal-close" id="closeAuthModal">
+                    <span class="close-text">ABORT</span><span class="close-icon">✕</span>
+                </button>
+
+                <div class="modal-header" style="text-align: center;">
+                    <div class="deco-tag">/// SECURE CONNECTION</div>
+                    <h2 id="authTitle" style="font-size: 2.5rem; margin-bottom: 2rem;">SYSTEM ACCESS</h2>
+                </div>
+
+                <form id="authForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    
+                    <div class="search-terminal" id="nickContainer" style="width: 100%; display: none;">
+                        <input type="text" id="authNick" placeholder="CODENAME (NICKNAME)" style="background:transparent; width:100%; height:100%; border:none; color:var(--gold); padding:0 15px; font-family:var(--font-head);">
+                    </div>
+
+                    <div class="search-terminal" style="width: 100%;">
+                        <input type="email" id="authEmail" placeholder="EMAIL ADDRESS" required style="background:transparent; width:100%; height:100%; border:none; color:var(--gold); padding:0 15px; font-family:var(--font-head);">
+                    </div>
+
+                    <div class="search-terminal" style="width: 100%;">
+                        <input type="password" id="authPass" placeholder="ACCESS KEY (PASSWORD)" required style="background:transparent; width:100%; height:100%; border:none; color:var(--gold); padding:0 15px; font-family:var(--font-head);">
+                    </div>
+
+                    <button type="button" id="authSubmit" class="action-btn primary" style="margin-top: 1rem;">CONNECT</button>
+                    
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <span id="authToggle" style="font-family: var(--font-head); color: var(--text-muted); cursor: pointer; font-size: 0.9rem; letter-spacing: 1px;">
+                            >> CREATE NEW ID
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- СКРИПТЫ -->
     <script src="script.js"></script>
+    <script type="module" src="auth.js"></script>
 </body>
 </html>
