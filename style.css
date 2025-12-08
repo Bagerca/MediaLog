@@ -148,7 +148,7 @@ input { outline: none; }
 .view-btn:hover, .view-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
 
 /* =========================================
-   6. GRID & INTERNAL CARDS (Для страниц anime/games)
+   6. CONTENT CARDS (GRID)
    ========================================= */
 .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; padding-bottom: 4rem; }
 .grid-cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
@@ -253,19 +253,28 @@ input { outline: none; }
 .film-strip { position: absolute; top: 0; bottom: 0; width: 20px; overflow: hidden; opacity: 0.15; transition: 0.4s; pointer-events: none; }
 .fs-left { left: 30px; border-right: 1px solid rgba(255,255,255,0.1); }
 .fs-right { right: 30px; border-left: 1px solid rgba(255,255,255,0.1); }
+
+/* --- ИСПРАВЛЕННАЯ АНИМАЦИЯ ПЛЕНКИ --- */
 .film-holes {
     width: 8px; height: 100%; margin: 0 auto;
     background-image: linear-gradient(var(--gold) 4px, transparent 4px);
-    background-size: 8px 16px; opacity: 0.3;
-    animation: filmRoll 4s linear infinite; /* Пленка движется всегда */
+    background-size: 8px 16px; /* 8px ширина, 16px высота шага */
+    opacity: 0.3;
+    animation: filmRoll 4s linear infinite; /* Плавная прокрутка */
+    will-change: background-position;
 }
 @keyframes slowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes filmRoll { from { transform: translateY(0); } to { transform: translateY(-16px); } }
+/* Двигаем фон, а не блок, чтобы было бесшовно */
+@keyframes filmRoll { 
+    from { background-position: 0 0; } 
+    to { background-position: 0 16px; } 
+}
+
 /* Hover */
 .movie-card:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
 .movie-card:hover::before { background: var(--gold); }
 .movie-card:hover .film-strip { opacity: 0.5; border-color: rgba(255, 174, 0, 0.3); }
-.movie-card:hover .film-holes { opacity: 0.8; animation-duration: 0.5s; /* Ускорение при наведении */ }
+.movie-card:hover .film-holes { opacity: 0.8; animation-duration: 0.5s; /* Ускорение */ }
 .movie-card:hover .focus-ring { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 174, 0, 0.1); animation-duration: 5s; }
 .movie-card:hover .inner-ring { width: 85%; height: 85%; opacity: 0.8; box-shadow: inset 0 0 20px rgba(255, 174, 0, 0.2); }
 .movie-card:hover .play-icon { transform: translateX(3px) scale(1.2); filter: drop-shadow(0 0 15px var(--gold)); fill: #fff; }
