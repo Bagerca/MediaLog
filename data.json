@@ -120,13 +120,6 @@
             "dev": "Warm Lamp Games"
         },
         {
-            "title": "Beholder: Blissful Sleep",
-            "image": "https://cdn2.steamgriddb.com/grid/f05b1137c86a34c99596001140225d57.jpg",
-            "tags": "Strategy, Dystopian, DLC",
-            "platform": "PC",
-            "dev": "Warm Lamp Games"
-        },
-        {
             "title": "Beholder 2",
             "image": "https://cdn2.steamgriddb.com/grid/d421fe849ec913c735125ad646aa4445.jpg",
             "tags": "Strategy, Simulation, Dark",
@@ -138,6 +131,13 @@
             "image": "https://cdn2.steamgriddb.com/grid/22f8067098264dccf6ecaf1cdd7ec236.jpg",
             "tags": "Strategy, Simulation, Political",
             "platform": "PC / Console",
+            "dev": "Paintbucket Games"
+        },
+         {
+            "title": "Beholder: Conductor",
+            "image": "https://cdn2.steamgriddb.com/grid/e6a57f005085e683344d5d36e768114f.png",
+            "tags": "Short Film, Dystopian, Story Rich, Lore",
+            "platform": "YouTube / Steam",
             "dev": "Paintbucket Games"
         },
         {
@@ -601,13 +601,6 @@
             "tags": "Horror, Indie, Walking Simulator, Short",
             "platform": "PC",
             "dev": "Civil Savages"
-        },
-        {
-            "title": "Beholder: Conductor",
-            "image": "https://cdn2.steamgriddb.com/grid/e6a57f005085e683344d5d36e768114f.png",
-            "tags": "Short Film, Dystopian, Story Rich, Lore",
-            "platform": "YouTube / Steam",
-            "dev": "Paintbucket Games"
         },
         {
             "title": "Overwatch",
