@@ -9,7 +9,7 @@
     
     <!-- СТИЛИ -->
     <link rel="stylesheet" href="style.css"> <!-- Глобальные -->
-    <link rel="stylesheet" href="games.css"> <!-- Для Игр + Модальное окно (Золотое) -->
+    <link rel="stylesheet" href="games.css"> <!-- Специфичные для игр -->
 </head>
 
 <body data-page="games">
@@ -51,9 +51,8 @@
         <!-- CONTROL DECK (ПАНЕЛЬ УПРАВЛЕНИЯ) -->
         <div class="control-deck">
             
-            <!-- Верхний ряд -->
+            <!-- Верхний ряд: Режим, Поиск, Сетка -->
             <div class="deck-top">
-                
                 <!-- 1. Режим (Все / Мои) -->
                 <div class="mode-module">
                     <span class="module-label">DATA_SOURCE</span>
@@ -99,7 +98,7 @@
         <div class="grid-cards cols-4" id="cards-container"></div>
     </main>
 
-    <!-- МОДАЛЬНОЕ ОКНО (РЕДАКТОР) -->
+    <!-- МОДАЛЬНОЕ ОКНО (VIEW + EDIT) -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="modal-inner">
@@ -111,52 +110,76 @@
                         <img id="modalImg" src="" alt="Cover Art">
                     </div>
             
-                    <!-- Правая часть: Форма -->
+                    <!-- Правая часть: Инфо -->
                     <div class="modal-info">
-                        <!-- Фон с рангом -->
                         <div class="rank-watermark" id="modalBgRank">N</div>
     
+                        <!-- Шапка окна -->
                         <div class="modal-header">
                             <div class="sys-row">
-                                <span class="sys-msg">/// EDITING_MODE</span>
+                                <span class="sys-msg" id="sysModeLabel">/// VIEW_MODE</span>
                                 <span class="sys-id" id="modalDev">DEV_NAME</span>
                             </div>
                             <h2 id="modalTitle">TITLE_HOLDER</h2>
                             <div class="tags-container" id="modalTags"></div>
                         </div>
-            
-                        <!-- ФОРМА РЕДАКТИРОВАНИЯ -->
-                        <div class="edit-form">
-                            
-                            <!-- Выбор ранга -->
-                            <div class="input-group">
-                                <label>ASSIGN RANK</label>
-                                <div class="rank-selector" id="rankSelector">
-                                    <button class="rank-opt" data-value="UR">UR</button>
-                                    <button class="rank-opt" data-value="SSR">SSR</button>
-                                    <button class="rank-opt" data-value="SR">SR</button>
-                                    <button class="rank-opt" data-value="R">R</button>
-                                    <button class="rank-opt" data-value="N">N</button>
+
+                        <!-- === РЕЖИМ ПРОСМОТРА (VIEW MODE) === -->
+                        <div id="viewMode" class="mode-content">
+                            <div class="view-data">
+                                <div class="view-rank-wrapper">
+                                    <span class="view-label">CURRENT RANK</span>
+                                    <span class="view-rank-value" id="viewRankDisplay">N/A</span>
+                                </div>
+                                
+                                <div class="view-note-wrapper">
+                                    <span class="view-label">DATA LOG // NOTES</span>
+                                    <p id="viewNoteDisplay" class="view-text">No data recorded.</p>
+                                </div>
+
+                                <div class="stats-grid">
+                                    <div class="stat-box"><span class="stat-label">PLATFORM</span><span class="stat-value" id="modalPlatform">-</span></div>
                                 </div>
                             </div>
 
-                            <!-- Поле для заметок -->
-                            <div class="input-group full-height">
-                                <label>USER_NOTES // DESCRIPTION</label>
-                                <textarea id="userNoteInput" placeholder="ENTER LOG DATA..."></textarea>
+                            <div class="modal-footer">
+                                <!-- Кнопка "Добавить" (если нет в библиотеке) -->
+                                <button class="action-btn primary-btn" id="btnAddLib">ADD TO LIBRARY</button>
+                                
+                                <!-- Кнопки управления (если есть в библиотеке) -->
+                                <div id="libActions" class="lib-actions" style="display: none; width: 100%; gap: 10px;">
+                                    <button class="action-btn edit-btn" id="btnEdit">MODIFY RECORD</button>
+                                    <button class="action-btn delete-btn" id="btnDelete">DELETE</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- === РЕЖИМ РЕДАКТИРОВАНИЯ (EDIT MODE) === -->
+                        <div id="editMode" class="mode-content" style="display: none;">
+                            <div class="edit-form">
+                                <div class="input-group">
+                                    <label>UPDATE RANK</label>
+                                    <div class="rank-selector">
+                                        <button class="rank-opt" data-value="UR">UR</button>
+                                        <button class="rank-opt" data-value="SSR">SSR</button>
+                                        <button class="rank-opt" data-value="SR">SR</button>
+                                        <button class="rank-opt" data-value="R">R</button>
+                                        <button class="rank-opt" data-value="N">N</button>
+                                    </div>
+                                </div>
+
+                                <div class="input-group full-height">
+                                    <label>UPDATE NOTES</label>
+                                    <textarea id="userNoteInput" placeholder="ENTER NEW DATA..."></textarea>
+                                </div>
                             </div>
 
-                            <!-- Инфо -->
-                            <div class="stats-grid">
-                                <div class="stat-box"><span class="stat-label">PLATFORM</span><span class="stat-value" id="modalPlatform">-</span></div>
+                            <div class="modal-footer">
+                                <button class="action-btn save-btn" id="btnSave">CONFIRM CHANGES</button>
+                                <button class="action-btn cancel-btn" id="btnCancel">CANCEL</button>
                             </div>
                         </div>
-            
-                        <!-- Кнопки управления -->
-                        <div class="modal-footer">
-                            <button class="action-btn save-btn" id="saveBtn">SAVE RECORD</button>
-                            <button class="action-btn delete-btn" id="deleteBtn" style="display: none;">DELETE</button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
