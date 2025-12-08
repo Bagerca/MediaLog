@@ -9,7 +9,7 @@
     
     <!-- СТИЛИ -->
     <link rel="stylesheet" href="style.css"> <!-- Глобальные -->
-    <link rel="stylesheet" href="anime.css"> <!-- Для Аниме -->
+    <link rel="stylesheet" href="anime.css"> <!-- Для Аниме + Модальное окно (Синее) -->
 </head>
 
 <body data-page="anime">
@@ -48,12 +48,11 @@
             <h1>VISUAL LOGS</h1>
         </header>
 
-        <!-- CONTROL DECK (НОВАЯ ПАНЕЛЬ) -->
+        <!-- CONTROL DECK -->
         <div class="control-deck">
             
             <!-- Верхний ряд -->
             <div class="deck-top">
-                <!-- 1. Режим -->
                 <div class="mode-module">
                     <span class="module-label">DATA_SOURCE</span>
                     <div class="mode-switch">
@@ -62,7 +61,6 @@
                     </div>
                 </div>
 
-                <!-- 2. Поиск -->
                 <div class="search-module">
                     <span class="module-label">QUERY_INPUT</span>
                     <div class="search-input-wrapper">
@@ -71,24 +69,17 @@
                     </div>
                 </div>
 
-                <!-- 3. Сетка -->
                 <div class="view-module">
                     <span class="module-label">DENSITY</span>
                     <div class="view-controls">
-                        <button class="view-btn active" data-cols="4" title="4 Columns">
-                            <span class="btn-icon">||||</span>
-                        </button>
-                        <button class="view-btn" data-cols="5" title="5 Columns">
-                            <span class="btn-icon">|||||</span>
-                        </button>
-                        <button class="view-btn" data-cols="6" title="6 Columns">
-                            <span class="btn-icon">||||||</span>
-                        </button>
+                        <button class="view-btn active" data-cols="4" title="4 Columns"><span class="btn-icon">||||</span></button>
+                        <button class="view-btn" data-cols="5" title="5 Columns"><span class="btn-icon">|||||</span></button>
+                        <button class="view-btn" data-cols="6" title="6 Columns"><span class="btn-icon">||||||</span></button>
                     </div>
                 </div>
             </div>
 
-            <!-- Нижний ряд: Теги -->
+            <!-- Нижний ряд -->
             <div class="deck-bottom">
                 <div class="filter-module">
                     <div class="filter-header">
@@ -100,11 +91,11 @@
             </div>
         </div>
 
-        <!-- КОНТЕЙНЕР КАРТОЧЕК -->
+        <!-- КОНТЕЙНЕР -->
         <div class="grid-cards cols-4" id="cards-container"></div>
     </main>
 
-    <!-- МОДАЛЬНОЕ ОКНО -->
+    <!-- МОДАЛЬНОЕ ОКНО (РЕДАКТОР) -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="modal-inner">
@@ -116,33 +107,51 @@
                     </div>
             
                     <div class="modal-info">
-                        <div class="rank-watermark" id="modalRank">UR</div>
+                        <div class="rank-watermark" id="modalBgRank">N</div>
     
                         <div class="modal-header">
-                            <div style="border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; padding-bottom: 5px; display:flex; justify-content:space-between;">
-                                <span style="color:var(--cyan); font-size: 0.8rem; letter-spacing: 2px;">/// DECRYPTED_LOG</span>
-                                <span style="color:var(--text-muted); font-size: 0.8rem;">ID: #89-XJ</span>
+                            <div class="sys-row">
+                                <span class="sys-msg">/// EDITING_MODE</span>
+                                <span class="sys-id" id="modalDev">STUDIO_NAME</span>
                             </div>
-                            <h2 id="modalTitle">TITLE</h2>
+                            <h2 id="modalTitle">TITLE_HOLDER</h2>
                             <div class="tags-container" id="modalTags"></div>
                         </div>
             
-                        <p id="modalDesc" class="modal-desc">Description...</p>
-                        
-                        <div class="stats-grid">
-                            <div class="stat-box"><span class="stat-label">TYPE</span><span class="stat-value" id="modalPlatform">-</span></div>
-                            <div class="stat-box"><span class="stat-label">STUDIO</span><span class="stat-value" id="modalDev">-</span></div>
+                        <!-- ФОРМА -->
+                        <div class="edit-form">
+                            <div class="input-group">
+                                <label>ASSIGN RANK</label>
+                                <div class="rank-selector" id="rankSelector">
+                                    <button class="rank-opt" data-value="UR">UR</button>
+                                    <button class="rank-opt" data-value="SSR">SSR</button>
+                                    <button class="rank-opt" data-value="SR">SR</button>
+                                    <button class="rank-opt" data-value="R">R</button>
+                                    <button class="rank-opt" data-value="N">N</button>
+                                </div>
+                            </div>
+
+                            <div class="input-group full-height">
+                                <label>USER_NOTES // DESCRIPTION</label>
+                                <textarea id="userNoteInput" placeholder="ENTER LOG DATA..."></textarea>
+                            </div>
+
+                            <div class="stats-grid">
+                                <div class="stat-box"><span class="stat-label">TYPE</span><span class="stat-value" id="modalPlatform">-</span></div>
+                            </div>
                         </div>
             
-                        <!-- Кнопка действия -->
-                        <button class="action-btn">ACCESS RECORD</button>
+                        <div class="modal-footer">
+                            <button class="action-btn save-btn" id="saveBtn">SAVE RECORD</button>
+                            <button class="action-btn delete-btn" id="deleteBtn" style="display: none;">DELETE</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- УВЕДОМЛЕНИЕ (TOAST) -->
+    <!-- УВЕДОМЛЕНИЕ -->
     <div id="sysToast" class="sys-toast">
         <div class="toast-icon">!</div>
         <div class="toast-msg">DATA UPDATED</div>
