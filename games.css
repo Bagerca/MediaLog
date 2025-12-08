@@ -1,11 +1,9 @@
 /* --- СТИЛИ ДЛЯ GAMES (Simulation Modules) --- */
 
-/* Используем переменные из style.css, но можно переопределить локально */
 :root {
-    --game-height: 220px; 
+    --game-height: 210px; /* Чуть уменьшили высоту для баланса */
 }
 
-/* Стили заголовка страницы игр */
 .games-header h1 {
     font-size: 3.5rem;
     letter-spacing: 2px;
@@ -13,10 +11,10 @@
     text-shadow: 0 0 15px rgba(95, 251, 241, 0.3);
 }
 
-/* Модуль Игры (Карточка) */
+/* Модуль Игры */
 .game-module {
     position: relative;
-    height: var(--game-height); /* Фиксированная высота для горизонтального вида */
+    height: var(--game-height);
     background: #0e0f14;
     border: 1px solid rgba(255,255,255,0.08);
     overflow: hidden;
@@ -26,146 +24,99 @@
     flex-direction: column;
 }
 
-/* Фоновое изображение */
+/* Фон */
 .module-bg {
-    position: absolute; 
-    inset: 0;
-    background-size: cover; 
-    background-position: center top;
-    opacity: 0.4; 
-    filter: grayscale(80%) brightness(0.6);
-    transition: 0.5s;
-    z-index: 0;
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0.4; filter: grayscale(80%) brightness(0.6);
+    transition: 0.5s; z-index: 0;
 }
 
-/* Контент поверх фона */
+/* Контент */
 .module-content {
-    position: relative; 
-    z-index: 2;
-    height: 100%; 
-    padding: 1.2rem;
-    display: flex; 
-    flex-direction: column; 
-    justify-content: space-between;
-    /* Градиент, чтобы текст читался */
-    background: linear-gradient(90deg, rgba(14,15,20,0.95) 0%, rgba(14,15,20,0.6) 60%, rgba(14,15,20,0.2) 100%);
+    position: relative; z-index: 2;
+    height: 100%; padding: 1rem; /* Компактные отступы */
+    display: flex; flex-direction: column; justify-content: space-between;
+    background: linear-gradient(90deg, rgba(14,15,20,0.95) 0%, rgba(14,15,20,0.7) 60%, rgba(14,15,20,0.3) 100%);
 }
 
-/* --- Ховер эффекты (При наведении) --- */
+/* Ховер */
 .game-module:hover {
-    border-color: var(--cyan); /* Светятся цианом при наведении */
+    border-color: var(--cyan);
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
-
 .game-module:hover .module-bg {
-    opacity: 0.7; 
-    filter: grayscale(0%) brightness(0.8); 
-    transform: scale(1.05);
+    opacity: 0.7; filter: grayscale(0%) brightness(0.8); transform: scale(1.05);
 }
 
-/* --- Типографика модуля --- */
-.module-top { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: flex-start; 
-}
+/* Верхняя часть */
+.module-top { display: flex; justify-content: space-between; align-items: flex-start; }
 
 .platform { 
-    font-size: 0.65rem; 
-    color: var(--text-muted); 
+    font-size: 0.6rem; color: var(--text-muted); 
     border: 1px solid rgba(255,255,255,0.2); 
-    padding: 2px 6px; 
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(2px);
-    text-transform: uppercase;
+    padding: 2px 5px; background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(2px); text-transform: uppercase;
 }
 
-/* Ранги (UR/SSR) */
-.rank { 
-    font-weight: 800; 
-    font-family: var(--font-head); 
-    font-size: 1.4rem; 
-    line-height: 1;
-}
+.rank { font-weight: 800; font-family: var(--font-head); font-size: 1.3rem; line-height: 1; }
 .rank.ur { color: var(--cyan); text-shadow: 0 0 10px rgba(95, 251, 241, 0.4); }
 .rank.ssr { color: var(--gold); text-shadow: 0 0 10px rgba(255, 174, 0, 0.4); }
 .rank.sr { color: var(--text-muted); }
 
-/* Заголовок и инфо */
-.module-main { margin-top: auto; margin-bottom: 1rem; }
+/* Основной текст */
+.module-main { margin-top: auto; margin-bottom: 0.8rem; }
+
 .module-main h2 {
     font-family: var(--font-head); 
-    font-size: 1.8rem; 
-    margin: 0; 
-    line-height: 0.9;
-    text-transform: uppercase;
-    color: #fff;
-    width: 90%;
+    font-size: 1.5rem; /* Шрифт чуть меньше, чтобы влезали длинные названия */
+    margin: 0; line-height: 1;
+    text-transform: uppercase; color: #fff;
+    width: 95%;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* Обрезаем, если слишком длинное */
 }
+
+/* Если хочется перенос строк, раскомментируй это и убери white-space выше */
+/* 
+.module-main h2 {
+    white-space: normal;
+    font-size: 1.4rem;
+    line-height: 0.95;
+} 
+*/
+
 .playtime { 
-    font-size: 0.8rem; 
-    color: var(--cyan); 
-    margin-top: 6px; 
-    opacity: 0.9; 
-    font-weight: 600;
-    letter-spacing: 1px;
+    font-size: 0.75rem; color: var(--cyan); margin-top: 4px; 
+    opacity: 0.9; font-weight: 600; letter-spacing: 1px; 
 }
 
-/* Футер карточки (Статус и прогресс) */
+/* Футер */
 .module-footer { 
-    display: flex; 
-    align-items: center; 
-    gap: 1rem; 
-    font-family: var(--font-head); 
-    font-size: 0.85rem; 
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 10px;
+    display: flex; align-items: center; gap: 0.8rem; 
+    font-family: var(--font-head); font-size: 0.75rem; 
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;
 }
-.status { 
-    color: var(--text-main); 
-    letter-spacing: 1px; 
-    text-transform: uppercase;
-    white-space: nowrap;
-}
+.status { color: var(--text-main); letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
 
-/* Прогресс бар */
+/* Прогресс */
 .progress-bar {
-    flex-grow: 1; 
-    height: 4px; 
-    background: rgba(255,255,255,0.1);
-    position: relative; 
-    overflow: hidden;
+    flex-grow: 1; height: 3px; background: rgba(255,255,255,0.1);
+    position: relative; overflow: hidden;
 }
-.progress { 
-    height: 100%; 
-    background: var(--cyan); 
-    box-shadow: 0 0 10px var(--cyan); 
-    width: 0%; /* JS поменяет это значение */
-}
+.progress { height: 100%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); width: 0%; }
 
-/* Анимация бесконечного прогресса для онлайн игр */
 .progress.infinite {
-    width: 40% !important; 
-    position: absolute;
+    width: 40% !important; position: absolute;
     animation: loading 2s infinite ease-in-out;
-    background: var(--gold);
-    box-shadow: 0 0 10px var(--gold); 
+    background: var(--gold); box-shadow: 0 0 8px var(--gold); 
 }
-@keyframes loading {
-    0% { left: -40%; } 
-    100% { left: 100%; }
-}
+@keyframes loading { 0% { left: -40%; } 100% { left: 100%; } }
 
-/* Декоративные углы (HUD Style) */
+/* Углы */
 .corner {
-    position: absolute; 
-    width: 8px; 
-    height: 8px;
-    border: 2px solid transparent; 
-    transition: 0.3s;
-    z-index: 5;
-    pointer-events: none;
+    position: absolute; width: 6px; height: 6px;
+    border: 2px solid transparent; transition: 0.3s; pointer-events: none;
 }
 .t-l { top: 0; left: 0; border-top-color: rgba(255,255,255,0.2); border-left-color: rgba(255,255,255,0.2); }
 .t-r { top: 0; right: 0; border-top-color: rgba(255,255,255,0.2); border-right-color: rgba(255,255,255,0.2); }
@@ -174,7 +125,5 @@
 
 .game-module:hover .t-l, .game-module:hover .t-r, 
 .game-module:hover .b-l, .game-module:hover .b-r {
-    border-color: var(--cyan); 
-    width: 15px; 
-    height: 15px;
+    border-color: var(--cyan); width: 12px; height: 12px;
 }
