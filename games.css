@@ -1,10 +1,12 @@
 /* --- games.css --- */
 
 /* =================================================================
-   1. СТИЛИ КАРТОЧКИ (GAMES)
+   1. СТИЛИ КАРТОЧКИ (GAMES - Landscape)
    ================================================================= */
 .game-card {
     position: relative; width: 100%; aspect-ratio: 2 / 3;
+    /* Если нужны горизонтальные карточки, можно изменить aspect-ratio на 16/9, 
+       но сейчас используется вертикальный стандарт для сетки */
     background: #2a2c33; padding: 1px; cursor: pointer; z-index: 1;
     clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -28,7 +30,7 @@
     z-index: 2; pointer-events: none;
 }
 
-/* Ранг */
+/* Ранг (Бейдж на карточке) */
 .game-rank-badge {
     position: absolute; top: 12px; left: 12px; z-index: 10;
     display: flex; align-items: center; justify-content: center;
@@ -54,6 +56,7 @@
     border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; margin-top: 10px; transition: 0.3s;
 }
 
+/* Ховер эффекты */
 .game-card:hover {
     transform: translateY(-5px); background: var(--gold); 
     box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px var(--gold-dim);
@@ -63,7 +66,7 @@
 
 
 /* =================================================================
-   2. МОДАЛЬНОЕ ОКНО (ИСПРАВЛЕННАЯ СТРУКТУРА)
+   2. МОДАЛЬНОЕ ОКНО (GAMES STYLE - GOLD)
    ================================================================= */
 
 .modal-overlay {
@@ -76,44 +79,28 @@
 .modal-window {
     width: 1200px; max-width: 95%; height: 700px; background: #0b0c10;
     clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-    /* Оранжевая подсветка (Games) */
     box-shadow: 0 0 0 1px var(--gold-dim), 0 20px 50px rgba(0,0,0,0.8);
     transform: scale(0.95) translateY(20px); transition: 0.4s;
-    overflow: hidden; 
+    overflow: hidden;
 }
 .modal-overlay.active .modal-window { transform: scale(1) translateY(0); }
 
-/* Внутренний контейнер */
-.modal-inner { 
-    width: 100%; height: 100%; 
-    position: relative;
-}
+/* Структура контента */
+.modal-inner { width: 100%; height: 100%; position: relative; }
 
-/* !!! ИСПРАВЛЕНИЕ ЗДЕСЬ !!! */
-/* Применяем Flexbox именно к .modal-body, который держит картинку и текст */
 .modal-body {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
+    display: flex; flex-direction: row; /* Горизонтальное расположение */
+    width: 100%; height: 100%;
 }
 
 .modal-visual { 
-    flex: 0 0 45%; /* Картинка занимает ровно 45% */
-    height: 100%;
-    background: #000; 
-    position: relative; 
+    flex: 0 0 45%; height: 100%; background: #000; position: relative; border-right: 1px solid rgba(255,255,255,0.05);
 }
 .modal-visual img { width: 100%; height: 100%; object-fit: cover; }
 
 .modal-info { 
-    flex: 1; /* Текст занимает всё оставшееся место */
-    height: 100%;
-    padding: 3rem; 
-    position: relative; 
-    display: flex; flex-direction: column; 
-    background: #0b0c10;
-    overflow-y: auto; /* Если текст слишком длинный, появится скролл */
+    flex: 1; height: 100%; padding: 3rem; position: relative; 
+    display: flex; flex-direction: column; background: #0b0c10; overflow-y: auto;
 }
 
 /* Кнопка закрытия */
@@ -124,29 +111,87 @@
 }
 .modal-close:hover { color: #fff; text-shadow: 0 0 5px var(--gold); }
 
-/* Контент внутри инфо */
-.modal-header, .modal-desc, .stats-grid, .action-btn { position: relative; z-index: 2; }
+/* Типографика окна */
+.modal-header, .edit-form, .modal-footer { position: relative; z-index: 2; }
+.sys-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.sys-msg { color: var(--gold); font-family: var(--font-head); font-size: 0.7rem; letter-spacing: 2px; }
+.sys-id { color: var(--text-muted); font-family: var(--font-head); font-size: 0.7rem; }
 
-.modal-header h2 { font-family: var(--font-head); font-size: 3rem; color: #fff; margin: 10px 0; line-height: 1; text-transform: uppercase; }
-.tags-container { display: flex; gap: 8px; margin-bottom: 2rem; flex-wrap: wrap; }
-.tech-tag { padding: 4px 10px; border: 1px solid var(--border-color); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
-.modal-desc { color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; }
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 1px dashed var(--border-color); padding-top: 1rem; }
-.stat-box { display: flex; flex-direction: column; }
-.stat-label { font-size: 0.7rem; color: var(--text-muted); opacity: 0.7; }
-.stat-value { font-size: 1.1rem; color: #fff; font-family: var(--font-head); }
-
-.action-btn { 
-    background: var(--gold); color: #000; padding: 15px; font-weight: bold; margin-top: auto; 
-    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); 
-    text-transform: uppercase; cursor: pointer;
+.modal-header h2 { 
+    font-family: var(--font-head); font-size: 3.5rem; color: #fff; margin: 0 0 15px 0; 
+    line-height: 0.9; text-transform: uppercase; 
 }
-.action-btn:hover { background: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+.rank-watermark {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-10deg);
+    font-family: var(--font-head); font-weight: 900; font-size: 15rem; 
+    opacity: 0.03; pointer-events: none; z-index: 0; user-select: none;
+}
+
+/* Теги в окне */
+.tags-container { display: flex; gap: 8px; margin-bottom: 2rem; flex-wrap: wrap; }
+.tech-tag { 
+    padding: 4px 10px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.02);
+    font-family: var(--font-head); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; 
+    clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+}
+
+/* --- ФОРМА РЕДАКТИРОВАНИЯ --- */
+.edit-form { display: flex; flex-direction: column; gap: 1.5rem; flex-grow: 1; margin-bottom: 2rem; }
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+.input-group label { font-family: var(--font-head); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; }
+.input-group.full-height { flex-grow: 1; }
+
+/* Селектор рангов */
+.rank-selector { display: flex; gap: 5px; }
+.rank-opt {
+    flex: 1; padding: 10px 0;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-muted); font-family: var(--font-head); font-weight: bold;
+    cursor: pointer; transition: 0.2s;
+    clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+}
+.rank-opt:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.rank-opt.active { background: #fff; color: #000; border-color: #fff; }
+/* Цветные активные ранги */
+.rank-opt.active[data-value="UR"] { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 0 15px var(--gold); }
+.rank-opt.active[data-value="SSR"] { background: var(--cyan); color: #000; border-color: var(--cyan); box-shadow: 0 0 15px var(--cyan); }
+
+/* Поле ввода */
+textarea#userNoteInput {
+    width: 100%; height: 100%; min-height: 120px;
+    background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+    color: #fff; padding: 15px; font-family: var(--font-body); line-height: 1.6;
+    resize: none; outline: none; transition: 0.3s;
+}
+textarea#userNoteInput:focus { border-color: var(--gold); background: rgba(255, 174, 0, 0.05); }
+
+/* Статистика */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 1rem; margin-top: auto;}
+.stat-box { display: flex; flex-direction: column; }
+.stat-label { font-size: 0.7rem; color: var(--text-muted); opacity: 0.7; font-family: var(--font-head); }
+.stat-value { font-size: 1rem; color: #fff; font-family: var(--font-body); margin-top: 4px; }
+
+/* Футер и кнопки */
+.modal-footer { display: flex; gap: 10px; margin-top: 20px; }
+.action-btn { 
+    height: 50px; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head); font-weight: 700; letter-spacing: 2px;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); 
+    text-transform: uppercase; cursor: pointer; transition: 0.3s;
+}
+.save-btn { flex: 2; background: var(--gold); color: #000; }
+.save-btn:hover { background: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.4); }
+
+.delete-btn { 
+    flex: 1; background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d;
+}
+.delete-btn:hover { background: #ff4d4d; color: #000; box-shadow: 0 0 15px rgba(255, 77, 77, 0.4); }
 
 /* Адаптив */
 @media (max-width: 1024px) {
     .modal-window { height: auto; max-height: 90vh; overflow-y: auto; }
     .modal-body { flex-direction: column; }
-    .modal-visual { width: 100%; height: 300px; flex: none; }
+    .modal-visual { width: 100%; height: 300px; flex: none; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .modal-info { width: 100%; padding: 2rem; flex: none; height: auto; }
+    .rank-watermark { display: none; }
 }
