@@ -129,7 +129,7 @@ input { outline: none; }
 /* =========================================
    4. LAYOUT & HEADER
    ========================================= */
-.container { max-width: 1400px; margin: 0 auto; padding: 2rem; width: 100%; }
+.container { max-width: 1850px; margin: 0 auto; padding: 2rem; width: 95%; }
 .page-header { text-align: center; margin: 3rem 0 1.5rem 0; }
 
 /* Анимация появления тега */
