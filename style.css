@@ -3,6 +3,7 @@
    ========================================= */
 :root {
     --bg-base: #050608;
+    --bg-glass: rgba(5, 6, 8, 0.95); 
     
     --text-main: #f2f2f2;
     --text-muted: #808a9f;
@@ -75,7 +76,53 @@ input { outline: none; }
     border-bottom: 1px solid var(--border-color);
     position: sticky; top: 0; z-index: 100;
 }
-.logo { font-family: var(--font-head); font-weight: 700; font-size: 1.6rem; letter-spacing: 3px; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.1); }
+
+/* --- LOGO STYLES --- */
+.brand-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; cursor: pointer;
+}
+
+/* Иконка */
+.logo-icon {
+    width: 42px; height: 42px;
+    fill: none; stroke: var(--gold); stroke-width: 2;
+    stroke-linecap: round; stroke-linejoin: round;
+    transition: 0.3s ease;
+    filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.3));
+    
+    /* Оптическая коррекция высоты */
+    position: relative; top: -3px; 
+}
+
+/* Анимации внутри иконки */
+.rec-dot { fill: var(--gold); stroke: none; animation: pulseRecord 3s infinite; transform-origin: center; }
+.inner-circle { transform-origin: center; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+@keyframes pulseRecord {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.7); }
+}
+
+/* Текст */
+.logo-text { display: flex; flex-direction: column; line-height: 0.9; }
+.logo-title {
+    font-family: var(--font-head); font-weight: 800; font-size: 1.6rem;
+    color: #fff; letter-spacing: 2px;
+}
+.logo-title span { color: var(--gold); }
+.logo-sub {
+    font-family: var(--font-head); font-size: 0.6rem; color: var(--text-muted);
+    letter-spacing: 3px; font-weight: 600; margin-top: 3px; transition: 0.3s;
+}
+
+/* Hover эффекты логотипа */
+.brand-logo:hover .logo-icon { filter: drop-shadow(0 0 12px var(--gold)); transform: scale(1.05); }
+.brand-logo:hover .inner-circle { transform: rotate(180deg); stroke: #fff; }
+.brand-logo:hover .rec-dot { fill: #fff; }
+.brand-logo:hover .logo-sub { color: var(--gold); letter-spacing: 4px; }
+
+/* Навигация */
 .nav-links { display: flex; gap: 3rem; }
 .nav-item { font-family: var(--font-head); font-weight: 600; color: var(--text-muted); letter-spacing: 1px; transition: 0.3s; position: relative; }
 .nav-item:hover, .nav-item.active { color: var(--text-main); }
@@ -148,7 +195,7 @@ input { outline: none; }
 .view-btn:hover, .view-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
 
 /* =========================================
-   6. CONTENT CARDS (GRID)
+   6. GRID & INTERNAL CARDS (Для страниц anime/games)
    ========================================= */
 .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; padding-bottom: 4rem; }
 .grid-cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
@@ -206,7 +253,7 @@ input { outline: none; }
 .card:hover .card-meta { border-color: var(--gold); color: #fff; }
 
 /* =========================================
-   7. HUB GRID
+   7. HUB GRID (Main Menu)
    ========================================= */
 .hub-wrapper { min-height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
@@ -254,21 +301,21 @@ input { outline: none; }
 .fs-left { left: 30px; border-right: 1px solid rgba(255,255,255,0.1); }
 .fs-right { right: 30px; border-left: 1px solid rgba(255,255,255,0.1); }
 
-/* --- ИСПРАВЛЕННАЯ АНИМАЦИЯ ПЛЕНКИ --- */
+/* --- БЕСШОВНАЯ АНИМАЦИЯ ПЛЕНКИ --- */
 .film-holes {
     width: 8px; height: 100%; margin: 0 auto;
     background-image: linear-gradient(var(--gold) 4px, transparent 4px);
-    background-size: 8px 16px; /* 8px ширина, 16px высота шага */
+    background-size: 8px 16px; /* 16px - высота одного цикла */
     opacity: 0.3;
-    animation: filmRoll 4s linear infinite; /* Плавная прокрутка */
+    animation: filmRoll 4s linear infinite; /* Постоянное движение */
     will-change: background-position;
 }
-@keyframes slowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-/* Двигаем фон, а не блок, чтобы было бесшовно */
+/* Анимация фона (бесконечная прокрутка) */
 @keyframes filmRoll { 
     from { background-position: 0 0; } 
     to { background-position: 0 16px; } 
 }
+@keyframes slowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 /* Hover */
 .movie-card:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
