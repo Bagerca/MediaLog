@@ -1,8 +1,4 @@
-/* --- СТИЛИ ДЛЯ GAMES (Simulation Modules) --- */
-
-:root {
-    --game-height: 210px; /* Чуть уменьшили высоту для баланса */
-}
+/* --- СТИЛИ ДЛЯ GAMES (Simulation Modules - Vertical Mode) --- */
 
 .games-header h1 {
     font-size: 3.5rem;
@@ -11,10 +7,12 @@
     text-shadow: 0 0 15px rgba(95, 251, 241, 0.3);
 }
 
-/* Модуль Игры */
+/* Модуль Игры (Вертикальный Постер) */
 .game-module {
     position: relative;
-    height: var(--game-height);
+    width: 100%;
+    /* ГЛАВНОЕ: Пропорции 2:3 (600x900) */
+    aspect-ratio: 2 / 3;
     background: #0e0f14;
     border: 1px solid rgba(255,255,255,0.08);
     overflow: hidden;
@@ -24,85 +22,89 @@
     flex-direction: column;
 }
 
-/* Фон */
+/* Фон (Обложка) */
 .module-bg {
     position: absolute; inset: 0;
     background-size: cover; background-position: center;
-    opacity: 0.4; filter: grayscale(80%) brightness(0.6);
-    transition: 0.5s; z-index: 0;
+    /* Картинка ярче, чем в горизонтальной версии */
+    opacity: 0.6; 
+    filter: grayscale(40%) brightness(0.8);
+    transition: 0.5s;
+    z-index: 0;
 }
 
 /* Контент */
 .module-content {
     position: relative; z-index: 2;
-    height: 100%; padding: 1rem; /* Компактные отступы */
+    height: 100%; padding: 1.5rem;
     display: flex; flex-direction: column; justify-content: space-between;
-    background: linear-gradient(90deg, rgba(14,15,20,0.95) 0%, rgba(14,15,20,0.7) 60%, rgba(14,15,20,0.3) 100%);
+    /* Градиент СНИЗУ ВВЕРХ (для вертикальных карточек) */
+    background: linear-gradient(to top, rgba(14,15,20,0.95) 10%, rgba(14,15,20,0.6) 50%, rgba(14,15,20,0.1) 100%);
 }
 
 /* Ховер */
 .game-module:hover {
     border-color: var(--cyan);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 }
 .game-module:hover .module-bg {
-    opacity: 0.7; filter: grayscale(0%) brightness(0.8); transform: scale(1.05);
+    opacity: 1; filter: grayscale(0%) brightness(1); transform: scale(1.05);
 }
 
-/* Верхняя часть */
-.module-top { display: flex; justify-content: space-between; align-items: flex-start; }
+/* --- ВЕРХНЯЯ ЧАСТЬ --- */
+.module-top { 
+    display: flex; justify-content: space-between; align-items: flex-start; 
+}
 
 .platform { 
-    font-size: 0.6rem; color: var(--text-muted); 
-    border: 1px solid rgba(255,255,255,0.2); 
-    padding: 2px 5px; background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(2px); text-transform: uppercase;
+    font-size: 0.65rem; color: #fff; 
+    border: 1px solid rgba(255,255,255,0.3); 
+    padding: 3px 8px; background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px); text-transform: uppercase;
+    font-weight: 600;
 }
 
-.rank { font-weight: 800; font-family: var(--font-head); font-size: 1.3rem; line-height: 1; }
-.rank.ur { color: var(--cyan); text-shadow: 0 0 10px rgba(95, 251, 241, 0.4); }
-.rank.ssr { color: var(--gold); text-shadow: 0 0 10px rgba(255, 174, 0, 0.4); }
+.rank { 
+    font-weight: 900; font-family: var(--font-head); font-size: 1.5rem; line-height: 1; 
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
+.rank.ur { color: var(--cyan); text-shadow: 0 0 10px rgba(95, 251, 241, 0.6); }
+.rank.ssr { color: var(--gold); text-shadow: 0 0 10px rgba(255, 174, 0, 0.6); }
 .rank.sr { color: var(--text-muted); }
 
-/* Основной текст */
-.module-main { margin-top: auto; margin-bottom: 0.8rem; }
+/* --- ЦЕНТР (Смещен вниз в постере) --- */
+.module-main { margin-top: auto; margin-bottom: 1.5rem; }
 
 .module-main h2 {
     font-family: var(--font-head); 
-    font-size: 1.5rem; /* Шрифт чуть меньше, чтобы влезали длинные названия */
-    margin: 0; line-height: 1;
+    font-size: 2rem; 
+    margin: 0 0 5px 0; line-height: 0.95;
     text-transform: uppercase; color: #fff;
-    width: 95%;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* Обрезаем, если слишком длинное */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    /* Разрешаем перенос строк для вертикального вида */
+    white-space: normal; 
 }
-
-/* Если хочется перенос строк, раскомментируй это и убери white-space выше */
-/* 
-.module-main h2 {
-    white-space: normal;
-    font-size: 1.4rem;
-    line-height: 0.95;
-} 
-*/
 
 .playtime { 
-    font-size: 0.75rem; color: var(--cyan); margin-top: 4px; 
-    opacity: 0.9; font-weight: 600; letter-spacing: 1px; 
+    font-size: 0.85rem; color: var(--cyan); 
+    opacity: 1; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 5px rgba(0,0,0,1);
 }
 
-/* Футер */
+/* --- ФУТЕР --- */
 .module-footer { 
-    display: flex; align-items: center; gap: 0.8rem; 
-    font-family: var(--font-head); font-size: 0.75rem; 
-    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;
+    display: flex; align-items: center; gap: 1rem; 
+    font-family: var(--font-head); font-size: 0.8rem; 
+    border-top: 1px solid rgba(255,255,255,0.2); padding-top: 12px;
 }
-.status { color: var(--text-main); letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+.status { color: #ccc; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
 
-/* Прогресс */
+/* Прогресс бар */
 .progress-bar {
-    flex-grow: 1; height: 3px; background: rgba(255,255,255,0.1);
-    position: relative; overflow: hidden;
+    flex-grow: 1; height: 4px; background: rgba(255,255,255,0.2);
+    position: relative; overflow: hidden; border-radius: 2px;
 }
 .progress { height: 100%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); width: 0%; }
 
@@ -115,15 +117,15 @@
 
 /* Углы */
 .corner {
-    position: absolute; width: 6px; height: 6px;
+    position: absolute; width: 10px; height: 10px;
     border: 2px solid transparent; transition: 0.3s; pointer-events: none;
 }
-.t-l { top: 0; left: 0; border-top-color: rgba(255,255,255,0.2); border-left-color: rgba(255,255,255,0.2); }
-.t-r { top: 0; right: 0; border-top-color: rgba(255,255,255,0.2); border-right-color: rgba(255,255,255,0.2); }
-.b-l { bottom: 0; left: 0; border-bottom-color: rgba(255,255,255,0.2); border-left-color: rgba(255,255,255,0.2); }
-.b-r { bottom: 0; right: 0; border-bottom-color: rgba(255,255,255,0.2); border-right-color: rgba(255,255,255,0.2); }
+.t-l { top: 0; left: 0; border-top-color: rgba(255,255,255,0.4); border-left-color: rgba(255,255,255,0.4); }
+.t-r { top: 0; right: 0; border-top-color: rgba(255,255,255,0.4); border-right-color: rgba(255,255,255,0.4); }
+.b-l { bottom: 0; left: 0; border-bottom-color: rgba(255,255,255,0.4); border-left-color: rgba(255,255,255,0.4); }
+.b-r { bottom: 0; right: 0; border-bottom-color: rgba(255,255,255,0.4); border-right-color: rgba(255,255,255,0.4); }
 
 .game-module:hover .t-l, .game-module:hover .t-r, 
 .game-module:hover .b-l, .game-module:hover .b-r {
-    border-color: var(--cyan); width: 12px; height: 12px;
+    border-color: var(--cyan); width: 20px; height: 20px;
 }
