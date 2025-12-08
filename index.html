@@ -23,6 +23,7 @@
             <a href="index.html" class="nav-item active">TERMINAL</a>
             <a href="anime.html" class="nav-item">VISUALS</a>
             <a href="games.html" class="nav-item">SIMULATIONS</a>
+            <a href="movies.html" class="nav-item">CINEMA</a>
         </div>
     </nav>
 
@@ -35,60 +36,69 @@
 
         <div class="hub-grid">
             
-            <!-- 1. КАРТОЧКА: VISUAL LOGS (Anime) -> Стиль "Объектив" -->
+            <!-- 1. КАРТОЧКА: VISUAL LOGS (Anime / Lens) -->
             <a href="anime.html" class="movie-card">
-                <!-- Фон: Зернистость -->
                 <div class="bg-grain"></div>
-
-                <!-- Боковая перфорация (пленка) -->
                 <div class="film-strip fs-left"><div class="film-holes"></div></div>
                 <div class="film-strip fs-right"><div class="film-holes"></div></div>
-
-                <!-- Ядро: Объектив + Play -->
                 <div class="lens-wrapper">
-                    <div class="focus-ring"></div> <!-- Внешнее кольцо -->
-                    <div class="inner-ring"></div> <!-- Внутреннее светящееся -->
-                    
-                    <!-- SVG Play Icon -->
-                    <svg class="play-icon" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                    </svg>
+                    <div class="focus-ring"></div>
+                    <div class="inner-ring"></div>
+                    <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                 </div>
-
-                <!-- Текст -->
                 <div class="text-content">
                     <h2 class="card-title">VISUAL LOGS</h2>
                     <div class="card-sub">ANIME RECORDS</div>
                 </div>
             </a>
 
-            <!-- 2. КАРТОЧКА: GAME LOGS (Simulations) -> Стиль "Гексагон" -->
+            <!-- 2. КАРТОЧКА: GAME LOGS (Quantum Core) -->
             <a href="games.html" class="sim-card">
-                <!-- Фон-сетка -->
-                <div class="bg-grid"></div>
-                
-                <!-- Боковые элементы -->
-                <div class="side-deco side-left"></div>
-                <div class="side-deco side-right"></div>
+                <!-- Фон: Микросхема -->
+                <div class="bg-circuit"></div>
 
-                <!-- ЯДРО: Кольцо + Гексагон + Иконка -->
+                <!-- Бока: Потоки данных -->
+                <div class="data-stream ds-left"><div class="stream-bits"></div></div>
+                <div class="data-stream ds-right"><div class="stream-bits"></div></div>
+
+                <!-- Ядро: Реактор -->
                 <div class="core-wrapper">
-                    <div class="tech-ring"></div>
-                    <div class="hex-shape">
-                        <!-- Контурный SVG Геймпад -->
-                        <svg class="game-icon" viewBox="0 0 24 24">
-                            <rect x="2" y="6" width="20" height="12" rx="2" />
-                            <path d="M6 12h4m-2-2v4" />
-                            <line x1="15" y1="11" x2="15" y2="11" stroke-width="3" stroke-linecap="round"/>
-                            <line x1="18" y1="13" x2="18" y2="13" stroke-width="3" stroke-linecap="round"/>
-                        </svg>
+                    <div class="spinner-outer"></div>
+                    <div class="spinner-mid"></div>
+                    
+                    <div class="hex-core">
+                        <!-- Лазер сканирования -->
+                        <div class="scan-line"></div>
+                        <div class="icon-box">
+                            <svg class="game-icon" viewBox="0 0 24 24">
+                                <rect x="2" y="6" width="20" height="12" rx="2" />
+                                <path d="M6 12h4m-2-2v4" />
+                                <line x1="15" y1="11" x2="15" y2="11" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="18" y1="13" x2="18" y2="13" stroke-width="3" stroke-linecap="round"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Текст -->
                 <div class="text-content">
                     <h2 class="card-title">GAME LOGS</h2>
                     <div class="card-sub">SIMULATIONS</div>
+                </div>
+            </a>
+
+            <!-- 3. КАРТОЧКА: MOVIE LOGS (Cinema / Lens) -->
+            <a href="movies.html" class="movie-card">
+                <div class="bg-grain"></div>
+                <div class="film-strip fs-left"><div class="film-holes"></div></div>
+                <div class="film-strip fs-right"><div class="film-holes"></div></div>
+                <div class="lens-wrapper">
+                    <div class="focus-ring"></div>
+                    <div class="inner-ring"></div>
+                    <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                </div>
+                <div class="text-content">
+                    <h2 class="card-title">MOVIE LOGS</h2>
+                    <div class="card-sub">CINEMA ARCHIVE</div>
                 </div>
             </a>
 
