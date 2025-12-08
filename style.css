@@ -63,58 +63,35 @@ input { outline: none; }
 }
 
 /* =========================================
-   3. NAVBAR (ФИНАЛЬНЫЙ ЛОГОТИП)
+   3. NAVBAR
    ========================================= */
 .navbar {
-    display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%;
+    display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem;
     background: rgba(5, 6, 8, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color);
     position: sticky; top: 0; z-index: 100;
 }
 
-/* Логотип-контейнер */
+/* Логотип */
 .brand-logo { 
     display: flex; align-items: center; gap: 12px; 
     text-decoration: none; cursor: pointer;
 }
-
-/* SVG Иконка (С обводкой и заливкой) */
 .logo-icon { 
     width: 42px; height: 42px; 
-    fill: none; 
-    stroke: var(--gold); 
-    stroke-width: 2; 
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: 0.3s ease;
-    filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.3)); 
+    fill: none; stroke: var(--gold); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    transition: 0.3s ease; filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.3)); 
     position: relative; top: -3px; 
 }
+.inner-circle { transform-origin: center; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+.rec-dot { fill: var(--gold); stroke: none; animation: pulseRecord 3s infinite; transform-origin: center; }
 
-/* Внутренние элементы логотипа */
-.inner-circle { 
-    transform-origin: center; 
-    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
-}
+@keyframes pulseRecord { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.7); } }
 
-.rec-dot { 
-    fill: var(--gold); 
-    stroke: none; /* Точка без обводки */
-    animation: pulseRecord 3s infinite; 
-    transform-origin: center; 
-}
-
-@keyframes pulseRecord { 
-    0%, 100% { opacity: 1; transform: scale(1); } 
-    50% { opacity: 0.6; transform: scale(0.7); } 
-}
-
-/* Текстовая часть */
 .logo-text { display: flex; flex-direction: column; line-height: 0.9; }
 .logo-title { font-family: var(--font-head); font-weight: 800; font-size: 1.6rem; letter-spacing: 2px; color: #fff; }
 .logo-title span { color: var(--gold); }
 .logo-sub { font-family: var(--font-head); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 3px; font-weight: 600; margin-top: 3px; transition: 0.3s;}
 
-/* Hover эффекты для логотипа */
 .brand-logo:hover .logo-icon { filter: drop-shadow(0 0 12px var(--gold)); transform: scale(1.05); }
 .brand-logo:hover .inner-circle { transform: rotate(180deg); stroke: #fff; }
 .brand-logo:hover .rec-dot { fill: #fff; }
@@ -130,155 +107,92 @@ input { outline: none; }
    4. LAYOUT & HEADER
    ========================================= */
 .container { 
-    max-width: 1850px; /* Было 1400px. Увеличили ширину */
-    width: 95%;        /* Добавили процентную ширину для адаптивности */
+    max-width: 1850px; /* Увеличена ширина */
+    width: 95%; 
     margin: 0 auto; 
     padding: 2rem; 
 }
 .page-header { text-align: center; margin: 3rem 0 1.5rem 0; }
 
-/* Анимация появления тега */
 .deco-tag {
     position: relative; display: inline-block; padding: 6px 16px; border: 1px solid var(--gold-dim);
     color: var(--gold); font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 3px;
     background: rgba(255, 174, 0, 0.05); margin-bottom: 0.5rem;
-    opacity: 0; 
-    animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+    opacity: 0; animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
-@keyframes tagReveal { 
-    0% { opacity: 0; transform: scaleX(0); } 
-    100% { opacity: 1; transform: scaleX(1); } 
-}
+@keyframes tagReveal { 0% { opacity: 0; transform: scaleX(0); } 100% { opacity: 1; transform: scaleX(1); } }
 
 .page-header h1 { font-family: var(--font-head); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 4px; color: #fff; margin: 0; line-height: 1.1; }
 
 /* =========================================
-   5. CONTROL DECK (ПАНЕЛЬ УПРАВЛЕНИЯ)
+   5. CONTROL DECK
    ========================================= */
 .control-deck {
-    width: 100%;
-    margin-bottom: 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    position: relative;
-    z-index: 50;
+    width: 100%; margin-bottom: 3rem; display: flex; flex-direction: column; gap: 15px; position: relative; z-index: 50;
 }
-
-/* Общие стили лейблов */
 .module-label {
-    font-family: var(--font-head);
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    letter-spacing: 2px;
-    margin-bottom: 6px;
-    display: block;
-    opacity: 0.7;
+    font-family: var(--font-head); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 6px; display: block; opacity: 0.7;
 }
 
-/* --- ВЕРХНИЙ РЯД --- */
-.deck-top {
-    display: flex;
-    gap: 20px;
-    align-items: flex-end;
-}
+/* DECK TOP */
+.deck-top { display: flex; gap: 20px; align-items: flex-end; }
 
-/* 1. Режим (Library Switch) */
+/* Mode Switch */
 .mode-module { flex-shrink: 0; }
 .mode-switch {
-    display: flex; background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border-color); height: 46px;
+    display: flex; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); height: 46px;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 .mode-btn {
-    padding: 0 20px; font-family: var(--font-head); font-weight: 700;
-    color: var(--text-muted); cursor: pointer; transition: 0.3s;
-    font-size: 0.8rem; letter-spacing: 1px;
+    padding: 0 20px; font-family: var(--font-head); font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.3s; font-size: 0.8rem; letter-spacing: 1px;
 }
 .mode-btn:hover { color: #fff; }
-.mode-btn.active {
-    background: var(--gold); color: #000;
-    box-shadow: 0 0 15px rgba(255, 174, 0, 0.3);
-}
+.mode-btn.active { background: var(--gold); color: #000; box-shadow: 0 0 15px rgba(255, 174, 0, 0.3); }
 
-/* 2. Поиск */
+/* Search */
 .search-module { flex-grow: 1; }
 .search-input-wrapper {
-    position: relative;
-    height: 46px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-color);
-    display: flex; align-items: center;
-    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-    transition: 0.3s;
+    position: relative; height: 46px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); display: flex; align-items: center;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); transition: 0.3s;
 }
-.search-input-wrapper:focus-within {
-    border-color: var(--gold);
-    box-shadow: 0 0 15px rgba(255, 174, 0, 0.1);
-    background: rgba(0, 0, 0, 0.3);
-}
+.search-input-wrapper:focus-within { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 174, 0, 0.1); background: rgba(0, 0, 0, 0.3); }
 .search-icon { margin-left: 15px; stroke: var(--text-muted); transition: 0.3s;}
 .search-input-wrapper:focus-within .search-icon { stroke: var(--gold); }
-
 .search-input-wrapper input {
-    background: transparent; border: none; width: 100%; height: 100%;
-    color: #fff; padding-left: 12px;
-    font-family: var(--font-head); font-size: 1rem; letter-spacing: 1px;
-    text-transform: uppercase;
+    background: transparent; border: none; width: 100%; height: 100%; color: #fff; padding-left: 12px;
+    font-family: var(--font-head); font-size: 1rem; letter-spacing: 1px; text-transform: uppercase;
 }
 .search-input-wrapper input::placeholder { color: rgba(255,255,255,0.2); }
 
-/* 3. Сетка */
+/* Density */
 .view-module { flex-shrink: 0; }
 .view-controls { display: flex; gap: 4px; }
 .view-btn {
-    width: 46px; height: 46px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-color);
-    color: var(--text-muted);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: 0.2s;
+    width: 46px; height: 46px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); color: var(--text-muted);
+    display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
     clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
 }
 .btn-icon { font-family: monospace; font-weight: 900; letter-spacing: -2px; font-size: 0.8rem; }
 .view-btn:hover { border-color: var(--cyan); color: var(--cyan); }
-.view-btn.active {
-    background: var(--gold); color: #000; border-color: var(--gold);
-    box-shadow: 0 0 10px var(--gold-dim);
-}
+.view-btn.active { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 0 10px var(--gold-dim); }
 
-/* --- НИЖНИЙ РЯД (Теги) --- */
+/* DECK BOTTOM (Tags) */
 .deck-bottom {
-    background: rgba(14, 15, 20, 0.5);
-    border: 1px solid var(--border-color);
-    padding: 15px;
+    background: rgba(14, 15, 20, 0.5); border: 1px solid var(--border-color); padding: 15px;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
 }
 .filter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.clear-btn {
-    font-family: var(--font-head); font-size: 0.7rem; color: #ff4d4d;
-    cursor: pointer; letter-spacing: 1px;
-}
+.clear-btn { font-family: var(--font-head); font-size: 0.7rem; color: #ff4d4d; cursor: pointer; letter-spacing: 1px; }
 .clear-btn:hover { text-decoration: underline; }
-
 .tag-matrix { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag-btn {
-    padding: 6px 12px;
-    font-family: var(--font-head); font-size: 0.75rem; font-weight: 600;
-    letter-spacing: 1px; text-transform: uppercase;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: var(--text-muted);
-    cursor: pointer; transition: 0.2s; user-select: none;
+    padding: 6px 12px; font-family: var(--font-head); font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); cursor: pointer; transition: 0.2s; user-select: none;
     clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
 }
 .tag-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(95, 251, 241, 0.05); }
-.tag-btn.active {
-    background: var(--gold); color: #000; border-color: var(--gold);
-    box-shadow: 0 0 8px rgba(255, 174, 0, 0.4);
-}
+.tag-btn.active { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 0 8px rgba(255, 174, 0, 0.4); }
 
-/* Адаптив панели */
 @media (max-width: 768px) {
     .deck-top { flex-direction: column; align-items: stretch; gap: 15px; }
     .mode-switch, .view-controls { width: 100%; justify-content: space-between; }
@@ -294,28 +208,12 @@ input { outline: none; }
 .grid-cards.cols-5 { grid-template-columns: repeat(5, 1fr); }
 .grid-cards.cols-6 { grid-template-columns: repeat(6, 1fr); }
 
-/* Кнопка "Добавить" на карточке */
-.card-add-btn {
-    position: absolute; top: 10px; right: 10px; z-index: 20;
-    width: 32px; height: 32px;
-    background: rgba(0,0,0,0.6); border: 1px solid var(--border-color);
-    color: var(--text-muted); display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: 0.2s; opacity: 0; transform: translateY(-5px);
-    font-weight: bold; font-family: monospace;
-}
-.game-card:hover .card-add-btn, .anime-card:hover .card-add-btn { opacity: 1; transform: translateY(0); }
-.card-add-btn:hover { border-color: var(--gold); color: var(--gold); background: #000; }
-.card-add-btn.in-lib { background: var(--gold); color: #000; border-color: var(--gold); opacity: 1; transform: translateY(0); }
-
-/* Пустое состояние */
 .empty-state {
-    grid-column: 1 / -1; text-align: center; padding: 4rem;
-    border: 1px dashed var(--border-color); color: var(--text-muted);
-    font-family: var(--font-head); letter-spacing: 2px;
+    grid-column: 1 / -1; text-align: center; padding: 4rem; border: 1px dashed var(--border-color); color: var(--text-muted); font-family: var(--font-head); letter-spacing: 2px;
 }
 
 /* =========================================
-   7. NOTIFICATIONS (TOAST)
+   7. NOTIFICATIONS & CONTEXT MENU
    ========================================= */
 .sys-toast {
     position: fixed; bottom: 30px; right: 30px;
@@ -325,27 +223,44 @@ input { outline: none; }
     z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 .sys-toast.show { transform: translateX(0); }
-.toast-icon { 
-    width: 24px; height: 24px; background: var(--gold); color: #000; 
-    display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: monospace; 
-}
+.toast-icon { width: 24px; height: 24px; background: var(--gold); color: #000; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: monospace; }
 .toast-msg { font-family: var(--font-head); letter-spacing: 1px; color: #fff; }
 
+/* Context Menu */
+.ctx-menu {
+    position: absolute; display: none; flex-direction: column;
+    background: rgba(11, 12, 16, 0.95); backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color); padding: 5px; width: 220px; z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+    animation: menuFadeIn 0.1s ease;
+}
+@keyframes menuFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-/* =================================================================
-   8. HUB / INDEX STYLES (ГЛАВНАЯ СТРАНИЦА)
-   ================================================================= */
+.ctx-item {
+    padding: 12px 15px; font-family: var(--font-head); font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; color: var(--text-muted); cursor: pointer; transition: 0.2s; display: flex; align-items: center;
+}
+.ctx-item:hover { background: rgba(255,255,255,0.05); color: #fff; padding-left: 20px; }
+.ctx-separator { height: 1px; background: rgba(255,255,255,0.1); margin: 4px 0; }
+.ctx-item.delete:hover { background: rgba(255, 77, 77, 0.1); color: #ff4d4d; }
 
+/* Favorite Icon on Card */
+.fav-icon {
+    position: absolute; top: 10px; right: 10px; z-index: 20; color: var(--gold); filter: drop-shadow(0 0 5px var(--gold)); animation: pulseFav 2s infinite;
+}
+@keyframes pulseFav { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
+
+/* =========================================
+   8. HUB / INDEX PAGE STYLES
+   ========================================= */
 .hub-wrapper { min-height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
 
-/* A. VISUALS CARD (Cinema Lens) */
+/* Movie Card */
 .movie-card {
-    position: relative; width: 320px; height: 460px;
-    background: transparent; border: none;
+    position: relative; width: 320px; height: 460px; background: transparent; border: none;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-decoration: none; cursor: pointer;
-    filter: drop-shadow(0 0 0 transparent); transition: 0.4s ease; z-index: 1;
+    cursor: pointer; transition: 0.4s ease; z-index: 1;
 }
 .movie-card::before {
     content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.1); z-index: -2;
@@ -357,30 +272,26 @@ input { outline: none; }
     clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px);
 }
 .bg-grain {
-    position: absolute; inset: 1px;
+    position: absolute; inset: 1px; opacity: 0.3; transition: 0.5s; pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
-    opacity: 0.3; transition: 0.5s;
-    clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px); pointer-events: none;
+    clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px);
 }
 .film-strip { position: absolute; top: 0; bottom: 0; width: 20px; overflow: hidden; opacity: 0.15; transition: 0.4s; pointer-events: none; }
 .fs-left { left: 30px; border-right: 1px solid rgba(255,255,255,0.1); }
 .fs-right { right: 30px; border-left: 1px solid rgba(255,255,255,0.1); }
 .film-holes {
-    width: 8px; height: 100%; margin: 0 auto;
-    background-image: linear-gradient(var(--gold) 4px, transparent 4px);
-    background-size: 8px 16px; opacity: 0.3;
-    animation: filmRoll 4s linear infinite; will-change: background-position;
+    width: 8px; height: 100%; margin: 0 auto; background-image: linear-gradient(var(--gold) 4px, transparent 4px);
+    background-size: 8px 16px; opacity: 0.3; animation: filmRoll 4s linear infinite; will-change: background-position;
 }
 .lens-wrapper { position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
 .focus-ring {
-    position: absolute; width: 100%; height: 100%;
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 50%;
+    position: absolute; width: 100%; height: 100%; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%;
     background: repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(255, 174, 0, 0.2) 10deg 11deg);
     animation: slowRotate 30s linear infinite; transition: 0.4s;
 }
 .inner-ring { position: absolute; width: 70%; height: 70%; border: 1px solid var(--gold); border-radius: 50%; opacity: 0.3; transition: 0.4s; }
 .play-icon { width: 40px; height: 40px; fill: var(--gold); filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.5)); transform: translateX(3px); transition: 0.4s; z-index: 2; }
-/* Hover Movie */
+
 .movie-card:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
 .movie-card:hover::before { background: var(--gold); }
 .movie-card:hover .film-strip { opacity: 0.5; border-color: rgba(255, 174, 0, 0.3); }
@@ -389,25 +300,21 @@ input { outline: none; }
 .movie-card:hover .inner-ring { width: 85%; height: 85%; opacity: 0.8; box-shadow: inset 0 0 20px rgba(255, 174, 0, 0.2); }
 .movie-card:hover .play-icon { transform: translateX(3px) scale(1.2); filter: drop-shadow(0 0 15px var(--gold)); fill: #fff; }
 
-/* B. GAMES CARD (Quantum Core) */
+/* Sim Card */
 .sim-card {
-    position: relative; width: 320px; height: 460px;
-    background: transparent; border: none;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-decoration: none; cursor: pointer; transition: 0.4s ease; z-index: 1;
+    position: relative; width: 320px; height: 460px; background: transparent; border: none;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.4s ease; z-index: 1;
 }
 .sim-card::before {
     content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.1); z-index: -2;
-    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-    transition: background 0.4s ease;
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px); transition: background 0.4s ease;
 }
 .sim-card::after {
     content: ''; position: absolute; inset: 1px; background: #0e0f14; z-index: -1;
     clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px);
 }
 .bg-circuit {
-    position: absolute; inset: 1px;
-    background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    position: absolute; inset: 1px; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 20px 20px; mask-image: radial-gradient(circle, black 40%, transparent 90%);
     opacity: 0.4; transition: 0.5s; pointer-events: none;
     clip-path: polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px);
@@ -416,8 +323,7 @@ input { outline: none; }
 .ds-left { left: 25px; border-right: 1px solid rgba(255,255,255,0.05); }
 .ds-right { right: 25px; border-left: 1px solid rgba(255,255,255,0.05); }
 .stream-bits {
-    width: 100%; height: 200%;
-    background: repeating-linear-gradient(to bottom, transparent 0%, transparent 5%, var(--gold) 5%, var(--gold) 10%);
+    width: 100%; height: 200%; background: repeating-linear-gradient(to bottom, transparent 0%, transparent 5%, var(--gold) 5%, var(--gold) 10%);
     opacity: 0.1; animation: streamFlow 4s linear infinite;
 }
 .core-wrapper { position: relative; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
@@ -426,25 +332,22 @@ input { outline: none; }
     border-radius: 50%; opacity: 0.2; animation: spinCW 10s linear infinite;
 }
 .spinner-mid {
-    position: absolute; width: 75%; height: 75%; border: 1px dashed var(--gold); border-radius: 50%;
-    opacity: 0.4; animation: spinCCW 15s linear infinite;
+    position: absolute; width: 75%; height: 75%; border: 1px dashed var(--gold); border-radius: 50%; opacity: 0.4; animation: spinCCW 15s linear infinite;
 }
 .hex-core {
-    position: relative; width: 90px; height: 100px; background: var(--gold-dim);
-    display: flex; align-items: center; justify-content: center;
+    position: relative; width: 90px; height: 100px; background: var(--gold-dim); display: flex; align-items: center; justify-content: center;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); transition: 0.4s;
 }
 .hex-core::after { content: ''; position: absolute; inset: 2px; background: #0e0f14; clip-path: inherit; z-index: 1; transition: 0.4s; }
 .icon-box { position: relative; z-index: 5; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
 .game-icon {
-    width: 100%; height: 100%; color: var(--gold); fill: none; stroke: currentColor; stroke-width: 2;
-    stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.5)); transition: 0.3s;
+    width: 100%; height: 100%; color: var(--gold); fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.5)); transition: 0.3s;
 }
 .scan-line {
-    position: absolute; top: 0; left: -10%; width: 120%; height: 2px; background: var(--gold);
-    box-shadow: 0 0 10px var(--gold); opacity: 0; z-index: 10;
+    position: absolute; top: 0; left: -10%; width: 120%; height: 2px; background: var(--gold); box-shadow: 0 0 10px var(--gold); opacity: 0; z-index: 10;
 }
-/* Hover Games */
+
 .sim-card:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); }
 .sim-card:hover::before { background: var(--gold); }
 .sim-card:hover .stream-bits { opacity: 0.6; animation-duration: 1s; background: repeating-linear-gradient(to bottom, transparent 0%, transparent 10%, var(--gold) 10%, #fff 12%); }
@@ -455,7 +358,6 @@ input { outline: none; }
 .sim-card:hover .game-icon { color: #fff; filter: drop-shadow(0 0 10px var(--gold)); transform: scale(1.1); }
 .sim-card:hover .scan-line { animation: scanMove 1.5s linear infinite; }
 
-/* Text Common */
 .text-content { text-align: center; z-index: 5; }
 .card-title { font-family: var(--font-head); font-size: 2.2rem; color: #fff; margin: 0; text-transform: uppercase; letter-spacing: 2px; line-height: 1; }
 .card-sub { font-family: var(--font-head); font-size: 0.75rem; color: var(--gold); letter-spacing: 4px; margin-top: 10px; font-weight: 700; opacity: 0.7; }
