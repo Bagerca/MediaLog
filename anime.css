@@ -1,108 +1,70 @@
-/* --- СТИЛИ ДЛЯ ANIME (Visual Archive) --- */
+/* --- anime.css --- */
 
-.page-header {
-    text-align: center;
-    padding: 4rem 0 2rem;
-    position: relative;
-}
-
-.anime-header h1 {
-    font-size: 3.5rem;
-    background: linear-gradient(180deg, #fff, #8a8f9d);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 4px;
-}
-
-.header-deco {
-    color: #ff4d4d;
-    font-family: var(--font-head);
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    animation: blinkRec 2s infinite;
-}
-
-@keyframes blinkRec { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-/* Фильтры */
-.filter-bar {
-    display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem;
-}
-.filter-btn {
-    background: transparent; border: 1px solid var(--border);
-    color: var(--text-muted); padding: 0.5rem 1.5rem;
-    font-family: var(--font-head); cursor: pointer; transition: 0.3s;
-    letter-spacing: 1px;
-}
-.filter-btn:hover, .filter-btn.active {
-    border-color: var(--accent); color: var(--accent); box-shadow: 0 0 10px rgba(95, 251, 241, 0.2);
-}
-
-/* Сетка Аниме */
-.anime-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Узкие высокие карточки */
-    gap: 2rem;
-}
-
-/* Карточка Аниме */
+/* Специфичный стиль для карточки АНИМЕ */
 .anime-card {
+    position: relative;
     background: transparent;
+    cursor: pointer;
     transition: 0.4s ease;
 }
 
-.poster-wrapper {
+/* Обертка постера */
+.poster-frame {
     position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3; /* Вертикальный формат */
     border-radius: 4px;
     overflow: hidden;
-    aspect-ratio: 2/3; /* Пропорции постера */
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-color);
+    margin-bottom: 10px;
 }
 
-.poster-wrapper img {
+.poster-img {
     width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    filter: brightness(0.8);
 }
 
+/* Бейдж рейтинга на постере */
+.poster-badge {
+    position: absolute; top: 0; left: 0;
+    padding: 4px 8px; font-family: var(--font-head); font-weight: bold; font-size: 0.9rem;
+    z-index: 2;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+}
+.bg-UR { background: var(--gold); color: #000; }
+.bg-SSR { background: var(--cyan); color: #000; }
+.bg-SR { background: #333; color: #fff; }
+
+/* Эффект при наведении (затемнение и иконка) */
 .poster-overlay {
     position: absolute; inset: 0;
-    background: rgba(11, 12, 16, 0.7);
+    background: rgba(0, 0, 0, 0.6);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; transition: 0.3s;
-    backdrop-filter: blur(2px);
+}
+.play-btn {
+    width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center; color: var(--gold);
+    transform: scale(0.8); transition: 0.3s;
 }
 
-.view-btn {
-    border: 1px solid var(--accent); color: var(--accent);
-    padding: 0.5rem 1rem; font-family: var(--font-head);
-    transform: translateY(20px); transition: 0.3s;
+/* Текстовая информация под постером */
+.anime-info { padding: 0 5px; }
+.anime-title {
+    font-family: var(--font-head); font-size: 1.2rem; color: #fff;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-transform: uppercase; margin-bottom: 4px;
 }
+.anime-meta {
+    display: flex; justify-content: space-between;
+    font-size: 0.75rem; color: var(--text-muted);
+}
+.anime-status { color: var(--cyan); letter-spacing: 1px; }
 
-/* Ховер эффекты */
-.anime-card:hover .poster-wrapper { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.anime-card:hover img { transform: scale(1.1); }
+/* HOVER EFFECTS */
+.anime-card:hover .poster-frame { border-color: var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.anime-card:hover .poster-img { transform: scale(1.1); filter: brightness(1); }
 .anime-card:hover .poster-overlay { opacity: 1; }
-.anime-card:hover .view-btn { transform: translateY(0); }
-
-/* Бейджи рейтинга */
-.rating-badge {
-    position: absolute; top: 0; left: 0;
-    padding: 4px 8px; font-family: var(--font-head); font-weight: bold; font-size: 0.8rem;
-    border-bottom-right-radius: 4px;
-}
-.ssr { background: var(--gold); color: #000; }
-.ur { background: var(--accent); color: #000; box-shadow: 0 0 10px var(--accent); }
-.sr { background: #333; color: #fff; }
-
-/* Инфо блок */
-.anime-info { padding-top: 1rem; }
-.anime-info h3 { font-size: 1rem; margin: 0.5rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-.meta-row { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted); }
-.type-tag { border: 1px solid var(--border); padding: 1px 4px; border-radius: 2px; }
-
-/* Полоска статуса */
-.status-bar { margin-top: 0.5rem; font-size: 0.7rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px;}
-.bar-fill { height: 2px; background: var(--accent); flex-grow: 1; opacity: 0.5; }
-.status-bar.completed .bar-fill { background: var(--gold); }
-.status-bar.completed span { color: var(--gold); }
+.anime-card:hover .play-btn { transform: scale(1); background: var(--gold); color: #000; }
+.anime-card:hover .anime-title { color: var(--gold); }
