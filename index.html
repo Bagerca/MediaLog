@@ -37,13 +37,6 @@
             <a href="anime.html" class="nav-item">VISUALS</a>
             <a href="games.html" class="nav-item">SIMULATIONS</a>
         </div>
-
-        <!-- Кнопка Входа -->
-        <div class="user-panel" style="margin-left: 2rem;">
-            <button id="navAuthBtn" class="filter-btn" style="border: 1px solid var(--gold); color: var(--gold); background: transparent; padding: 5px 15px; font-family: var(--font-head); cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
-                LOGIN
-            </button>
-        </div>
     </nav>
 
     <!-- Основной контент -->
@@ -55,12 +48,16 @@
 
         <div class="hub-grid">
             
-            <!-- 1. КАРТОЧКА: VISUALS -->
-            <a href="anime.html" class="movie-card hub-card">
+            <!-- 1. КАРТОЧКА: VISUALS (Стиль: Cinema Lens) -->
+            <a href="anime.html" class="movie-card">
+                <!-- Фон: Зернистость -->
                 <div class="bg-grain"></div>
+
+                <!-- Боковая перфорация (Пленка) -->
                 <div class="film-strip fs-left"><div class="film-holes"></div></div>
                 <div class="film-strip fs-right"><div class="film-holes"></div></div>
 
+                <!-- Ядро: Объектив + Play -->
                 <div class="lens-wrapper">
                     <div class="focus-ring"></div>
                     <div class="inner-ring"></div>
@@ -73,17 +70,22 @@
                 </div>
             </a>
 
-            <!-- 2. КАРТОЧКА: GAMES -->
-            <a href="games.html" class="sim-card hub-card">
+            <!-- 2. КАРТОЧКА: GAMES (Стиль: Quantum Core) -->
+            <a href="games.html" class="sim-card">
+                <!-- Фон: Микросхема -->
                 <div class="bg-circuit"></div>
+
+                <!-- Бока: Потоки данных -->
                 <div class="data-stream ds-left"><div class="stream-bits"></div></div>
                 <div class="data-stream ds-right"><div class="stream-bits"></div></div>
 
+                <!-- Ядро: Реактор -->
                 <div class="core-wrapper">
                     <div class="spinner-outer"></div>
                     <div class="spinner-mid"></div>
                     
                     <div class="hex-core">
+                        <!-- Лазер сканирования -->
                         <div class="scan-line"></div>
                         <div class="icon-box">
                             <svg class="game-icon" viewBox="0 0 24 24">
@@ -105,43 +107,6 @@
         </div>
     </main>
 
-    <!-- LOGIN / REGISTER MODAL -->
-    <div class="modal-overlay" id="authModal">
-        <div class="modal-window" style="height: auto; max-width: 450px;">
-            <div class="modal-inner">
-                <button class="modal-close" id="closeAuth">
-                    <span class="close-text">TERMINATE</span><span class="close-icon">✕</span>
-                </button>
-                
-                <div class="modal-body" style="flex-direction: column; padding: 3rem;">
-                    <div class="modal-header">
-                        <div class="sys-row"><span class="sys-msg">/// SECURITY_CHECK</span></div>
-                        <h2 style="font-size: 2.5rem; margin-top: 10px; color: #fff;">NET.ACCESS</h2>
-                    </div>
-
-                    <form id="authForm" style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem;">
-                        <div class="search-terminal" style="width: 100%;">
-                            <input type="email" id="emailInput" placeholder="CODENAME (EMAIL)" required style="width: 100%;">
-                        </div>
-                        <div class="search-terminal" style="width: 100%;">
-                            <input type="password" id="passInput" placeholder="ACCESS KEY (PASSWORD)" required style="width: 100%;">
-                        </div>
-
-                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                            <button type="button" id="btnLogin" class="action-btn primary">
-                                <span class="btn-text">CONNECT</span>
-                            </button>
-                            <button type="button" id="btnRegister" class="action-btn secondary">
-                                <span class="btn-text">NEW ID</span>
-                            </button>
-                        </div>
-                    </form>
-                    <div id="authMsg" style="margin-top: 15px; color: var(--gold); font-family: var(--font-head); font-size: 0.8rem; height: 1rem;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
