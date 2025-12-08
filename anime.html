@@ -5,25 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visuals // Resonance</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Подключение стилей -->
-    <link rel="stylesheet" href="style.css"> <!-- Глобальный каркас -->
-    <link rel="stylesheet" href="anime.css"> <!-- Специфичные стили для аниме -->
+    <!-- СТИЛИ -->
+    <link rel="stylesheet" href="style.css"> <!-- Общий стиль -->
+    <link rel="stylesheet" href="anime.css"> <!-- Стиль для аниме -->
 </head>
 
-<!-- data-page="anime" указывает JS использовать классы .anime-card -->
 <body data-page="anime">
     
-    <!-- Фон (немного другие частицы) -->
+    <!-- ФОН -->
     <div class="background-container">
         <div class="bg-grid"></div>
         <div class="bg-fog"></div>
         <div class="gold-dust d2"></div><div class="gold-dust d4"></div>
     </div>
 
-    <!-- Навигация -->
+    <!-- НАВИГАЦИЯ -->
     <nav class="navbar">
         <a href="index.html" class="brand-logo">
             <svg class="logo-icon" viewBox="0 0 40 40">
@@ -44,42 +42,61 @@
         </div>
     </nav>
 
-    <!-- Основной контент -->
     <main class="container">
         <header class="page-header">
             <div class="deco-tag">/// ARCHIVE: OPEN</div>
             <h1>VISUAL LOGS</h1>
         </header>
 
-        <!-- Панель управления -->
-        <div class="filter-wrapper">
-            <!-- Выпадающий список -->
-            <div class="custom-dropdown">
-                <button class="dropdown-trigger">
-                    <span class="selected-text">FILTER BY TAGS</span>
-                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="#ffae00" stroke-width="2"/></svg>
-                </button>
-                <div class="dropdown-options" id="filterOptions"></div>
-            </div>
+        <!-- CONTROL DECK (ПАНЕЛЬ УПРАВЛЕНИЯ) -->
+        <div class="control-deck">
             
-            <!-- Поиск -->
-            <div class="search-terminal">
-                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#808a9f" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" id="searchInput" placeholder="SEARCH DATABASE...">
+            <!-- Верхний ряд: Поиск и Сетка -->
+            <div class="deck-top">
+                <!-- Поиск -->
+                <div class="search-module">
+                    <span class="module-label">DB_SEARCH</span>
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="searchInput" placeholder="ENTER QUERY...">
+                    </div>
+                </div>
+
+                <!-- Кнопки сетки (4, 5, 6) -->
+                <div class="view-module">
+                    <span class="module-label">GRID_DENSITY</span>
+                    <div class="view-controls">
+                        <button class="view-btn" data-cols="4" title="4 Columns">
+                            <span class="btn-icon">||||</span>
+                        </button>
+                        <button class="view-btn" data-cols="5" title="5 Columns">
+                            <span class="btn-icon">|||||</span>
+                        </button>
+                        <button class="view-btn" data-cols="6" title="6 Columns">
+                            <span class="btn-icon">||||||</span>
+                        </button>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Кнопки сетки -->
-            <div class="view-controls">
-                <button class="view-btn" data-cols="3" title="3 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="5" y="0" width="4" height="14" fill="currentColor"/><rect x="10" y="0" width="4" height="14" fill="currentColor"/></svg></button>
-                <button class="view-btn active" data-cols="4" title="4 Columns"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="0" y="0" width="2.5" height="14" fill="currentColor"/><rect x="3.8" y="0" width="2.5" height="14" fill="currentColor"/><rect x="7.6" y="0" width="2.5" height="14" fill="currentColor"/><rect x="11.4" y="0" width="2.5" height="14" fill="currentColor"/></svg></button>
+
+            <!-- Нижний ряд: Теги -->
+            <div class="deck-bottom">
+                <div class="filter-module">
+                    <div class="filter-header">
+                        <span class="module-label">TAG_FILTERS // MULTI-SELECT ACTIVE</span>
+                        <button id="clearTagsBtn" class="clear-btn" style="display: none;">RESET [X]</button>
+                    </div>
+                    <!-- Сюда JS генерирует кнопки -->
+                    <div class="tag-matrix" id="filterOptions"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Контейнер карточек (cols-4 лучше для вертикальных постеров) -->
+        <!-- ГЛАВНЫЙ КОНТЕЙНЕР (Сюда грузятся карточки) -->
         <div class="grid-cards cols-4" id="cards-container"></div>
     </main>
 
-    <!-- Модальное окно -->
+    <!-- МОДАЛЬНОЕ ОКНО -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="modal-inner">
