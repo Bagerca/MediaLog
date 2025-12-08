@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<!-- Указываем скрипту загружать раздел "anime" -->
+<!-- Загружаем данные из раздела "anime" в JSON -->
 <body data-page="anime">
     
     <div class="background-container">
@@ -17,7 +17,19 @@
     </div>
 
     <nav class="navbar">
-        <div class="logo">MEDIA<span style="color:var(--gold)">.LOG</span></div>
+        <!-- ЛОГОТИП -->
+        <a href="index.html" class="brand-logo">
+            <svg class="logo-icon" viewBox="0 0 40 40">
+                <path d="M20 2 L37 11 V29 L20 38 L3 29 V11 Z" />
+                <circle class="inner-circle" cx="20" cy="20" r="10" stroke-dasharray="10 5" />
+                <circle class="rec-dot" cx="20" cy="20" r="3" />
+            </svg>
+            <div class="logo-text">
+                <div class="logo-title">MEDIA<span>.LOG</span></div>
+                <div class="logo-sub">PERSONAL ARCHIVE</div>
+            </div>
+        </a>
+
         <div class="nav-links">
             <a href="index.html" class="nav-item">TERMINAL</a>
             <a href="anime.html" class="nav-item active">VISUALS</a>
@@ -32,7 +44,6 @@
         </header>
 
         <div class="filter-wrapper">
-            
             <!-- Выпадающий список -->
             <div class="custom-dropdown">
                 <button class="dropdown-trigger">
@@ -57,7 +68,7 @@
             </div>
         </div>
 
-        <!-- ГЛАВНЫЙ КОНТЕЙНЕР (Пустой, для JS) -->
+        <!-- ГЛАВНЫЙ КОНТЕЙНЕР КАРТОЧЕК -->
         <div class="grid-cards cols-3" id="cards-container"></div>
     </main>
 
