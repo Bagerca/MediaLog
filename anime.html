@@ -98,31 +98,30 @@
         <div class="grid-cards cols-4" id="cards-container"></div>
     </main>
 
-    <!-- МОДАЛЬНОЕ ОКНО (ИСПРАВЛЕННАЯ СТРУКТУРА) -->
+    <!-- МОДАЛЬНОЕ ОКНО -->
     <div class="modal-overlay" id="detailModal">
-        <!-- Обертка: Держит позицию и тени, но не обрезает углы -->
         <div class="modal-window-wrapper">
             
-            <!-- Декоративные уголки (Снаружи клипера) -->
+            <!-- Декоративные уголки -->
             <div class="modal-corner top-left"></div>
             <div class="modal-corner top-right"></div>
             <div class="modal-corner btm-left"></div>
             <div class="modal-corner btm-right"></div>
 
-            <!-- Клипер: Обрезает фон и контент по форме -->
+            <!-- Клипер -->
             <div class="modal-clipper">
                 <div class="modal-inner">
                     <button class="modal-close" id="closeModal">ABORT PROCESS [X]</button>
                 
                     <div class="modal-body">
-                        <!-- Визуал (Левая часть) -->
+                        <!-- Визуал -->
                         <div class="modal-visual">
                             <div class="visual-overlay"></div>
                             <img id="modalImg" src="" alt="Cover Art">
                             <div class="visual-tech-line"></div>
                         </div>
                 
-                        <!-- Инфо (Правая часть) -->
+                        <!-- Инфо -->
                         <div class="modal-info">
                             <div class="rank-watermark" id="modalBgRank">N</div>
         
@@ -139,19 +138,16 @@
                             <!-- РЕЖИМ ПРОСМОТРА -->
                             <div id="viewMode" class="mode-content">
                                 <div class="view-grid">
-                                    <!-- Блок ранга -->
                                     <div class="info-block rank-block">
                                         <span class="block-label">CLASSIFICATION (RANK)</span>
                                         <div class="rank-display-box" id="viewRankDisplay">N/A</div>
                                     </div>
                                     
-                                    <!-- Блок платформы -->
                                     <div class="info-block platform-block">
                                         <span class="block-label">PLATFORM / SOURCE</span>
                                         <div class="data-value" id="modalPlatform">-</div>
                                     </div>
 
-                                    <!-- Блок заметок -->
                                     <div class="info-block note-block">
                                         <span class="block-label">DATA LOG // USER NOTES</span>
                                         <div class="note-terminal">
@@ -173,6 +169,7 @@
                             <!-- РЕЖИМ РЕДАКТИРОВАНИЯ -->
                             <div id="editMode" class="mode-content" style="display: none;">
                                 <div class="edit-form">
+                                    <!-- 1. Ранг -->
                                     <div class="input-group">
                                         <label>UPDATE CLASSIFICATION</label>
                                         <div class="rank-selector">
@@ -183,6 +180,14 @@
                                             <button class="rank-opt" data-value="N">N</button>
                                         </div>
                                     </div>
+
+                                    <!-- 2. Статус (НОВОЕ) -->
+                                    <div class="input-group">
+                                        <label>CUSTOM STATUS OVERRIDE</label>
+                                        <input type="text" id="userStatusInput" class="terminal-input" placeholder="> E.G. COMPLETED / DROPPED / 100%">
+                                    </div>
+
+                                    <!-- 3. Заметки -->
                                     <div class="input-group full-height">
                                         <label>UPDATE LOG ENTRY</label>
                                         <textarea id="userNoteInput" placeholder="> ENTER NEW DATA..."></textarea>
@@ -196,8 +201,8 @@
                         </div>
                     </div>
                 </div>
-            </div> <!-- Конец Clipper -->
-        </div> <!-- Конец Wrapper -->
+            </div> <!-- End Clipper -->
+        </div> <!-- End Wrapper -->
     </div>
 
     <!-- УВЕДОМЛЕНИЕ -->
