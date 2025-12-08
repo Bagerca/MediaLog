@@ -48,17 +48,17 @@
             <h1>SIMULATION LOGS</h1>
         </header>
 
-        <!-- CONTROL DECK (ПАНЕЛЬ УПРАВЛЕНИЯ) -->
+        <!-- CONTROL DECK -->
         <div class="control-deck">
             
-            <!-- Верхний ряд: Режим, Поиск, Сетка -->
+            <!-- Верхний ряд -->
             <div class="deck-top">
-                <!-- 1. Режим (Все / Мои) -->
+                <!-- 1. Режим (По умолчанию MY_COLLECTION) -->
                 <div class="mode-module">
                     <span class="module-label">DATA_SOURCE</span>
                     <div class="mode-switch">
-                        <button class="mode-btn active" data-mode="all">GLOBAL_DB</button>
-                        <button class="mode-btn" data-mode="mine">MY_COLLECTION</button>
+                        <button class="mode-btn" data-mode="all">GLOBAL_DB</button>
+                        <button class="mode-btn active" data-mode="mine">MY_COLLECTION</button>
                     </div>
                 </div>
 
@@ -98,23 +98,22 @@
         <div class="grid-cards cols-4" id="cards-container"></div>
     </main>
 
-    <!-- МОДАЛЬНОЕ ОКНО (VIEW + EDIT) -->
+    <!-- МОДАЛЬНОЕ ОКНО -->
     <div class="modal-overlay" id="detailModal">
         <div class="modal-window">
             <div class="modal-inner">
                 <button class="modal-close" id="closeModal">ABORT [X]</button>
             
                 <div class="modal-body">
-                    <!-- Левая часть: Картинка -->
+                    <!-- Визуал -->
                     <div class="modal-visual">
                         <img id="modalImg" src="" alt="Cover Art">
                     </div>
             
-                    <!-- Правая часть: Инфо -->
+                    <!-- Инфо -->
                     <div class="modal-info">
                         <div class="rank-watermark" id="modalBgRank">N</div>
     
-                        <!-- Шапка окна -->
                         <div class="modal-header">
                             <div class="sys-row">
                                 <span class="sys-msg" id="sysModeLabel">/// VIEW_MODE</span>
@@ -124,29 +123,23 @@
                             <div class="tags-container" id="modalTags"></div>
                         </div>
 
-                        <!-- === РЕЖИМ ПРОСМОТРА (VIEW MODE) === -->
+                        <!-- РЕЖИМ ПРОСМОТРА -->
                         <div id="viewMode" class="mode-content">
                             <div class="view-data">
                                 <div class="view-rank-wrapper">
                                     <span class="view-label">CURRENT RANK</span>
                                     <span class="view-rank-value" id="viewRankDisplay">N/A</span>
                                 </div>
-                                
                                 <div class="view-note-wrapper">
                                     <span class="view-label">DATA LOG // NOTES</span>
                                     <p id="viewNoteDisplay" class="view-text">No data recorded.</p>
                                 </div>
-
                                 <div class="stats-grid">
                                     <div class="stat-box"><span class="stat-label">PLATFORM</span><span class="stat-value" id="modalPlatform">-</span></div>
                                 </div>
                             </div>
-
                             <div class="modal-footer">
-                                <!-- Кнопка "Добавить" (если нет в библиотеке) -->
                                 <button class="action-btn primary-btn" id="btnAddLib">ADD TO LIBRARY</button>
-                                
-                                <!-- Кнопки управления (если есть в библиотеке) -->
                                 <div id="libActions" class="lib-actions" style="display: none; width: 100%; gap: 10px;">
                                     <button class="action-btn edit-btn" id="btnEdit">MODIFY RECORD</button>
                                     <button class="action-btn delete-btn" id="btnDelete">DELETE</button>
@@ -154,7 +147,7 @@
                             </div>
                         </div>
 
-                        <!-- === РЕЖИМ РЕДАКТИРОВАНИЯ (EDIT MODE) === -->
+                        <!-- РЕЖИМ РЕДАКТИРОВАНИЯ -->
                         <div id="editMode" class="mode-content" style="display: none;">
                             <div class="edit-form">
                                 <div class="input-group">
@@ -167,19 +160,16 @@
                                         <button class="rank-opt" data-value="N">N</button>
                                     </div>
                                 </div>
-
                                 <div class="input-group full-height">
                                     <label>UPDATE NOTES</label>
                                     <textarea id="userNoteInput" placeholder="ENTER NEW DATA..."></textarea>
                                 </div>
                             </div>
-
                             <div class="modal-footer">
                                 <button class="action-btn save-btn" id="btnSave">CONFIRM CHANGES</button>
                                 <button class="action-btn cancel-btn" id="btnCancel">CANCEL</button>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
