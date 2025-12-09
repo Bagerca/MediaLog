@@ -240,27 +240,102 @@ select { outline: none; }
     flex-direction: column;
 }
 
-/* Группа Рангов */
+/* --- ГРУППА РАНГОВ (ОБНОВЛЕННАЯ) --- */
+
 .rank-filter-group { 
     display: flex; 
-    gap: 5px; 
+    gap: 15px; /* Увеличили отступ между кнопками */
     flex-wrap: wrap; 
-    justify-content: center; 
+    justify-content: center; /* Центрирование */
     width: 100%; 
 }
-.rank-filter-btn {
-    padding: 6px 16px; border: 1px solid var(--border-color); background: transparent;
-    color: var(--text-muted); font-family: var(--font-head); font-weight: 800; font-size: 0.9rem;
-    cursor: pointer; transition: 0.2s; clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
-}
-.rank-filter-btn:hover { border-color: #fff; color: #fff; }
 
-/* Цвета активных фильтров рангов */
-.rank-filter-btn.active[data-rank="UR"] { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 0 10px var(--gold-dim); }
-.rank-filter-btn.active[data-rank="SSR"] { background: var(--cyan); color: #000; border-color: var(--cyan); box-shadow: 0 0 10px rgba(95, 251, 241, 0.3); }
-.rank-filter-btn.active[data-rank="SR"] { background: #00ff9d; color: #000; border-color: #00ff9d; box-shadow: 0 0 10px rgba(0, 255, 157, 0.3); }
-.rank-filter-btn.active[data-rank="R"] { background: #ff8e3c; color: #000; border-color: #ff8e3c; box-shadow: 0 0 10px rgba(255, 142, 60, 0.3); }
-.rank-filter-btn.active[data-rank="N"] { background: #ff003c; color: #000; border-color: #ff003c; box-shadow: 0 0 10px rgba(255, 0, 60, 0.3); }
+.rank-filter-btn {
+    position: relative;
+    /* Крупные размеры */
+    min-width: 80px; 
+    height: 48px;
+    padding: 0 25px;
+    
+    /* Фон и границы */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    
+    /* Текст */
+    color: var(--text-muted); 
+    font-family: var(--font-head); 
+    font-weight: 800; 
+    font-size: 1.2rem; /* Шрифт крупнее */
+    letter-spacing: 2px;
+    
+    cursor: pointer; 
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* Сложная форма (скосы с двух сторон) */
+    clip-path: polygon(
+        12px 0, 100% 0, 
+        100% calc(100% - 12px), 
+        calc(100% - 12px) 100%, 
+        0 100%, 
+        0 12px
+    );
+}
+
+/* Эффект при наведении (Левитация + Свет) */
+.rank-filter-btn:hover { 
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.5); 
+    color: #fff; 
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Тень для объема */
+}
+
+/* --- АКТИВНЫЕ СОСТОЯНИЯ (Свечение для каждого ранга) --- */
+
+/* UR: Золотой + Мощное свечение */
+.rank-filter-btn.active[data-rank="UR"] { 
+    background: rgba(255, 174, 0, 0.15); 
+    color: var(--gold); 
+    border-color: var(--gold); 
+    box-shadow: 0 0 20px var(--gold-dim), inset 0 0 10px rgba(255, 174, 0, 0.1); 
+    text-shadow: 0 0 10px rgba(255, 174, 0, 0.8);
+}
+
+/* SSR: Циан */
+.rank-filter-btn.active[data-rank="SSR"] { 
+    background: rgba(95, 251, 241, 0.15); 
+    color: var(--cyan); 
+    border-color: var(--cyan); 
+    box-shadow: 0 0 20px rgba(95, 251, 241, 0.2), inset 0 0 10px rgba(95, 251, 241, 0.1);
+    text-shadow: 0 0 10px rgba(95, 251, 241, 0.8);
+}
+
+/* SR: Зеленый */
+.rank-filter-btn.active[data-rank="SR"] { 
+    background: rgba(0, 255, 157, 0.15); 
+    color: #00ff9d; 
+    border-color: #00ff9d; 
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2); 
+    text-shadow: 0 0 10px rgba(0, 255, 157, 0.8);
+}
+
+/* R: Оранжевый */
+.rank-filter-btn.active[data-rank="R"] { 
+    background: rgba(255, 142, 60, 0.15); 
+    color: #ff8e3c; 
+    border-color: #ff8e3c; 
+    box-shadow: 0 0 20px rgba(255, 142, 60, 0.2); 
+    text-shadow: 0 0 10px rgba(255, 142, 60, 0.8);
+}
+
+/* N: Красный */
+.rank-filter-btn.active[data-rank="N"] { 
+    background: rgba(255, 0, 60, 0.15); 
+    color: #ff003c; 
+    border-color: #ff003c; 
+    box-shadow: 0 0 20px rgba(255, 0, 60, 0.2); 
+    text-shadow: 0 0 10px rgba(255, 0, 60, 0.8);
+}
 
 /* Разделитель (Separator) */
 .filter-separator {
