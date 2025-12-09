@@ -222,12 +222,87 @@ select { outline: none; }
 .module-label { font-family: var(--font-head); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 0; display: block; opacity: 0.7; margin-right: 15px;}
 .module-label-mini { font-size: 0.6rem; color: var(--text-muted); margin-bottom: 2px; font-family: var(--font-head); letter-spacing: 1px; }
 
-.sort-select {
-    background: transparent; border: none; color: #fff; 
-    font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; cursor: pointer;
-    outline: none; text-transform: uppercase;
+/* --- КАСТОМНЫЙ СЕЛЕКТ (SORT) --- */
+.custom-select-wrapper {
+    position: relative;
+    width: 200px;
+    height: 100%;
+    font-family: var(--font-head);
+    font-size: 0.9rem;
+    font-weight: 700;
+    user-select: none;
 }
-.sort-select option { background: #000; color: #fff; }
+
+.select-selected {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    color: #fff;
+    padding: 0 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.select-selected::after {
+    content: '';
+    width: 0; height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--gold); /* Заменится для аниме */
+    transition: 0.3s;
+}
+
+.select-selected.select-arrow-active {
+    border-color: var(--gold);
+    background: rgba(255, 174, 0, 0.1);
+}
+.select-selected.select-arrow-active::after { transform: rotate(180deg); }
+
+.select-items {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    z-index: 99;
+    background: #0b0c10;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.select-items.select-show { max-height: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+
+.select-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--text-muted);
+    transition: 0.2s;
+}
+.select-item:last-child { border-bottom: none; }
+
+/* Ховер для Games */
+body[data-page="games"] .select-item:hover,
+body[data-page="games"] .select-item.same-as-selected {
+    background: rgba(255, 174, 0, 0.1);
+    color: var(--gold);
+    padding-left: 20px;
+}
+body[data-page="games"] .select-selected.select-arrow-active { border-color: var(--gold); }
+body[data-page="games"] .select-selected::after { border-top-color: var(--gold); }
+
+/* Ховер для Anime */
+body[data-page="anime"] .select-item:hover,
+body[data-page="anime"] .select-item.same-as-selected {
+    background: rgba(95, 251, 241, 0.1);
+    color: var(--cyan);
+    padding-left: 20px;
+}
+body[data-page="anime"] .select-selected.select-arrow-active { border-color: var(--cyan); }
+body[data-page="anime"] .select-selected::after { border-top-color: var(--cyan); }
+
 
 .view-controls { display: flex; gap: 2px; height: 100%; }
 .view-btn {
