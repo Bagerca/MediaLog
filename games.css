@@ -199,12 +199,25 @@
     box-shadow: 0 0 15px var(--gold);
 }
 
+/* --- ТЕГИ (ОБНОВЛЕННЫЕ) --- */
 .tags-container { display: flex; gap: 6px; margin-bottom: 30px; flex-wrap: wrap; }
 .tech-tag { 
-    padding: 6px 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+    position: relative; z-index: 1;
+    padding: 6px 12px; 
+    border: none !important;
+    background: rgba(255, 255, 255, 0.2); /* Цвет рамки */
+    
     font-family: var(--font-head); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    transition: 0.3s;
 }
+.tech-tag::after {
+    content: ''; position: absolute; inset: 1px; background: #0b0c10; z-index: -1;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    transition: 0.3s;
+}
+.tech-tag:hover { background: var(--gold); color: var(--gold); cursor: default; }
+
 
 /* MODE CONTENT */
 .mode-content { display: flex; flex-direction: column; flex-grow: 1; min-height: 0; animation: fadeIn 0.3s ease; }
@@ -219,52 +232,20 @@
 
 .block-label { font-family: var(--font-head); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; }
 
-/* ОБНОВЛЕННЫЙ БЛОК РАНГА (РАМКА НА ::AFTER ДЛЯ ЧЕТКИХ УГЛОВ) */
+/* ОБНОВЛЕННЫЙ БЛОК РАНГА (РАМКА НА ::AFTER) */
 .rank-display-box {
-    position: relative;
-    z-index: 1;
-    font-family: var(--font-head);
-    font-size: 3rem;
-    font-weight: 800;
-    
-    border: none !important;
-    box-shadow: none !important;
-    background: currentColor !important; /* Цвет фона = цвет ранга */
-    
-    padding: 5px 25px;
-    width: fit-content;
-    min-width: 100px;
-    text-align: center;
-    
-    clip-path: polygon(
-        10px 0, 
-        100% 0, 
-        100% calc(100% - 10px), 
-        calc(100% - 10px) 100%, 
-        0 100%, 
-        0 10px
-    );
-    
-    text-shadow: 0 0 15px currentColor;
-    transition: 0.3s;
+    position: relative; z-index: 1;
+    font-family: var(--font-head); font-size: 3rem; font-weight: 800;
+    border: none !important; box-shadow: none !important;
+    background: currentColor !important; /* Цвет рамки */
+    padding: 5px 25px; width: fit-content; min-width: 100px; text-align: center;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    text-shadow: 0 0 15px currentColor; transition: 0.3s;
 }
-
-/* ПСЕВДО-ЭЛЕМЕНТ ДЛЯ ВНУТРЕННЕГО ФОНА */
 .rank-display-box::after {
-    content: '';
-    position: absolute;
-    inset: 2px; /* Толщина рамки */
-    background: rgba(0, 0, 0, 0.9);
-    z-index: -1;
-    
-    clip-path: polygon(
-        10px 0, 
-        100% 0, 
-        100% calc(100% - 10px), 
-        calc(100% - 10px) 100%, 
-        0 100%, 
-        0 10px
-    );
+    content: ''; position: absolute; inset: 2px; /* Толщина рамки */
+    background: rgba(0, 0, 0, 0.9); z-index: -1;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 
 .data-value { font-family: var(--font-head); font-size: 1.2rem; color: #fff; font-weight: 600; padding: 15px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); }
@@ -301,22 +282,43 @@ textarea#userNoteInput { height: 100%; min-height: 150px; padding: 20px; resize:
 .terminal-input:focus, textarea#userNoteInput:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 174, 0, 0.1); }
 .terminal-input::placeholder, textarea#userNoteInput::placeholder { color: rgba(255,255,255,0.2); }
 
-/* FOOTER */
+/* FOOTER (ИСПРАВЛЕННЫЙ) */
 .modal-footer { display: flex; gap: 15px; margin-top: auto; width: 100%; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1); flex-shrink: 0; z-index: 10; }
 .action-btn { 
+    position: relative; z-index: 1;
     height: 55px; display: flex; align-items: center; justify-content: center;
     font-family: var(--font-head); font-weight: 800; font-size: 0.9rem; letter-spacing: 2px;
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); 
     text-transform: uppercase; cursor: pointer; transition: 0.3s; white-space: nowrap;
+    border: none !important;
 }
+
+/* ЗАЛИТЫЕ КНОПКИ */
 .primary-btn { flex: 1; background: var(--gold); color: #000; box-shadow: 0 0 20px rgba(255, 174, 0, 0.2); }
 .primary-btn:hover { background: #fff; box-shadow: 0 0 30px rgba(255,255,255,0.4); }
+
 .edit-btn, .save-btn { flex: 2; background: var(--gold); color: #000; min-width: 150px; }
 .edit-btn:hover, .save-btn:hover { background: #fff; }
-.delete-btn { flex: 1; background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; min-width: 100px; }
-.delete-btn:hover { background: #ff4d4d; color: #000; box-shadow: 0 0 20px rgba(255, 77, 77, 0.4); }
-.cancel-btn { flex: 1; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); }
-.cancel-btn:hover { border-color: #fff; color: #fff; }
+
+/* КОНТУРНЫЕ КНОПКИ (FIX УГЛОВ) */
+.delete-btn { flex: 1; min-width: 100px; color: #ff4d4d; background: #ff4d4d; /* Цвет рамки */ }
+.delete-btn::after {
+    content: ''; position: absolute; inset: 1px; background: #0b0c10; z-index: -1;
+    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+    transition: 0.3s;
+}
+.delete-btn:hover { color: #000; box-shadow: 0 0 20px rgba(255, 77, 77, 0.4); }
+.delete-btn:hover::after { background: #ff4d4d; }
+
+.cancel-btn { flex: 1; color: var(--text-muted); background: var(--text-muted); /* Цвет рамки */ }
+.cancel-btn::after {
+    content: ''; position: absolute; inset: 1px; background: #0b0c10; z-index: -1;
+    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+    transition: 0.3s;
+}
+.cancel-btn:hover { color: #fff; background: #fff; }
+.cancel-btn:hover::after { background: #0b0c10; }
+
 
 @media (max-width: 1024px) {
     .modal-window-wrapper { height: auto; max-height: 90vh; }
