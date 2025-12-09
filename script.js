@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeTags = new Set();
     
     // ВАЖНО: Инициализируем активные ранги сразу ВСЕМИ значениями
-    // Чтобы при старте кнопки горели и показывались все категории
+    // Это заставляет кнопки светиться при старте и показывать весь контент
     let activeRanks = new Set(['UR', 'SSR', 'SR', 'R', 'N']);
     
     let onlyFavorites = false;
-    let currentSort = 'date_desc';
+    let currentSort = 'name_asc'; // Сортировка по умолчанию: А-Я
 
     // Веса рангов для сортировки
     const rankWeight = { 'UR': 5, 'SSR': 4, 'SR': 3, 'R': 2, 'N': 1 };
@@ -78,16 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
             items = items.filter(i => userLibrary[i.title] && userLibrary[i.title].isFavorite);
         }
 
-        // 5. Фильтр: Ранги (Логика: показывать только если ранг в списке активных)
-        // Если item в библиотеке - проверяем его ранг.
-        // Если item нет в библиотеке (Global DB) - считаем его условно 'N' или показываем всегда?
-        // Решение: Фильтр рангов работает только для добавленных игр.
+        // 5. Фильтр: Ранги
+        // Работает только для "Моей коллекции", так как у игр из GlobalDB ранга нет
         if (currentMode === 'mine') {
             items = items.filter(i => {
                 const userData = userLibrary[i.title];
-                // Если данных нет (ошибка), не показываем
                 if (!userData) return false; 
-                // Проверяем наличие ранга в активном сете
                 return activeRanks.has(userData.rank);
             });
         }
@@ -97,26 +93,35 @@ document.addEventListener('DOMContentLoaded', () => {
             const dataA = userLibrary[a.title];
             const dataB = userLibrary[b.title];
 
+            // Хелперы для безопасного доступа к свойствам
+            const getRank = (data) => data ? rankWeight[data.rank] || 0 : 0;
+            const getTime = (data) => data ? data.timestamp : 0;
+
             switch (currentSort) {
                 case 'name_asc': 
                     return a.title.localeCompare(b.title);
+                
+                case 'name_desc': // Z-A
+                    return b.title.localeCompare(a.title);
+                
                 case 'rank_desc':
-                    var rA = dataA ? rankWeight[dataA.rank] || 0 : 0;
-                    var rB = dataB ? rankWeight[dataB.rank] || 0 : 0;
-                    return rB - rA; 
+                    // Сначала высокий ранг, при равенстве - по имени
+                    return (getRank(dataB) - getRank(dataA)) || a.title.localeCompare(b.title);
+                
                 case 'rank_asc':
-                    var rA = dataA ? rankWeight[dataA.rank] || 0 : 0;
-                    var rB = dataB ? rankWeight[dataB.rank] || 0 : 0;
-                    return rA - rB; 
+                    // Сначала низкий ранг
+                    return (getRank(dataA) - getRank(dataB)) || a.title.localeCompare(b.title);
+                
                 case 'date_asc':
-                    var dA = dataA ? dataA.timestamp : 0;
-                    var dB = dataB ? dataB.timestamp : 0;
-                    return dA - dB;
+                    if (getTime(dataA) === 0) return 1; 
+                    if (getTime(dataB) === 0) return -1;
+                    return getTime(dataA) - getTime(dataB);
+
                 case 'date_desc':
                 default:
-                    var dA = dataA ? dataA.timestamp : 0;
-                    var dB = dataB ? dataB.timestamp : 0;
-                    return dB - dA; 
+                    if (getTime(dataA) === 0) return 1;
+                    if (getTime(dataB) === 0) return -1;
+                    return getTime(dataB) - getTime(dataA); 
             }
         });
 
@@ -208,25 +213,62 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. Поиск
         document.getElementById('searchInput')?.addEventListener('input', renderContent);
 
-        // 4. Сортировка
-        document.getElementById('sortSelect')?.addEventListener('change', (e) => {
-            currentSort = e.target.value;
-            renderContent();
-        });
+        // --- 4. КАСТОМНАЯ СОРТИРОВКА (NEW) ---
+        const customWrapper = document.getElementById('customSelectWrapper');
+        if (customWrapper) {
+            const selectedDiv = customWrapper.querySelector('.select-selected');
+            const itemsDiv = customWrapper.querySelector('.select-items');
+            const optionDivs = customWrapper.querySelectorAll('.select-item');
+            const nativeSelect = document.getElementById('sortSelect'); // Скрытый селект
+
+            // Открытие/Закрытие
+            selectedDiv.addEventListener('click', (e) => {
+                e.stopPropagation();
+                itemsDiv.classList.toggle('select-show');
+                selectedDiv.classList.toggle('select-arrow-active');
+            });
+
+            // Выбор элемента
+            optionDivs.forEach(div => {
+                div.addEventListener('click', (e) => {
+                    const val = div.getAttribute('data-value');
+                    // Обновляем текст
+                    selectedDiv.textContent = div.textContent;
+                    // Обновляем выделение
+                    optionDivs.forEach(d => d.classList.remove('same-as-selected'));
+                    div.classList.add('same-as-selected');
+                    // Логика
+                    currentSort = val;
+                    if(nativeSelect) nativeSelect.value = val;
+                    // Закрываем
+                    itemsDiv.classList.remove('select-show');
+                    selectedDiv.classList.remove('select-arrow-active');
+                    renderContent();
+                });
+            });
+
+            // Закрытие при клике вне
+            document.addEventListener('click', (e) => {
+                if (!customWrapper.contains(e.target)) {
+                    itemsDiv.classList.remove('select-show');
+                    selectedDiv.classList.remove('select-arrow-active');
+                }
+            });
+        }
 
         // 5. Фильтры рангов (АКТИВНЫ ПО УМОЛЧАНИЮ)
         document.querySelectorAll('.rank-filter-btn').forEach(btn => {
-            // При инициализации делаем кнопку активной визуально
+            // При старте добавляем класс active (визуально светятся)
             btn.classList.add('active');
 
             btn.addEventListener('click', () => {
                 const rank = btn.dataset.rank;
                 if (activeRanks.has(rank)) {
-                    // Если ранг был включен -> выключаем
+                    // Был включен -> выключаем (удаляем из сета, убираем подсветку)
                     activeRanks.delete(rank);
                     btn.classList.remove('active');
                 } else {
-                    // Если был выключен -> включаем
+                    // Был выключен -> включаем
                     activeRanks.add(rank);
                     btn.classList.add('active');
                 }
@@ -234,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // --- 6. НАСТРОЙКА СЕТКИ (GRID DENSITY) ---
+        // 6. Настройка сетки (GRID DENSITY)
         const grid = document.getElementById('cards-container');
         const viewBtns = document.querySelectorAll('.view-btn');
         
@@ -269,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         document.onkeydown = (e) => { if (e.key === 'Escape') els.modal.classList.remove('active'); };
 
-        // 8. Анимация заголовка (эффект расшифровки)
+        // 8. Анимация заголовка
         const h1 = document.querySelector('.page-header h1');
         if(h1) {
             const txt = h1.innerText;
@@ -377,15 +419,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const color = rankConfig[userData.rank] || rankConfig['N'];
             
-            // ВАЖНО: Мы задаем только цвет текста.
-            // CSS (background: currentColor) автоматически сделает рамку этого цвета.
+            // ВАЖНО: Задаем цвет текста. CSS сам создаст рамку этого цвета.
             rankBox.textContent = userData.rank;
             rankBox.style.color = color;
             
-            // Тени и бордеры убираем из JS, так как они теперь управляются через CSS класс
-            // rankBox.style.boxShadow = ... (Убрано, контролируется CSS)
-            
-            // Фоновый водяной знак (если вдруг CSS не скрыл)
+            // Для фонового водяного знака (если он включен)
             if(els.bgRank) els.bgRank.textContent = userData.rank;
             if(els.bgRank) els.bgRank.style.color = color;
             
@@ -396,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
             els.grpActions.style.display = 'none';
             
             rankBox.textContent = "N/A";
-            rankBox.style.color = "#666"; // Серая рамка для незарегистрированных
+            rankBox.style.color = "#666"; // Серая рамка
             
             if(els.bgRank) els.bgRank.textContent = "";
             els.viewNote.textContent = "Item not in collection. Add to library to edit.";
