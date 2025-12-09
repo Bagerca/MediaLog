@@ -155,10 +155,38 @@ select { outline: none; }
     display: flex; align-items: center;
 }
 
-/* --- РЯД 1: TOP --- */
+/* --- РЯД 1: TOP (FIX РАМОК) --- */
 .top-row {
+    position: relative; /* Важно для ::after */
+    z-index: 1;
+    
+    /* Форма среза */
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-    gap: 20px; height: 70px;
+    
+    gap: 20px; 
+    height: 70px;
+    
+    /* Убираем стандартный border, он ломается на углах */
+    border: none !important;
+    
+    /* ФОН ПАНЕЛИ ТЕПЕРЬ РАБОТАЕТ КАК ЦВЕТ РАМКИ */
+    background: var(--border-color);
+    
+    /* Отключаем стандартный фон deck-row */
+    box-shadow: none;
+}
+
+/* ВНУТРЕННИЙ ТЕМНЫЙ ФОН TOP-ROW */
+.top-row::after {
+    content: '';
+    position: absolute;
+    /* Отступ в 1px создает идеальную рамку */
+    inset: 1px; 
+    /* Цвет фона самой панели */
+    background: rgba(14, 15, 20, 0.95); 
+    z-index: -1; /* Кладем ПОД контент */
+    /* Повторяем форму среза */
+    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
 }
 
 /* Группа слева (Mode + Fav) */
@@ -240,38 +268,42 @@ select { outline: none; }
     flex-direction: column;
 }
 
-/* --- ГРУППА РАНГОВ (ОБНОВЛЕННАЯ) --- */
+/* --- ГРУППА РАНГОВ (FIX УГЛОВ) --- */
 
 .rank-filter-group { 
     display: flex; 
-    gap: 15px; /* Увеличили отступ между кнопками */
+    gap: 15px; 
     flex-wrap: wrap; 
-    justify-content: center; /* Центрирование */
+    justify-content: center; 
     width: 100%; 
 }
 
 .rank-filter-btn {
     position: relative;
+    z-index: 1;
+    
     /* Крупные размеры */
     min-width: 80px; 
     height: 48px;
     padding: 0 25px;
     
-    /* Фон и границы */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    /* Убираем стандартную рамку */
+    border: none !important;
+    
+    /* Фон родителя теперь работает как ЦВЕТ РАМКИ */
+    background: rgba(255, 255, 255, 0.15); 
     
     /* Текст */
     color: var(--text-muted); 
     font-family: var(--font-head); 
     font-weight: 800; 
-    font-size: 1.2rem; /* Шрифт крупнее */
+    font-size: 1.2rem;
     letter-spacing: 2px;
     
     cursor: pointer; 
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     
-    /* Сложная форма (скосы с двух сторон) */
+    /* Форма */
     clip-path: polygon(
         12px 0, 100% 0, 
         100% calc(100% - 12px), 
@@ -281,60 +313,90 @@ select { outline: none; }
     );
 }
 
-/* Эффект при наведении (Левитация + Свет) */
-.rank-filter-btn:hover { 
-    transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.5); 
-    color: #fff; 
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Тень для объема */
+/* ВНУТРЕННЯЯ ЧАСТЬ КНОПКИ (Псевдо-элемент) */
+.rank-filter-btn::after {
+    content: '';
+    position: absolute;
+    inset: 1px; /* Толщина рамки 1px */
+    background: #0b0c10; /* Темный фон внутри */
+    z-index: -1;
+    
+    clip-path: polygon(
+        12px 0, 100% 0, 
+        100% calc(100% - 12px), 
+        calc(100% - 12px) 100%, 
+        0 100%, 
+        0 12px
+    );
+    transition: all 0.3s ease;
 }
 
-/* --- АКТИВНЫЕ СОСТОЯНИЯ (Свечение для каждого ранга) --- */
+/* Эффект при наведении (Левитация + Свет рамки) */
+.rank-filter-btn:hover { 
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.5); /* Рамка становится ярче */
+    color: #fff; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+.rank-filter-btn:hover::after {
+    background: rgba(255, 255, 255, 0.05); /* Внутренность чуть светлее */
+}
 
-/* UR: Золотой + Мощное свечение */
+/* --- АКТИВНЫЕ СОСТОЯНИЯ (ИДЕАЛЬНЫЕ РАМКИ) --- */
+
+/* UR: Золотой */
 .rank-filter-btn.active[data-rank="UR"] { 
-    background: rgba(255, 174, 0, 0.15); 
+    background: var(--gold); /* Цвет рамки */
     color: var(--gold); 
-    border-color: var(--gold); 
-    box-shadow: 0 0 20px var(--gold-dim), inset 0 0 10px rgba(255, 174, 0, 0.1); 
+    box-shadow: 0 0 20px var(--gold-dim); 
     text-shadow: 0 0 10px rgba(255, 174, 0, 0.8);
+}
+.rank-filter-btn.active[data-rank="UR"]::after {
+    background: rgba(255, 174, 0, 0.15); /* Цвет заливки */
 }
 
 /* SSR: Циан */
 .rank-filter-btn.active[data-rank="SSR"] { 
-    background: rgba(95, 251, 241, 0.15); 
+    background: var(--cyan); 
     color: var(--cyan); 
-    border-color: var(--cyan); 
-    box-shadow: 0 0 20px rgba(95, 251, 241, 0.2), inset 0 0 10px rgba(95, 251, 241, 0.1);
+    box-shadow: 0 0 20px rgba(95, 251, 241, 0.2);
     text-shadow: 0 0 10px rgba(95, 251, 241, 0.8);
+}
+.rank-filter-btn.active[data-rank="SSR"]::after {
+    background: rgba(95, 251, 241, 0.15);
 }
 
 /* SR: Зеленый */
 .rank-filter-btn.active[data-rank="SR"] { 
-    background: rgba(0, 255, 157, 0.15); 
+    background: #00ff9d; 
     color: #00ff9d; 
-    border-color: #00ff9d; 
     box-shadow: 0 0 20px rgba(0, 255, 157, 0.2); 
     text-shadow: 0 0 10px rgba(0, 255, 157, 0.8);
+}
+.rank-filter-btn.active[data-rank="SR"]::after {
+    background: rgba(0, 255, 157, 0.15);
 }
 
 /* R: Оранжевый */
 .rank-filter-btn.active[data-rank="R"] { 
-    background: rgba(255, 142, 60, 0.15); 
+    background: #ff8e3c; 
     color: #ff8e3c; 
-    border-color: #ff8e3c; 
     box-shadow: 0 0 20px rgba(255, 142, 60, 0.2); 
     text-shadow: 0 0 10px rgba(255, 142, 60, 0.8);
+}
+.rank-filter-btn.active[data-rank="R"]::after {
+    background: rgba(255, 142, 60, 0.15);
 }
 
 /* N: Красный */
 .rank-filter-btn.active[data-rank="N"] { 
-    background: rgba(255, 0, 60, 0.15); 
+    background: #ff003c; 
     color: #ff003c; 
-    border-color: #ff003c; 
     box-shadow: 0 0 20px rgba(255, 0, 60, 0.2); 
     text-shadow: 0 0 10px rgba(255, 0, 60, 0.8);
+}
+.rank-filter-btn.active[data-rank="N"]::after {
+    background: rgba(255, 0, 60, 0.15);
 }
 
 /* Разделитель (Separator) */
