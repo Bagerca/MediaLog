@@ -157,22 +157,13 @@ select { outline: none; }
 
 /* --- РЯД 1: TOP (FIX РАМОК) --- */
 .top-row {
-    position: relative; /* Важно для ::after */
+    position: relative;
     z-index: 1;
-    
-    /* Форма среза */
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-    
     gap: 20px; 
     height: 70px;
-    
-    /* Убираем стандартный border, он ломается на углах */
-    border: none !important;
-    
-    /* ФОН ПАНЕЛИ ТЕПЕРЬ РАБОТАЕТ КАК ЦВЕТ РАМКИ */
-    background: var(--border-color);
-    
-    /* Отключаем стандартный фон deck-row */
+    border: none !important; /* Убираем border */
+    background: var(--border-color); /* Фон = Цвет рамки */
     box-shadow: none;
 }
 
@@ -180,12 +171,9 @@ select { outline: none; }
 .top-row::after {
     content: '';
     position: absolute;
-    /* Отступ в 1px создает идеальную рамку */
-    inset: 1px; 
-    /* Цвет фона самой панели */
+    inset: 1px; /* Отступ 1px создает рамку */
     background: rgba(14, 15, 20, 0.95); 
-    z-index: -1; /* Кладем ПОД контент */
-    /* Повторяем форму среза */
+    z-index: -1; 
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
 }
 
@@ -268,7 +256,7 @@ select { outline: none; }
     flex-direction: column;
 }
 
-/* --- ГРУППА РАНГОВ (FIX УГЛОВ) --- */
+/* --- ГРУППА РАНГОВ (MODAL STYLE - NEON) --- */
 
 .rank-filter-group { 
     display: flex; 
@@ -281,123 +269,69 @@ select { outline: none; }
 .rank-filter-btn {
     position: relative;
     z-index: 1;
-    
-    /* Крупные размеры */
     min-width: 80px; 
     height: 48px;
     padding: 0 25px;
-    
-    /* Убираем стандартную рамку */
     border: none !important;
     
-    /* Фон родителя теперь работает как ЦВЕТ РАМКИ */
-    background: rgba(255, 255, 255, 0.15); 
-    
-    /* Текст */
-    color: var(--text-muted); 
     font-family: var(--font-head); 
     font-weight: 800; 
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    
+    font-size: 1.4rem;
+    letter-spacing: 1px;
     cursor: pointer; 
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     
-    /* Форма */
-    clip-path: polygon(
-        12px 0, 100% 0, 
-        100% calc(100% - 12px), 
-        calc(100% - 12px) 100%, 
-        0 100%, 
-        0 12px
-    );
+    /* Состояние по умолчанию (Серый) */
+    background: rgba(255, 255, 255, 0.1); 
+    color: rgba(255, 255, 255, 0.3);
+    
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: all 0.2s ease;
 }
 
-/* ВНУТРЕННЯЯ ЧАСТЬ КНОПКИ (Псевдо-элемент) */
+/* Внутренняя часть (Темный фон) */
 .rank-filter-btn::after {
     content: '';
     position: absolute;
-    inset: 1px; /* Толщина рамки 1px */
-    background: #0b0c10; /* Темный фон внутри */
+    inset: 2px; /* Толщина рамки 2px */
+    background: #0b0c10;
     z-index: -1;
-    
-    clip-path: polygon(
-        12px 0, 100% 0, 
-        100% calc(100% - 12px), 
-        calc(100% - 12px) 100%, 
-        0 100%, 
-        0 12px
-    );
-    transition: all 0.3s ease;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 
-/* Эффект при наведении (Левитация + Свет рамки) */
-.rank-filter-btn:hover { 
-    transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.5); /* Рамка становится ярче */
-    color: #fff; 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
-.rank-filter-btn:hover::after {
-    background: rgba(255, 255, 255, 0.05); /* Внутренность чуть светлее */
+.rank-filter-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
 }
 
-/* --- АКТИВНЫЕ СОСТОЯНИЯ (ИДЕАЛЬНЫЕ РАМКИ) --- */
+/* --- АКТИВНЫЕ СОСТОЯНИЯ (NEON GLOW) --- */
 
-/* UR: Золотой */
+/* 1. UR */
 .rank-filter-btn.active[data-rank="UR"] { 
-    background: var(--gold); /* Цвет рамки */
-    color: var(--gold); 
-    box-shadow: 0 0 20px var(--gold-dim); 
-    text-shadow: 0 0 10px rgba(255, 174, 0, 0.8);
+    background: var(--gold); color: var(--gold);
+    text-shadow: 0 0 15px var(--gold); box-shadow: 0 0 20px rgba(255, 174, 0, 0.2);
 }
-.rank-filter-btn.active[data-rank="UR"]::after {
-    background: rgba(255, 174, 0, 0.15); /* Цвет заливки */
-}
-
-/* SSR: Циан */
+/* 2. SSR */
 .rank-filter-btn.active[data-rank="SSR"] { 
-    background: var(--cyan); 
-    color: var(--cyan); 
-    box-shadow: 0 0 20px rgba(95, 251, 241, 0.2);
-    text-shadow: 0 0 10px rgba(95, 251, 241, 0.8);
+    background: var(--cyan); color: var(--cyan);
+    text-shadow: 0 0 15px var(--cyan); box-shadow: 0 0 20px rgba(95, 251, 241, 0.2);
 }
-.rank-filter-btn.active[data-rank="SSR"]::after {
-    background: rgba(95, 251, 241, 0.15);
-}
-
-/* SR: Зеленый */
+/* 3. SR */
 .rank-filter-btn.active[data-rank="SR"] { 
-    background: #00ff9d; 
-    color: #00ff9d; 
-    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2); 
-    text-shadow: 0 0 10px rgba(0, 255, 157, 0.8);
+    background: #00ff9d; color: #00ff9d;
+    text-shadow: 0 0 15px #00ff9d; box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
 }
-.rank-filter-btn.active[data-rank="SR"]::after {
-    background: rgba(0, 255, 157, 0.15);
-}
-
-/* R: Оранжевый */
+/* 4. R */
 .rank-filter-btn.active[data-rank="R"] { 
-    background: #ff8e3c; 
-    color: #ff8e3c; 
-    box-shadow: 0 0 20px rgba(255, 142, 60, 0.2); 
-    text-shadow: 0 0 10px rgba(255, 142, 60, 0.8);
+    background: #ff8e3c; color: #ff8e3c;
+    text-shadow: 0 0 15px #ff8e3c; box-shadow: 0 0 20px rgba(255, 142, 60, 0.2);
 }
-.rank-filter-btn.active[data-rank="R"]::after {
-    background: rgba(255, 142, 60, 0.15);
+/* 5. N */
+.rank-filter-btn.active[data-rank="N"] { 
+    background: #ff003c; color: #ff003c;
+    text-shadow: 0 0 15px #ff003c; box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
 }
 
-/* N: Красный */
-.rank-filter-btn.active[data-rank="N"] { 
-    background: #ff003c; 
-    color: #ff003c; 
-    box-shadow: 0 0 20px rgba(255, 0, 60, 0.2); 
-    text-shadow: 0 0 10px rgba(255, 0, 60, 0.8);
-}
-.rank-filter-btn.active[data-rank="N"]::after {
-    background: rgba(255, 0, 60, 0.15);
-}
 
 /* Разделитель (Separator) */
 .filter-separator {
