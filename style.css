@@ -155,23 +155,34 @@ select { outline: none; }
     display: flex; align-items: center;
 }
 
-/* --- РЯД 1: TOP (FIX РАМОК) --- */
+/* --- РЯД 1: TOP (FIX ВЫПАДАЮЩЕГО СПИСКА) --- */
 .top-row {
     position: relative;
-    z-index: 1;
-    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+    z-index: 100; /* Высокий Z-index для селекта */
     gap: 20px; 
     height: 70px;
-    border: none !important; /* Убираем border */
-    background: var(--border-color); /* Фон = Цвет рамки */
+    
+    /* Убираем clip-path с родителя! */
+    border: none !important;
+    background: transparent; 
     box-shadow: none;
 }
 
-/* ВНУТРЕННИЙ ТЕМНЫЙ ФОН TOP-ROW */
+/* 1. РИСУЕМ ВНЕШНЮЮ ФОРМУ (ЦВЕТ РАМКИ) */
+.top-row::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--border-color); 
+    z-index: -2;
+    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+}
+
+/* 2. РИСУЕМ ВНУТРЕННИЙ ФОН */
 .top-row::after {
     content: '';
     position: absolute;
-    inset: 1px; /* Отступ 1px создает рамку */
+    inset: 1px; /* Отступ 1px */
     background: rgba(14, 15, 20, 0.95); 
     z-index: -1; 
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
@@ -251,7 +262,7 @@ select { outline: none; }
     width: 0; height: 0; 
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-top: 5px solid var(--gold); /* Заменится для аниме */
+    border-top: 5px solid var(--gold);
     transition: 0.3s;
 }
 
