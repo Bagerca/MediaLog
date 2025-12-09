@@ -241,7 +241,13 @@ select { outline: none; }
 }
 
 /* Группа Рангов */
-.rank-filter-group { display: flex; gap: 5px; flex-wrap: wrap; }
+.rank-filter-group { 
+    display: flex; 
+    gap: 5px; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    width: 100%; 
+}
 .rank-filter-btn {
     padding: 6px 16px; border: 1px solid var(--border-color); background: transparent;
     color: var(--text-muted); font-family: var(--font-head); font-weight: 800; font-size: 0.9rem;
