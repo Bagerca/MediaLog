@@ -93,25 +93,35 @@
                 </div>
             </div>
 
-            <!-- РЯД 2: ФИЛЬТРЫ РАНГОВ -->
-            <div class="deck-row middle-row">
-                <span class="module-label">RANK_FILTERS</span>
-                <div class="rank-filter-group">
-                    <button class="rank-filter-btn" data-rank="UR">UR</button>
-                    <button class="rank-filter-btn" data-rank="SSR">SSR</button>
-                    <button class="rank-filter-btn" data-rank="SR">SR</button>
-                    <button class="rank-filter-btn" data-rank="R">R</button>
-                    <button class="rank-filter-btn" data-rank="N">N</button>
-                </div>
-            </div>
-
-            <!-- РЯД 3: ТЕГИ -->
+            <!-- РЯД 2 (ОБЪЕДИНЕННЫЙ): РАНГИ + ТЕГИ -->
             <div class="deck-row bottom-row">
                 <div class="filter-header">
-                    <span class="module-label">TAG_FILTERS</span>
+                    <span class="module-label">DATABASE_FILTERS</span>
                     <button id="clearTagsBtn" class="clear-btn" style="display: none;">RESET ALL [X]</button>
                 </div>
-                <div class="tag-matrix" id="filterOptions"></div>
+
+                <!-- Контейнер для фильтров -->
+                <div class="filters-container">
+                    
+                    <!-- 1. Группа Рангов -->
+                    <div class="rank-filter-group" style="margin-bottom: 15px;">
+                        <button class="rank-filter-btn" data-rank="UR">UR</button>
+                        <button class="rank-filter-btn" data-rank="SSR">SSR</button>
+                        <button class="rank-filter-btn" data-rank="SR">SR</button>
+                        <button class="rank-filter-btn" data-rank="R">R</button>
+                        <button class="rank-filter-btn" data-rank="N">N</button>
+                    </div>
+
+                    <!-- 2. Разделитель -->
+                    <div class="filter-separator">
+                        <div class="sep-line"></div>
+                        <div class="sep-icon">///</div>
+                        <div class="sep-line"></div>
+                    </div>
+
+                    <!-- 3. Группа Тегов -->
+                    <div class="tag-matrix" id="filterOptions"></div>
+                </div>
             </div>
         </div>
 
