@@ -74,15 +74,33 @@
 
                 <!-- Сортировка + Вид -->
                 <div class="group-right">
+                    
+                    <!-- КАСТОМНЫЙ МОДУЛЬ СОРТИРОВКИ -->
                     <div class="sort-module">
                         <span class="module-label-mini">SORT_BY</span>
-                        <select id="sortSelect" class="sort-select">
+                        
+                        <!-- Скрытый нативный селект -->
+                        <select id="sortSelect" style="display: none;">
+                            <option value="name_asc">NAME (A-Z)</option>
+                            <option value="name_desc">NAME (Z-A)</option>
                             <option value="date_desc">DATE (NEWEST)</option>
                             <option value="date_asc">DATE (OLDEST)</option>
                             <option value="rank_desc">RANK (HIGH>LOW)</option>
                             <option value="rank_asc">RANK (LOW>HIGH)</option>
-                            <option value="name_asc">NAME (A-Z)</option>
                         </select>
+
+                        <!-- Визуальный кастомный селект -->
+                        <div class="custom-select-wrapper" id="customSelectWrapper">
+                            <div class="select-selected">NAME (A-Z)</div>
+                            <div class="select-items">
+                                <div class="select-item same-as-selected" data-value="name_asc">NAME (A-Z)</div>
+                                <div class="select-item" data-value="name_desc">NAME (Z-A)</div>
+                                <div class="select-item" data-value="date_desc">DATE (NEWEST)</div>
+                                <div class="select-item" data-value="date_asc">DATE (OLDEST)</div>
+                                <div class="select-item" data-value="rank_desc">RANK (HIGH>LOW)</div>
+                                <div class="select-item" data-value="rank_asc">RANK (LOW>HIGH)</div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="view-controls">
@@ -212,7 +230,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- 2. Статус (НОВОЕ) -->
+                                    <!-- 2. Статус -->
                                     <div class="input-group">
                                         <label>CUSTOM STATUS OVERRIDE</label>
                                         <input type="text" id="userStatusInput" class="terminal-input" placeholder="> E.G. COMPLETED / DROPPED / 100%">
