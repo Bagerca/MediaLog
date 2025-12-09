@@ -140,11 +140,11 @@ select { outline: none; }
 }
 
 /* =========================================
-   5. CONTROL DECK (3 РЯДА)
+   5. CONTROL DECK (ОБНОВЛЕННЫЙ ЛЕЙАУТ)
    ========================================= */
 .control-deck {
     width: 100%; margin-bottom: 3rem; display: flex; flex-direction: column; gap: 10px; z-index: 50; position: relative;
-    opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s; /* Тоже анимируем появление */
+    opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
 }
 
 /* Общие стили рядов */
@@ -223,8 +223,24 @@ select { outline: none; }
 .view-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
 
 
-/* --- РЯД 2: РАНГИ (5 Цветов) --- */
-.middle-row { gap: 20px; }
+/* --- РЯД 2: КОМБИНИРОВАННЫЙ (Ранги + Теги) --- */
+.bottom-row { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 10px; 
+}
+.filter-header { width: 100%; display: flex; justify-content: space-between; }
+.clear-btn { font-family: var(--font-head); font-size: 0.7rem; color: #ff4d4d; cursor: pointer; letter-spacing: 1px; }
+.clear-btn:hover { text-decoration: underline; }
+
+/* Новый контейнер для фильтров */
+.filters-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Группа Рангов */
 .rank-filter-group { display: flex; gap: 5px; flex-wrap: wrap; }
 .rank-filter-btn {
     padding: 6px 16px; border: 1px solid var(--border-color); background: transparent;
@@ -240,13 +256,30 @@ select { outline: none; }
 .rank-filter-btn.active[data-rank="R"] { background: #ff8e3c; color: #000; border-color: #ff8e3c; box-shadow: 0 0 10px rgba(255, 142, 60, 0.3); }
 .rank-filter-btn.active[data-rank="N"] { background: #ff003c; color: #000; border-color: #ff003c; box-shadow: 0 0 10px rgba(255, 0, 60, 0.3); }
 
+/* Разделитель (Separator) */
+.filter-separator {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin: 10px 0 20px 0;
+    opacity: 0.5;
+}
+.sep-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-color) 20%, var(--border-color) 80%, transparent);
+    flex-grow: 1;
+}
+.sep-icon {
+    font-family: var(--font-head);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    font-weight: 700;
+}
 
-/* --- РЯД 3: ТЕГИ --- */
-.bottom-row { flex-direction: column; align-items: flex-start; gap: 10px; }
-.filter-header { width: 100%; display: flex; justify-content: space-between; }
-.clear-btn { font-family: var(--font-head); font-size: 0.7rem; color: #ff4d4d; cursor: pointer; letter-spacing: 1px; }
-.clear-btn:hover { text-decoration: underline; }
-.tag-matrix { display: flex; flex-wrap: wrap; gap: 6px; }
+/* Сетка Тегов */
+.tag-matrix { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
 .tag-btn {
     padding: 4px 10px; font-family: var(--font-head); font-size: 0.75rem; color: var(--text-muted);
     border: 1px solid var(--border-color); background: transparent; cursor: pointer; transition: 0.2s;
