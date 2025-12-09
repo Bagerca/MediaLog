@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
     const STORAGE_KEY = `resonance_data_${pageType}`;
-    const GRID_PREF_KEY = 'resonance_grid_density'; // Ключ для настройки сетки
+    const GRID_PREF_KEY = 'resonance_grid_density'; 
     
     // Элементы контекстного меню
     const ctxMenu = document.getElementById('ctxMenu');
@@ -23,11 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Состояние фильтров
     let currentMode = 'mine'; 
     let activeTags = new Set();
-    let activeRanks = new Set();
+    
+    // ВАЖНО: Инициализируем активные ранги сразу ВСЕМИ значениями
+    // Чтобы при старте кнопки горели и показывались все категории
+    let activeRanks = new Set(['UR', 'SSR', 'SR', 'R', 'N']);
+    
     let onlyFavorites = false;
     let currentSort = 'date_desc';
 
-    // Веса рангов
+    // Веса рангов для сортировки
     const rankWeight = { 'UR': 5, 'SSR': 4, 'SR': 3, 'R': 2, 'N': 1 };
 
     // --- 1. ЗАГРУЗКА ДАННЫХ ---
@@ -51,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let items = [...allItemsDB]; 
 
-        // 1. Фильтр: Источник
+        // 1. Фильтр: Источник (Global DB / My Collection)
         if (currentMode === 'mine') {
             items = items.filter(i => userLibrary[i.title]);
         }
@@ -74,11 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
             items = items.filter(i => userLibrary[i.title] && userLibrary[i.title].isFavorite);
         }
 
-        // 5. Фильтр: Ранги
-        if (activeRanks.size > 0) {
+        // 5. Фильтр: Ранги (Логика: показывать только если ранг в списке активных)
+        // Если item в библиотеке - проверяем его ранг.
+        // Если item нет в библиотеке (Global DB) - считаем его условно 'N' или показываем всегда?
+        // Решение: Фильтр рангов работает только для добавленных игр.
+        if (currentMode === 'mine') {
             items = items.filter(i => {
                 const userData = userLibrary[i.title];
+                // Если данных нет (ошибка), не показываем
                 if (!userData) return false; 
+                // Проверяем наличие ранга в активном сете
                 return activeRanks.has(userData.rank);
             });
         }
@@ -120,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const prefix = (pageType === 'games') ? 'game' : 'anime';
         
+        // Иконки SVG
         const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
         const iconPlus = `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
         const iconStar = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
@@ -129,9 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const userRank = userData ? userData.rank : null;
             const isFav = userData ? userData.isFavorite : false;
             
+            // Если ранг есть, рисуем бейдж
             const rankHtml = userRank ? `<div class="${prefix}-rank-badge ${userRank.toLowerCase()}">${userRank}</div>` : '';
             const favHtml = isFav ? `<div class="fav-icon">${iconStar}</div>` : '';
 
+            // Кнопка добавления (в режиме Global DB)
             let btnHtml = '';
             if (currentMode === 'all') {
                 const btnClass = userData ? 'status-btn active' : 'status-btn';
@@ -139,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnHtml = `<div class="${btnClass}">${btnIcon}</div>`;
             }
 
+            // Статус и цвет
             let statusText = "STATUS: MISSING";
             let statusColor = "inherit";
             if (userData) {
@@ -201,14 +214,19 @@ document.addEventListener('DOMContentLoaded', () => {
             renderContent();
         });
 
-        // 5. Фильтры рангов
+        // 5. Фильтры рангов (АКТИВНЫ ПО УМОЛЧАНИЮ)
         document.querySelectorAll('.rank-filter-btn').forEach(btn => {
+            // При инициализации делаем кнопку активной визуально
+            btn.classList.add('active');
+
             btn.addEventListener('click', () => {
                 const rank = btn.dataset.rank;
                 if (activeRanks.has(rank)) {
+                    // Если ранг был включен -> выключаем
                     activeRanks.delete(rank);
                     btn.classList.remove('active');
                 } else {
+                    // Если был выключен -> включаем
                     activeRanks.add(rank);
                     btn.classList.add('active');
                 }
@@ -216,17 +234,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // --- 6. НАСТРОЙКА СЕТКИ (GRID DENSITY) С ЗАПОМИНАНИЕМ ---
+        // --- 6. НАСТРОЙКА СЕТКИ (GRID DENSITY) ---
         const grid = document.getElementById('cards-container');
         const viewBtns = document.querySelectorAll('.view-btn');
         
-        // Загружаем сохраненную настройку или ставим '5' по умолчанию
         let savedCols = localStorage.getItem(GRID_PREF_KEY) || '5';
-        
-        // Применяем сразу при загрузке
         if(grid) grid.className = `grid-cards cols-${savedCols}`;
         
-        // Обновляем активную кнопку
         viewBtns.forEach(btn => {
             if(btn.dataset.cols === savedCols) {
                 btn.classList.add('active');
@@ -234,27 +248,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.remove('active');
             }
 
-            // Обработчик клика
             btn.addEventListener('click', () => {
-                // Визуальное переключение кнопок
                 viewBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                // Применение стиля сетки
                 const cols = btn.dataset.cols;
                 if(grid) grid.className = `grid-cards cols-${cols}`;
-                
-                // Сохранение выбора в LocalStorage
                 localStorage.setItem(GRID_PREF_KEY, cols);
             });
         });
 
-
-        // 7. Закрытие меню
+        // 7. Закрытие меню и модалки
         document.addEventListener('click', () => { if(ctxMenu) ctxMenu.style.display = 'none'; });
-        
-        // 8. Закрытие модалки
         document.getElementById('closeModal').onclick = () => els.modal.classList.remove('active');
+        
         els.modal.onclick = (e) => { 
             if(e.target === els.modal || e.target.classList.contains('modal-window-wrapper')) {
                  els.modal.classList.remove('active');
@@ -262,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         document.onkeydown = (e) => { if (e.key === 'Escape') els.modal.classList.remove('active'); };
 
-        // 9. Анимация заголовка
+        // 8. Анимация заголовка (эффект расшифровки)
         const h1 = document.querySelector('.page-header h1');
         if(h1) {
             const txt = h1.innerText;
@@ -342,6 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalDev').textContent = item.dev || 'UNKNOWN';
         document.getElementById('modalPlatform').textContent = item.platform || 'N/A';
         
+        // Генерация тегов в модалке
         const tagsBox = document.getElementById('modalTags');
         tagsBox.innerHTML = item.tags.split(',').map(t => `<span class="tech-tag">${t.trim()}</span>`).join('');
 
@@ -354,28 +362,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const userData = userLibrary[currentItemTitle];
         const rankBox = els.viewRank;
 
+        // Цвета рангов (для JS покраски текста, которая подхватывается CSS currentColor)
         const rankConfig = {
-            'UR':  { color: 'var(--gold)', shadow: 'rgba(255, 174, 0, 0.4)' },
-            'SSR': { color: 'var(--cyan)', shadow: 'rgba(95, 251, 241, 0.4)' },
-            'SR':  { color: '#00ff9d',     shadow: 'rgba(0, 255, 157, 0.4)' },
-            'R':   { color: '#ff8e3c',     shadow: 'rgba(255, 142, 60, 0.4)' },
-            'N':   { color: '#ff003c',     shadow: 'rgba(255, 0, 60, 0.4)' }
+            'UR':  'var(--gold)',
+            'SSR': 'var(--cyan)',
+            'SR':  '#00ff9d',
+            'R':   '#ff8e3c',
+            'N':   '#ff003c'
         };
 
         if (userData) {
             els.btnAdd.style.display = 'none';
             els.grpActions.style.display = 'flex';
             
-            const rInfo = rankConfig[userData.rank] || rankConfig['N'];
+            const color = rankConfig[userData.rank] || rankConfig['N'];
             
+            // ВАЖНО: Мы задаем только цвет текста.
+            // CSS (background: currentColor) автоматически сделает рамку этого цвета.
             rankBox.textContent = userData.rank;
-            rankBox.style.color = rInfo.color;
-            rankBox.style.borderColor = rInfo.color;
-            rankBox.style.boxShadow = `0 0 20px ${rInfo.shadow}, inset 0 0 10px ${rInfo.shadow}`;
-            rankBox.style.textShadow = `0 0 10px ${rInfo.shadow}`;
+            rankBox.style.color = color;
             
-            els.bgRank.textContent = userData.rank;
-            els.bgRank.style.color = rInfo.color;
+            // Тени и бордеры убираем из JS, так как они теперь управляются через CSS класс
+            // rankBox.style.boxShadow = ... (Убрано, контролируется CSS)
+            
+            // Фоновый водяной знак (если вдруг CSS не скрыл)
+            if(els.bgRank) els.bgRank.textContent = userData.rank;
+            if(els.bgRank) els.bgRank.style.color = color;
             
             els.viewNote.textContent = userData.note || "No notes recorded.";
             els.viewNote.style.color = userData.note ? "#ccc" : "#666";
@@ -384,12 +396,9 @@ document.addEventListener('DOMContentLoaded', () => {
             els.grpActions.style.display = 'none';
             
             rankBox.textContent = "N/A";
-            rankBox.style.color = "#666";
-            rankBox.style.borderColor = "rgba(255,255,255,0.1)";
-            rankBox.style.boxShadow = "none";
-            rankBox.style.textShadow = "none";
+            rankBox.style.color = "#666"; // Серая рамка для незарегистрированных
             
-            els.bgRank.textContent = "";
+            if(els.bgRank) els.bgRank.textContent = "";
             els.viewNote.textContent = "Item not in collection. Add to library to edit.";
         }
     }
@@ -424,6 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     if(els.btnEdit) els.btnEdit.onclick = () => switchMode('edit');
     if(els.btnCancel) els.btnCancel.onclick = () => switchMode('view');
+    
     if(els.btnSave) els.btnSave.onclick = () => {
         const selectedRank = document.querySelector('.rank-opt.active')?.dataset.value || 'N';
         const note = els.noteInput.value;
@@ -432,12 +442,15 @@ document.addEventListener('DOMContentLoaded', () => {
         userLibrary[currentItemTitle] = { ...oldData, rank: selectedRank, note: note, customStatus: customStatus, timestamp: Date.now() };
         saveToStorage(); showToast('DATA LOG UPDATED'); updateViewModeUI(); switchMode('view'); renderContent();
     };
+    
     if(els.btnDelete) els.btnDelete.onclick = () => {
         if(confirm('DELETE RECORD PERMANENTLY?')) {
             delete userLibrary[currentItemTitle];
             saveToStorage(); showToast('RECORD DELETED'); updateViewModeUI(); renderContent(); els.modal.classList.remove('active');
         }
     };
+    
+    // Переключение ранга в режиме редактирования
     els.rankBtns.forEach(btn => {
         btn.onclick = () => {
             els.rankBtns.forEach(b => b.classList.remove('active'));
@@ -446,6 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function saveToStorage() { localStorage.setItem(STORAGE_KEY, JSON.stringify(userLibrary)); }
+    
     function showToast(msg) {
         const toast = document.getElementById('sysToast');
         if(!toast) return;
@@ -460,7 +474,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!container) return;
         const tags = new Set();
         items.forEach(i => (i.tags || '').split(',').forEach(t => tags.add(t.trim())));
+        
         container.innerHTML = Array.from(tags).sort().map(t => `<button class="tag-btn" data-tag="${t}">${t}</button>`).join('');
+        
         container.querySelectorAll('.tag-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const tag = btn.dataset.tag;
@@ -470,6 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderContent();
             });
         });
+        
         if(clearBtn) clearBtn.onclick = () => {
             activeTags.clear();
             container.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
