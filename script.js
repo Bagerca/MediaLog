@@ -24,11 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentMode = 'mine'; 
     let activeTags = new Set();
     
-    // ВАЖНО: Инициализируем активные ранги сразу ВСЕМИ значениями
-    // Это заставляет кнопки светиться при старте и показывать весь контент
+    // ВАЖНО: Инициализируем активные ранги сразу ВСЕМИ значениями, 
+    // чтобы при старте показывался весь контент.
     let activeRanks = new Set(['UR', 'SSR', 'SR', 'R', 'N']);
     
-    let onlyFavorites = false;
+    // Состояние фильтра избранного: 0 = ALL, 1 = FAV_ONLY, 2 = NO_FAV
+    let favFilterState = 0; 
+    
     let currentSort = 'name_asc'; // Сортировка по умолчанию: А-Я
 
     // Веса рангов для сортировки
@@ -73,10 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 4. Фильтр: Избранное
-        if (onlyFavorites) {
+        // 4. Фильтр: Избранное (3 состояния)
+        if (favFilterState === 1) {
+            // Состояние 1: Только избранное
             items = items.filter(i => userLibrary[i.title] && userLibrary[i.title].isFavorite);
+        } else if (favFilterState === 2) {
+            // Состояние 2: Скрыть избранное (показать только обычные)
+            items = items.filter(i => !userLibrary[i.title] || !userLibrary[i.title].isFavorite);
         }
+        // Состояние 0: Показываем всё (фильтр не применяется)
 
         // 5. Фильтр: Ранги
         // Работает только для "Моей коллекции", так как у игр из GlobalDB ранга нет
@@ -200,12 +207,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // 2. Фильтр Избранного
+        // 2. Фильтр Избранного (3-way toggle)
         const favBtn = document.getElementById('favFilterBtn');
+        const favBtnText = favBtn ? favBtn.querySelector('span') : null;
+
         if(favBtn) {
             favBtn.addEventListener('click', () => {
-                onlyFavorites = !onlyFavorites;
-                favBtn.classList.toggle('active', onlyFavorites);
+                // Циклическое переключение: 0 -> 1 -> 2 -> 0
+                favFilterState = (favFilterState + 1) % 3;
+
+                // Сброс классов
+                favBtn.classList.remove('active', 'excluded');
+                
+                if (favFilterState === 0) {
+                    // ALL (Стандарт)
+                    if(favBtnText) favBtnText.textContent = "FAV_FILTER";
+                } else if (favFilterState === 1) {
+                    // FAV ONLY (Активен)
+                    favBtn.classList.add('active');
+                    if(favBtnText) favBtnText.textContent = "FAV_ONLY";
+                } else {
+                    // NO FAV (Исключен - Красный)
+                    favBtn.classList.add('excluded');
+                    if(favBtnText) favBtnText.textContent = "NO_FAVS";
+                }
+
                 renderContent();
             });
         }
