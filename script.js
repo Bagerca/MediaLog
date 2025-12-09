@@ -8,32 +8,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const STORAGE_KEY = `resonance_data_${pageType}`;
     const GRID_PREF_KEY = 'resonance_grid_density'; 
     
-    // Элементы контекстного меню
+    // Элементы UI
     const ctxMenu = document.getElementById('ctxMenu');
     const ctxEdit = document.getElementById('ctxEdit');
     const ctxFav = document.getElementById('ctxFav');
     const ctxDel = document.getElementById('ctxDel');
     
+    // Кнопка фильтра (Избранное / Скрыть)
+    const filterBtn = document.getElementById('favFilterBtn');
+    const filterBtnLabel = filterBtn ? filterBtn.querySelector('span') : null;
+    const filterBtnIcon = filterBtn ? filterBtn.querySelector('svg') : null;
+
+    // SVG ИКОНКИ
+    const ICON_STAR = `<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>`;
+    const ICON_HIDE = `<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>`;
+
     let contextTargetTitle = null;
 
     // --- СОСТОЯНИЕ ---
     let allItemsDB = [];
     let userLibrary = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     
-    // Состояние фильтров
-    let currentMode = 'mine'; 
+    let currentMode = 'mine'; // 'mine' или 'all'
     let activeTags = new Set();
     
-    // ВАЖНО: Инициализируем активные ранги сразу ВСЕМИ значениями, 
-    // чтобы при старте показывался весь контент.
+    // Ранги активны по умолчанию
     let activeRanks = new Set(['UR', 'SSR', 'SR', 'R', 'N']);
     
-    // Состояние фильтра избранного: 0 = ALL, 1 = FAV_ONLY, 2 = NO_FAV
-    let favFilterState = 0; 
+    // Состояния фильтров
+    let favFilterState = 0; // Для MY_COLLECTION: 0=ALL, 1=FAV, 2=NO_FAV
+    let hideOwnedState = false; // Для GLOBAL_DB: true/false (Скрыть добавленные)
     
-    let currentSort = 'name_asc'; // Сортировка по умолчанию: А-Я
-
-    // Веса рангов для сортировки
+    let currentSort = 'name_asc';
     const rankWeight = { 'UR': 5, 'SSR': 4, 'SR': 3, 'R': 2, 'N': 1 };
 
     // --- 1. ЗАГРУЗКА ДАННЫХ ---
@@ -44,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 allItemsDB = data[pageType];
                 generateTagMatrix(allItemsDB);
                 initInterface();
+                // Принудительно обновляем вид кнопки при старте
+                updateFilterButton(); 
                 renderContent();
             })
             .catch(err => console.error("Data Load Error:", err));
@@ -57,16 +65,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let items = [...allItemsDB]; 
 
-        // 1. Фильтр: Источник (Global DB / My Collection)
+        // 1. Фильтр: Источник и Спец.Фильтры
         if (currentMode === 'mine') {
+            // --- РЕЖИМ: МОЯ КОЛЛЕКЦИЯ ---
+            
+            // Сначала берем только свои
             items = items.filter(i => userLibrary[i.title]);
+
+            // Применяем фильтр Избранного (3 состояния)
+            if (favFilterState === 1) {
+                items = items.filter(i => userLibrary[i.title].isFavorite);
+            } else if (favFilterState === 2) {
+                items = items.filter(i => !userLibrary[i.title].isFavorite);
+            }
+
+            // Применяем фильтр Рангов (только для своей коллекции)
+            items = items.filter(i => {
+                const userData = userLibrary[i.title];
+                if (!userData) return false; 
+                return activeRanks.has(userData.rank);
+            });
+
+        } else {
+            // --- РЕЖИМ: ГЛОБАЛЬНАЯ БАЗА ---
+            
+            // Фильтр "Скрыть добавленные"
+            if (hideOwnedState) {
+                items = items.filter(i => !userLibrary[i.title]);
+            }
         }
 
-        // 2. Фильтр: Поиск
+        // 2. Фильтр: Поиск (Общий)
         const searchVal = document.getElementById('searchInput')?.value.toLowerCase().trim();
         if (searchVal) items = items.filter(i => i.title.toLowerCase().includes(searchVal));
 
-        // 3. Фильтр: Теги
+        // 3. Фильтр: Теги (Общий)
         if (activeTags.size > 0) {
             const tagsArr = Array.from(activeTags);
             items = items.filter(i => {
@@ -75,55 +108,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 4. Фильтр: Избранное (3 состояния)
-        if (favFilterState === 1) {
-            // Состояние 1: Только избранное
-            items = items.filter(i => userLibrary[i.title] && userLibrary[i.title].isFavorite);
-        } else if (favFilterState === 2) {
-            // Состояние 2: Скрыть избранное (показать только обычные)
-            items = items.filter(i => !userLibrary[i.title] || !userLibrary[i.title].isFavorite);
-        }
-        // Состояние 0: Показываем всё (фильтр не применяется)
-
-        // 5. Фильтр: Ранги
-        // Работает только для "Моей коллекции", так как у игр из GlobalDB ранга нет
-        if (currentMode === 'mine') {
-            items = items.filter(i => {
-                const userData = userLibrary[i.title];
-                if (!userData) return false; 
-                return activeRanks.has(userData.rank);
-            });
-        }
-
-        // 6. Сортировка
+        // 4. Сортировка
         items.sort((a, b) => {
             const dataA = userLibrary[a.title];
             const dataB = userLibrary[b.title];
 
-            // Хелперы для безопасного доступа к свойствам
             const getRank = (data) => data ? rankWeight[data.rank] || 0 : 0;
             const getTime = (data) => data ? data.timestamp : 0;
 
             switch (currentSort) {
-                case 'name_asc': 
-                    return a.title.localeCompare(b.title);
-                
-                case 'name_desc': // Z-A
-                    return b.title.localeCompare(a.title);
-                
-                case 'rank_desc':
-                    // Сначала высокий ранг, при равенстве - по имени
-                    return (getRank(dataB) - getRank(dataA)) || a.title.localeCompare(b.title);
-                
-                case 'rank_asc':
-                    // Сначала низкий ранг
-                    return (getRank(dataA) - getRank(dataB)) || a.title.localeCompare(b.title);
-                
+                case 'name_asc': return a.title.localeCompare(b.title);
+                case 'name_desc': return b.title.localeCompare(a.title);
+                case 'rank_desc': return (getRank(dataB) - getRank(dataA)) || a.title.localeCompare(b.title);
+                case 'rank_asc': return (getRank(dataA) - getRank(dataB)) || a.title.localeCompare(b.title);
                 case 'date_asc':
                     if (getTime(dataA) === 0) return 1; 
                     if (getTime(dataB) === 0) return -1;
                     return getTime(dataA) - getTime(dataB);
-
                 case 'date_desc':
                 default:
                     if (getTime(dataA) === 0) return 1;
@@ -141,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const prefix = (pageType === 'games') ? 'game' : 'anime';
         
-        // Иконки SVG
         const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
         const iconPlus = `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
         const iconStar = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
@@ -151,11 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const userRank = userData ? userData.rank : null;
             const isFav = userData ? userData.isFavorite : false;
             
-            // Если ранг есть, рисуем бейдж
             const rankHtml = userRank ? `<div class="${prefix}-rank-badge ${userRank.toLowerCase()}">${userRank}</div>` : '';
             const favHtml = isFav ? `<div class="fav-icon">${iconStar}</div>` : '';
 
-            // Кнопка добавления (в режиме Global DB)
             let btnHtml = '';
             if (currentMode === 'all') {
                 const btnClass = userData ? 'status-btn active' : 'status-btn';
@@ -163,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnHtml = `<div class="${btnClass}">${btnIcon}</div>`;
             }
 
-            // Статус и цвет
             let statusText = "STATUS: MISSING";
             let statusColor = "inherit";
             if (userData) {
@@ -194,44 +191,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     }
 
-    // --- 3. ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА ---
+    // --- 3. ЛОГИКА КНОПКИ ФИЛЬТРА (ИЗБРАННОЕ / СКРЫТЬ) ---
+    function updateFilterButton() {
+        if (!filterBtn) return;
+
+        // Сброс всех классов
+        filterBtn.classList.remove('active', 'excluded');
+
+        if (currentMode === 'mine') {
+            // Режим: МОЯ КОЛЛЕКЦИЯ (Звезда)
+            filterBtn.innerHTML = `<svg viewBox="0 0 24 24">${ICON_STAR}</svg><span></span>`;
+            const span = filterBtn.querySelector('span');
+            
+            if (favFilterState === 0) {
+                span.textContent = "FAV_FILTER";
+            } else if (favFilterState === 1) {
+                span.textContent = "FAV_ONLY";
+                filterBtn.classList.add('active');
+            } else {
+                span.textContent = "NO_FAVS";
+                filterBtn.classList.add('excluded');
+            }
+        } else {
+            // Режим: ГЛОБАЛЬНАЯ БАЗА (Глаз)
+            filterBtn.innerHTML = `<svg viewBox="0 0 24 24">${ICON_HIDE}</svg><span></span>`;
+            const span = filterBtn.querySelector('span');
+
+            if (hideOwnedState) {
+                span.textContent = "OWNED_HIDDEN";
+                filterBtn.classList.add('active');
+            } else {
+                span.textContent = "HIDE_OWNED";
+            }
+        }
+    }
+
+    // --- 4. ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА ---
     function initInterface() {
         
-        // 1. Переключатель режима
+        // 1. Переключатель режима (Global / Mine)
         document.querySelectorAll('.mode-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
+                
                 currentMode = btn.dataset.mode;
+                
+                // При смене режима обновляем вид кнопки фильтра
+                updateFilterButton();
                 renderContent();
             });
         });
 
-        // 2. Фильтр Избранного (3-way toggle)
-        const favBtn = document.getElementById('favFilterBtn');
-        const favBtnText = favBtn ? favBtn.querySelector('span') : null;
-
-        if(favBtn) {
-            favBtn.addEventListener('click', () => {
-                // Циклическое переключение: 0 -> 1 -> 2 -> 0
-                favFilterState = (favFilterState + 1) % 3;
-
-                // Сброс классов
-                favBtn.classList.remove('active', 'excluded');
-                
-                if (favFilterState === 0) {
-                    // ALL (Стандарт)
-                    if(favBtnText) favBtnText.textContent = "FAV_FILTER";
-                } else if (favFilterState === 1) {
-                    // FAV ONLY (Активен)
-                    favBtn.classList.add('active');
-                    if(favBtnText) favBtnText.textContent = "FAV_ONLY";
+        // 2. Кнопка Фильтра (Умная логика)
+        if(filterBtn) {
+            filterBtn.addEventListener('click', () => {
+                if (currentMode === 'mine') {
+                    // Логика Избранного (0 -> 1 -> 2 -> 0)
+                    favFilterState = (favFilterState + 1) % 3;
                 } else {
-                    // NO FAV (Исключен - Красный)
-                    favBtn.classList.add('excluded');
-                    if(favBtnText) favBtnText.textContent = "NO_FAVS";
+                    // Логика Скрытия (On / Off)
+                    hideOwnedState = !hideOwnedState;
                 }
-
+                updateFilterButton();
                 renderContent();
             });
         }
@@ -239,41 +261,34 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. Поиск
         document.getElementById('searchInput')?.addEventListener('input', renderContent);
 
-        // --- 4. КАСТОМНАЯ СОРТИРОВКА (NEW) ---
+        // 4. Кастомная Сортировка
         const customWrapper = document.getElementById('customSelectWrapper');
         if (customWrapper) {
             const selectedDiv = customWrapper.querySelector('.select-selected');
             const itemsDiv = customWrapper.querySelector('.select-items');
             const optionDivs = customWrapper.querySelectorAll('.select-item');
-            const nativeSelect = document.getElementById('sortSelect'); // Скрытый селект
+            const nativeSelect = document.getElementById('sortSelect');
 
-            // Открытие/Закрытие
             selectedDiv.addEventListener('click', (e) => {
                 e.stopPropagation();
                 itemsDiv.classList.toggle('select-show');
                 selectedDiv.classList.toggle('select-arrow-active');
             });
 
-            // Выбор элемента
             optionDivs.forEach(div => {
                 div.addEventListener('click', (e) => {
                     const val = div.getAttribute('data-value');
-                    // Обновляем текст
                     selectedDiv.textContent = div.textContent;
-                    // Обновляем выделение
                     optionDivs.forEach(d => d.classList.remove('same-as-selected'));
                     div.classList.add('same-as-selected');
-                    // Логика
                     currentSort = val;
                     if(nativeSelect) nativeSelect.value = val;
-                    // Закрываем
                     itemsDiv.classList.remove('select-show');
                     selectedDiv.classList.remove('select-arrow-active');
                     renderContent();
                 });
             });
 
-            // Закрытие при клике вне
             document.addEventListener('click', (e) => {
                 if (!customWrapper.contains(e.target)) {
                     itemsDiv.classList.remove('select-show');
@@ -282,19 +297,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 5. Фильтры рангов (АКТИВНЫ ПО УМОЛЧАНИЮ)
+        // 5. Фильтры рангов
         document.querySelectorAll('.rank-filter-btn').forEach(btn => {
-            // При старте добавляем класс active (визуально светятся)
-            btn.classList.add('active');
-
+            btn.classList.add('active'); // По умолчанию включены
             btn.addEventListener('click', () => {
                 const rank = btn.dataset.rank;
                 if (activeRanks.has(rank)) {
-                    // Был включен -> выключаем (удаляем из сета, убираем подсветку)
                     activeRanks.delete(rank);
                     btn.classList.remove('active');
                 } else {
-                    // Был выключен -> включаем
                     activeRanks.add(rank);
                     btn.classList.add('active');
                 }
@@ -302,42 +313,33 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // 6. Настройка сетки (GRID DENSITY)
+        // 6. Сетка (Grid Density)
         const grid = document.getElementById('cards-container');
         const viewBtns = document.querySelectorAll('.view-btn');
-        
         let savedCols = localStorage.getItem(GRID_PREF_KEY) || '5';
         if(grid) grid.className = `grid-cards cols-${savedCols}`;
         
         viewBtns.forEach(btn => {
-            if(btn.dataset.cols === savedCols) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
+            if(btn.dataset.cols === savedCols) btn.classList.add('active');
+            else btn.classList.remove('active');
 
             btn.addEventListener('click', () => {
                 viewBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
                 const cols = btn.dataset.cols;
                 if(grid) grid.className = `grid-cards cols-${cols}`;
                 localStorage.setItem(GRID_PREF_KEY, cols);
             });
         });
 
-        // 7. Закрытие меню и модалки
+        // 7. Остальное (Меню, Модалка, Анимация заголовка)
         document.addEventListener('click', () => { if(ctxMenu) ctxMenu.style.display = 'none'; });
         document.getElementById('closeModal').onclick = () => els.modal.classList.remove('active');
-        
         els.modal.onclick = (e) => { 
-            if(e.target === els.modal || e.target.classList.contains('modal-window-wrapper')) {
-                 els.modal.classList.remove('active');
-            }
+            if(e.target === els.modal || e.target.classList.contains('modal-window-wrapper')) els.modal.classList.remove('active');
         };
         document.onkeydown = (e) => { if (e.key === 'Escape') els.modal.classList.remove('active'); };
 
-        // 8. Анимация заголовка
         const h1 = document.querySelector('.page-header h1');
         if(h1) {
             const txt = h1.innerText;
@@ -354,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 4. КОНТЕКСТНОЕ МЕНЮ ---
+    // --- 5. КОНТЕКСТНОЕ МЕНЮ ---
     window.handleRightClick = function(e, title) {
         if (!userLibrary[title]) return; 
         e.preventDefault(); 
@@ -368,7 +370,6 @@ document.addEventListener('DOMContentLoaded', () => {
         openModal(contextTargetTitle); 
         setTimeout(() => switchMode('edit'), 50); 
     };
-    
     if(ctxFav) ctxFav.onclick = () => {
         const item = userLibrary[contextTargetTitle];
         if(item) {
@@ -377,7 +378,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast(item.isFavorite ? 'ADDED TO FAVORITES' : 'REMOVED FROM FAVORITES');
         }
     };
-    
     if(ctxDel) ctxDel.onclick = () => {
         if(confirm(`DELETE "${contextTargetTitle}" FROM DATABASE?`)) {
             delete userLibrary[contextTargetTitle];
@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- 5. МОДАЛЬНОЕ ОКНО ---
+    // --- 6. МОДАЛЬНОЕ ОКНО ---
     const els = {
         modal: document.getElementById('detailModal'),
         viewMode: document.getElementById('viewMode'),
@@ -417,7 +417,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalDev').textContent = item.dev || 'UNKNOWN';
         document.getElementById('modalPlatform').textContent = item.platform || 'N/A';
         
-        // Генерация тегов в модалке
         const tagsBox = document.getElementById('modalTags');
         tagsBox.innerHTML = item.tags.split(',').map(t => `<span class="tech-tag">${t.trim()}</span>`).join('');
 
@@ -429,14 +428,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateViewModeUI() {
         const userData = userLibrary[currentItemTitle];
         const rankBox = els.viewRank;
-
-        // Цвета рангов (для JS покраски текста, которая подхватывается CSS currentColor)
+        
         const rankConfig = {
-            'UR':  'var(--gold)',
-            'SSR': 'var(--cyan)',
-            'SR':  '#00ff9d',
-            'R':   '#ff8e3c',
-            'N':   '#ff003c'
+            'UR':  'var(--gold)', 'SSR': 'var(--cyan)', 'SR':  '#00ff9d', 'R':   '#ff8e3c', 'N':   '#ff003c'
         };
 
         if (userData) {
@@ -445,23 +439,20 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const color = rankConfig[userData.rank] || rankConfig['N'];
             
-            // ВАЖНО: Задаем цвет текста. CSS сам создаст рамку этого цвета.
             rankBox.textContent = userData.rank;
             rankBox.style.color = color;
             
-            // Для фонового водяного знака (если он включен)
-            if(els.bgRank) els.bgRank.textContent = userData.rank;
-            if(els.bgRank) els.bgRank.style.color = color;
-            
+            if(els.bgRank) {
+                els.bgRank.textContent = userData.rank;
+                els.bgRank.style.color = color;
+            }
             els.viewNote.textContent = userData.note || "No notes recorded.";
             els.viewNote.style.color = userData.note ? "#ccc" : "#666";
         } else {
             els.btnAdd.style.display = 'block';
             els.grpActions.style.display = 'none';
-            
             rankBox.textContent = "N/A";
-            rankBox.style.color = "#666"; // Серая рамка
-            
+            rankBox.style.color = "#666";
             if(els.bgRank) els.bgRank.textContent = "";
             els.viewNote.textContent = "Item not in collection. Add to library to edit.";
         }
@@ -490,14 +481,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Modal Actions
     if(els.btnAdd) els.btnAdd.onclick = () => {
         userLibrary[currentItemTitle] = { rank: 'N', note: '', customStatus: '', isFavorite: false, timestamp: Date.now() };
         saveToStorage(); updateViewModeUI(); renderContent(); switchMode('edit'); showToast('ENTRY CREATED // INPUT DETAILS');
     };
     if(els.btnEdit) els.btnEdit.onclick = () => switchMode('edit');
     if(els.btnCancel) els.btnCancel.onclick = () => switchMode('view');
-    
     if(els.btnSave) els.btnSave.onclick = () => {
         const selectedRank = document.querySelector('.rank-opt.active')?.dataset.value || 'N';
         const note = els.noteInput.value;
@@ -506,15 +495,12 @@ document.addEventListener('DOMContentLoaded', () => {
         userLibrary[currentItemTitle] = { ...oldData, rank: selectedRank, note: note, customStatus: customStatus, timestamp: Date.now() };
         saveToStorage(); showToast('DATA LOG UPDATED'); updateViewModeUI(); switchMode('view'); renderContent();
     };
-    
     if(els.btnDelete) els.btnDelete.onclick = () => {
         if(confirm('DELETE RECORD PERMANENTLY?')) {
             delete userLibrary[currentItemTitle];
             saveToStorage(); showToast('RECORD DELETED'); updateViewModeUI(); renderContent(); els.modal.classList.remove('active');
         }
     };
-    
-    // Переключение ранга в режиме редактирования
     els.rankBtns.forEach(btn => {
         btn.onclick = () => {
             els.rankBtns.forEach(b => b.classList.remove('active'));
@@ -523,7 +509,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function saveToStorage() { localStorage.setItem(STORAGE_KEY, JSON.stringify(userLibrary)); }
-    
     function showToast(msg) {
         const toast = document.getElementById('sysToast');
         if(!toast) return;
@@ -538,9 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!container) return;
         const tags = new Set();
         items.forEach(i => (i.tags || '').split(',').forEach(t => tags.add(t.trim())));
-        
         container.innerHTML = Array.from(tags).sort().map(t => `<button class="tag-btn" data-tag="${t}">${t}</button>`).join('');
-        
         container.querySelectorAll('.tag-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const tag = btn.dataset.tag;
@@ -550,7 +533,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderContent();
             });
         });
-        
         if(clearBtn) clearBtn.onclick = () => {
             activeTags.clear();
             container.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
