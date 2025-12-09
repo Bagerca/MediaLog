@@ -207,10 +207,20 @@ select { outline: none; }
 }
 .fav-toggle-btn svg { width: 16px; height: 16px; fill: currentColor; }
 .fav-toggle-btn:hover { color: #fff; border-color: #fff; }
+
+/* Состояние 1: Active (Gold/Cyan) */
 .fav-toggle-btn.active { 
     border-color: var(--gold); color: var(--gold); background: rgba(255, 174, 0, 0.1); 
     box-shadow: 0 0 10px var(--gold-dim);
 }
+
+/* Состояние 2: Excluded (Red) */
+.fav-toggle-btn.excluded {
+    border-color: #ff4d4d; color: #ff4d4d; background: rgba(255, 77, 77, 0.1);
+    box-shadow: 0 0 10px rgba(255, 77, 77, 0.4);
+}
+.fav-toggle-btn.excluded svg { fill: #ff4d4d; }
+
 
 /* Поиск (Центр) */
 .search-wrapper {
