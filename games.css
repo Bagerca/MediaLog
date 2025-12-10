@@ -130,13 +130,15 @@
     transform: scale(0.95) translateY(20px); 
     transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     filter: drop-shadow(0 20px 50px rgba(0,0,0,0.8));
+    clip-path: none; /* УБИРАЕМ СРЕЗЫ, ЧТОБЫ УГЛЫ ПРИЛЕГАЛИ */
 }
 .modal-overlay.active .modal-window-wrapper { transform: scale(1) translateY(0); }
 
 /* CLIPPER */
 .modal-clipper {
     width: 100%; height: 100%; background: #0b0c10;
-    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+    /* УБИРАЕМ СРЕЗЫ */
+    clip-path: none; 
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
     display: flex; flex-direction: column; position: relative; z-index: 1;
 }
@@ -151,7 +153,7 @@
 .modal-corner {
     position: absolute; 
     width: 25px; height: 25px;
-    background: transparent; /* Без заливки */
+    background: transparent;
     z-index: 20; pointer-events: none;
     
     /* Тонкие линии */
@@ -162,6 +164,7 @@
     opacity: 0.9;
 }
 
+/* Настройки сторон для каждого угла */
 .top-left { top: -1px; left: -1px; border-right: none; border-bottom: none; }
 .top-right { top: -1px; right: -1px; border-left: none; border-bottom: none; }
 .btm-left { bottom: -1px; left: -1px; border-right: none; border-top: none; }
@@ -201,7 +204,7 @@
     opacity: 1; 
 }
 
-/* SKIPPING OLD SCANNER LINE */
+/* Убираем старую линию сканера */
 .visual-tech-line { display: none !important; }
 
 
@@ -294,43 +297,31 @@
 .edit-form { display: flex; flex-direction: column; gap: 25px; flex-grow: 1; margin-bottom: 20px; }
 .rank-selector { display: flex; gap: 10px; }
 
-/* --- КНОПКИ ВЫБОРА РАНГА (ИСПРАВЛЕННЫЕ СРЕЗЫ) --- */
+/* --- КНОПКИ ВЫБОРА РАНГА (ИСПРАВЛЕННЫЕ) --- */
 .rank-opt {
-    position: relative; /* Важно */
+    position: relative; 
     flex: 1; 
     padding: 15px 0;
-    
-    /* Убираем стандартный border */
     border: none !important; 
-    
-    /* Фон элемента теперь работает как ЦВЕТ РАМКИ */
     background: rgba(255, 255, 255, 0.15); 
-    
     color: var(--text-muted); 
     font-family: var(--font-head); font-weight: 800; font-size: 1.2rem; cursor: pointer; 
     z-index: 1;
     transition: 0.2s;
-
-    /* Форма кнопки */
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 
-/* Создаем внутреннюю темную часть */
 .rank-opt::after {
     content: '';
     position: absolute;
-    inset: 1px; /* Толщина рамки 1px */
-    background: #050608; /* Цвет фона внутри */
+    inset: 1px; 
+    background: #050608; 
     z-index: -1; 
     transition: 0.2s;
-    
-    /* Та же форма */
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 
 .rank-opt:hover { background: #fff; color: #fff; }
-
-/* При активном состоянии псевдоэлемент прозрачный = заливка */
 .rank-opt.active::after { background: transparent; }
 
 .rank-opt.active[data-value="UR"]  { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
@@ -367,10 +358,8 @@ textarea#userNoteInput { height: 100%; min-height: 150px; padding: 20px; resize:
 .edit-btn, .save-btn { flex: 2; background: var(--gold); color: #000; min-width: 150px; }
 .edit-btn:hover, .save-btn:hover { background: #fff; }
 
-/* КОНТУРНЫЕ КНОПКИ (FIX УГЛОВ) */
-.delete-btn { 
-    flex: 1; min-width: 100px; color: #ff4d4d; background: #ff4d4d; /* Цвет рамки */ 
-}
+/* КОНТУРНЫЕ КНОПКИ (ИСПРАВЛЕННЫЕ) */
+.delete-btn { flex: 1; min-width: 100px; color: #ff4d4d; background: #ff4d4d; }
 .delete-btn::after {
     content: ''; position: absolute; inset: 1px; background: #0b0c10; z-index: -1;
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
@@ -379,9 +368,7 @@ textarea#userNoteInput { height: 100%; min-height: 150px; padding: 20px; resize:
 .delete-btn:hover { color: #000; box-shadow: 0 0 20px rgba(255, 77, 77, 0.4); }
 .delete-btn:hover::after { background: #ff4d4d; }
 
-.cancel-btn { 
-    flex: 1; color: var(--text-muted); background: var(--text-muted); /* Цвет рамки */ 
-}
+.cancel-btn { flex: 1; color: var(--text-muted); background: var(--text-muted); }
 .cancel-btn::after {
     content: ''; position: absolute; inset: 1px; background: #0b0c10; z-index: -1;
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
