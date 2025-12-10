@@ -53,6 +53,7 @@ select { outline: none; }
     animation: floatUp 15s infinite linear;
     opacity: 0;
 }
+/* Адаптивный цвет частиц для Аниме */
 body[data-page="anime"] .gold-dust {
     background: var(--cyan);
     box-shadow: 0 0 4px var(--cyan);
@@ -136,6 +137,7 @@ body[data-page="anime"] .nav-item.active::after { background: var(--cyan); box-s
     background: rgba(255, 174, 0, 0.05); margin-bottom: 0.5rem;
     opacity: 0; animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
+/* Тег для аниме */
 body[data-page="anime"] .deco-tag {
     border-color: var(--cyan-dim); color: var(--cyan); background: rgba(95, 251, 241, 0.05);
 }
@@ -481,6 +483,7 @@ body[data-page="anime"] .fav-icon { color: var(--cyan); filter: drop-shadow(0 0 
 .hub-wrapper { min-height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .hub-grid { display: flex; gap: 4rem; flex-wrap: wrap; justify-content: center; }
 
+/* Movie Card (UPDATED: Cyan Color + Synced Speed) */
 .movie-card {
     position: relative; width: 320px; height: 460px; background: transparent; border: none;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -503,26 +506,69 @@ body[data-page="anime"] .fav-icon { color: var(--cyan); filter: drop-shadow(0 0 
 .film-strip { position: absolute; top: 0; bottom: 0; width: 20px; overflow: hidden; opacity: 0.15; transition: 0.4s; pointer-events: none; }
 .fs-left { left: 30px; border-right: 1px solid rgba(255,255,255,0.1); }
 .fs-right { right: 30px; border-left: 1px solid rgba(255,255,255,0.1); }
+
+/* Дырки перфорации (Cyan) */
 .film-holes {
-    width: 8px; height: 100%; margin: 0 auto; background-image: linear-gradient(var(--gold) 4px, transparent 4px);
+    width: 8px; height: 100%; margin: 0 auto; 
+    background-image: linear-gradient(var(--cyan) 4px, transparent 4px);
     background-size: 8px 16px; opacity: 0.3; animation: filmRoll 4s linear infinite; will-change: background-position;
 }
+
 .lens-wrapper { position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
+
+/* Кольцо фокуса (Cyan + Ускорено до 10s) */
 .focus-ring {
     position: absolute; width: 100%; height: 100%; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%;
-    background: repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(255, 174, 0, 0.2) 10deg 11deg);
-    animation: slowRotate 30s linear infinite; transition: 0.4s;
+    background: repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(95, 251, 241, 0.2) 10deg 11deg);
+    animation: slowRotate 10s linear infinite; /* Синхронизировано с играми */
+    transition: 0.4s;
 }
-.inner-ring { position: absolute; width: 70%; height: 70%; border: 1px solid var(--gold); border-radius: 50%; opacity: 0.3; transition: 0.4s; }
-.play-icon { width: 40px; height: 40px; fill: var(--gold); filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.5)); transform: translateX(3px); transition: 0.4s; z-index: 2; }
 
+/* Внутреннее кольцо (Cyan) */
+.inner-ring { 
+    position: absolute; width: 70%; height: 70%; 
+    border: 1px solid var(--cyan); 
+    border-radius: 50%; opacity: 0.3; transition: 0.4s; 
+}
+
+/* Иконка Play (Cyan) */
+.play-icon { 
+    width: 40px; height: 40px; 
+    fill: var(--cyan); 
+    filter: drop-shadow(0 0 5px rgba(95, 251, 241, 0.5)); 
+    transform: translateX(3px); transition: 0.4s; z-index: 2; 
+}
+
+/* Эффекты при наведении (Hover) */
 .movie-card:hover { transform: translateY(-5px); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
-.movie-card:hover::before { background: var(--gold); }
-.movie-card:hover .film-strip { opacity: 0.5; border-color: rgba(255, 174, 0, 0.3); }
-.movie-card:hover .film-holes { opacity: 0.8; animation-duration: 0.5s; }
-.movie-card:hover .focus-ring { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 174, 0, 0.1); animation-duration: 5s; }
-.movie-card:hover .inner-ring { width: 85%; height: 85%; opacity: 0.8; box-shadow: inset 0 0 20px rgba(255, 174, 0, 0.2); }
-.movie-card:hover .play-icon { transform: translateX(3px) scale(1.2); filter: drop-shadow(0 0 15px var(--gold)); fill: #fff; }
+.movie-card:hover::before { background: var(--cyan); }
+
+.movie-card:hover .film-strip { opacity: 0.5; border-color: rgba(95, 251, 241, 0.3); }
+
+/* Замедлена прокрутка при наведении до 1s */
+.movie-card:hover .film-holes { opacity: 0.8; animation-duration: 1s; } 
+
+/* Ускорено вращение до 2s */
+.movie-card:hover .focus-ring { 
+    border-color: var(--cyan); 
+    box-shadow: 0 0 15px rgba(95, 251, 241, 0.1); 
+    animation-duration: 2s; 
+}
+
+.movie-card:hover .inner-ring { 
+    width: 85%; height: 85%; opacity: 0.8; 
+    box-shadow: inset 0 0 20px rgba(95, 251, 241, 0.2); 
+}
+
+.movie-card:hover .play-icon { 
+    transform: translateX(3px) scale(1.2); 
+    filter: drop-shadow(0 0 15px var(--cyan)); 
+    fill: #fff; 
+}
+
+/* Цвет подзаголовка конкретно для кино */
+.movie-card .card-sub { color: var(--cyan); }
+
 
 .sim-card {
     position: relative; width: 320px; height: 460px; background: transparent; border: none;
