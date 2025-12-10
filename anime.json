@@ -2,51 +2,339 @@
     "anime": [
         {
             "id": "VL-A01",
-            "title": "Frieren: Beyond Journey's End",
-            "image": "https://images3.alphacoders.com/132/1328972.jpeg",
-            "tags": ["Fantasy", "Adventure", "Drama", "Slice of Life"],
+            "title": "Chainsaw Man",
+            "image": "https://images8.alphacoders.com/128/1283622.jpg",
+            "tags": ["2D", "TV Series", "Action", "Horror", "Dark Fantasy", "Supernatural", "Shounen"],
             "platform": "TV Series",
-            "dev": "Madhouse"
+            "dev": "MAPPA"
         },
         {
             "id": "VL-A02",
-            "title": "Your Name",
-            "image": "https://images.alphacoders.com/846/846313.jpg",
-            "tags": ["Romance", "Supernatural", "Drama"],
-            "platform": "Movie",
-            "dev": "CoMix Wave Films"
+            "title": "Chainsaw Man: The Movie - Reze Arc",
+            "image": "https://images.alphacoders.com/134/1342999.jpeg",
+            "tags": ["2D", "Movie", "Action", "Romance", "Dark", "Supernatural"],
+            "platform": "Feature Film",
+            "dev": "MAPPA"
         },
         {
             "id": "VL-A03",
-            "title": "Cyberpunk: Edgerunners",
-            "image": "https://images4.alphacoders.com/937/937666.jpg",
-            "tags": ["Cyberpunk", "Sci-Fi", "Tragedy", "Action"],
-            "platform": "ONA / Series",
-            "dev": "Studio Trigger"
+            "title": "The Wild Robot",
+            "image": "https://images.alphacoders.com/135/1356463.jpg",
+            "tags": ["3D", "Movie", "Sci-Fi", "Adventure", "Family", "Emotional"],
+            "platform": "Feature Film",
+            "dev": "DreamWorks Animation"
         },
         {
             "id": "VL-A04",
+            "title": "Arcane",
+            "image": "https://images5.alphacoders.com/119/1191374.jpg",
+            "tags": ["3D", "Web Series", "Sci-Fi", "Fantasy", "Steampunk", "Action", "Drama", "Game Adaptation"],
+            "platform": "Netflix",
+            "dev": "Fortiche"
+        },
+        {
+            "id": "VL-A05",
+            "title": "Rick and Morty",
+            "image": "https://images3.alphacoders.com/812/812062.png",
+            "tags": ["2D", "TV Series", "Sci-Fi", "Comedy", "Adventure", "Parody", "Mature"],
+            "platform": "Adult Swim",
+            "dev": "Williams Street"
+        },
+        {
+            "id": "VL-A06",
+            "title": "9",
+            "image": "https://images.alphacoders.com/556/55694.jpg",
+            "tags": ["3D", "Movie", "Sci-Fi", "Post-Apocalyptic", "Steampunk", "Dark"],
+            "platform": "Feature Film",
+            "dev": "Starz Animation"
+        },
+        {
+            "id": "VL-A07",
+            "title": "WALL·E",
+            "image": "https://images.alphacoders.com/264/26463.jpg",
+            "tags": ["3D", "Movie", "Sci-Fi", "Romance", "Adventure", "Space", "Family"],
+            "platform": "Feature Film",
+            "dev": "Pixar"
+        },
+        {
+            "id": "VL-A08",
+            "title": "To Be Hero X",
+            "image": "https://images.alphacoders.com/135/1353389.jpeg",
+            "tags": ["2D", "3D", "ONA", "Action", "Supernatural", "Sci-Fi", "Stylized"],
+            "platform": "Web Series",
+            "dev": "BeDream"
+        },
+        {
+            "id": "VL-A09",
+            "title": "Moon Knight",
+            "image": "https://images4.alphacoders.com/123/1230687.jpg",
+            "tags": ["Live Action", "Web Series", "Action", "Fantasy", "Psychological", "Mystery", "Supernatural"],
+            "platform": "Disney+",
+            "dev": "Marvel Studios"
+        },
+        {
+            "id": "VL-A10",
+            "title": "Mushoku Tensei: Jobless Reincarnation",
+            "image": "https://images5.alphacoders.com/112/1126189.jpg",
+            "tags": ["2D", "TV Series", "Fantasy", "Isekai", "Adventure", "Drama", "Magic", "Seinen"],
+            "platform": "TV Series",
+            "dev": "Studio Bind"
+        },
+        {
+            "id": "VL-A11",
+            "title": "The Grimm Variations",
+            "image": "https://images8.alphacoders.com/135/1358992.jpeg",
+            "tags": ["2D", "ONA", "Horror", "Fantasy", "Dark", "Mystery", "Psychological"],
+            "platform": "Netflix",
+            "dev": "Wit Studio"
+        },
+        {
+            "id": "VL-A12",
+            "title": "Dead Cells: Immortalis",
+            "image": "https://images.alphacoders.com/131/1318854.jpg",
+            "tags": ["2D", "Web Series", "Action", "Fantasy", "Game Adaptation", "Comedy"],
+            "platform": "Web Series",
+            "dev": "Bobbypills"
+        },
+        {
+            "id": "VL-A13",
+            "title": "Sakamoto Days",
+            "image": "https://images4.alphacoders.com/135/1359005.jpg",
+            "tags": ["2D", "TV Series", "Action", "Comedy", "Slice of Life", "Shounen"],
+            "platform": "TV Series",
+            "dev": "TMS Entertainment"
+        },
+        {
+            "id": "VL-A14",
+            "title": "Hazbin Hotel",
+            "image": "https://images8.alphacoders.com/134/1346252.png",
+            "tags": ["2D", "Web Series", "Comedy", "Fantasy", "Music", "Demons", "Mature"],
+            "platform": "Amazon Prime",
+            "dev": "SpindleHorse / A24"
+        },
+        {
+            "id": "VL-A15",
+            "title": "Helluva Boss",
+            "image": "https://images3.alphacoders.com/113/1132223.png",
+            "tags": ["2D", "Web Series", "Comedy", "Action", "Demons", "Dark", "Mature"],
+            "platform": "YouTube",
+            "dev": "SpindleHorse"
+        },
+        {
+            "id": "VL-A16",
+            "title": "Fullmetal Alchemist: Brotherhood",
+            "image": "https://images2.alphacoders.com/518/518625.jpg",
+            "tags": ["2D", "TV Series", "Action", "Adventure", "Fantasy", "Military", "Shounen", "Classic"],
+            "platform": "TV Series",
+            "dev": "Bones"
+        },
+        {
+            "id": "VL-A17",
+            "title": "Cyberslav",
+            "image": "https://i.ytimg.com/vi/mqgDgh3gJc4/maxresdefault.jpg",
+            "tags": ["2D", "Web Series", "Cyberpunk", "Action", "Sci-Fi", "Slavic"],
+            "platform": "Kinopoisk",
+            "dev": "Evil Pirate Studio"
+        },
+        {
+            "id": "VL-A18",
+            "title": "Dandadan",
+            "image": "https://images7.alphacoders.com/134/1340995.jpeg",
+            "tags": ["2D", "TV Series", "Action", "Comedy", "Supernatural", "Sci-Fi", "Romance", "Shounen"],
+            "platform": "TV Series",
+            "dev": "Science SARU"
+        },
+        {
+            "id": "VL-A19",
             "title": "Attack on Titan",
             "image": "https://images7.alphacoders.com/133/1330715.jpeg",
-            "tags": ["Action", "Dark Fantasy", "Post-Apocalyptic"],
+            "tags": ["2D", "TV Series", "Action", "Dark Fantasy", "Post-Apocalyptic", "Military", "Shounen", "Mystery"],
             "platform": "TV Series",
             "dev": "MAPPA / Wit Studio"
         },
         {
-            "id": "VL-A05",
-            "title": "Spirited Away",
-            "image": "https://images.alphacoders.com/605/605592.jpg",
-            "tags": ["Fantasy", "Adventure", "Family"],
-            "platform": "Feature Film",
-            "dev": "Studio Ghibli"
+            "id": "VL-A20",
+            "title": "Heroes of Envell",
+            "image": "https://m.media-amazon.com/images/M/MV5BMjA2MWEwYTMtN2RlMS00YjE3LWE2NzctYmZjYmFhZWY3ZDAyXkEyXkFqcGdeQXVyNTM3MDMyMDQ@._V1_.jpg",
+            "tags": ["2D", "3D", "TV Series", "Adventure", "Fantasy", "Game Adaptation", "School", "Kids"],
+            "platform": "TV Series",
+            "dev": "Parovoz"
         },
         {
-            "id": "VL-A06",
-            "title": "Arcane",
-            "image": "https://images5.alphacoders.com/119/1191374.jpg",
-            "tags": ["Action", "Sci-Fi", "Drama", "Steampunk"],
-            "platform": "Web Series",
-            "dev": "Fortiche"
+            "id": "VL-A21",
+            "title": "Multerns",
+            "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1704946/0942e569-8e6d-4927-a00e-43644f77732a/600x900",
+            "tags": ["2D", "Web Series", "Comedy", "Parody", "Short"],
+            "platform": "YouTube",
+            "dev": "Soyuzmultfilm"
+        },
+        {
+            "id": "VL-A22",
+            "title": "Kolobanga",
+            "image": "https://m.media-amazon.com/images/M/MV5BYzdiODJlNjAtYmI4ZC00ZTFhLTg0MDItNTFjNDI2NzM4YzY0XkEyXkFqcGdeQXVyNTM3MDMyMDQ@._V1_FMjpg_UX1000_.jpg",
+            "tags": ["3D", "TV Series", "Comedy", "Adventure", "Kids", "Internet"],
+            "platform": "TV Series",
+            "dev": "Kolobanga Studio"
+        },
+        {
+            "id": "VL-A23",
+            "title": "Berserk",
+            "image": "https://images.alphacoders.com/229/229383.jpg",
+            "tags": ["2D", "TV Series", "Action", "Dark Fantasy", "Horror", "Mature", "Seinen", "Demons"],
+            "platform": "TV Series",
+            "dev": "OLM / Liden Films"
+        },
+        {
+            "id": "VL-A24",
+            "title": "Terminator Zero",
+            "image": "https://images3.alphacoders.com/135/1354000.jpeg",
+            "tags": ["2D", "ONA", "Sci-Fi", "Action", "Cyberpunk", "Time Travel", "Thriller"],
+            "platform": "Netflix",
+            "dev": "Production I.G"
+        },
+        {
+            "id": "VL-A25",
+            "title": "Murder Drones",
+            "image": "https://images7.alphacoders.com/133/1330752.jpeg",
+            "tags": ["3D", "Web Series", "Sci-Fi", "Comedy", "Horror", "Action", "Dark"],
+            "platform": "YouTube",
+            "dev": "Glitch Productions"
+        },
+        {
+            "id": "VL-A26",
+            "title": "The Amazing Digital Circus",
+            "image": "https://images8.alphacoders.com/133/1336676.jpeg",
+            "tags": ["3D", "Web Series", "Comedy", "Psychological", "Surreal", "Dark", "Indie"],
+            "platform": "YouTube",
+            "dev": "Glitch Productions"
+        },
+        {
+            "id": "VL-A27",
+            "title": "Dofus: The Treasures of Kerubim",
+            "image": "https://m.media-amazon.com/images/M/MV5BMjI3MzYwODEwNF5BMl5BanBnXkFtZTgwNTQ2NDI5ODE@._V1_.jpg",
+            "tags": ["2D", "TV Series", "Adventure", "Fantasy", "Comedy", "Family", "Game Adaptation"],
+            "platform": "TV Series",
+            "dev": "Ankama Animations"
+        },
+        {
+            "id": "VL-A28",
+            "title": "Kitchen (RU)",
+            "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1629390/862776d4-d2e7-40a2-9907-285223403247/600x900",
+            "tags": ["Live Action", "TV Series", "Comedy", "Drama", "Romance", "Slice of Life"],
+            "platform": "TV Series",
+            "dev": "Keystone Production"
+        },
+        {
+            "id": "VL-A29",
+            "title": "Squid Game",
+            "image": "https://images3.alphacoders.com/118/1183296.jpg",
+            "tags": ["Live Action", "Web Series", "Thriller", "Drama", "Psychological", "Battle Royale", "Dark"],
+            "platform": "Netflix",
+            "dev": "Siren Pictures"
+        },
+        {
+            "id": "VL-A30",
+            "title": "Invincible",
+            "image": "https://images3.alphacoders.com/114/1142823.jpg",
+            "tags": ["2D", "Web Series", "Action", "Sci-Fi", "Drama", "Mature", "Supernatural"],
+            "platform": "Amazon Prime",
+            "dev": "Skybound / Amazon"
+        },
+        {
+            "id": "VL-A31",
+            "title": "Kaiju No. 8",
+            "image": "https://images.alphacoders.com/135/1359002.jpeg",
+            "tags": ["2D", "TV Series", "Action", "Sci-Fi", "Shounen", "Military"],
+            "platform": "TV Series",
+            "dev": "Production I.G"
+        },
+        {
+            "id": "VL-A32",
+            "title": "Gravity Falls",
+            "image": "https://images7.alphacoders.com/417/417855.jpg",
+            "tags": ["2D", "TV Series", "Mystery", "Adventure", "Comedy", "Supernatural", "Family"],
+            "platform": "Disney",
+            "dev": "Disney TVA"
+        },
+        {
+            "id": "VL-A33",
+            "title": "Ninjago: Masters of Spinjitzu",
+            "image": "https://images3.alphacoders.com/839/839420.jpg",
+            "tags": ["3D", "TV Series", "Action", "Adventure", "Fantasy", "Kids"],
+            "platform": "TV Series",
+            "dev": "Wil Film / WildBrain"
+        },
+        {
+            "id": "VL-A34",
+            "title": "Wakfu",
+            "image": "https://images6.alphacoders.com/320/320150.jpg",
+            "tags": ["2D", "TV Series", "Fantasy", "Adventure", "Action", "Game Adaptation", "Epic"],
+            "platform": "TV Series",
+            "dev": "Ankama Animations"
+        },
+        {
+            "id": "VL-A35",
+            "title": "I Am Groot",
+            "image": "https://images5.alphacoders.com/125/1253406.jpg",
+            "tags": ["3D", "CGI", "Web Series", "Short", "Comedy", "Sci-Fi", "Space"],
+            "platform": "Disney+",
+            "dev": "Marvel Studios"
+        },
+        {
+            "id": "VL-A36",
+            "title": "What If...?",
+            "image": "https://images.alphacoders.com/116/1167909.jpg",
+            "tags": ["3D", "Web Series", "Sci-Fi", "Action", "Supernatural", "Anthology"],
+            "platform": "Disney+",
+            "dev": "Marvel Studios"
+        },
+        {
+            "id": "VL-A37",
+            "title": "Wayne",
+            "image": "https://m.media-amazon.com/images/M/MV5BMjQ1NTcyODU0M15BMl5BanBnXkFtZTgwMzk4MjY4NjM@._V1_.jpg",
+            "tags": ["Live Action", "Web Series", "Action", "Comedy", "Drama", "Dark"],
+            "platform": "YouTube / Amazon",
+            "dev": "Endeavor Content"
+        },
+        {
+            "id": "VL-A38",
+            "title": "Undead Unluck",
+            "image": "https://images8.alphacoders.com/134/1343729.jpeg",
+            "tags": ["2D", "TV Series", "Action", "Comedy", "Supernatural", "Shounen"],
+            "platform": "TV Series",
+            "dev": "David Production"
+        },
+        {
+            "id": "VL-A39",
+            "title": "Dororo",
+            "image": "https://images.alphacoders.com/981/981329.png",
+            "tags": ["2D", "TV Series", "Action", "Historical", "Supernatural", "Demons", "Drama"],
+            "platform": "TV Series",
+            "dev": "MAPPA / Tezuka"
+        },
+        {
+            "id": "VL-A40",
+            "title": "Cyberpunk: Edgerunners",
+            "image": "https://images4.alphacoders.com/937/937666.jpg",
+            "tags": ["2D", "ONA", "Cyberpunk", "Sci-Fi", "Action", "Drama", "Tragedy", "Mature"],
+            "platform": "Netflix",
+            "dev": "Studio Trigger"
+        },
+        {
+            "id": "VL-A41",
+            "title": "Scissor Seven",
+            "image": "https://images5.alphacoders.com/112/1126620.jpg",
+            "tags": ["2D", "ONA", "Action", "Comedy", "Supernatural", "Stylized"],
+            "platform": "Netflix",
+            "dev": "Sharefun"
+        },
+        {
+            "id": "VL-A42",
+            "title": "Darling in the FranXX",
+            "image": "https://images4.alphacoders.com/906/906806.png",
+            "tags": ["2D", "TV Series", "Mecha", "Sci-Fi", "Romance", "Drama", "Action"],
+            "platform": "TV Series",
+            "dev": "A-1 Pictures / Trigger"
         }
     ]
 }
