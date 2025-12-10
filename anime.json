@@ -1,25 +1,46 @@
 {
     "anime": [
         {
-            "title": "Frieren",
+            "title": "Frieren: Beyond Journey's End",
             "image": "https://images3.alphacoders.com/132/1328972.jpeg",
-            "tags": "Fantasy, Adventure, Drama",
+            "tags": "Fantasy, Adventure, Drama, Slice of Life",
             "platform": "TV Series",
             "dev": "Madhouse"
         },
         {
             "title": "Your Name",
             "image": "https://images.alphacoders.com/846/846313.jpg",
-            "tags": "Romance, Supernatural",
+            "tags": "Romance, Supernatural, Drama",
             "platform": "Movie",
             "dev": "CoMix Wave Films"
         },
         {
-            "title": "Edgerunners",
+            "title": "Cyberpunk: Edgerunners",
             "image": "https://images4.alphacoders.com/937/937666.jpg",
-            "tags": "Cyberpunk, Sci-Fi, Tragedy",
-            "platform": "Netflix",
+            "tags": "Cyberpunk, Sci-Fi, Tragedy, Action",
+            "platform": "ONA / Series",
             "dev": "Studio Trigger"
+        },
+        {
+            "title": "Attack on Titan",
+            "image": "https://images7.alphacoders.com/133/1330715.jpeg",
+            "tags": "Action, Dark Fantasy, Post-Apocalyptic",
+            "platform": "TV Series",
+            "dev": "MAPPA / Wit Studio"
+        },
+        {
+            "title": "Spirited Away",
+            "image": "https://images.alphacoders.com/605/605592.jpg",
+            "tags": "Fantasy, Adventure, Family",
+            "platform": "Feature Film",
+            "dev": "Studio Ghibli"
+        },
+        {
+            "title": "Arcane",
+            "image": "https://images5.alphacoders.com/119/1191374.jpg",
+            "tags": "Action, Sci-Fi, Drama, Steampunk",
+            "platform": "Web Series",
+            "dev": "Fortiche"
         }
     ]
 }
