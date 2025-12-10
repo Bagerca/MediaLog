@@ -346,9 +346,30 @@ body[data-page="anime"] .select-selected::after { border-top-color: var(--cyan);
     align-items: flex-start; 
     gap: 10px; 
 }
-.filter-header { width: 100%; display: flex; justify-content: space-between; }
-.clear-btn { font-family: var(--font-head); font-size: 0.7rem; color: #ff4d4d; cursor: pointer; letter-spacing: 1px; }
-.clear-btn:hover { text-decoration: underline; }
+
+/* ЗАГОЛОВОК ФИЛЬТРОВ (ПО ЦЕНТРУ) */
+.filter-header { 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; /* Центрируем текст */
+    align-items: center;
+    position: relative; /* Для позиционирования кнопки */
+    margin-bottom: 15px; 
+}
+
+.clear-btn { 
+    position: absolute; /* Убираем из потока */
+    right: 0;           /* Ставим справа */
+    top: 50%;
+    transform: translateY(-50%);
+    
+    font-family: var(--font-head); font-size: 0.7rem; color: #ff4d4d; 
+    cursor: pointer; letter-spacing: 1px; 
+    background: transparent;
+    border: 1px solid rgba(255, 77, 77, 0.3);
+    padding: 4px 10px;
+}
+.clear-btn:hover { background: rgba(255, 77, 77, 0.1); border-color: #ff4d4d; text-decoration: none; }
 
 /* Новый контейнер для фильтров */
 .filters-container {
