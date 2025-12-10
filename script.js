@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         setTimeout(() => {
-            fetch(`${pageType}.json?v=${new Date().getTime()}`)
+            fetch(`${pageType}.json`)
                 .then(res => {
                     if (!res.ok) throw new Error("HTTP error " + res.status);
                     return res.json();
