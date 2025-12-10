@@ -4,7 +4,7 @@
             "id": "GM-X01",
             "title": "Wuthering Waves",
             "image": "https://cdn2.steamgriddb.com/grid/7cee9e13ee29834be975c2164736ad4d.png",
-            "tags": ["3D", "Open World", "Action", "RPG", "Anime", "Gacha", "F2P", "Hack and Slash"],
+            "tags": ["3D", "Open World", "Action", "RPG", "Anime", "Gacha", "F2P", "Hack and Slash", "Third-Person"],
             "platform": "Multi-platform",
             "dev": "Kuro Games"
         },
@@ -12,7 +12,7 @@
             "id": "GM-X02",
             "title": "Elden Ring",
             "image": "https://cdn2.steamgriddb.com/grid/a0abf0396a718b8982fce0b80181d8cb.png",
-            "tags": ["3D", "Open World", "RPG", "Souls-like", "Dark Fantasy", "Action"],
+            "tags": ["3D", "Open World", "RPG", "Souls-like", "Dark Fantasy", "Action", "Third-Person"],
             "platform": "PC / Console",
             "dev": "FromSoftware"
         },
@@ -20,7 +20,7 @@
             "id": "GM-X03",
             "title": "Cyberpunk 2077",
             "image": "https://cdn2.steamgriddb.com/grid/4030e2eebb977639f8836aa25a293e40.png",
-            "tags": ["3D", "Open World", "RPG", "FPS", "Cyberpunk", "Sci-Fi", "Story Rich", "Action"],
+            "tags": ["3D", "Open World", "RPG", "FPS", "Cyberpunk", "Sci-Fi", "Story Rich", "Action", "First-Person"],
             "platform": "PC / Console",
             "dev": "CD Projekt Red"
         },
@@ -28,7 +28,7 @@
             "id": "GM-X04",
             "title": "Deepest Sword",
             "image": "https://cdn2.steamgriddb.com/grid/bff8f0b5cc710fea782704f6c61d1cde.png",
-            "tags": ["2D", "Indie", "Platformer", "Physics", "Comedy"],
+            "tags": ["2D", "Indie", "Platformer", "Physics", "Comedy", "Side Scroller", "Pixel Art"],
             "platform": "PC",
             "dev": "Cosmic Adventure"
         },
@@ -36,7 +36,7 @@
             "id": "GM-X05",
             "title": "Альтушка для скуфа",
             "image": "https://cdn2.steamgriddb.com/grid/d7d6e3e5b44b1cb5e569bfc6c803ad54.jpg",
-            "tags": ["2D", "Visual Novel", "Anime", "Indie", "Comedy", "Memes"],
+            "tags": ["2D", "Visual Novel", "Anime", "Indie", "Comedy", "Memes", "Short"],
             "platform": "PC",
             "dev": "Terletski Games"
         },
@@ -44,7 +44,7 @@
             "id": "GM-X06",
             "title": "Wall World",
             "image": "https://cdn2.steamgriddb.com/grid/6fdb679a729a7a187769d8c71c406a95.png",
-            "tags": ["2D", "Roguelike", "Tower Defense", "Strategy", "Sci-Fi", "Indie", "Pixel Art"],
+            "tags": ["2D", "Roguelike", "Tower Defense", "Strategy", "Sci-Fi", "Indie", "Pixel Art", "Side Scroller"],
             "platform": "PC",
             "dev": "Alawar"
         },
@@ -60,7 +60,7 @@
             "id": "GM-X08",
             "title": "God of War",
             "image": "https://cdn2.steamgriddb.com/grid/5855660034a74cfe0e5fc8d57d17f4ac.png",
-            "tags": ["3D", "Action", "Adventure", "Story Rich", "Hack and Slash", "Fantasy"],
+            "tags": ["3D", "Action", "Adventure", "Story Rich", "Hack and Slash", "Fantasy", "Third-Person", "AAA"],
             "platform": "PC / Console",
             "dev": "Santa Monica Studio"
         },
@@ -68,7 +68,7 @@
             "id": "GM-X09",
             "title": "God of War Ragnarök",
             "image": "https://cdn2.steamgriddb.com/grid/fd93fd1de50e084dd7d3b0b9f6950450.png",
-            "tags": ["3D", "Action", "Adventure", "Story Rich", "Hack and Slash", "Fantasy"],
+            "tags": ["3D", "Action", "Adventure", "Story Rich", "Hack and Slash", "Fantasy", "Third-Person", "AAA"],
             "platform": "PC / Console",
             "dev": "Santa Monica Studio"
         },
@@ -76,7 +76,7 @@
             "id": "GM-X10",
             "title": "Garten of Banban",
             "image": "https://cdn2.steamgriddb.com/grid/96cc1b58ad1f952e7a859391538a0ed0.jpg",
-            "tags": ["3D", "Horror", "Puzzle", "Indie", "Adventure"],
+            "tags": ["3D", "Horror", "Puzzle", "Indie", "Adventure", "First-Person"],
             "platform": "PC",
             "dev": "Euphoric Brothers"
         },
@@ -84,7 +84,7 @@
             "id": "GM-X11",
             "title": "The Henry Stickmin Collection",
             "image": "https://cdn2.steamgriddb.com/grid/a255b637931183f1ccc0219f83e2fdf4.png",
-            "tags": ["2D", "Comedy", "Choices Matter", "Point & Click", "Indie"],
+            "tags": ["2D", "Comedy", "Choices Matter", "Point & Click", "Indie", "Stickman"],
             "platform": "PC",
             "dev": "PuffballsUnited"
         },
@@ -92,7 +92,7 @@
             "id": "GM-X12",
             "title": "Doki Doki Literature Club!",
             "image": "https://cdn2.steamgriddb.com/grid/66cff14a77fb713dc60adc123a8861bd.png",
-            "tags": ["2D", "Visual Novel", "Horror", "Psychological", "Anime", "Indie"],
+            "tags": ["2D", "Visual Novel", "Horror", "Psychological", "Anime", "Indie", "Story Rich"],
             "platform": "PC",
             "dev": "Team Salvato"
         },
@@ -100,7 +100,7 @@
             "id": "GM-X13",
             "title": "DDLC Plus!",
             "image": "https://cdn2.steamgriddb.com/grid/6bbabacedf722ac9de51983620c63e15.png",
-            "tags": ["2D", "Visual Novel", "Horror", "Psychological", "Anime", "Indie"],
+            "tags": ["2D", "Visual Novel", "Horror", "Psychological", "Anime", "Indie", "Story Rich"],
             "platform": "Multi-platform",
             "dev": "Team Salvato"
         },
@@ -108,7 +108,7 @@
             "id": "GM-X14",
             "title": "Portal",
             "image": "https://cdn2.steamgriddb.com/grid/60d58eafbef6da2e2bd56b40cd8835ed.png",
-            "tags": ["3D", "Puzzle", "Sci-Fi", "FPS", "Comedy", "Story Rich"],
+            "tags": ["3D", "Puzzle", "Sci-Fi", "FPS", "Comedy", "Story Rich", "First-Person"],
             "platform": "PC / Console",
             "dev": "Valve"
         },
@@ -116,7 +116,7 @@
             "id": "GM-X15",
             "title": "Portal 2",
             "image": "https://cdn2.steamgriddb.com/grid/9ebc0e97da8e0e5083fea7203f194d2b.png",
-            "tags": ["3D", "Puzzle", "Co-op", "Sci-Fi", "FPS", "Comedy", "Story Rich"],
+            "tags": ["3D", "Puzzle", "Co-op", "Sci-Fi", "FPS", "Comedy", "Story Rich", "First-Person"],
             "platform": "PC / Console",
             "dev": "Valve"
         },
@@ -124,7 +124,7 @@
             "id": "GM-X16",
             "title": "Sally Face",
             "image": "https://cdn2.steamgriddb.com/grid/9e729118dec145b90ce23e1f973a29b2.png",
-            "tags": ["2D", "Adventure", "Horror", "Story Rich", "Indie", "Point & Click"],
+            "tags": ["2D", "Adventure", "Horror", "Story Rich", "Indie", "Point & Click", "Side Scroller"],
             "platform": "PC / Console",
             "dev": "Steve Gabry"
         },
@@ -132,7 +132,7 @@
             "id": "GM-X17",
             "title": "Beholder",
             "image": "https://cdn2.steamgriddb.com/grid/5ea7aaa4eaff9e67e37e174ccf82b56b.jpg",
-            "tags": ["2D", "Strategy", "Simulation", "Dystopian", "Choices Matter"],
+            "tags": ["2D", "Strategy", "Simulation", "Dystopian", "Choices Matter", "Indie"],
             "platform": "Multi-platform",
             "dev": "Warm Lamp Games"
         },
@@ -140,7 +140,7 @@
             "id": "GM-X18",
             "title": "Beholder 2",
             "image": "https://cdn2.steamgriddb.com/grid/d421fe849ec913c735125ad646aa4445.jpg",
-            "tags": ["3D", "Strategy", "Simulation", "Dystopian", "Story Rich"],
+            "tags": ["3D", "Strategy", "Simulation", "Dystopian", "Story Rich", "Indie"],
             "platform": "Multi-platform",
             "dev": "Warm Lamp Games"
         },
@@ -148,7 +148,7 @@
             "id": "GM-X19",
             "title": "Beholder 3",
             "image": "https://cdn2.steamgriddb.com/grid/22f8067098264dccf6ecaf1cdd7ec236.jpg",
-            "tags": ["2D", "Strategy", "Simulation", "Dystopian", "Political"],
+            "tags": ["2D", "Strategy", "Simulation", "Dystopian", "Political", "Indie"],
             "platform": "PC / Console",
             "dev": "Paintbucket Games"
         },
@@ -156,7 +156,7 @@
             "id": "GM-X20",
             "title": "Beholder: Conductor",
             "image": "https://cdn2.steamgriddb.com/grid/e6a57f005085e683344d5d36e768114f.png",
-            "tags": ["2D", "Story Rich", "Dystopian", "Short Film"],
+            "tags": ["2D", "Story Rich", "Dystopian", "Short", "Indie"],
             "platform": "YouTube / Steam",
             "dev": "Paintbucket Games"
         },
@@ -172,7 +172,7 @@
             "id": "GM-X22",
             "title": "FNAF: Security Breach",
             "image": "https://cdn2.steamgriddb.com/grid/a637f8238c55abe318298de68c906392.png",
-            "tags": ["3D", "Horror", "Open World", "Survival", "Stealth"],
+            "tags": ["3D", "Horror", "Open World", "Survival", "Stealth", "First-Person"],
             "platform": "Multi-platform",
             "dev": "Steel Wool Studios"
         },
@@ -180,7 +180,7 @@
             "id": "GM-X23",
             "title": "Celeste",
             "image": "https://cdn2.steamgriddb.com/grid/792efc1687658bdf2e49af5ab8c6d38f.png",
-            "tags": ["2D", "Platformer", "Pixel Art", "Indie", "Story Rich"],
+            "tags": ["2D", "Platformer", "Pixel Art", "Indie", "Story Rich", "Side Scroller"],
             "platform": "Multi-platform",
             "dev": "Maddy Makes Games"
         },
@@ -188,7 +188,7 @@
             "id": "GM-X24",
             "title": "Hollow Knight",
             "image": "https://cdn2.steamgriddb.com/grid/d18c832e8c956b4ef8b92862e6bf470d.png",
-            "tags": ["2D", "Metroidvania", "Souls-like", "Action", "Platformer", "Indie"],
+            "tags": ["2D", "Metroidvania", "Souls-like", "Action", "Platformer", "Indie", "Hand-Drawn"],
             "platform": "Multi-platform",
             "dev": "Team Cherry"
         },
@@ -196,7 +196,7 @@
             "id": "GM-X25",
             "title": "Hollow Knight: Silksong",
             "image": "https://cdn2.steamgriddb.com/grid/48b505846f30602aaff7e2d336720e6d.jpg",
-            "tags": ["2D", "Metroidvania", "Platformer", "Action", "Indie"],
+            "tags": ["2D", "Metroidvania", "Platformer", "Action", "Indie", "Hand-Drawn"],
             "platform": "Multi-platform",
             "dev": "Team Cherry"
         },
@@ -212,7 +212,7 @@
             "id": "GM-X27",
             "title": "The Baby In Yellow",
             "image": "https://cdn2.steamgriddb.com/grid/165d979bf8f90339555afb6e9c4ae1f0.png",
-            "tags": ["3D", "Horror", "Comedy", "Puzzle"],
+            "tags": ["3D", "Horror", "Comedy", "Puzzle", "First-Person"],
             "platform": "PC / Mobile",
             "dev": "Team Terrible"
         },
@@ -220,7 +220,7 @@
             "id": "GM-X28",
             "title": "Marvel Rivals",
             "image": "https://cdn2.steamgriddb.com/grid/c78ba21d7d0b44c8246ad002ed751b8d.png",
-            "tags": ["3D", "Shooter", "Action", "PvP", "F2P"],
+            "tags": ["3D", "Hero Shooter", "Action", "PvP", "F2P", "Third-Person"],
             "platform": "PC / Console",
             "dev": "NetEase Games"
         },
@@ -228,7 +228,7 @@
             "id": "GM-X29",
             "title": "League of Legends",
             "image": "https://cdn2.steamgriddb.com/grid/cf29ee336b07c0572c810f62f5543525.png",
-            "tags": ["3D", "MOBA", "Strategy", "PvP", "F2P", "Fantasy"],
+            "tags": ["3D", "MOBA", "Strategy", "PvP", "F2P", "Fantasy", "Isometric"],
             "platform": "PC",
             "dev": "Riot Games"
         },
@@ -236,7 +236,7 @@
             "id": "GM-X30",
             "title": "Counter-Strike 2",
             "image": "https://cdn2.steamgriddb.com/grid/0662aa1719017e0efa5fa8daf0880c6e.png",
-            "tags": ["3D", "FPS", "Shooter", "PvP", "Action", "F2P"],
+            "tags": ["3D", "FPS", "Shooter", "PvP", "Action", "F2P", "Tactical"],
             "platform": "PC",
             "dev": "Valve"
         },
@@ -244,7 +244,7 @@
             "id": "GM-X31",
             "title": "Overwatch 2",
             "image": "https://cdn2.steamgriddb.com/grid/f8013fd6d898ca4374d8113f0939c70c.png",
-            "tags": ["3D", "FPS", "Shooter", "PvP", "Action", "F2P", "Sci-Fi"],
+            "tags": ["3D", "Hero Shooter", "FPS", "PvP", "Action", "F2P", "Sci-Fi"],
             "platform": "Multi-platform",
             "dev": "Blizzard"
         },
@@ -252,7 +252,7 @@
             "id": "GM-X32",
             "title": "Genshin Impact",
             "image": "https://cdn2.steamgriddb.com/grid/17ac85cc7b94b7e29577acb5f9b38aa7.png",
-            "tags": ["3D", "Open World", "RPG", "Anime", "Gacha", "Action", "Fantasy", "F2P"],
+            "tags": ["3D", "Open World", "RPG", "Anime", "Gacha", "Action", "Fantasy", "F2P", "Third-Person"],
             "platform": "Multi-platform",
             "dev": "HoYoverse"
         },
@@ -260,7 +260,7 @@
             "id": "GM-X33",
             "title": "Minecraft",
             "image": "https://cdn2.steamgriddb.com/grid/1a22f0ef3aec25d1cb15d26895d13b88.png",
-            "tags": ["3D", "Sandbox", "Survival", "Adventure", "Open World"],
+            "tags": ["3D", "Sandbox", "Survival", "Crafting", "Open World", "Voxel", "First-Person"],
             "platform": "Multi-platform",
             "dev": "Mojang"
         },
@@ -284,7 +284,7 @@
             "id": "GM-X36",
             "title": "DOOM: The Dark Ages",
             "image": "https://cdn2.steamgriddb.com/grid/84f4fca2a803fff45bf14a23aa760de5.jpg",
-            "tags": ["3D", "FPS", "Shooter", "Action", "Fantasy"],
+            "tags": ["3D", "FPS", "Shooter", "Action", "Fantasy", "Medieval"],
             "platform": "PC / Console",
             "dev": "id Software"
         },
@@ -292,7 +292,7 @@
             "id": "GM-X37",
             "title": "Mouthwashing",
             "image": "https://cdn2.steamgriddb.com/grid/20b9686ae90039dd7216f07c6bdd3211.png",
-            "tags": ["3D", "Horror", "Psychological", "Story Rich", "Retro", "Indie"],
+            "tags": ["3D", "Horror", "Psychological", "Story Rich", "Retro", "Indie", "Low Poly"],
             "platform": "PC",
             "dev": "Wrong Organ"
         },
@@ -300,7 +300,7 @@
             "id": "GM-X38",
             "title": "Marvel's Spider-Man Remastered",
             "image": "https://cdn2.steamgriddb.com/grid/ea5f1405dd59fbe403044bdc5a2277dc.png",
-            "tags": ["3D", "Open World", "Action", "Adventure", "Sci-Fi"],
+            "tags": ["3D", "Open World", "Action", "Adventure", "Sci-Fi", "Third-Person"],
             "platform": "PC / Console",
             "dev": "Insomniac Games"
         },
@@ -308,7 +308,7 @@
             "id": "GM-X39",
             "title": "Marvel's Spider-Man: Miles Morales",
             "image": "https://cdn2.steamgriddb.com/grid/b6cc4153e11f0917be8b737751264588.png",
-            "tags": ["3D", "Open World", "Action", "Adventure", "Sci-Fi"],
+            "tags": ["3D", "Open World", "Action", "Adventure", "Sci-Fi", "Third-Person"],
             "platform": "PC / Console",
             "dev": "Insomniac Games"
         },
@@ -316,7 +316,7 @@
             "id": "GM-X40",
             "title": "Marvel's Spider-Man 2",
             "image": "https://cdn2.steamgriddb.com/grid/d67c3cf6b1b0bb4cc1c30243912c8343.png",
-            "tags": ["3D", "Open World", "Action", "Adventure", "Sci-Fi"],
+            "tags": ["3D", "Open World", "Action", "Adventure", "Sci-Fi", "Third-Person"],
             "platform": "PS5",
             "dev": "Insomniac Games"
         },
@@ -324,7 +324,7 @@
             "id": "GM-X41",
             "title": "Atomic Heart",
             "image": "https://cdn2.steamgriddb.com/grid/53f249d8ba9cfab41868236dead77aba.jpg",
-            "tags": ["3D", "FPS", "Shooter", "Action", "RPG", "Sci-Fi"],
+            "tags": ["3D", "FPS", "Shooter", "Action", "RPG", "Sci-Fi", "Atmospheric"],
             "platform": "PC / Console",
             "dev": "Mundfish"
         },
@@ -332,7 +332,7 @@
             "id": "GM-X42",
             "title": "BioShock Remastered",
             "image": "https://cdn2.steamgriddb.com/grid/a265437321f8e7339486e92028a15101.png",
-            "tags": ["3D", "FPS", "Shooter", "Story Rich", "Sci-Fi"],
+            "tags": ["3D", "FPS", "Shooter", "Story Rich", "Sci-Fi", "Atmospheric"],
             "platform": "PC / Console",
             "dev": "Irrational Games"
         },
@@ -340,7 +340,7 @@
             "id": "GM-X43",
             "title": "BioShock 2 Remastered",
             "image": "https://cdn2.steamgriddb.com/grid/b9eb072260f8a069d76c3407cc589c66.png",
-            "tags": ["3D", "FPS", "Shooter", "Sci-Fi", "Action"],
+            "tags": ["3D", "FPS", "Shooter", "Sci-Fi", "Action", "Atmospheric"],
             "platform": "PC / Console",
             "dev": "2K Marin"
         },
@@ -348,7 +348,7 @@
             "id": "GM-X44",
             "title": "BioShock Infinite",
             "image": "https://cdn2.steamgriddb.com/grid/a1e6458db64e93a2acde93cc56f834e0.png",
-            "tags": ["3D", "FPS", "Shooter", "Story Rich", "Sci-Fi"],
+            "tags": ["3D", "FPS", "Shooter", "Story Rich", "Sci-Fi", "Steampunk"],
             "platform": "PC / Console",
             "dev": "Irrational Games"
         },
@@ -356,7 +356,7 @@
             "id": "GM-X45",
             "title": "Detroit: Become Human",
             "image": "https://cdn2.steamgriddb.com/grid/2078750ea356ba9fd472655dec36c068.png",
-            "tags": ["3D", "Story Rich", "Sci-Fi", "Choices Matter", "Cinematic", "Adventure"],
+            "tags": ["3D", "Story Rich", "Sci-Fi", "Choices Matter", "Cinematic", "Adventure", "Interactive Movie"],
             "platform": "PC / Console",
             "dev": "Quantic Dream"
         },
@@ -364,7 +364,7 @@
             "id": "GM-X46",
             "title": "Subnautica",
             "image": "https://cdn2.steamgriddb.com/grid/50896c8a37922749110dae272e7a345b.png",
-            "tags": ["3D", "Survival", "Open World", "Sci-Fi", "Adventure"],
+            "tags": ["3D", "Survival", "Open World", "Sci-Fi", "Adventure", "First-Person", "Crafting"],
             "platform": "Multi-platform",
             "dev": "Unknown Worlds"
         },
@@ -372,7 +372,7 @@
             "id": "GM-X47",
             "title": "Subnautica: Below Zero",
             "image": "https://cdn2.steamgriddb.com/grid/1b5b0657f72ae81541808a70d9af3663.png",
-            "tags": ["3D", "Survival", "Open World", "Adventure", "Sci-Fi"],
+            "tags": ["3D", "Survival", "Open World", "Adventure", "Sci-Fi", "First-Person", "Crafting"],
             "platform": "Multi-platform",
             "dev": "Unknown Worlds"
         },
@@ -380,7 +380,7 @@
             "id": "GM-X48",
             "title": "Hyper Light Drifter",
             "image": "https://cdn2.steamgriddb.com/grid/77aae72565d8d552d987ec4b7a567078.png",
-            "tags": ["2D", "Pixel Art", "Adventure", "Action", "RPG", "Indie"],
+            "tags": ["2D", "Pixel Art", "Adventure", "Action", "RPG", "Indie", "Top-Down"],
             "platform": "Multi-platform",
             "dev": "Heart Machine"
         },
@@ -388,7 +388,7 @@
             "id": "GM-X49",
             "title": "Cuphead",
             "image": "https://cdn2.steamgriddb.com/grid/23d2d7ff1a670a1ac0f181516bd58520.png",
-            "tags": ["2D", "Platformer", "Action", "Co-op", "Indie"],
+            "tags": ["2D", "Platformer", "Action", "Co-op", "Indie", "Side Scroller", "Hand-Drawn"],
             "platform": "Multi-platform",
             "dev": "Studio MDHR"
         },
@@ -404,7 +404,7 @@
             "id": "GM-X51",
             "title": "Carrion",
             "image": "https://cdn2.steamgriddb.com/grid/4b59f87d7a404223de629d8fcfc2e290.png",
-            "tags": ["2D", "Horror", "Pixel Art", "Metroidvania", "Action", "Indie"],
+            "tags": ["2D", "Horror", "Pixel Art", "Metroidvania", "Action", "Indie", "Side Scroller"],
             "platform": "Multi-platform",
             "dev": "Phobia Game Studio"
         },
@@ -412,7 +412,7 @@
             "id": "GM-X52",
             "title": "Buckshot Roulette",
             "image": "https://cdn2.steamgriddb.com/grid/15dedec079bd674cc309564d63c8db2c.png",
-            "tags": ["3D", "Horror", "Strategy", "Indie"],
+            "tags": ["3D", "Horror", "Strategy", "Indie", "First-Person"],
             "platform": "PC",
             "dev": "Mike Klubnika"
         },
@@ -428,7 +428,7 @@
             "id": "GM-X54",
             "title": "Choo-Choo Charles",
             "image": "https://cdn2.steamgriddb.com/grid/815baf1b97b125739a08097530f42760.png",
-            "tags": ["3D", "Horror", "Open World", "Survival", "Shooter", "Indie"],
+            "tags": ["3D", "Horror", "Open World", "Survival", "Shooter", "Indie", "First-Person"],
             "platform": "PC / Console",
             "dev": "Two Star Games"
         },
@@ -436,7 +436,7 @@
             "id": "GM-X55",
             "title": "Poppy Playtime",
             "image": "https://cdn2.steamgriddb.com/grid/0a337bcc09cf4e796203bbee3a7db021.png",
-            "tags": ["3D", "Horror", "Puzzle", "FPS", "Indie"],
+            "tags": ["3D", "Horror", "Puzzle", "First-Person", "Indie"],
             "platform": "Multi-platform",
             "dev": "Mob Entertainment"
         },
@@ -444,7 +444,7 @@
             "id": "GM-X56",
             "title": "Hello Neighbor",
             "image": "https://cdn2.steamgriddb.com/grid/9aeb537f93aaeec134f4495989388bec.png",
-            "tags": ["3D", "Stealth", "Horror", "Puzzle", "Indie"],
+            "tags": ["3D", "Stealth", "Horror", "Puzzle", "Indie", "First-Person"],
             "platform": "Multi-platform",
             "dev": "Dynamic Pixels"
         },
@@ -452,7 +452,7 @@
             "id": "GM-X57",
             "title": "Hello Neighbor 2",
             "image": "https://cdn2.steamgriddb.com/grid/03386a7c4df1efc17716a6ef9d0a2f1b.jpg",
-            "tags": ["3D", "Stealth", "Horror", "Open World"],
+            "tags": ["3D", "Stealth", "Horror", "Open World", "Indie", "First-Person"],
             "platform": "Multi-platform",
             "dev": "Eerie Guest"
         },
@@ -460,7 +460,7 @@
             "id": "GM-X58",
             "title": "Tiny Bunny",
             "image": "https://cdn2.steamgriddb.com/grid/1a4f09f4c65553deaf3926cba72825ee.jpg",
-            "tags": ["2D", "Visual Novel", "Horror", "Mystery", "Indie", "Story Rich"],
+            "tags": ["2D", "Visual Novel", "Horror", "Mystery", "Indie", "Story Rich", "Atmospheric"],
             "platform": "PC",
             "dev": "Saikono"
         },
@@ -468,7 +468,7 @@
             "id": "GM-X59",
             "title": "Bendy and the Ink Machine",
             "image": "https://cdn2.steamgriddb.com/grid/fcc09cf0f7f9502e978ac2134eaac663.png",
-            "tags": ["3D", "Horror", "Puzzle", "Survival", "Indie"],
+            "tags": ["3D", "Horror", "Puzzle", "Survival", "Indie", "First-Person"],
             "platform": "Multi-platform",
             "dev": "Joey Drew Studios"
         },
@@ -476,7 +476,7 @@
             "id": "GM-X60",
             "title": "Bendy and the Dark Revival",
             "image": "https://cdn2.steamgriddb.com/grid/b882ca7b76297dd7e2ad9d0d464a10fd.png",
-            "tags": ["3D", "Horror", "Action", "Story Rich", "Indie"],
+            "tags": ["3D", "Horror", "Action", "Story Rich", "Indie", "First-Person"],
             "platform": "PC / Console",
             "dev": "Joey Drew Studios"
         },
@@ -484,7 +484,7 @@
             "id": "GM-X61",
             "title": "Bendy: Secrets of the Machine",
             "image": "https://cdn2.steamgriddb.com/grid/419f51a7b50c04bb38fd5870da376a5a.jpg",
-            "tags": ["3D", "Horror", "Mystery", "Indie"],
+            "tags": ["3D", "Horror", "Mystery", "Teaser", "Indie", "First-Person"],
             "platform": "PC",
             "dev": "Joey Drew Studios"
         },
@@ -492,7 +492,7 @@
             "id": "GM-X62",
             "title": "Undertale",
             "image": "https://cdn2.steamgriddb.com/grid/bbd30950ec6c745947d21a08d002f782.png",
-            "tags": ["2D", "RPG", "Story Rich", "Pixel Art", "Indie", "Comedy"],
+            "tags": ["2D", "RPG", "Story Rich", "Pixel Art", "Indie", "Comedy", "Choices Matter"],
             "platform": "Multi-platform",
             "dev": "tobyfox"
         },
@@ -500,7 +500,7 @@
             "id": "GM-X63",
             "title": "Dota 2",
             "image": "https://cdn2.steamgriddb.com/grid/cd94516dfa071f5f8b6b4eb4e24271e6.png",
-            "tags": ["3D", "MOBA", "Multiplayer", "Strategy", "PvP", "F2P"],
+            "tags": ["3D", "MOBA", "Multiplayer", "Strategy", "PvP", "F2P", "Isometric"],
             "platform": "Steam",
             "dev": "Valve"
         },
@@ -508,7 +508,7 @@
             "id": "GM-X64",
             "title": "Untitled Goose Game",
             "image": "https://cdn2.steamgriddb.com/grid/e125f95fae86c729ee9cb27217919b39.png",
-            "tags": ["3D", "Indie", "Puzzle", "Stealth", "Comedy"],
+            "tags": ["3D", "Indie", "Puzzle", "Stealth", "Comedy", "Short"],
             "platform": "Steam",
             "dev": "House House"
         },
@@ -524,7 +524,7 @@
             "id": "GM-X66",
             "title": "Oxygen Not Included",
             "image": "https://cdn2.steamgriddb.com/grid/4bc1203088c3b782970c2781d0345085.png",
-            "tags": ["2D", "Simulation", "Strategy", "Survival", "Sci-Fi", "Indie"],
+            "tags": ["2D", "Simulation", "Strategy", "Survival", "Sci-Fi", "Indie", "Base Building"],
             "platform": "Steam",
             "dev": "Klei Entertainment"
         },
@@ -532,7 +532,7 @@
             "id": "GM-X67",
             "title": "Little Nightmares",
             "image": "https://cdn2.steamgriddb.com/grid/fbd783562a259f87d30f4a04df773221.png",
-            "tags": ["3D", "Horror", "Puzzle", "Platformer", "Adventure"],
+            "tags": ["3D", "Horror", "Puzzle", "Platformer", "Adventure", "Atmospheric", "Side Scroller"],
             "platform": "Steam",
             "dev": "Tarsier Studios"
         },
@@ -540,7 +540,7 @@
             "id": "GM-X68",
             "title": "Little Nightmares II",
             "image": "https://cdn2.steamgriddb.com/grid/ce420da1dae0395f3d31b438a08e15db.png",
-            "tags": ["3D", "Horror", "Puzzle", "Adventure", "Sequel"],
+            "tags": ["3D", "Horror", "Puzzle", "Adventure", "Sequel", "Atmospheric", "Side Scroller"],
             "platform": "Steam",
             "dev": "Tarsier Studios"
         },
@@ -548,7 +548,7 @@
             "id": "GM-X69",
             "title": "Little Nightmares III",
             "image": "https://cdn2.steamgriddb.com/grid/393ca095fe6861771123648b9ddbdf43.png",
-            "tags": ["3D", "Horror", "Co-op", "Adventure"],
+            "tags": ["3D", "Horror", "Co-op", "Adventure", "Atmospheric", "Side Scroller"],
             "platform": "Steam",
             "dev": "Supermassive Games"
         },
@@ -556,7 +556,7 @@
             "id": "GM-X70",
             "title": "Little Misfortune",
             "image": "https://cdn2.steamgriddb.com/grid/587d55d648f86419d287413669a94da4.png",
-            "tags": ["2D", "Adventure", "Indie", "Comedy", "Choices Matter"],
+            "tags": ["2D", "Adventure", "Indie", "Comedy", "Choices Matter", "Dark"],
             "platform": "Steam",
             "dev": "Killmonday Games"
         },
@@ -572,7 +572,7 @@
             "id": "GM-X72",
             "title": "VRChat",
             "image": "https://cdn2.steamgriddb.com/grid/295b5d1a1f98d2c6c64569ed889378d7.png",
-            "tags": ["3D", "VR", "Simulation", "F2P", "Sandbox"],
+            "tags": ["3D", "VR", "Simulation", "F2P", "Sandbox", "Social"],
             "platform": "Steam",
             "dev": "VRChat Inc."
         },
@@ -580,7 +580,7 @@
             "id": "GM-X73",
             "title": "Raft",
             "image": "https://cdn2.steamgriddb.com/grid/1fda541638af3f204f2493bbfbbc771e.png",
-            "tags": ["3D", "Survival", "Open World", "Co-op", "Adventure"],
+            "tags": ["3D", "Survival", "Open World", "Co-op", "Crafting", "First-Person"],
             "platform": "Steam",
             "dev": "Redbeet Interactive"
         },
@@ -588,7 +588,7 @@
             "id": "GM-X74",
             "title": "Protocol",
             "image": "https://cdn2.steamgriddb.com/grid/8f2967b9191461d5916592c99dadb3d3.png",
-            "tags": ["3D", "Adventure", "Sci-Fi", "FPS", "Story Rich"],
+            "tags": ["3D", "Adventure", "Sci-Fi", "FPS", "Story Rich", "First-Person"],
             "platform": "Steam",
             "dev": "Fair Games Studio"
         },
@@ -596,7 +596,7 @@
             "id": "GM-X75",
             "title": "Deltarune",
             "image": "https://cdn2.steamgriddb.com/grid/7d6a12ebcf6a84e1bdecc8d40a72e241.png",
-            "tags": ["2D", "RPG", "Indie", "Pixel Art", "Story Rich"],
+            "tags": ["2D", "RPG", "Indie", "Pixel Art", "Story Rich", "Comedy"],
             "platform": "Steam",
             "dev": "tobyfox"
         },
@@ -604,7 +604,7 @@
             "id": "GM-X76",
             "title": "Alice: Madness Returns",
             "image": "https://cdn2.steamgriddb.com/grid/18c1932d87fb2d0250f2b3235f3802c9.png",
-            "tags": ["3D", "Action", "Adventure", "Platformer", "Horror", "Fantasy"],
+            "tags": ["3D", "Action", "Adventure", "Platformer", "Horror", "Fantasy", "Third-Person"],
             "platform": "Steam",
             "dev": "Spicy Horse"
         },
@@ -612,7 +612,7 @@
             "id": "GM-X77",
             "title": "The Stanley Parable: Ultra Deluxe",
             "image": "https://cdn2.steamgriddb.com/grid/295e6487eefee97ea8302368d5fa1602.png",
-            "tags": ["3D", "Adventure", "Comedy", "Choices Matter", "Indie", "Story Rich"],
+            "tags": ["3D", "Adventure", "Comedy", "Choices Matter", "Indie", "Story Rich", "First-Person"],
             "platform": "Steam",
             "dev": "Crows Crows Crows"
         },
@@ -620,7 +620,7 @@
             "id": "GM-X78",
             "title": "We Happy Few",
             "image": "https://cdn2.steamgriddb.com/grid/1dd0a697c2c176adef4fa293869a93f0.jpg",
-            "tags": ["3D", "Action", "Adventure", "Dystopian", "Survival"],
+            "tags": ["3D", "Action", "Adventure", "Dystopian", "Survival", "First-Person"],
             "platform": "Steam",
             "dev": "Compulsion Games"
         },
@@ -628,7 +628,7 @@
             "id": "GM-X79",
             "title": "NieR:Automata",
             "image": "https://cdn2.steamgriddb.com/grid/e073a6f87e5e96e3d4ce33c068846d5b.png",
-            "tags": ["3D", "Action", "RPG", "Sci-Fi", "Story Rich", "Hack and Slash"],
+            "tags": ["3D", "Action", "RPG", "Sci-Fi", "Story Rich", "Hack and Slash", "Open World", "Third-Person"],
             "platform": "Steam",
             "dev": "PlatinumGames"
         },
@@ -636,7 +636,7 @@
             "id": "GM-X80",
             "title": "Clea",
             "image": "https://cdn2.steamgriddb.com/grid/f661c9e88939c381b2123517173e047f.png",
-            "tags": ["2D", "Horror", "Survival", "Stealth", "Anime", "Indie"],
+            "tags": ["2D", "Horror", "Survival", "Stealth", "Anime", "Indie", "Side Scroller"],
             "platform": "Steam",
             "dev": "InvertMouse"
         },
@@ -644,7 +644,7 @@
             "id": "GM-X81",
             "title": "Clea 2",
             "image": "https://cdn2.steamgriddb.com/grid/789e5a1900a35b11a43d9b4b08b35582.png",
-            "tags": ["2D", "Horror", "Survival", "Stealth", "Indie"],
+            "tags": ["2D", "Horror", "Survival", "Stealth", "Indie", "Side Scroller"],
             "platform": "Steam",
             "dev": "InvertMouse"
         },
@@ -652,7 +652,7 @@
             "id": "GM-X82",
             "title": "Plants vs. Zombies",
             "image": "https://cdn2.steamgriddb.com/grid/499375ecff4b15f61e7e9819e4a4439a.png",
-            "tags": ["2D", "Tower Defense", "Strategy", "Arcade"],
+            "tags": ["2D", "Tower Defense", "Strategy", "Arcade", "Classic"],
             "platform": "Steam",
             "dev": "PopCap Games"
         },
@@ -668,7 +668,7 @@
             "id": "GM-X84",
             "title": "Broforce",
             "image": "https://cdn2.steamgriddb.com/grid/6af79f5a21ebddc03b1c98c76dc31b5f.png",
-            "tags": ["2D", "Action", "Pixel Art", "Co-op", "Platformer", "Shooter"],
+            "tags": ["2D", "Action", "Pixel Art", "Co-op", "Platformer", "Shooter", "Indie"],
             "platform": "Steam",
             "dev": "Free Lives"
         },
@@ -676,7 +676,7 @@
             "id": "GM-X85",
             "title": "Farlight 84",
             "image": "https://cdn2.steamgriddb.com/grid/04a24077fa95d1271619e47c167f9303.png",
-            "tags": ["3D", "Battle Royale", "Shooter", "PvP", "F2P"],
+            "tags": ["3D", "Battle Royale", "Shooter", "PvP", "F2P", "TPS", "FPS"],
             "platform": "Steam",
             "dev": "Farlight"
         },
@@ -684,7 +684,7 @@
             "id": "GM-X86",
             "title": "Overwatch",
             "image": "https://cdn2.steamgriddb.com/grid/96f0d98a448af2cfa50f971b680d6342.png",
-            "tags": ["3D", "Hero Shooter", "FPS", "Multiplayer", "Team-Based"],
+            "tags": ["3D", "Hero Shooter", "FPS", "Multiplayer", "PvP", "Sci-Fi"],
             "platform": "Multi-platform",
             "dev": "Blizzard"
         },
@@ -692,7 +692,7 @@
             "id": "GM-X87",
             "title": "Dispatch",
             "image": "https://cdn2.steamgriddb.com/grid/bc3c0e3efa04c44f7cece0b2383794e7.png",
-            "tags": ["3D", "Visual Novel", "Story Rich", "Adventure", "Choices Matter", "Mystery"],
+            "tags": ["3D", "Visual Novel", "Story Rich", "Adventure", "Choices Matter", "Mystery", "Mature"],
             "platform": "Steam",
             "dev": "AdHoc Studio"
         }
