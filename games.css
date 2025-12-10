@@ -37,7 +37,7 @@
     z-index: 2; pointer-events: none;
 }
 
-/* --- РАНГИ НА КАРТОЧКЕ (FIX РАМОК) --- */
+/* --- РАНГИ НА КАРТОЧКЕ --- */
 .game-rank-badge {
     position: absolute; top: 0; left: 20px; z-index: 10;
     width: 36px; height: 48px;
@@ -45,57 +45,29 @@
     
     font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; letter-spacing: 1px;
     
-    /* Фон элемента = Цвет рамки */
     background: currentColor; 
     border: none;
-    
-    /* Форма флажка */
     clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
-    
-    /* Внешнее свечение (filter т.к. box-shadow обрезается) */
     filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     
     transition: 0.3s;
 }
 
-/* Внутренняя темная часть (создает эффект рамки) */
 .game-rank-badge::before {
     content: '';
     position: absolute;
-    inset: 1px; /* Толщина рамки 1px */
-    background: rgba(10, 11, 16, 0.9); /* Темный фон внутри */
-    z-index: -1; /* Кладем ПОД текст */
-    
-    /* Та же форма */
+    inset: 1px; 
+    background: rgba(10, 11, 16, 0.9); 
+    z-index: -1; 
     clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
 }
 
 /* Цвета рангов */
-.game-rank-badge.ur { 
-    color: var(--gold); 
-    text-shadow: 0 0 10px rgba(255, 174, 0, 0.8);
-    filter: drop-shadow(0 0 8px rgba(255, 174, 0, 0.4));
-}
-.game-rank-badge.ssr { 
-    color: var(--cyan); 
-    text-shadow: 0 0 10px rgba(95, 251, 241, 0.8);
-    filter: drop-shadow(0 0 8px rgba(95, 251, 241, 0.4));
-}
-.game-rank-badge.sr { 
-    color: #00ff9d; 
-    text-shadow: 0 0 10px rgba(0, 255, 157, 0.8);
-    filter: drop-shadow(0 0 8px rgba(0, 255, 157, 0.4));
-}
-.game-rank-badge.r { 
-    color: #ff8e3c; 
-    text-shadow: 0 0 10px rgba(255, 142, 60, 0.8);
-    filter: drop-shadow(0 0 8px rgba(255, 142, 60, 0.4));
-}
-.game-rank-badge.n { 
-    color: #ff003c; 
-    text-shadow: 0 0 10px rgba(255, 0, 60, 0.8);
-    filter: drop-shadow(0 0 8px rgba(255, 0, 60, 0.4));
-}
+.game-rank-badge.ur { color: var(--gold); text-shadow: 0 0 10px rgba(255, 174, 0, 0.8); filter: drop-shadow(0 0 8px rgba(255, 174, 0, 0.4)); }
+.game-rank-badge.ssr { color: var(--cyan); text-shadow: 0 0 10px rgba(95, 251, 241, 0.8); filter: drop-shadow(0 0 8px rgba(95, 251, 241, 0.4)); }
+.game-rank-badge.sr { color: #00ff9d; text-shadow: 0 0 10px rgba(0, 255, 157, 0.8); filter: drop-shadow(0 0 8px rgba(0, 255, 157, 0.4)); }
+.game-rank-badge.r { color: #ff8e3c; text-shadow: 0 0 10px rgba(255, 142, 60, 0.8); filter: drop-shadow(0 0 8px rgba(255, 142, 60, 0.4)); }
+.game-rank-badge.n { color: #ff003c; text-shadow: 0 0 10px rgba(255, 0, 60, 0.8); filter: drop-shadow(0 0 8px rgba(255, 0, 60, 0.4)); }
 
 
 /* КНОПКА СТАТУСА НА КАРТОЧКЕ */
@@ -153,7 +125,6 @@
 }
 .modal-overlay.active { opacity: 1; pointer-events: all; }
 
-/* WRAPPER */
 .modal-window-wrapper {
     width: 1400px; max-width: 95%; height: 700px; 
     position: relative;
@@ -243,13 +214,13 @@
     box-shadow: 0 0 15px var(--gold);
 }
 
-/* --- ТЕГИ (ОБНОВЛЕННЫЕ С РАМКОЙ) --- */
+/* --- ТЕГИ (С ПСЕВДОЭЛЕМЕНТОМ) --- */
 .tags-container { display: flex; gap: 6px; margin-bottom: 30px; flex-wrap: wrap; }
 .tech-tag { 
     position: relative; z-index: 1;
     padding: 6px 12px; 
     border: none !important;
-    background: rgba(255, 255, 255, 0.2); /* Цвет рамки */
+    background: rgba(255, 255, 255, 0.2); 
     
     font-family: var(--font-head); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
@@ -276,18 +247,18 @@
 
 .block-label { font-family: var(--font-head); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; }
 
-/* ОБНОВЛЕННЫЙ БЛОК РАНГА (РАМКА НА ::AFTER) */
+/* РАНГ В РЕЖИМЕ ПРОСМОТРА */
 .rank-display-box {
     position: relative; z-index: 1;
     font-family: var(--font-head); font-size: 3rem; font-weight: 800;
     border: none !important; box-shadow: none !important;
-    background: currentColor !important; /* Цвет рамки */
+    background: currentColor !important; 
     padding: 5px 25px; width: fit-content; min-width: 100px; text-align: center;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     text-shadow: 0 0 15px currentColor; transition: 0.3s;
 }
 .rank-display-box::after {
-    content: ''; position: absolute; inset: 2px; /* Толщина рамки */
+    content: ''; position: absolute; inset: 2px; 
     background: rgba(0, 0, 0, 0.9); z-index: -1;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
@@ -298,24 +269,57 @@
 .terminal-line { position: absolute; left: 0; top: 20px; bottom: 20px; width: 3px; background: var(--text-muted); opacity: 0.3; }
 .view-text { font-family: 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6; color: #ccc; white-space: pre-wrap; margin-left: 15px; }
 
-/* СКРЫВАЕМ ФОНОВЫЙ РАНГ */
 .rank-watermark { display: none !important; }
 
 /* EDIT FORM */
 .edit-form { display: flex; flex-direction: column; gap: 25px; flex-grow: 1; margin-bottom: 20px; }
 .rank-selector { display: flex; gap: 10px; }
+
+/* --- КНОПКИ ВЫБОРА РАНГА (ИСПРАВЛЕННЫЕ СРЕЗЫ) --- */
 .rank-opt {
-    flex: 1; padding: 15px 0; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-    color: var(--text-muted); font-family: var(--font-head); font-weight: 800; font-size: 1.2rem; cursor: pointer; transition: 0.2s;
+    position: relative; /* Важно */
+    flex: 1; 
+    padding: 15px 0;
+    
+    /* Убираем стандартный border */
+    border: none !important; 
+    
+    /* Фон элемента теперь работает как ЦВЕТ РАМКИ */
+    background: rgba(255, 255, 255, 0.15); 
+    
+    color: var(--text-muted); 
+    font-family: var(--font-head); font-weight: 800; font-size: 1.2rem; cursor: pointer; 
+    z-index: 1;
+    transition: 0.2s;
+
+    /* Форма кнопки */
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
-.rank-opt:hover { border-color: #fff; color: #fff; }
 
-.rank-opt.active[data-value="UR"]  { background: var(--gold); border-color: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
-.rank-opt.active[data-value="SSR"] { background: var(--cyan); border-color: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan); }
-.rank-opt.active[data-value="SR"]  { background: #00ff9d; border-color: #00ff9d; color: #000; box-shadow: 0 0 15px #00ff9d; }
-.rank-opt.active[data-value="R"]   { background: #ff8e3c; border-color: #ff8e3c; color: #000; box-shadow: 0 0 15px #ff8e3c; }
-.rank-opt.active[data-value="N"]   { background: #ff003c; border-color: #ff003c; color: #000; box-shadow: 0 0 15px #ff003c; }
+/* Создаем внутреннюю темную часть */
+.rank-opt::after {
+    content: '';
+    position: absolute;
+    inset: 1px; /* Толщина рамки 1px */
+    background: #050608; /* Цвет фона внутри */
+    z-index: -1; 
+    transition: 0.2s;
+    
+    /* Та же форма */
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.rank-opt:hover { background: #fff; color: #fff; }
+
+/* При активном состоянии псевдоэлемент прозрачный = заливка */
+.rank-opt.active::after { background: transparent; }
+
+.rank-opt.active[data-value="UR"]  { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
+.rank-opt.active[data-value="SSR"] { background: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan); }
+.rank-opt.active[data-value="SR"]  { background: #00ff9d; color: #000; box-shadow: 0 0 15px #00ff9d; }
+.rank-opt.active[data-value="R"]   { background: #ff8e3c; color: #000; box-shadow: 0 0 15px #ff8e3c; }
+.rank-opt.active[data-value="N"]   { background: #ff003c; color: #000; box-shadow: 0 0 15px #ff003c; }
+
 
 .terminal-input, textarea#userNoteInput {
     width: 100%; background: #050608; border: 1px solid rgba(255,255,255,0.2);
@@ -326,7 +330,7 @@ textarea#userNoteInput { height: 100%; min-height: 150px; padding: 20px; resize:
 .terminal-input:focus, textarea#userNoteInput:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 174, 0, 0.1); }
 .terminal-input::placeholder, textarea#userNoteInput::placeholder { color: rgba(255,255,255,0.2); }
 
-/* FOOTER (КНОПКИ В СТИЛЕ CYBERPUNK) */
+/* FOOTER */
 .modal-footer { display: flex; gap: 15px; margin-top: auto; width: 100%; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1); flex-shrink: 0; z-index: 10; }
 .action-btn { 
     position: relative; z-index: 1;
@@ -345,7 +349,9 @@ textarea#userNoteInput { height: 100%; min-height: 150px; padding: 20px; resize:
 .edit-btn:hover, .save-btn:hover { background: #fff; }
 
 /* КОНТУРНЫЕ КНОПКИ (FIX УГЛОВ) */
-.delete-btn { flex: 1; min-width: 100px; color: #ff4d4d; background: #ff4d4d; /* Цвет рамки */ }
+.delete-btn { 
+    flex: 1; min-width: 100px; color: #ff4d4d; background: #ff4d4d; /* Цвет рамки */ 
+}
 .delete-btn::after {
     content: ''; position: absolute; inset: 1px; background: #0b0c10; z-index: -1;
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
@@ -354,7 +360,9 @@ textarea#userNoteInput { height: 100%; min-height: 150px; padding: 20px; resize:
 .delete-btn:hover { color: #000; box-shadow: 0 0 20px rgba(255, 77, 77, 0.4); }
 .delete-btn:hover::after { background: #ff4d4d; }
 
-.cancel-btn { flex: 1; color: var(--text-muted); background: var(--text-muted); /* Цвет рамки */ }
+.cancel-btn { 
+    flex: 1; color: var(--text-muted); background: var(--text-muted); /* Цвет рамки */ 
+}
 .cancel-btn::after {
     content: ''; position: absolute; inset: 1px; background: #0b0c10; z-index: -1;
     clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
