@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- КОНФИГУРАЦИЯ ---
     const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
-    // Используем v2, чтобы сбросить старые данные (так как ключи изменились с названий на ID)
     const STORAGE_KEY = `resonance_data_${pageType}_v2`;
     const GRID_PREF_KEY = 'resonance_grid_density'; 
     
@@ -14,8 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctxEdit = document.getElementById('ctxEdit');
     const ctxFav = document.getElementById('ctxFav');
     const ctxDel = document.getElementById('ctxDel');
-    
-    // Кнопка фильтра
     const filterBtn = document.getElementById('favFilterBtn');
 
     // SVG ИКОНКИ
@@ -24,32 +21,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let contextTargetId = null;
 
-    // --- БЕЛЫЙ СПИСОК ТЕГОВ (ТОП-50) ---
-    // В фильтрах появятся только эти теги, и только если они есть у игр в базе.
+    // --- БЕЛЫЙ СПИСОК ТЕГОВ (ТОП-100) ---
     const WHITELIST_TAGS = [
-        // --- BASE ---
-        "2D", "3D", "VR", "Indie", "Retro", "Remake",
+        // --- PERSPECTIVE & TECH ---
+        "2D", "3D", "VR", "First-Person", "Third-Person", "Isometric", 
+        "Top-Down", "Side Scroller", "Open World", "Sandbox",
 
-        // --- GENRES ---
-        "Action", "RPG", "Shooter", "Strategy", "Simulation", 
-        "Adventure", "Platformer", "Puzzle", "Racing", "Fighting", 
-        "Sports", "Arcade", "Visual Novel", "Point & Click",
+        // --- CORE GENRES ---
+        "Action", "RPG", "Shooter", "Strategy", "Adventure", "Simulation", 
+        "Puzzle", "Platformer", "Horror", "Racing", "Fighting", "Sports",
 
-        // --- SUB-GENRES ---
-        "FPS", "Metroidvania", "Roguelike", "Souls-like", "Open World", 
-        "Stealth", "Survival", "Battle Royale", "MOBA", "Tower Defense", 
-        "Hack and Slash", "Card Game", "Rhythm", "Gacha",
+        // --- ACTION & SHOOTER SUB-GENRES ---
+        "FPS", "TPS", "Battle Royale", "Hero Shooter", "Tactical", 
+        "Hack and Slash", "Beat 'em up", "Stealth", "Survival", 
+        "Metroidvania", "Bullet Hell", "Shoot 'em up",
 
-        // --- THEMES & VIBE ---
-        "Horror", "Sci-Fi", "Fantasy", "Cyberpunk", "Post-Apocalyptic", 
-        "Dystopian", "Mystery", "Psychological", "Comedy", "Story Rich", 
-        "Choices Matter", "Sandbox", "Mature",
+        // --- RPG & STRATEGY SUB-GENRES ---
+        "JRPG", "CRPG", "ARPG", "Turn-Based", "RTS", "Tactical RPG", 
+        "Grand Strategy", "4X", "City Builder", "Management", 
+        "Tower Defense", "MOBA", "Card Game", "Deckbuilder", 
+        "Roguelike", "Souls-like", "Dungeon Crawler",
 
-        // --- STYLE ---
-        "Pixel Art", "Anime", "Cinematic",
+        // --- NARRATIVE & VIBE ---
+        "Story Rich", "Visual Novel", "Interactive Movie", "Choices Matter", 
+        "Multiple Endings", "Linear", "Atmospheric", "Cinematic", 
+        "Mystery", "Psychological", "Drama", "Comedy", "Dark", "Mature",
+        "Relaxing", "Cozy", "Funny", "Short",
 
-        // --- ONLINE ---
-        "Co-op", "PvP", "MMO", "F2P"
+        // --- SETTING & THEMES ---
+        "Sci-Fi", "Cyberpunk", "Steampunk", "Fantasy", "Dark Fantasy", 
+        "Post-Apocalyptic", "Dystopian", "Space", "Medieval", "Noir", 
+        "Lovecraftian", "Military", "Historical", "Supernatural",
+
+        // --- ART STYLE ---
+        "Pixel Art", "Anime", "Low Poly", "Voxel", "Hand-Drawn", 
+        "Retro", "Minimalist", "Stylized", "Realistic",
+
+        // --- MECHANICS ---
+        "Crafting", "Building", "Physics", "Parkour", "Permadeath", 
+        "Procedural Generation", "Loot", "Gacha", "Rhythm",
+
+        // --- SOCIAL / TYPE ---
+        "Indie", "AAA", "Remake", "Remaster", "Co-op", "PvP", 
+        "MMO", "Local Co-op", "Split Screen", "F2P"
     ];
 
     // --- СОСТОЯНИЕ ---
@@ -68,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. ЗАГРУЗКА ДАННЫХ ---
     if (pageType && gridContainer) {
-        
         gridContainer.innerHTML = `
             <div class="loader-wrapper">
                 <div class="loader-spinner"></div>
@@ -76,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Загрузка с защитой от кэша (?v=timestamp)
         setTimeout(() => {
             fetch(`${pageType}.json?v=${new Date().getTime()}`) 
                 .then(res => {
@@ -110,29 +122,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let items = [...allItemsDB]; 
 
-        // 1. Фильтры (Режимы)
-        // ИСПОЛЬЗУЕМ ID ВМЕСТО TITLE ДЛЯ ПРОВЕРКИ БИБЛИОТЕКИ
         if (currentMode === 'mine') {
             items = items.filter(i => userLibrary[i.id]);
-
             if (favFilterState === 1) items = items.filter(i => userLibrary[i.id].isFavorite);
             else if (favFilterState === 2) items = items.filter(i => !userLibrary[i.id].isFavorite);
-
             items = items.filter(i => {
                 const userData = userLibrary[i.id];
                 if (!userData) return false; 
                 return activeRanks.has(userData.rank);
             });
-
         } else {
             if (hideOwnedState) items = items.filter(i => !userLibrary[i.id]);
         }
 
-        // 2. Поиск
         const searchVal = document.getElementById('searchInput')?.value.toLowerCase().trim();
         if (searchVal) items = items.filter(i => i.title.toLowerCase().includes(searchVal));
 
-        // 3. Теги
         if (activeTags.size > 0) {
             const tagsArr = Array.from(activeTags);
             items = items.filter(i => {
@@ -143,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 4. Сортировка
         items.sort((a, b) => {
             const dataA = userLibrary[a.id];
             const dataB = userLibrary[b.id];
@@ -151,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const getTime = (data) => data ? data.timestamp : 0;
 
             switch (currentSort) {
-                // Сортировка по имени остается по Title
                 case 'name_asc': return a.title.localeCompare(b.title);
                 case 'name_desc': return b.title.localeCompare(a.title);
                 case 'rank_desc': return (getRank(dataB) - getRank(dataA)) || a.title.localeCompare(b.title);
@@ -201,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusColor = (pageType === 'games' ? 'var(--gold)' : 'var(--cyan)');
             }
 
-            // ПЕРЕДАЕМ ID В ФУНКЦИИ
             return `
             <div class="${prefix}-card" 
                  onclick="openModal('${item.id}')"
@@ -401,14 +403,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('modalImg').src = item.image;
         document.getElementById('modalTitle').textContent = item.title;
-        
-        // --- ОБНОВЛЕНО: Отображаем ID в заголовке, а DEV в строке ниже ---
         document.getElementById('modalDev').textContent = item.id; 
         document.getElementById('modalPlatform').textContent = `${item.platform} // ${item.dev}`; 
-        // -----------------------------------------------------------------
 
         const tagsBox = document.getElementById('modalTags');
-        
         if (Array.isArray(item.tags)) {
             tagsBox.innerHTML = item.tags.map(t => `<span class="tech-tag">${t.trim()}</span>`).join('');
         } else {
@@ -466,7 +464,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if(els.btnAdd) els.btnAdd.onclick = () => {
-        // Сохраняем по ID
         userLibrary[currentItemId] = { rank: 'N', note: '', customStatus: '', isFavorite: false, timestamp: Date.now() };
         saveToStorage(); updateViewModeUI(); renderContent(); switchMode('edit'); showToast('ENTRY CREATED // INPUT DETAILS');
     };
@@ -497,27 +494,23 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.classList.remove('show'), 2000);
     }
 
-    // --- ОБНОВЛЕННАЯ ФУНКЦИЯ ГЕНЕРАЦИИ ТЕГОВ (WHITELIST) ---
     function generateTagMatrix(items) {
         const container = document.getElementById('filterOptions');
         const clearBtn = document.getElementById('clearTagsBtn');
         if(!container) return;
         
-        // Собираем все теги, которые есть в базе
         const availableTags = new Set();
         items.forEach(i => {
             if (Array.isArray(i.tags)) {
                 i.tags.forEach(t => {
-                    // Проверяем, есть ли тег в нашем "Белом списке" (регистронезависимо)
                     const normalizedTag = WHITELIST_TAGS.find(wt => wt.toLowerCase() === t.trim().toLowerCase());
                     if (normalizedTag) {
-                        availableTags.add(normalizedTag); // Добавляем красивую версию из Whitelist
+                        availableTags.add(normalizedTag);
                     }
                 });
             }
         });
 
-        // Генерируем кнопки только для найденных тегов
         container.innerHTML = Array.from(availableTags).sort().map(t => `<button class="tag-btn" data-tag="${t}">${t}</button>`).join('');
         
         container.querySelectorAll('.tag-btn').forEach(btn => {
