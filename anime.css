@@ -37,48 +37,59 @@
     z-index: 2; pointer-events: none;
 }
 
-/* РАНГИ НА КАРТОЧКЕ (ОБНОВЛЕННЫЕ С РАМКОЙ) */
+/* --- РАНГИ НА КАРТОЧКЕ (FIX РАМОК) --- */
 .anime-rank-badge {
     position: absolute; top: 0; left: 20px; z-index: 10;
     width: 36px; height: 48px;
     display: flex; align-items: center; justify-content: center;
     
-    background: rgba(10, 11, 16, 0.85); 
-    backdrop-filter: blur(4px);
-    
     font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; letter-spacing: 1px;
     
-    /* Форма флажка */
+    /* Фон элемента = Цвет рамки */
+    background: currentColor;
+    border: none;
+    
     clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
     
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
     transition: 0.3s;
-    border: none;
+}
+
+/* Внутренняя темная часть */
+.anime-rank-badge::before {
+    content: '';
+    position: absolute;
+    inset: 1px; /* Толщина рамки 1px */
+    background: rgba(10, 11, 16, 0.9);
+    z-index: -1;
+    
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
 }
 
 .anime-rank-badge.ur { 
     color: var(--gold); 
-    box-shadow: inset 0 0 0 1px var(--gold), 0 0 15px rgba(255, 174, 0, 0.3);
     text-shadow: 0 0 10px rgba(255, 174, 0, 0.8);
+    filter: drop-shadow(0 0 8px rgba(255, 174, 0, 0.4));
 }
 .anime-rank-badge.ssr { 
     color: var(--cyan); 
-    box-shadow: inset 0 0 0 1px var(--cyan), 0 0 15px rgba(95, 251, 241, 0.3);
     text-shadow: 0 0 10px rgba(95, 251, 241, 0.8);
+    filter: drop-shadow(0 0 8px rgba(95, 251, 241, 0.4));
 }
 .anime-rank-badge.sr { 
     color: #00ff9d; 
-    box-shadow: inset 0 0 0 1px #00ff9d, 0 0 15px rgba(0, 255, 157, 0.3);
     text-shadow: 0 0 10px rgba(0, 255, 157, 0.8);
+    filter: drop-shadow(0 0 8px rgba(0, 255, 157, 0.4));
 }
 .anime-rank-badge.r { 
     color: #ff8e3c; 
-    box-shadow: inset 0 0 0 1px #ff8e3c, 0 0 15px rgba(255, 142, 60, 0.3);
     text-shadow: 0 0 10px rgba(255, 142, 60, 0.8);
+    filter: drop-shadow(0 0 8px rgba(255, 142, 60, 0.4));
 }
 .anime-rank-badge.n { 
     color: #ff003c; 
-    box-shadow: inset 0 0 0 1px #ff003c, 0 0 15px rgba(255, 0, 60, 0.3);
     text-shadow: 0 0 10px rgba(255, 0, 60, 0.8);
+    filter: drop-shadow(0 0 8px rgba(255, 0, 60, 0.4));
 }
 
 /* КНОПКА СТАТУСА НА КАРТОЧКЕ */
@@ -320,7 +331,7 @@ textarea#userNoteInput { height: 100%; min-height: 150px; padding: 20px; resize:
     border: none !important;
 }
 
-/* ЗАЛИТЫЕ КНОПКИ (Переопределяем цвет на Cyan) */
+/* ЗАЛИТЫЕ КНОПКИ (CYAN THEME) */
 .primary-btn { flex: 1; background: var(--cyan); color: #000; box-shadow: 0 0 20px rgba(95, 251, 241, 0.2); }
 .primary-btn:hover { background: #fff; box-shadow: 0 0 30px rgba(255,255,255,0.4); }
 
