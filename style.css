@@ -10,6 +10,7 @@
     --cyan: #5ffbf1;             
     --gold: #ffae00;             
     --gold-dim: rgba(255, 174, 0, 0.15);
+    --cyan-dim: rgba(95, 251, 241, 0.15); /* Добавил для аниме */
     --border-color: rgba(255, 255, 255, 0.12);
     --font-head: 'Rajdhani', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -52,6 +53,12 @@ select { outline: none; }
     animation: floatUp 15s infinite linear;
     opacity: 0;
 }
+/* Меняем цвет пыли для Аниме на голубой */
+body[data-page="anime"] .gold-dust {
+    background: var(--cyan);
+    box-shadow: 0 0 4px var(--cyan);
+}
+
 .d1 { left: 10%; animation-delay: 0s; }
 .d2 { left: 30%; animation-delay: 5s; width: 3px; height: 3px; }
 .d3 { left: 60%; animation-delay: 2s; }
@@ -83,26 +90,36 @@ select { outline: none; }
     transition: 0.3s ease; filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.3)); 
     position: relative; top: -3px; 
 }
+/* Лого для Аниме - Циан */
+body[data-page="anime"] .logo-icon { stroke: var(--cyan); filter: drop-shadow(0 0 5px rgba(95, 251, 241, 0.3)); }
+
 .inner-circle { transform-origin: center; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
 .rec-dot { fill: var(--gold); stroke: none; animation: pulseRecord 3s infinite; transform-origin: center; }
+body[data-page="anime"] .rec-dot { fill: var(--cyan); }
 
 @keyframes pulseRecord { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.7); } }
 
 .logo-text { display: flex; flex-direction: column; line-height: 0.9; }
 .logo-title { font-family: var(--font-head); font-weight: 800; font-size: 1.6rem; letter-spacing: 2px; color: #fff; }
 .logo-title span { color: var(--gold); }
+body[data-page="anime"] .logo-title span { color: var(--cyan); }
+
 .logo-sub { font-family: var(--font-head); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 3px; font-weight: 600; margin-top: 3px; transition: 0.3s;}
 
 .brand-logo:hover .logo-icon { filter: drop-shadow(0 0 12px var(--gold)); transform: scale(1.05); }
+body[data-page="anime"] .brand-logo:hover .logo-icon { filter: drop-shadow(0 0 12px var(--cyan)); }
+
 .brand-logo:hover .inner-circle { transform: rotate(180deg); stroke: #fff; }
 .brand-logo:hover .rec-dot { fill: #fff; }
 .brand-logo:hover .logo-sub { color: var(--gold); letter-spacing: 4px; }
+body[data-page="anime"] .brand-logo:hover .logo-sub { color: var(--cyan); }
 
 /* Ссылки меню */
 .nav-links { display: flex; gap: 3rem; }
 .nav-item { font-family: var(--font-head); font-weight: 600; color: var(--text-muted); letter-spacing: 1px; transition: 0.3s; position: relative; }
 .nav-item:hover, .nav-item.active { color: var(--text-main); }
 .nav-item.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+body[data-page="anime"] .nav-item.active::after { background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
 
 /* =========================================
    4. LAYOUT & HEADER
@@ -121,6 +138,11 @@ select { outline: none; }
     background: rgba(255, 174, 0, 0.05); margin-bottom: 0.5rem;
     opacity: 0; animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
+/* Тег для аниме */
+body[data-page="anime"] .deco-tag {
+    border-color: var(--cyan-dim); color: var(--cyan); background: rgba(95, 251, 241, 0.05);
+}
+
 @keyframes tagReveal { 
     0% { opacity: 0; transform: scaleX(0); } 
     100% { opacity: 1; transform: scaleX(1); } 
@@ -177,7 +199,13 @@ select { outline: none; }
     background: rgba(255,255,255,0.02); height: 100%; display: flex; align-items: center;
 }
 .mode-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
-.mode-btn.active { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold-dim); }
+
+/* Активная кнопка режима (Игры) */
+body[data-page="games"] .mode-btn.active { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold-dim); }
+/* Активная кнопка режима (Аниме) */
+body[data-page="anime"] .mode-btn.active { background: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan-dim); }
+body[data-page="anime"] .mode-btn:hover { color: var(--cyan); }
+
 
 .fav-toggle-btn {
     display: flex; align-items: center; gap: 8px; padding: 0 20px;
@@ -186,7 +214,12 @@ select { outline: none; }
 }
 .fav-toggle-btn svg { width: 16px; height: 16px; fill: currentColor; transition: 0.3s; }
 .fav-toggle-btn:hover { color: #fff; border-color: #fff; }
-.fav-toggle-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(255, 174, 0, 0.1); box-shadow: 0 0 10px var(--gold-dim); }
+
+/* Кнопка Избранного Активная (Игры) */
+body[data-page="games"] .fav-toggle-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(255, 174, 0, 0.1); box-shadow: 0 0 10px var(--gold-dim); }
+/* Кнопка Избранного Активная (Аниме) */
+body[data-page="anime"] .fav-toggle-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(95, 251, 241, 0.1); box-shadow: 0 0 10px var(--cyan-dim); }
+
 .fav-toggle-btn.active svg { filter: drop-shadow(0 0 5px currentColor); }
 .fav-toggle-btn.excluded { border-color: #ff4d4d; color: #ff4d4d; background: rgba(255, 77, 77, 0.1); box-shadow: 0 0 10px rgba(255, 77, 77, 0.4); }
 .fav-toggle-btn.excluded svg { fill: #ff4d4d; filter: drop-shadow(0 0 5px #ff4d4d); }
@@ -249,10 +282,19 @@ body[data-page="anime"] .search-wrapper:focus-within .search-icon {
     background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); color: #fff; padding: 0 15px; height: 100%; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: 0.3s;
 }
 .select-selected::after {
-    content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid var(--gold); transition: 0.3s;
+    content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid var(--text-muted); transition: 0.3s;
 }
-.select-selected.select-arrow-active { border-color: var(--gold); background: rgba(255, 174, 0, 0.1); }
-.select-selected.select-arrow-active::after { transform: rotate(180deg); }
+
+/* Селект для Игр */
+body[data-page="games"] .select-selected.select-arrow-active { border-color: var(--gold); background: rgba(255, 174, 0, 0.1); }
+body[data-page="games"] .select-selected::after { border-top-color: var(--gold); }
+body[data-page="games"] .select-selected.select-arrow-active::after { transform: rotate(180deg); }
+
+/* Селект для Аниме */
+body[data-page="anime"] .select-selected.select-arrow-active { border-color: var(--cyan); background: rgba(95, 251, 241, 0.1); }
+body[data-page="anime"] .select-selected::after { border-top-color: var(--cyan); }
+body[data-page="anime"] .select-selected.select-arrow-active::after { transform: rotate(180deg); }
+
 
 .select-items {
     position: absolute; top: 100%; left: 0; right: 0; z-index: 99; background: #0b0c10; border: 1px solid var(--border-color); border-top: none; max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -261,22 +303,28 @@ body[data-page="anime"] .search-wrapper:focus-within .search-icon {
 .select-item { padding: 12px 15px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); transition: 0.2s; }
 .select-item:last-child { border-bottom: none; }
 
+/* Ховер в селекте (Игры) */
 body[data-page="games"] .select-item:hover, body[data-page="games"] .select-item.same-as-selected { background: rgba(255, 174, 0, 0.1); color: var(--gold); padding-left: 20px; }
-body[data-page="games"] .select-selected.select-arrow-active { border-color: var(--gold); }
-body[data-page="games"] .select-selected::after { border-top-color: var(--gold); }
 
+/* Ховер в селекте (Аниме) */
 body[data-page="anime"] .select-item:hover, body[data-page="anime"] .select-item.same-as-selected { background: rgba(95, 251, 241, 0.1); color: var(--cyan); padding-left: 20px; }
-body[data-page="anime"] .select-selected.select-arrow-active { border-color: var(--cyan); }
-body[data-page="anime"] .select-selected::after { border-top-color: var(--cyan); }
 
+
+/* Кнопки вида (Сетка) */
 .view-controls { display: flex; gap: 2px; height: 100%; }
 .view-btn {
     width: 44px; height: 100%; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
     color: var(--text-muted); display: flex; align-items: center; justify-content: center;
     cursor: pointer; transition: 0.2s;
 }
-.view-btn:hover { color: var(--cyan); border-color: var(--cyan); }
-.view-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+
+/* Вид для Игр */
+body[data-page="games"] .view-btn:hover { color: var(--gold); border-color: var(--gold); }
+body[data-page="games"] .view-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+
+/* Вид для Аниме */
+body[data-page="anime"] .view-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+body[data-page="anime"] .view-btn.active { background: var(--cyan); color: #000; border-color: var(--cyan); }
 
 
 /* --- РЯД 2: ФИЛЬТРЫ --- */
@@ -325,8 +373,15 @@ body[data-page="anime"] .select-selected::after { border-top-color: var(--cyan);
     content: ''; position: absolute; inset: 1px; background: #0b0c10; z-index: -1;
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
-.tag-btn:hover { border-color: var(--cyan); color: var(--cyan); background: var(--cyan); }
-.tag-btn.active { background: var(--gold); color: var(--gold); }
+
+/* Теги для Игр */
+body[data-page="games"] .tag-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(255, 174, 0, 0.1); }
+body[data-page="games"] .tag-btn.active { background: var(--gold); color: #000; }
+
+/* Теги для Аниме */
+body[data-page="anime"] .tag-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(95, 251, 241, 0.1); }
+body[data-page="anime"] .tag-btn.active { background: var(--cyan); color: #000; }
+
 
 @media (max-width: 1024px) {
     .top-row { height: auto; flex-direction: column; align-items: stretch; clip-path: none; }
@@ -378,8 +433,12 @@ body[data-page="anime"] .loader-spinner { border-top-color: var(--cyan); }
     padding: 15px 25px; display: flex; align-items: center; gap: 15px; transform: translateX(150%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
+body[data-page="anime"] .sys-toast { border-color: var(--cyan); border-left-color: var(--cyan); }
+
 .sys-toast.show { transform: translateX(0); }
 .toast-icon { width: 24px; height: 24px; background: var(--gold); color: #000; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: monospace; }
+body[data-page="anime"] .toast-icon { background: var(--cyan); }
+
 .toast-msg { font-family: var(--font-head); letter-spacing: 1px; color: #fff; }
 
 .ctx-menu {
@@ -395,6 +454,8 @@ body[data-page="anime"] .loader-spinner { border-top-color: var(--cyan); }
 .ctx-item.delete:hover { background: rgba(255, 77, 77, 0.1); color: #ff4d4d; }
 
 .fav-icon { position: absolute; top: 10px; right: 10px; z-index: 20; color: var(--gold); filter: drop-shadow(0 0 5px var(--gold)); animation: pulseFav 2s infinite; }
+body[data-page="anime"] .fav-icon { color: var(--cyan); filter: drop-shadow(0 0 5px var(--cyan)); }
+
 @keyframes pulseFav { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
 
 /* =========================================
