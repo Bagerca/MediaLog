@@ -554,12 +554,12 @@
         },
         {
             "id": "GM-X70",
-            "title": "Little Misfortune",
-            "image": "https://cdn2.steamgriddb.com/grid/587d55d648f86419d287413669a94da4.png",
-            "tags": ["2D", "Adventure", "Indie", "Comedy", "Choices Matter", "Dark"],
-            "platform": "Steam",
-            "dev": "Killmonday Games"
-        },
+            "title": "Honkai: Star Rail",
+            "image": "https://cdn2.steamgriddb.com/grid/c5077eeeff953de127abf6d0089155ec.png",
+            "tags": ["3D", "RPG", "Turn-Based", "Anime", "Sci-Fi", "Space", "Gacha", "F2P"],
+            "platform": "Multi-platform",
+            "dev": "HoYoverse"
+        }
         {
             "id": "GM-X71",
             "title": "Scrap Mechanic",
@@ -911,6 +911,166 @@
             "tags": ["3D", "Co-op", "Horror", "Comedy", "Indie", "First-Person"],
             "platform": "PC",
             "dev": "Landfall"
+        },
+        {
+            "id": "GM-X115",
+            "title": "Among Us",
+            "image": "https://cdn2.steamgriddb.com/grid/abaa9aa65a3f698cf1b3e51d4ffcb0f3.png",
+            "tags": ["2D", "Multiplayer", "Sci-Fi", "Indie", "Co-op", "PvP", "Psychological"],
+            "platform": "Multi-platform",
+            "dev": "Innersloth"
+        },
+        {
+            "id": "GM-X116",
+            "title": "Aperture Desk Job",
+            "image": "https://cdn2.steamgriddb.com/grid/23d1814db536145f94aa605f815b5a57.png",
+            "tags": ["3D", "Action", "Comedy", "Sci-Fi", "Short", "F2P"],
+            "platform": "PC / Steam Deck",
+            "dev": "Valve"
+        },
+        {
+            "id": "GM-X117",
+            "title": "Awaria",
+            "image": "https://cdn2.steamgriddb.com/grid/00b1f760f5b1831e2495c8bb1e99c38e.png",
+            "tags": ["2D", "Horror", "Indie", "Short", "Atmospheric"],
+            "platform": "PC",
+            "dev": "Beekeeper Studio"
+        },
+        {
+            "id": "GM-X118",
+            "title": "Helltaker",
+            "image": "https://cdn2.steamgriddb.com/grid/8ca2ddca9fd5b429152341f9c56cde20.png",
+            "tags": ["2D", "Puzzle", "Indie", "F2P", "Anime", "Strategy"],
+            "platform": "PC",
+            "dev": "vanripper"
+        },
+        {
+            "id": "GM-X119",
+            "title": "Battlefield 2042",
+            "image": "https://cdn2.steamgriddb.com/grid/5a90430f2ad02f07b2029e4e285b8a64.png",
+            "tags": ["3D", "FPS", "Shooter", "Multiplayer", "Action", "Military"],
+            "platform": "PC / Console",
+            "dev": "DICE"
+        },
+        {
+            "id": "GM-X120",
+            "title": "Beyond: Two Souls",
+            "image": "https://cdn2.steamgriddb.com/grid/d686cccce400a5ec599b0297d55639d1.jpg",
+            "tags": ["3D", "Story Rich", "Choices Matter", "Adventure", "Sci-Fi", "Cinematic"],
+            "platform": "PC / Console",
+            "dev": "Quantic Dream"
+        },
+        {
+            "id": "GM-X121",
+            "title": "Bloons TD 6",
+            "image": "https://cdn2.steamgriddb.com/grid/1d4d411238151980dc8c225537101faa.png",
+            "tags": ["3D", "Tower Defense", "Strategy", "Co-op", "Multiplayer"],
+            "platform": "Multi-platform",
+            "dev": "Ninja Kiwi"
+        },
+        {
+            "id": "GM-X122",
+            "title": "Cakey's Twisted Bakery",
+            "image": "https://cdn2.steamgriddb.com/grid/6ee1d3853f229f82f4663f21ea6edf86.png",
+            "tags": ["3D", "Horror", "Survival", "First-Person", "Indie", "Puzzle"],
+            "platform": "PC",
+            "dev": "TinyMindz"
+        },
+        {
+            "id": "GM-X123",
+            "title": "KRAMPEN",
+            "image": "https://cdn2.steamgriddb.com/grid/84a1e3f1c61f6ba590f8dbd71b3d9b64.png",
+            "tags": ["2D", "Horror", "Adventure", "Indie", "Atmospheric", "Pixel Art"],
+            "platform": "PC",
+            "dev": "GMD13"
+        },
+        {
+            "id": "GM-X124",
+            "title": "Lethal Company",
+            "image": "https://cdn2.steamgriddb.com/grid/8abc5115c26732da5c78173c2131c8e1.png",
+            "tags": ["3D", "Horror", "Co-op", "Survival", "Indie", "First-Person", "Sci-Fi"],
+            "platform": "PC",
+            "dev": "Zeekerss"
+        },
+        {
+            "id": "GM-X125",
+            "title": "PROJECT: PLAYTIME",
+            "image": "https://cdn2.steamgriddb.com/grid/7efecfec628c87c67931da7e5fba8cdb.jpg",
+            "tags": ["3D", "Horror", "Multiplayer", "F2P", "First-Person", "Action"],
+            "platform": "PC",
+            "dev": "Mob Entertainment"
+        },
+        {
+            "id": "GM-X126",
+            "title": "R.E.P.O.",
+            "image": "https://cdn2.steamgriddb.com/grid/758c75330cf45230187550a436103768.png",
+            "tags": ["3D", "Horror", "Co-op", "First-Person", "Indie", "Sci-Fi"],
+            "platform": "PC",
+            "dev": "semiwork"
+        },
+        {
+            "id": "GM-X127",
+            "title": "RoboCop: Rogue City",
+            "image": "https://cdn2.steamgriddb.com/grid/48901f107c6105f69b6aa84d0a277333.png",
+            "tags": ["3D", "FPS", "Action", "Sci-Fi", "Cyberpunk", "Shooter"],
+            "platform": "PC / Console",
+            "dev": "Teyon"
+        },
+        {
+            "id": "GM-X128",
+            "title": "SCP: Secret Laboratory",
+            "image": "https://cdn2.steamgriddb.com/grid/f42d4d9b71c7870e8623325b71622999.png",
+            "tags": ["3D", "Horror", "Multiplayer", "F2P", "First-Person", "Sci-Fi"],
+            "platform": "PC",
+            "dev": "Northwood Studios"
+        },
+        {
+            "id": "GM-X129",
+            "title": "Sky: Children of the Light",
+            "image": "https://cdn2.steamgriddb.com/grid/bed9348bd05edc84217ad26fa852c7bc.png",
+            "tags": ["3D", "Adventure", "MMO", "Indie", "Relaxing", "Atmospheric"],
+            "platform": "Multi-platform",
+            "dev": "thatgamecompany"
+        },
+        {
+            "id": "GM-X130",
+            "title": "Strinova",
+            "image": "https://cdn2.steamgriddb.com/grid/3da0e99d1debf463a617248d9e26e437.png",
+            "tags": ["3D", "Shooter", "Anime", "PvP", "Action", "F2P", "TPS"],
+            "platform": "PC",
+            "dev": "iDreamSky"
+        },
+        {
+            "id": "GM-X131",
+            "title": "The Farmer Was Replaced",
+            "image": "https://cdn2.steamgriddb.com/grid/54c96f1285af3bd5affd0b1cf48d02bb.jpg",
+            "tags": ["3D", "Puzzle", "Simulation", "Indie", "Strategy"],
+            "platform": "PC",
+            "dev": "Timon Herzog"
+        },
+        {
+            "id": "GM-X132",
+            "title": "THE FINALS",
+            "image": "https://cdn2.steamgriddb.com/grid/e1315d431cba54f64fdf36fa08bd49ca.png",
+            "tags": ["3D", "FPS", "Shooter", "Multiplayer", "Action", "F2P"],
+            "platform": "PC / Console",
+            "dev": "Embark Studios"
+        },
+        {
+            "id": "GM-X133",
+            "title": "Wall World 2",
+            "image": "https://cdn2.steamgriddb.com/grid/d9ae8d06d4c9f2a95b2e87854254dd06.png",
+            "tags": ["2D", "Roguelike", "Tower Defense", "Sci-Fi", "Indie", "Pixel Art"],
+            "platform": "PC",
+            "dev": "Alawar"
+        },
+        {
+            "id": "GM-X134",
+            "title": "Zenless Zone Zero",
+            "image": "https://cdn2.steamgriddb.com/grid/0e2853a34b8f1fc399d7856658347b56.png",
+            "tags": ["3D", "Action", "RPG", "Anime", "Cyberpunk", "Gacha", "F2P", "Hack and Slash"],
+            "platform": "Multi-platform",
+            "dev": "HoYoverse"
         }
     ]
 }
