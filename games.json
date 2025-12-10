@@ -603,7 +603,7 @@
         {
             "id": "GM-X76",
             "title": "Alice: Madness Returns",
-            "image": "https://cdn2.steamgriddb.com/grid/835697a6f23c72b1d300d8109d941aaf.png",
+            "image": "https://cdn2.steamgriddb.com/grid/18c1932d87fb2d0250f2b3235f3802c9.png",
             "tags": ["Action", "Adventure", "Dark Fantasy", "Platformer"],
             "platform": "Steam",
             "dev": "Spicy Horse"
@@ -611,7 +611,7 @@
         {
             "id": "GM-X77",
             "title": "The Stanley Parable: Ultra Deluxe",
-            "image": "https://cdn2.steamgriddb.com/grid/d40d9d309148d80c6c7477c1969a473f.png",
+            "image": "https://cdn2.steamgriddb.com/grid/295e6487eefee97ea8302368d5fa1602.png",
             "tags": ["Adventure", "Comedy", "First-Person", "Choices Matter"],
             "platform": "Steam",
             "dev": "Crows Crows Crows"
@@ -619,7 +619,7 @@
         {
             "id": "GM-X78",
             "title": "We Happy Few",
-            "image": "https://cdn2.steamgriddb.com/grid/06d2035293de5420d41e7a5c12368161.png",
+            "image": "https://cdn2.steamgriddb.com/grid/1dd0a697c2c176adef4fa293869a93f0.jpg",
             "tags": ["Action", "Adventure", "Dystopian", "Survival"],
             "platform": "Steam",
             "dev": "Compulsion Games"
@@ -627,7 +627,7 @@
         {
             "id": "GM-X79",
             "title": "NieR:Automata",
-            "image": "https://cdn2.steamgriddb.com/grid/921a37651a24d7d13b318d157a0572e4.png",
+            "image": "https://cdn2.steamgriddb.com/grid/e073a6f87e5e96e3d4ce33c068846d5b.png",
             "tags": ["Action RPG", "Story Rich", "Sci-fi", "Post-apocalyptic"],
             "platform": "Steam",
             "dev": "PlatinumGames"
@@ -651,7 +651,7 @@
         {
             "id": "GM-X82",
             "title": "Plants vs. Zombies",
-            "image": "https://cdn2.steamgriddb.com/grid/0d55e3427958a74b321e25e9d9b68a2d.png",
+            "image": "https://cdn2.steamgriddb.com/grid/499375ecff4b15f61e7e9819e4a4439a.png",
             "tags": ["Tower Defense", "Strategy", "Casual", "Classic"],
             "platform": "Steam",
             "dev": "PopCap Games"
@@ -659,7 +659,7 @@
         {
             "id": "GM-X83",
             "title": "DEEEER Simulator",
-            "image": "https://cdn2.steamgriddb.com/grid/c4573b306b83f345a9a83a0050e04f14.png",
+            "image": "https://cdn2.steamgriddb.com/grid/3ccdc3d48d591fd161948b1a93aa8373.png",
             "tags": ["Sandbox", "Physics", "Comedy", "Indie"],
             "platform": "Steam",
             "dev": "Gibier Games"
@@ -667,7 +667,7 @@
         {
             "id": "GM-X84",
             "title": "Broforce",
-            "image": "https://cdn2.steamgriddb.com/grid/b3d4f6c49c86ead8364811a7f722a9ff.png",
+            "image": "https://cdn2.steamgriddb.com/grid/6af79f5a21ebddc03b1c98c76dc31b5f.png",
             "tags": ["Action", "Pixel Graphics", "Co-op", "Platformer"],
             "platform": "Steam",
             "dev": "Free Lives"
@@ -675,26 +675,26 @@
         {
             "id": "GM-X85",
             "title": "Farlight 84",
-            "image": "https://cdn2.steamgriddb.com/grid/8357f86234b415ba247343e74b3d4f82.png",
+            "image": "https://cdn2.steamgriddb.com/grid/04a24077fa95d1271619e47c167f9303.png",
             "tags": ["Battle Royale", "Hero Shooter", "Free to Play", "Multiplayer"],
             "platform": "Steam",
             "dev": "Farlight"
         },
         {
-            "id": "GM-X86",
-            "title": "The Dispatcher",
-            "image": "https://cdn2.steamgriddb.com/grid/5053787752e5d59048a1215b02a2810a.png",
-            "tags": ["Horror", "Indie", "Walking Simulator", "Short"],
-            "platform": "PC",
-            "dev": "Civil Savages"
-        },
-        {
             "id": "GM-X87",
             "title": "Overwatch",
-            "image": "https://cdn2.steamgriddb.com/grid/2275b6f2f51859b6572545d1b1e36ccd.png",
+            "image": "https://cdn2.steamgriddb.com/grid/96f0d98a448af2cfa50f971b680d6342.png",
             "tags": ["Hero Shooter", "FPS", "Multiplayer", "Team-Based"],
             "platform": "Multi-platform",
             "dev": "Blizzard"
         }
+        {
+            "id": "GM-X88",
+            "title": "Dispatch",
+            "image": "https://cdn2.steamgriddb.com/grid/bc3c0e3efa04c44f7cece0b2383794e7.png",
+            "tags": ["Решения с последствиями", "Глубокий сюжет", "Нагота", "Сексуальный контент", "Романтика", "Кинематографичная", "Юмор"],
+            "platform": "Steam",
+            "dev": "Farlight"
+        },
     ]
 }
