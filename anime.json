@@ -335,6 +335,118 @@
             "tags": ["2D", "TV Series", "Mecha", "Sci-Fi", "Romance", "Drama", "Action"],
             "platform": "TV Series",
             "dev": "A-1 Pictures / Trigger"
+        },
+        {
+            "id": "VL-A43",
+            "title": "Spider-Man: Into the Spider-Verse",
+            "image": "https://images6.alphacoders.com/992/992451.jpg",
+            "tags": ["3D", "CGI", "Movie", "Action", "Sci-Fi", "Superhero", "Family", "Stylized"],
+            "platform": "Feature Film",
+            "dev": "Sony Pictures Animation"
+        },
+        {
+            "id": "VL-A44",
+            "title": "Spider-Man: Across the Spider-Verse",
+            "image": "https://images8.alphacoders.com/131/1316694.jpeg",
+            "tags": ["3D", "CGI", "Movie", "Action", "Sci-Fi", "Superhero", "Family", "Stylized"],
+            "platform": "Feature Film",
+            "dev": "Sony Pictures Animation"
+        },
+        {
+            "id": "VL-A45",
+            "title": "The Predator",
+            "image": "https://images8.alphacoders.com/926/926618.jpg",
+            "tags": ["Live Action", "Movie", "Sci-Fi", "Action", "Horror", "Thriller"],
+            "platform": "Feature Film",
+            "dev": "20th Century Fox"
+        },
+        {
+            "id": "VL-A46",
+            "title": "One Punch Man",
+            "image": "https://images8.alphacoders.com/694/694857.png",
+            "tags": ["2D", "TV Series", "Action", "Comedy", "Superhero", "Parody", "Shounen"],
+            "platform": "TV Series",
+            "dev": "Madhouse"
+        },
+        {
+            "id": "VL-A47",
+            "title": "The Rising of the Shield Hero",
+            "image": "https://images2.alphacoders.com/981/981448.png",
+            "tags": ["2D", "TV Series", "Isekai", "Fantasy", "Adventure", "Drama", "Action"],
+            "platform": "TV Series",
+            "dev": "Kinema Citrus"
+        },
+        {
+            "id": "VL-A48",
+            "title": "Overlord",
+            "image": "https://images7.alphacoders.com/131/1315570.jpeg",
+            "tags": ["2D", "TV Series", "Isekai", "Dark Fantasy", "Action", "Game Adaptation", "Villain Protagonist"],
+            "platform": "TV Series",
+            "dev": "Madhouse"
+        },
+        {
+            "id": "VL-A49",
+            "title": "KonoSuba: God's Blessing on This Wonderful World!",
+            "image": "https://images6.alphacoders.com/797/797824.png",
+            "tags": ["2D", "TV Series", "Isekai", "Comedy", "Fantasy", "Adventure", "Parody"],
+            "platform": "TV Series",
+            "dev": "Studio Deen"
+        },
+        {
+            "id": "VL-A50",
+            "title": "Dr. Stone",
+            "image": "https://images7.alphacoders.com/103/1033575.jpg",
+            "tags": ["2D", "TV Series", "Sci-Fi", "Adventure", "Post-Apocalyptic", "Shounen", "Educational"],
+            "platform": "TV Series",
+            "dev": "TMS Entertainment"
+        },
+        {
+            "id": "VL-A51",
+            "title": "Delicious in Dungeon",
+            "image": "https://images6.alphacoders.com/134/1344446.jpeg",
+            "tags": ["2D", "ONA", "Fantasy", "Adventure", "Comedy", "Cooking", "Gourmet"],
+            "platform": "Netflix",
+            "dev": "Studio Trigger"
+        },
+        {
+            "id": "VL-A52",
+            "title": "Demon Slayer: Kimetsu no Yaiba",
+            "image": "https://images7.alphacoders.com/133/1330712.jpeg",
+            "tags": ["2D", "TV Series", "Action", "Fantasy", "Historical", "Demons", "Shounen"],
+            "platform": "TV Series",
+            "dev": "Ufotable"
+        },
+        {
+            "id": "VL-A53",
+            "title": "Spy x Family",
+            "image": "https://images6.alphacoders.com/122/1225577.jpg",
+            "tags": ["2D", "TV Series", "Action", "Comedy", "Slice of Life", "Family", "Shounen"],
+            "platform": "TV Series",
+            "dev": "Wit Studio / CloverWorks"
+        },
+        {
+            "id": "VL-A54",
+            "title": "Sanda",
+            "image": "https://m.media-amazon.com/images/M/MV5BMzRjOTlmMDQtYjY2Zi00YzA4LWI3MGUtMTljZWYxYTMzMzFhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+            "tags": ["2D", "TV Series", "Sci-Fi", "Supernatural", "Mystery", "Drama", "School"],
+            "platform": "TV Series",
+            "dev": "Science SARU"
+        },
+        {
+            "id": "VL-A55",
+            "title": "Spirited Away",
+            "image": "https://images.alphacoders.com/605/605592.jpg",
+            "tags": ["2D", "Movie", "Fantasy", "Adventure", "Family", "Supernatural", "Classic"],
+            "platform": "Feature Film",
+            "dev": "Studio Ghibli"
+        },
+        {
+            "id": "VL-A56",
+            "title": "Howl's Moving Castle",
+            "image": "https://images5.alphacoders.com/846/846876.jpg",
+            "tags": ["2D", "Movie", "Fantasy", "Romance", "Adventure", "Magic", "Steampunk"],
+            "platform": "Feature Film",
+            "dev": "Studio Ghibli"
         }
     ]
 }
