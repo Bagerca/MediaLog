@@ -1,6 +1,7 @@
 {
     "anime": [
         {
+            "id": "VL-A01",
             "title": "Frieren: Beyond Journey's End",
             "image": "https://images3.alphacoders.com/132/1328972.jpeg",
             "tags": ["Fantasy", "Adventure", "Drama", "Slice of Life"],
@@ -8,6 +9,7 @@
             "dev": "Madhouse"
         },
         {
+            "id": "VL-A02",
             "title": "Your Name",
             "image": "https://images.alphacoders.com/846/846313.jpg",
             "tags": ["Romance", "Supernatural", "Drama"],
@@ -15,6 +17,7 @@
             "dev": "CoMix Wave Films"
         },
         {
+            "id": "VL-A03",
             "title": "Cyberpunk: Edgerunners",
             "image": "https://images4.alphacoders.com/937/937666.jpg",
             "tags": ["Cyberpunk", "Sci-Fi", "Tragedy", "Action"],
@@ -22,6 +25,7 @@
             "dev": "Studio Trigger"
         },
         {
+            "id": "VL-A04",
             "title": "Attack on Titan",
             "image": "https://images7.alphacoders.com/133/1330715.jpeg",
             "tags": ["Action", "Dark Fantasy", "Post-Apocalyptic"],
@@ -29,6 +33,7 @@
             "dev": "MAPPA / Wit Studio"
         },
         {
+            "id": "VL-A05",
             "title": "Spirited Away",
             "image": "https://images.alphacoders.com/605/605592.jpg",
             "tags": ["Fantasy", "Adventure", "Family"],
@@ -36,6 +41,7 @@
             "dev": "Studio Ghibli"
         },
         {
+            "id": "VL-A06",
             "title": "Arcane",
             "image": "https://images5.alphacoders.com/119/1191374.jpg",
             "tags": ["Action", "Sci-Fi", "Drama", "Steampunk"],
