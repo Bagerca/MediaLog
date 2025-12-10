@@ -10,7 +10,7 @@
     --cyan: #5ffbf1;             
     --gold: #ffae00;             
     --gold-dim: rgba(255, 174, 0, 0.15);
-    --cyan-dim: rgba(95, 251, 241, 0.15); /* Добавил для аниме */
+    --cyan-dim: rgba(95, 251, 241, 0.15);
     --border-color: rgba(255, 255, 255, 0.12);
     --font-head: 'Rajdhani', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -53,7 +53,6 @@ select { outline: none; }
     animation: floatUp 15s infinite linear;
     opacity: 0;
 }
-/* Меняем цвет пыли для Аниме на голубой */
 body[data-page="anime"] .gold-dust {
     background: var(--cyan);
     box-shadow: 0 0 4px var(--cyan);
@@ -90,7 +89,6 @@ body[data-page="anime"] .gold-dust {
     transition: 0.3s ease; filter: drop-shadow(0 0 5px rgba(255, 174, 0, 0.3)); 
     position: relative; top: -3px; 
 }
-/* Лого для Аниме - Циан */
 body[data-page="anime"] .logo-icon { stroke: var(--cyan); filter: drop-shadow(0 0 5px rgba(95, 251, 241, 0.3)); }
 
 .inner-circle { transform-origin: center; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -138,7 +136,6 @@ body[data-page="anime"] .nav-item.active::after { background: var(--cyan); box-s
     background: rgba(255, 174, 0, 0.05); margin-bottom: 0.5rem;
     opacity: 0; animation: tagReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
 }
-/* Тег для аниме */
 body[data-page="anime"] .deco-tag {
     border-color: var(--cyan-dim); color: var(--cyan); background: rgba(95, 251, 241, 0.05);
 }
@@ -318,13 +315,33 @@ body[data-page="anime"] .select-item:hover, body[data-page="anime"] .select-item
     cursor: pointer; transition: 0.2s;
 }
 
-/* Вид для Игр */
-body[data-page="games"] .view-btn:hover { color: var(--gold); border-color: var(--gold); }
-body[data-page="games"] .view-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+/* Вид для Игр (Оранжевый) */
+body[data-page="games"] .view-btn:hover { 
+    color: var(--gold); 
+    border-color: var(--gold);
+    background: rgba(255, 174, 0, 0.1);
+    box-shadow: 0 0 10px var(--gold);
+}
+body[data-page="games"] .view-btn.active { 
+    background: var(--gold); 
+    color: #000; 
+    border-color: var(--gold); 
+    box-shadow: 0 0 15px rgba(255, 174, 0, 0.4);
+}
 
-/* Вид для Аниме */
-body[data-page="anime"] .view-btn:hover { color: var(--cyan); border-color: var(--cyan); }
-body[data-page="anime"] .view-btn.active { background: var(--cyan); color: #000; border-color: var(--cyan); }
+/* Вид для Аниме (Синий) */
+body[data-page="anime"] .view-btn:hover { 
+    color: var(--cyan); 
+    border-color: var(--cyan);
+    background: rgba(95, 251, 241, 0.1);
+    box-shadow: 0 0 10px var(--cyan);
+}
+body[data-page="anime"] .view-btn.active { 
+    background: var(--cyan); 
+    color: #000; 
+    border-color: var(--cyan);
+    box-shadow: 0 0 15px rgba(95, 251, 241, 0.4);
+}
 
 
 /* --- РЯД 2: ФИЛЬТРЫ --- */
