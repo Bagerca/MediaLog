@@ -3,609 +3,609 @@
         {
             "title": "Wuthering Waves",
             "image": "https://cdn2.steamgriddb.com/grid/7cee9e13ee29834be975c2164736ad4d.png",
-            "tags": "Открытый мир, Аниме, Бесплатная игра, Экшен, Приключение, Ролевая игра, Глубокий сюжет, Бой, Исследования, Похожа на Dark Souls, 3D, От третьего лица, Для одного игрока, Постапокалипсис, Кооператив, Отличный саундтрек, Слэшер, Экшен-рогалик",
+            "tags": ["Открытый мир", "Аниме", "Бесплатная игра", "Экшен", "Приключение", "Ролевая игра", "Глубокий сюжет", "Бой", "Исследования", "Похожа на Dark Souls", "3D", "От третьего лица", "Для одного игрока", "Постапокалипсис", "Кооператив", "Отличный саундтрек", "Слэшер", "Экшен-рогалик"],
             "platform": "Multi-platform",
             "dev": "Kuro Games"
         },
         {
             "title": "Elden Ring",
             "image": "https://cdn2.steamgriddb.com/grid/a0abf0396a718b8982fce0b80181d8cb.png",
-            "tags": "Soulslike, Dark Fantasy, RPG",
+            "tags": ["Soulslike", "Dark Fantasy", "RPG"],
             "platform": "PC / Console",
             "dev": "FromSoftware"
         },
         {
             "title": "Cyberpunk 2077",
             "image": "https://cdn2.steamgriddb.com/grid/4030e2eebb977639f8836aa25a293e40.png",
-            "tags": "Cyberpunk, Shooter, Story Rich",
+            "tags": ["Cyberpunk", "Shooter", "Story Rich"],
             "platform": "PC / Console",
             "dev": "CD Projekt Red"
         },
         {
             "title": "Deepest Sword",
             "image": "https://cdn2.steamgriddb.com/grid/bff8f0b5cc710fea782704f6c61d1cde.png",
-            "tags": "Indie, Physics, Funny",
+            "tags": ["Indie", "Physics", "Funny"],
             "platform": "PC",
             "dev": "Cosmic Adventure"
         },
         {
             "title": "Альтушка для скуфа",
             "image": "https://cdn2.steamgriddb.com/grid/d7d6e3e5b44b1cb5e569bfc6c803ad54.jpg",
-            "tags": "Visual Novel, Memes, Anime",
+            "tags": ["Visual Novel", "Memes", "Anime"],
             "platform": "PC",
             "dev": "Terletski Games"
         },
         {
             "title": "Wall World",
             "image": "https://cdn2.steamgriddb.com/grid/6fdb679a729a7a187769d8c71c406a95.png",
-            "tags": "Roguelite, Mining, Tower Defense",
+            "tags": ["Roguelite", "Mining", "Tower Defense"],
             "platform": "PC",
             "dev": "Alawar"
         },
         {
             "title": "Dome Keeper",
             "image": "https://cdn2.steamgriddb.com/grid/5a5008129c8ce1077b552acc8df23048.jpg",
-            "tags": "Roguelite, Mining, Survival",
+            "tags": ["Roguelite", "Mining", "Survival"],
             "platform": "PC",
             "dev": "Bippinbits"
         },
         {
             "title": "God of War",
             "image": "https://cdn2.steamgriddb.com/grid/5855660034a74cfe0e5fc8d57d17f4ac.png",
-            "tags": "Action, Adventure, Mythology",
+            "tags": ["Action", "Adventure", "Mythology"],
             "platform": "PC / Console",
             "dev": "Santa Monica Studio"
         },
         {
             "title": "God of War Ragnarök",
             "image": "https://cdn2.steamgriddb.com/grid/fd93fd1de50e084dd7d3b0b9f6950450.png",
-            "tags": "Action, Story Rich, Mythology",
+            "tags": ["Action", "Story Rich", "Mythology"],
             "platform": "PC / Console",
             "dev": "Santa Monica Studio"
         },
         {
             "title": "Garten of Banban",
             "image": "https://cdn2.steamgriddb.com/grid/96cc1b58ad1f952e7a859391538a0ed0.jpg",
-            "tags": "Horror, Mascot, Puzzle",
+            "tags": ["Horror", "Mascot", "Puzzle"],
             "platform": "PC",
             "dev": "Euphoric Brothers"
         },
         {
             "title": "The Henry Stickmin Collection",
             "image": "https://cdn2.steamgriddb.com/grid/a255b637931183f1ccc0219f83e2fdf4.png",
-            "tags": "Comedy, Choices Matter, 2D",
+            "tags": ["Comedy", "Choices Matter", "2D"],
             "platform": "PC",
             "dev": "PuffballsUnited"
         },
         {
             "title": "Doki Doki Literature Club!",
             "image": "https://cdn2.steamgriddb.com/grid/66cff14a77fb713dc60adc123a8861bd.png",
-            "tags": "Psychological Horror, Anime, VN",
+            "tags": ["Psychological Horror", "Anime", "VN"],
             "platform": "PC",
             "dev": "Team Salvato"
         },
         {
             "title": "DDLC Plus!",
             "image": "https://cdn2.steamgriddb.com/grid/6bbabacedf722ac9de51983620c63e15.png",
-            "tags": "Psychological Horror, Anime, VN",
+            "tags": ["Psychological Horror", "Anime", "VN"],
             "platform": "Multi-platform",
             "dev": "Team Salvato"
         },
         {
             "title": "Portal",
             "image": "https://cdn2.steamgriddb.com/grid/60d58eafbef6da2e2bd56b40cd8835ed.png",
-            "tags": "Puzzle, Sci-Fi, Comedy",
+            "tags": ["Puzzle", "Sci-Fi", "Comedy"],
             "platform": "PC / Console",
             "dev": "Valve"
         },
         {
             "title": "Portal 2",
             "image": "https://cdn2.steamgriddb.com/grid/9ebc0e97da8e0e5083fea7203f194d2b.png",
-            "tags": "Puzzle, Co-op, Sci-Fi",
+            "tags": ["Puzzle", "Co-op", "Sci-Fi"],
             "platform": "PC / Console",
             "dev": "Valve"
         },
         {
             "title": "Sally Face",
             "image": "https://cdn2.steamgriddb.com/grid/9e729118dec145b90ce23e1f973a29b2.png",
-            "tags": "Horror, Adventure, Story Rich",
+            "tags": ["Horror", "Adventure", "Story Rich"],
             "platform": "PC / Console",
             "dev": "Steve Gabry"
         },
         {
             "title": "Beholder",
             "image": "https://cdn2.steamgriddb.com/grid/5ea7aaa4eaff9e67e37e174ccf82b56b.jpg",
-            "tags": "Strategy, Dystopian, Choices",
+            "tags": ["Strategy", "Dystopian", "Choices"],
             "platform": "Multi-platform",
             "dev": "Warm Lamp Games"
         },
         {
             "title": "Beholder 2",
             "image": "https://cdn2.steamgriddb.com/grid/d421fe849ec913c735125ad646aa4445.jpg",
-            "tags": "Strategy, Simulation, Dark",
+            "tags": ["Strategy", "Simulation", "Dark"],
             "platform": "Multi-platform",
             "dev": "Warm Lamp Games"
         },
         {
             "title": "Beholder 3",
             "image": "https://cdn2.steamgriddb.com/grid/22f8067098264dccf6ecaf1cdd7ec236.jpg",
-            "tags": "Strategy, Simulation, Political",
+            "tags": ["Strategy", "Simulation", "Political"],
             "platform": "PC / Console",
             "dev": "Paintbucket Games"
         },
-         {
+        {
             "title": "Beholder: Conductor",
             "image": "https://cdn2.steamgriddb.com/grid/e6a57f005085e683344d5d36e768114f.png",
-            "tags": "Short Film, Dystopian, Story Rich, Lore",
+            "tags": ["Short Film", "Dystopian", "Story Rich", "Lore"],
             "platform": "YouTube / Steam",
             "dev": "Paintbucket Games"
         },
         {
             "title": "Five Nights at Freddy's",
             "image": "https://cdn2.steamgriddb.com/grid/b88a0a425eb70f273d5d244739e9505b.png",
-            "tags": "Horror, Survival, Mascot",
+            "tags": ["Horror", "Survival", "Mascot"],
             "platform": "Multi-platform",
             "dev": "Scott Cawthon"
         },
         {
             "title": "FNAF: Security Breach",
             "image": "https://cdn2.steamgriddb.com/grid/a637f8238c55abe318298de68c906392.png",
-            "tags": "Horror, Free Roam, Mascot",
+            "tags": ["Horror", "Free Roam", "Mascot"],
             "platform": "Multi-platform",
             "dev": "Steel Wool Studios"
         },
         {
             "title": "Celeste",
             "image": "https://cdn2.steamgriddb.com/grid/792efc1687658bdf2e49af5ab8c6d38f.png",
-            "tags": "Platformer, Pixel Art, Difficult",
+            "tags": ["Platformer", "Pixel Art", "Difficult"],
             "platform": "Multi-platform",
             "dev": "Maddy Makes Games"
         },
         {
             "title": "Hollow Knight",
             "image": "https://cdn2.steamgriddb.com/grid/d18c832e8c956b4ef8b92862e6bf470d.png",
-            "tags": "Metroidvania, Souls-like, 2D",
+            "tags": ["Metroidvania", "Souls-like", "2D"],
             "platform": "Multi-platform",
             "dev": "Team Cherry"
         },
         {
             "title": "Hollow Knight: Silksong",
             "image": "https://cdn2.steamgriddb.com/grid/48b505846f30602aaff7e2d336720e6d.jpg",
-            "tags": "Metroidvania, Anticipated, 2D",
+            "tags": ["Metroidvania", "Anticipated", "2D"],
             "platform": "Multi-platform",
             "dev": "Team Cherry"
         },
         {
             "title": "No, I'm not a Human",
             "image": "https://cdn2.steamgriddb.com/grid/60a434d27aef072e09be35a97f06877f.png",
-            "tags": "Horror, Simulator, Indie",
+            "tags": ["Horror", "Simulator", "Indie"],
             "platform": "PC",
             "dev": "Indie Dev"
         },
         {
             "title": "The Baby In Yellow",
             "image": "https://cdn2.steamgriddb.com/grid/165d979bf8f90339555afb6e9c4ae1f0.png",
-            "tags": "Horror, Comedy, Puzzle",
+            "tags": ["Horror", "Comedy", "Puzzle"],
             "platform": "PC / Mobile",
             "dev": "Team Terrible"
         },
         {
             "title": "Marvel Rivals",
             "image": "https://cdn2.steamgriddb.com/grid/c78ba21d7d0b44c8246ad002ed751b8d.png",
-            "tags": "Hero Shooter, PvP, Action",
+            "tags": ["Hero Shooter", "PvP", "Action"],
             "platform": "PC / Console",
             "dev": "NetEase Games"
         },
         {
             "title": "League of Legends",
             "image": "https://cdn2.steamgriddb.com/grid/cf29ee336b07c0572c810f62f5543525.png",
-            "tags": "MOBA, Strategy, PvP",
+            "tags": ["MOBA", "Strategy", "PvP"],
             "platform": "PC",
             "dev": "Riot Games"
         },
         {
             "title": "Counter-Strike 2",
             "image": "https://cdn2.steamgriddb.com/grid/0662aa1719017e0efa5fa8daf0880c6e.png",
-            "tags": "Shooter, Tactical, PvP",
+            "tags": ["Shooter", "Tactical", "PvP"],
             "platform": "PC",
             "dev": "Valve"
         },
         {
             "title": "Overwatch 2",
             "image": "https://cdn2.steamgriddb.com/grid/f8013fd6d898ca4374d8113f0939c70c.png",
-            "tags": "Hero Shooter, FPS, Multiplayer",
+            "tags": ["Hero Shooter", "FPS", "Multiplayer"],
             "platform": "Multi-platform",
             "dev": "Blizzard"
         },
         {
             "title": "Genshin Impact",
             "image": "https://cdn2.steamgriddb.com/grid/17ac85cc7b94b7e29577acb5f9b38aa7.png",
-            "tags": "Open World, Gacha, Anime",
+            "tags": ["Open World", "Gacha", "Anime"],
             "platform": "Multi-platform",
             "dev": "HoYoverse"
         },
         {
             "title": "Minecraft",
             "image": "https://cdn2.steamgriddb.com/grid/1a22f0ef3aec25d1cb15d26895d13b88.png",
-            "tags": "Sandbox, Survival, Crafting",
+            "tags": ["Sandbox", "Survival", "Crafting"],
             "platform": "Multi-platform",
             "dev": "Mojang"
         },
         {
             "title": "DOOM Eternal",
             "image": "https://cdn2.steamgriddb.com/grid/954ae429e068105c25c7f9539d0edfd4.png",
-            "tags": "FPS, Action, Demons",
+            "tags": ["FPS", "Action", "Demons"],
             "platform": "Multi-platform",
             "dev": "id Software"
         },
         {
             "title": "DOOM (2016)",
             "image": "https://cdn2.steamgriddb.com/grid/a058df4515a37735134675250dc5ed6e.png",
-            "tags": "FPS, Action, Sci-Fi",
+            "tags": ["FPS", "Action", "Sci-Fi"],
             "platform": "Multi-platform",
             "dev": "id Software"
         },
         {
             "title": "DOOM: The Dark Ages",
             "image": "https://cdn2.steamgriddb.com/grid/84f4fca2a803fff45bf14a23aa760de5.jpg",
-            "tags": "FPS, Action, Medieval",
+            "tags": ["FPS", "Action", "Medieval"],
             "platform": "PC / Console",
             "dev": "id Software"
         },
         {
             "title": "Mouthwashing",
             "image": "https://cdn2.steamgriddb.com/grid/20b9686ae90039dd7216f07c6bdd3211.png",
-            "tags": "Psychological Horror, Retro, Story",
+            "tags": ["Psychological Horror", "Retro", "Story"],
             "platform": "PC",
             "dev": "Wrong Organ"
         },
         {
             "title": "Marvel's Spider-Man Remastered",
             "image": "https://cdn2.steamgriddb.com/grid/ea5f1405dd59fbe403044bdc5a2277dc.png",
-            "tags": "Open World, Superhero, Action",
+            "tags": ["Open World", "Superhero", "Action"],
             "platform": "PC / Console",
             "dev": "Insomniac Games"
         },
         {
             "title": "Marvel's Spider-Man: Miles Morales",
             "image": "https://cdn2.steamgriddb.com/grid/b6cc4153e11f0917be8b737751264588.png",
-            "tags": "Open World, Superhero, Action",
+            "tags": ["Open World", "Superhero", "Action"],
             "platform": "PC / Console",
             "dev": "Insomniac Games"
         },
         {
             "title": "Marvel's Spider-Man 2",
             "image": "https://cdn2.steamgriddb.com/grid/d67c3cf6b1b0bb4cc1c30243912c8343.png",
-            "tags": "Open World, Superhero, Action",
+            "tags": ["Open World", "Superhero", "Action"],
             "platform": "PS5",
             "dev": "Insomniac Games"
         },
         {
             "title": "Atomic Heart",
             "image": "https://cdn2.steamgriddb.com/grid/53f249d8ba9cfab41868236dead77aba.jpg",
-            "tags": "FPS, Sci-Fi, Action",
+            "tags": ["FPS", "Sci-Fi", "Action"],
             "platform": "PC / Console",
             "dev": "Mundfish"
         },
         {
             "title": "BioShock Remastered",
             "image": "https://cdn2.steamgriddb.com/grid/a265437321f8e7339486e92028a15101.png",
-            "tags": "FPS, Story Rich, Sci-Fi",
+            "tags": ["FPS", "Story Rich", "Sci-Fi"],
             "platform": "PC / Console",
             "dev": "Irrational Games"
         },
         {
             "title": "BioShock 2 Remastered",
             "image": "https://cdn2.steamgriddb.com/grid/b9eb072260f8a069d76c3407cc589c66.png",
-            "tags": "FPS, Sci-Fi, Underwater",
+            "tags": ["FPS", "Sci-Fi", "Underwater"],
             "platform": "PC / Console",
             "dev": "2K Marin"
         },
         {
             "title": "BioShock Infinite",
             "image": "https://cdn2.steamgriddb.com/grid/a1e6458db64e93a2acde93cc56f834e0.png",
-            "tags": "FPS, Steampunk, Story Rich",
+            "tags": ["FPS", "Steampunk", "Story Rich"],
             "platform": "PC / Console",
             "dev": "Irrational Games"
         },
         {
             "title": "Detroit: Become Human",
             "image": "https://cdn2.steamgriddb.com/grid/2078750ea356ba9fd472655dec36c068.png",
-            "tags": "Story Rich, Sci-Fi, Choices Matter",
+            "tags": ["Story Rich", "Sci-Fi", "Choices Matter"],
             "platform": "PC / Console",
             "dev": "Quantic Dream"
         },
         {
             "title": "Subnautica",
             "image": "https://cdn2.steamgriddb.com/grid/50896c8a37922749110dae272e7a345b.png",
-            "tags": "Survival, Open World, Underwater",
+            "tags": ["Survival", "Open World", "Underwater"],
             "platform": "Multi-platform",
             "dev": "Unknown Worlds"
         },
         {
             "title": "Subnautica: Below Zero",
             "image": "https://cdn2.steamgriddb.com/grid/1b5b0657f72ae81541808a70d9af3663.png",
-            "tags": "Survival, Open World, Adventure",
+            "tags": ["Survival", "Open World", "Adventure"],
             "platform": "Multi-platform",
             "dev": "Unknown Worlds"
         },
         {
             "title": "Hyper Light Drifter",
             "image": "https://cdn2.steamgriddb.com/grid/77aae72565d8d552d987ec4b7a567078.png",
-            "tags": "Pixel Art, Adventure, Great Soundtrack",
+            "tags": ["Pixel Art", "Adventure", "Great Soundtrack"],
             "platform": "Multi-platform",
             "dev": "Heart Machine"
         },
         {
             "title": "Cuphead",
             "image": "https://cdn2.steamgriddb.com/grid/23d2d7ff1a670a1ac0f181516bd58520.png",
-            "tags": "Difficult, Hand-drawn, Platformer",
+            "tags": ["Difficult", "Hand-drawn", "Platformer"],
             "platform": "Multi-platform",
             "dev": "Studio MDHR"
         },
         {
             "title": "Spore",
             "image": "https://cdn2.steamgriddb.com/grid/b3e6fdc36d0f16ef605f73a6ad7f89fb.png",
-            "tags": "Sandbox, God Game, Sci-Fi",
+            "tags": ["Sandbox", "God Game", "Sci-Fi"],
             "platform": "PC",
             "dev": "Maxis"
         },
         {
             "title": "Carrion",
             "image": "https://cdn2.steamgriddb.com/grid/4b59f87d7a404223de629d8fcfc2e290.png",
-            "tags": "Horror, Pixel Art, Reverse Horror",
+            "tags": ["Horror", "Pixel Art", "Reverse Horror"],
             "platform": "Multi-platform",
             "dev": "Phobia Game Studio"
         },
         {
             "title": "Buckshot Roulette",
             "image": "https://cdn2.steamgriddb.com/grid/15dedec079bd674cc309564d63c8db2c.png",
-            "tags": "Horror, Strategy, Tabletop",
+            "tags": ["Horror", "Strategy", "Tabletop"],
             "platform": "PC",
             "dev": "Mike Klubnika"
         },
         {
             "title": "MiSide",
             "image": "https://cdn2.steamgriddb.com/grid/7033b1bc9154b171d23c5ee400a734a4.png",
-            "tags": "Horror, Simulation, Psychological",
+            "tags": ["Horror", "Simulation", "Psychological"],
             "platform": "PC",
             "dev": "Aihasto"
         },
         {
             "title": "Choo-Choo Charles",
             "image": "https://cdn2.steamgriddb.com/grid/815baf1b97b125739a08097530f42760.png",
-            "tags": "Horror, Open World, Survival",
+            "tags": ["Horror", "Open World", "Survival"],
             "platform": "PC / Console",
             "dev": "Two Star Games"
         },
         {
             "title": "Poppy Playtime",
             "image": "https://cdn2.steamgriddb.com/grid/0a337bcc09cf4e796203bbee3a7db021.png",
-            "tags": "Horror, Puzzle, First-Person",
+            "tags": ["Horror", "Puzzle", "First-Person"],
             "platform": "Multi-platform",
             "dev": "Mob Entertainment"
         },
         {
             "title": "Hello Neighbor",
             "image": "https://cdn2.steamgriddb.com/grid/9aeb537f93aaeec134f4495989388bec.png",
-            "tags": "Stealth, Horror, Puzzle",
+            "tags": ["Stealth", "Horror", "Puzzle"],
             "platform": "Multi-platform",
             "dev": "Dynamic Pixels"
         },
         {
             "title": "Hello Neighbor 2",
             "image": "https://cdn2.steamgriddb.com/grid/03386a7c4df1efc17716a6ef9d0a2f1b.jpg",
-            "tags": "Stealth, Horror, Open World",
+            "tags": ["Stealth", "Horror", "Open World"],
             "platform": "Multi-platform",
             "dev": "Eerie Guest"
         },
         {
             "title": "Tiny Bunny",
             "image": "https://cdn2.steamgriddb.com/grid/1a4f09f4c65553deaf3926cba72825ee.jpg",
-            "tags": "Visual Novel, Horror, Mystery",
+            "tags": ["Visual Novel", "Horror", "Mystery"],
             "platform": "PC",
             "dev": "Saikono"
         },
         {
             "title": "Bendy and the Ink Machine",
             "image": "https://cdn2.steamgriddb.com/grid/fcc09cf0f7f9502e978ac2134eaac663.png",
-            "tags": "Horror, Puzzle, Survival",
+            "tags": ["Horror", "Puzzle", "Survival"],
             "platform": "Multi-platform",
             "dev": "Joey Drew Studios"
         },
         {
             "title": "Bendy and the Dark Revival",
             "image": "https://cdn2.steamgriddb.com/grid/b882ca7b76297dd7e2ad9d0d464a10fd.png",
-            "tags": "Horror, Action, Story Rich",
+            "tags": ["Horror", "Action", "Story Rich"],
             "platform": "PC / Console",
             "dev": "Joey Drew Studios"
         },
         {
             "title": "Bendy: Secrets of the Machine",
             "image": "https://cdn2.steamgriddb.com/grid/419f51a7b50c04bb38fd5870da376a5a.jpg",
-            "tags": "Horror, Mystery, Teaser",
+            "tags": ["Horror", "Mystery", "Teaser"],
             "platform": "PC",
             "dev": "Joey Drew Studios"
         },
         {
             "title": "Undertale",
             "image": "https://cdn2.steamgriddb.com/grid/bbd30950ec6c745947d21a08d002f782.png",
-            "tags": "RPG, Story Rich, Great Soundtrack",
+            "tags": ["RPG", "Story Rich", "Great Soundtrack"],
             "platform": "Multi-platform",
             "dev": "tobyfox"
         },
         {
             "title": "Dota 2",
             "image": "https://cdn2.steamgriddb.com/grid/cd94516dfa071f5f8b6b4eb4e24271e6.png",
-            "tags": "MOBA, Multiplayer, Strategy, Free to Play",
+            "tags": ["MOBA", "Multiplayer", "Strategy", "Free to Play"],
             "platform": "Steam",
             "dev": "Valve"
         },
         {
             "title": "Untitled Goose Game",
             "image": "https://cdn2.steamgriddb.com/grid/e125f95fae86c729ee9cb27217919b39.png",
-            "tags": "Indie, Puzzle, Stealth, Comedy",
+            "tags": ["Indie", "Puzzle", "Stealth", "Comedy"],
             "platform": "Steam",
             "dev": "House House"
         },
         {
             "title": "60 Seconds!",
             "image": "https://cdn2.steamgriddb.com/grid/9ddf312dbe4bb978053357b30ac226c2.png",
-            "tags": "Survival, Dark Comedy, Post-apocalyptic, Indie",
+            "tags": ["Survival", "Dark Comedy", "Post-apocalyptic", "Indie"],
             "platform": "Steam",
             "dev": "Robot Gentleman"
         },
         {
             "title": "Oxygen Not Included",
             "image": "https://cdn2.steamgriddb.com/grid/4bc1203088c3b782970c2781d0345085.png",
-            "tags": "Colony Sim, Survival, Simulation, Base Building",
+            "tags": ["Colony Sim", "Survival", "Simulation", "Base Building"],
             "platform": "Steam",
             "dev": "Klei Entertainment"
         },
         {
             "title": "Little Nightmares",
             "image": "https://cdn2.steamgriddb.com/grid/fbd783562a259f87d30f4a04df773221.png",
-            "tags": "Horror, Puzzle, Platformer, Atmospheric",
+            "tags": ["Horror", "Puzzle", "Platformer", "Atmospheric"],
             "platform": "Steam",
             "dev": "Tarsier Studios"
         },
         {
             "title": "Little Nightmares II",
             "image": "https://cdn2.steamgriddb.com/grid/ce420da1dae0395f3d31b438a08e15db.png",
-            "tags": "Horror, Puzzle, Adventure, Sequel",
+            "tags": ["Horror", "Puzzle", "Adventure", "Sequel"],
             "platform": "Steam",
             "dev": "Tarsier Studios"
         },
         {
             "title": "Little Nightmares III",
             "image": "https://cdn2.steamgriddb.com/grid/393ca095fe6861771123648b9ddbdf43.png",
-            "tags": "Horror, Co-op, Adventure, Upcoming",
+            "tags": ["Horror", "Co-op", "Adventure", "Upcoming"],
             "platform": "Steam",
             "dev": "Supermassive Games"
         },
         {
             "title": "Little Misfortune",
             "image": "https://cdn2.steamgriddb.com/grid/587d55d648f86419d287413669a94da4.png",
-            "tags": "Adventure, Indie, Dark Humor, Choices Matter",
+            "tags": ["Adventure", "Indie", "Dark Humor", "Choices Matter"],
             "platform": "Steam",
             "dev": "Killmonday Games"
         },
         {
             "title": "Scrap Mechanic",
             "image": "https://cdn2.steamgriddb.com/grid/0889cb055c9e030e3a4a7beb6efb47e9.png",
-            "tags": "Sandbox, Building, Survival, Open World",
+            "tags": ["Sandbox", "Building", "Survival", "Open World"],
             "platform": "Steam",
             "dev": "Axolot Games"
         },
         {
             "title": "VRChat",
             "image": "https://cdn2.steamgriddb.com/grid/295b5d1a1f98d2c6c64569ed889378d7.png",
-            "tags": "VR, Social, Free to Play, Massively Multiplayer",
+            "tags": ["VR", "Social", "Free to Play", "Massively Multiplayer"],
             "platform": "Steam",
             "dev": "VRChat Inc."
         },
         {
             "title": "Raft",
             "image": "https://cdn2.steamgriddb.com/grid/1fda541638af3f204f2493bbfbbc771e.png",
-            "tags": "Survival, Crafting, Open World, Co-op",
+            "tags": ["Survival", "Crafting", "Open World", "Co-op"],
             "platform": "Steam",
             "dev": "Redbeet Interactive"
         },
         {
             "title": "Protocol",
             "image": "https://cdn2.steamgriddb.com/grid/8f2967b9191461d5916592c99dadb3d3.png",
-            "tags": "Adventure, Sci-fi, First-Person, Story Rich",
+            "tags": ["Adventure", "Sci-fi", "First-Person", "Story Rich"],
             "platform": "Steam",
             "dev": "Fair Games Studio"
         },
         {
             "title": "Deltarune",
             "image": "https://cdn2.steamgriddb.com/grid/7d6a12ebcf6a84e1bdecc8d40a72e241.png",
-            "tags": "RPG, Indie, Pixel Graphics, Story Rich",
+            "tags": ["RPG", "Indie", "Pixel Graphics", "Story Rich"],
             "platform": "Steam",
             "dev": "tobyfox"
         },
         {
             "title": "Alice: Madness Returns",
             "image": "https://cdn2.steamgriddb.com/grid/835697a6f23c72b1d300d8109d941aaf.png",
-            "tags": "Action, Adventure, Dark Fantasy, Platformer",
+            "tags": ["Action", "Adventure", "Dark Fantasy", "Platformer"],
             "platform": "Steam",
             "dev": "Spicy Horse"
         },
         {
             "title": "The Stanley Parable: Ultra Deluxe",
             "image": "https://cdn2.steamgriddb.com/grid/d40d9d309148d80c6c7477c1969a473f.png",
-            "tags": "Adventure, Comedy, First-Person, Choices Matter",
+            "tags": ["Adventure", "Comedy", "First-Person", "Choices Matter"],
             "platform": "Steam",
             "dev": "Crows Crows Crows"
         },
         {
             "title": "We Happy Few",
             "image": "https://cdn2.steamgriddb.com/grid/06d2035293de5420d41e7a5c12368161.png",
-            "tags": "Action, Adventure, Dystopian, Survival",
+            "tags": ["Action", "Adventure", "Dystopian", "Survival"],
             "platform": "Steam",
             "dev": "Compulsion Games"
         },
         {
             "title": "NieR:Automata",
             "image": "https://cdn2.steamgriddb.com/grid/921a37651a24d7d13b318d157a0572e4.png",
-            "tags": "Action RPG, Story Rich, Sci-fi, Post-apocalyptic",
+            "tags": ["Action RPG", "Story Rich", "Sci-fi", "Post-apocalyptic"],
             "platform": "Steam",
             "dev": "PlatinumGames"
         },
         {
             "title": "Clea",
             "image": "https://cdn2.steamgriddb.com/grid/f661c9e88939c381b2123517173e047f.png",
-            "tags": "Horror, Survival, Indie, 2D",
+            "tags": ["Horror", "Survival", "Indie", "2D"],
             "platform": "Steam",
             "dev": "InvertMouse"
         },
         {
             "title": "Clea 2",
             "image": "https://cdn2.steamgriddb.com/grid/789e5a1900a35b11a43d9b4b08b35582.png",
-            "tags": "Horror, Survival, Indie, Sequel",
+            "tags": ["Horror", "Survival", "Indie", "Sequel"],
             "platform": "Steam",
             "dev": "InvertMouse"
         },
         {
             "title": "Plants vs. Zombies",
             "image": "https://cdn2.steamgriddb.com/grid/0d55e3427958a74b321e25e9d9b68a2d.png",
-            "tags": "Tower Defense, Strategy, Casual, Classic",
+            "tags": ["Tower Defense", "Strategy", "Casual", "Classic"],
             "platform": "Steam",
             "dev": "PopCap Games"
         },
         {
             "title": "DEEEER Simulator",
             "image": "https://cdn2.steamgriddb.com/grid/c4573b306b83f345a9a83a0050e04f14.png",
-            "tags": "Sandbox, Physics, Comedy, Indie",
+            "tags": ["Sandbox", "Physics", "Comedy", "Indie"],
             "platform": "Steam",
             "dev": "Gibier Games"
         },
         {
             "title": "Broforce",
             "image": "https://cdn2.steamgriddb.com/grid/b3d4f6c49c86ead8364811a7f722a9ff.png",
-            "tags": "Action, Pixel Graphics, Co-op, Platformer",
+            "tags": ["Action", "Pixel Graphics", "Co-op", "Platformer"],
             "platform": "Steam",
             "dev": "Free Lives"
         },
         {
             "title": "Farlight 84",
             "image": "https://cdn2.steamgriddb.com/grid/8357f86234b415ba247343e74b3d4f82.png",
-            "tags": "Battle Royale, Hero Shooter, Free to Play, Multiplayer",
+            "tags": ["Battle Royale", "Hero Shooter", "Free to Play", "Multiplayer"],
             "platform": "Steam",
             "dev": "Farlight"
         },
         {
             "title": "The Dispatcher",
             "image": "https://cdn2.steamgriddb.com/grid/5053787752e5d59048a1215b02a2810a.png",
-            "tags": "Horror, Indie, Walking Simulator, Short",
+            "tags": ["Horror", "Indie", "Walking Simulator", "Short"],
             "platform": "PC",
             "dev": "Civil Savages"
         },
         {
             "title": "Overwatch",
             "image": "https://cdn2.steamgriddb.com/grid/2275b6f2f51859b6572545d1b1e36ccd.png",
-            "tags": "Hero Shooter, FPS, Multiplayer, Team-Based",
+            "tags": ["Hero Shooter", "FPS", "Multiplayer", "Team-Based"],
             "platform": "Multi-platform",
             "dev": "Blizzard"
         }
