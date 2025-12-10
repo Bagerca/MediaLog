@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSort = 'name_asc';
     const rankWeight = { 'UR': 5, 'SSR': 4, 'SR': 3, 'R': 2, 'N': 1 };
 
-// --- 1. ЗАГРУЗКА ДАННЫХ (С ЛОАДЕРОМ) ---
+    // --- 1. ЗАГРУЗКА ДАННЫХ (С ЛОАДЕРОМ) ---
     if (pageType && gridContainer) {
         
         // 1. Показываем лоадер
@@ -48,8 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Небольшая искусственная задержка (300мс), чтобы лоадер не мигал слишком быстро, 
-        // если инет мгновенный. (Можно убрать setTimeout, если не нужно)
         setTimeout(() => {
             fetch(`${pageType}.json`) 
                 .then(res => {
@@ -61,11 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     generateTagMatrix(allItemsDB);
                     initInterface();
                     updateFilterButton(); 
-                    renderContent(); // Лоадер перезапишется контентом здесь
+                    renderContent();
                 })
                 .catch(err => {
                     console.error("Data Load Error:", err);
-                    // Показываем красивую ошибку
                     gridContainer.innerHTML = `
                         <div class="empty-state" style="border-color: #ff4d4d; color: #ff4d4d;">
                             /// SYSTEM ERROR: CONNECTION FAILED<br>
@@ -73,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
                 });
-        }, 300); // 300ms задержка для красоты
+        }, 300);
     } else {
         initInterface();
     }
@@ -84,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let items = [...allItemsDB]; 
 
-        // 1. Фильтры
+        // 1. Фильтры (Режимы)
         if (currentMode === 'mine') {
             items = items.filter(i => userLibrary[i.title]);
 
@@ -105,12 +102,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchVal = document.getElementById('searchInput')?.value.toLowerCase().trim();
         if (searchVal) items = items.filter(i => i.title.toLowerCase().includes(searchVal));
 
-        // 3. Теги
+        // 3. Теги (ОБНОВЛЕННАЯ ЛОГИКА ДЛЯ МАССИВОВ)
         if (activeTags.size > 0) {
             const tagsArr = Array.from(activeTags);
             items = items.filter(i => {
-                const iTags = (i.tags || '').toLowerCase();
-                return tagsArr.some(t => iTags.includes(t.toLowerCase()));
+                // Если тегов нет или это не массив, пропускаем
+                if (!i.tags || !Array.isArray(i.tags)) return false;
+
+                // Проверяем пересечение массивов (регистронезависимо)
+                return tagsArr.some(activeTag => 
+                    i.tags.some(itemTag => itemTag.toLowerCase() === activeTag.toLowerCase())
+                );
             });
         }
 
@@ -373,7 +375,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalDev').textContent = item.dev || 'UNKNOWN';
         document.getElementById('modalPlatform').textContent = item.platform || 'N/A';
         const tagsBox = document.getElementById('modalTags');
-        tagsBox.innerHTML = item.tags.split(',').map(t => `<span class="tech-tag">${t.trim()}</span>`).join('');
+        
+        // --- ОБНОВЛЕННАЯ ЛОГИКА ДЛЯ МАССИВА ТЕГОВ ---
+        if (Array.isArray(item.tags)) {
+            tagsBox.innerHTML = item.tags.map(t => `<span class="tech-tag">${t.trim()}</span>`).join('');
+        } else {
+            tagsBox.innerHTML = '';
+        }
+        // ----------------------------------------------
 
         updateViewModeUI();
         switchMode('view');
@@ -456,12 +465,19 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.classList.remove('show'), 2000);
     }
 
+    // --- ОБНОВЛЕННАЯ ФУНКЦИЯ ГЕНЕРАЦИИ ТЕГОВ ---
     function generateTagMatrix(items) {
         const container = document.getElementById('filterOptions');
         const clearBtn = document.getElementById('clearTagsBtn');
         if(!container) return;
         const tags = new Set();
-        items.forEach(i => (i.tags || '').split(',').forEach(t => tags.add(t.trim())));
+        
+        items.forEach(i => {
+            if (Array.isArray(i.tags)) {
+                i.tags.forEach(t => tags.add(t.trim()));
+            }
+        });
+
         container.innerHTML = Array.from(tags).sort().map(t => `<button class="tag-btn" data-tag="${t}">${t}</button>`).join('');
         container.querySelectorAll('.tag-btn').forEach(btn => {
             btn.addEventListener('click', () => {
