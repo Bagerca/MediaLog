@@ -1071,6 +1071,134 @@
             "tags": ["3D", "Action", "RPG", "Anime", "Cyberpunk", "Gacha", "F2P", "Hack and Slash"],
             "platform": "Multi-platform",
             "dev": "HoYoverse"
+        },
+        {
+            "id": "GM-X135",
+            "title": "Valorant",
+            "image": "https://cdn2.steamgriddb.com/grid/58797437703875323204987019875321.png",
+            "tags": ["3D", "FPS", "Shooter", "Tactical", "PvP", "Hero Shooter", "F2P"],
+            "platform": "PC / Console",
+            "dev": "Riot Games"
+        },
+        {
+            "id": "GM-X136",
+            "title": "Team Fortress 2",
+            "image": "https://cdn2.steamgriddb.com/grid/5cb56044702008e75928f60633045612.png",
+            "tags": ["3D", "FPS", "Hero Shooter", "Multiplayer", "Action", "Comedy", "F2P"],
+            "platform": "PC",
+            "dev": "Valve"
+        },
+        {
+            "id": "GM-X137",
+            "title": "Alan Wake",
+            "image": "https://cdn2.steamgriddb.com/grid/10101010101010101010101010101010.png",
+            "tags": ["3D", "Horror", "Action", "Story Rich", "Thriller", "Third-Person", "Atmospheric"],
+            "platform": "PC / Console",
+            "dev": "Remedy Entertainment"
+        },
+        {
+            "id": "GM-X138",
+            "title": "Black Myth: Wukong",
+            "image": "https://cdn2.steamgriddb.com/grid/1a5e1e7e7e7e7e7e7e7e7e7e7e7e7e7e.jpg",
+            "tags": ["3D", "Action", "RPG", "Souls-like", "Mythology", "Hack and Slash", "Third-Person"],
+            "platform": "PC / Console",
+            "dev": "Game Science"
+        },
+        {
+            "id": "GM-X139",
+            "title": "PEAK.",
+            "image": "https://cdn2.steamgriddb.com/grid/1234567890abcdef1234567890abcdef.jpg",
+            "tags": ["2D", "Platformer", "Precision Platformer", "Indie", "Pixel Art", "Difficult"],
+            "platform": "PC",
+            "dev": "Happysquared"
+        },
+        {
+            "id": "GM-X140",
+            "title": "RV There Yet?",
+            "image": "https://cdn2.steamgriddb.com/grid/44444444444444444444444444444444.png",
+            "tags": ["3D", "Simulation", "Open World", "Indie", "Driving", "Relaxing"],
+            "platform": "PC",
+            "dev": "Anamik"
+        },
+        {
+            "id": "GM-X141",
+            "title": "Phasmophobia",
+            "image": "https://cdn2.steamgriddb.com/grid/58797437703875323204987019875323.png",
+            "tags": ["3D", "Horror", "Co-op", "VR", "Indie", "Psychological", "First-Person"],
+            "platform": "PC / Console",
+            "dev": "Kinetic Games"
+        },
+        {
+            "id": "GM-X142",
+            "title": "Project Zomboid",
+            "image": "https://cdn2.steamgriddb.com/grid/2e4d2e4d2e4d2e4d2e4d2e4d2e4d2e4d.png",
+            "tags": ["2D", "Survival", "Open World", "Simulation", "Indie", "Isometric", "Post-Apocalyptic"],
+            "platform": "PC",
+            "dev": "The Indie Stone"
+        },
+        {
+            "id": "GM-X143",
+            "title": "Geometry Dash",
+            "image": "https://cdn2.steamgriddb.com/grid/11111111111111111111111111111111.png",
+            "tags": ["2D", "Platformer", "Rhythm", "Indie", "Level Editor", "Side Scroller", "Difficult"],
+            "platform": "PC / Mobile",
+            "dev": "RobTop Games"
+        },
+        {
+            "id": "GM-X144",
+            "title": "Super Bunny Man",
+            "image": "https://cdn2.steamgriddb.com/grid/99999999999999999999999999999999.png",
+            "tags": ["3D", "Co-op", "Physics", "Comedy", "Platformer", "Indie", "Local Co-op"],
+            "platform": "PC / Console",
+            "dev": "Catobyte"
+        },
+        {
+            "id": "GM-X145",
+            "title": "Liar's Bar",
+            "image": "https://cdn2.steamgriddb.com/grid/0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e.jpg",
+            "tags": ["3D", "Simulation", "Psychological", "Multiplayer", "Indie", "First-Person", "Dark"],
+            "platform": "PC",
+            "dev": "Curve Animation"
+        },
+        {
+            "id": "GM-X146",
+            "title": "inZOI",
+            "image": "https://cdn2.steamgriddb.com/grid/7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a.jpg",
+            "tags": ["3D", "Simulation", "Open World", "Realistic", "Sandbox", "Life Sim"],
+            "platform": "PC",
+            "dev": "KRAFTON"
+        },
+        {
+            "id": "GM-X147",
+            "title": "Hearts of Iron IV",
+            "image": "https://cdn2.steamgriddb.com/grid/6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c.png",
+            "tags": ["2D", "Strategy", "Grand Strategy", "Historical", "RTS", "Simulation", "War"],
+            "platform": "PC",
+            "dev": "Paradox Development Studio"
+        },
+        {
+            "id": "GM-X148",
+            "title": "SIDE EFFECTS",
+            "image": "https://cdn2.steamgriddb.com/grid/55555555555555555555555555555555.png",
+            "tags": ["3D", "Horror", "Psychological", "Indie", "Short", "Atmospheric"],
+            "platform": "PC",
+            "dev": "Real Infinity"
+        },
+        {
+            "id": "GM-X149",
+            "title": "Sifu",
+            "image": "https://cdn2.steamgriddb.com/grid/88888888888888888888888888888888.png",
+            "tags": ["3D", "Action", "Fighting", "Beat 'em up", "Roguelike", "Third-Person", "Indie"],
+            "platform": "Multi-platform",
+            "dev": "Sloclap"
+        },
+        {
+            "id": "GM-X150",
+            "title": "Skullgirls 2nd Encore",
+            "image": "https://cdn2.steamgriddb.com/grid/22222222222222222222222222222222.png",
+            "tags": ["2D", "Fighting", "Indie", "Anime", "Arcade", "Hand-Drawn"],
+            "platform": "Multi-platform",
+            "dev": "Hidden Variable"
         }
     ]
 }
