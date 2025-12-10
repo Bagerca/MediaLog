@@ -609,28 +609,5 @@
             "platform": "Multi-platform",
             "dev": "Blizzard"
         }
-    ],
-    "anime": [
-        {
-            "title": "Frieren",
-            "image": "https://images3.alphacoders.com/132/1328972.jpeg",
-            "tags": "Fantasy, Adventure, Drama",
-            "platform": "TV Series",
-            "dev": "Madhouse"
-        },
-        {
-            "title": "Your Name",
-            "image": "https://images.alphacoders.com/846/846313.jpg",
-            "tags": "Romance, Supernatural",
-            "platform": "Movie",
-            "dev": "CoMix Wave Films"
-        },
-        {
-            "title": "Edgerunners",
-            "image": "https://images4.alphacoders.com/937/937666.jpg",
-            "tags": "Cyberpunk, Sci-Fi, Tragedy",
-            "platform": "Netflix",
-            "dev": "Studio Trigger"
-        }
     ]
 }
