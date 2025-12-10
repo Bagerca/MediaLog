@@ -3,7 +3,7 @@
         {
             "id": "VL-A01",
             "title": "Chainsaw Man",
-            "image": "https://images8.alphacoders.com/128/1283622.jpg",
+            "image": "asset/movie/chainsaw-man-62e8d1d716c9b.jpg",
             "tags": ["2D", "TV Series", "Action", "Horror", "Dark Fantasy", "Supernatural", "Shounen"],
             "platform": "TV Series",
             "dev": "MAPPA"
@@ -35,7 +35,7 @@
         {
             "id": "VL-A05",
             "title": "Rick and Morty",
-            "image": "https://images3.alphacoders.com/812/812062.png",
+            "image": "asset/movie/rick-and-morty-5adf9996e37a3.jpg",
             "tags": ["2D", "TV Series", "Sci-Fi", "Comedy", "Adventure", "Parody", "Mature"],
             "platform": "Adult Swim",
             "dev": "Williams Street"
@@ -59,7 +59,7 @@
         {
             "id": "VL-A08",
             "title": "To Be Hero X",
-            "image": "https://images.alphacoders.com/135/1353389.jpeg",
+            "image": "asset/movie/to-be-hero-x-676646198cdb3.jpg",
             "tags": ["2D", "3D", "ONA", "Action", "Supernatural", "Sci-Fi", "Stylized"],
             "platform": "Web Series",
             "dev": "BeDream"
@@ -67,7 +67,7 @@
         {
             "id": "VL-A09",
             "title": "Moon Knight",
-            "image": "img/moon-knight.jpg",
+            "image": "asset/movie/moon-knight.jpg",
             "tags": ["Live Action", "Web Series", "Action", "Fantasy", "Psychological", "Mystery", "Supernatural"],
             "platform": "Disney+",
             "dev": "Marvel Studios"
@@ -75,7 +75,7 @@
         {
             "id": "VL-A10",
             "title": "Mushoku Tensei: Jobless Reincarnation",
-            "image": "img/mushoku-tensei.jpg",
+            "image": "asset/movie/mushoku-tensei.jpg",
             "tags": ["2D", "TV Series", "Fantasy", "Isekai", "Adventure", "Drama", "Magic", "Seinen"],
             "platform": "TV Series",
             "dev": "Studio Bind"
@@ -99,7 +99,7 @@
         {
             "id": "VL-A13",
             "title": "Sakamoto Days",
-            "image": "https://images4.alphacoders.com/135/1359005.jpg",
+            "image": "asset/movie/sakamoto-days-66866dd212f55.jpg",
             "tags": ["2D", "TV Series", "Action", "Comedy", "Slice of Life", "Shounen"],
             "platform": "TV Series",
             "dev": "TMS Entertainment"
@@ -107,7 +107,7 @@
         {
             "id": "VL-A14",
             "title": "Hazbin Hotel",
-            "image": "img/hazbin-hotel.jpg",
+            "image": "asset/movie/hazbin-hotel.jpg",
             "tags": ["2D", "Web Series", "Comedy", "Fantasy", "Music", "Demons", "Mature"],
             "platform": "Amazon Prime",
             "dev": "SpindleHorse / A24"
@@ -123,7 +123,7 @@
         {
             "id": "VL-A16",
             "title": "Fullmetal Alchemist: Brotherhood",
-            "image": "img/fullmetal-alchemist.jpg",
+            "image": "asset/movie/fullmetal-alchemist.jpg",
             "tags": ["2D", "TV Series", "Action", "Adventure", "Fantasy", "Military", "Shounen", "Classic"],
             "platform": "TV Series",
             "dev": "Bones"
@@ -139,7 +139,7 @@
         {
             "id": "VL-A18",
             "title": "Dandadan",
-            "image": "https://images7.alphacoders.com/134/1340995.jpeg",
+            "image": "asset/movie/dandadan-656826805babe.jpg",
             "tags": ["2D", "TV Series", "Action", "Comedy", "Supernatural", "Sci-Fi", "Romance", "Shounen"],
             "platform": "TV Series",
             "dev": "Science SARU"
@@ -147,7 +147,7 @@
         {
             "id": "VL-A19",
             "title": "Attack on Titan",
-            "image": "img/attack-on-titan.jpg",
+            "image": "asset/movie/attack-on-titan.jpg",
             "tags": ["2D", "TV Series", "Action", "Dark Fantasy", "Post-Apocalyptic", "Military", "Shounen", "Mystery"],
             "platform": "TV Series",
             "dev": "MAPPA / Wit Studio"
@@ -155,7 +155,7 @@
         {
             "id": "VL-A20",
             "title": "Heroes of Envell",
-            "image": "img/heroes-of-envell.jpg",
+            "image": "asset/movie/heroes-of-envell.jpg",
             "tags": ["2D", "3D", "TV Series", "Adventure", "Fantasy", "Game Adaptation", "School", "Kids"],
             "platform": "TV Series",
             "dev": "Parovoz"
@@ -179,7 +179,7 @@
         {
             "id": "VL-A23",
             "title": "Berserk",
-            "image": "img/berserk.jpg",
+            "image": "asset/movie/berserk.jpg",
             "tags": ["2D", "TV Series", "Action", "Dark Fantasy", "Horror", "Mature", "Seinen", "Demons"],
             "platform": "TV Series",
             "dev": "OLM / Liden Films"
@@ -187,7 +187,7 @@
         {
             "id": "VL-A24",
             "title": "Terminator Zero",
-            "image": "img/terminator-zero.jpg",
+            "image": "asset/movie/terminator-zero.jpg",
             "tags": ["2D", "ONA", "Sci-Fi", "Action", "Cyberpunk", "Time Travel", "Thriller"],
             "platform": "Netflix",
             "dev": "Production I.G"
@@ -227,7 +227,7 @@
         {
             "id": "VL-A29",
             "title": "Squid Game",
-            "image": "https://images3.alphacoders.com/118/1183296.jpg",
+            "image": "asset/movie/squid-game-61546f81ab1b0.jpg",
             "tags": ["Live Action", "Web Series", "Thriller", "Drama", "Psychological", "Battle Royale", "Dark"],
             "platform": "Netflix",
             "dev": "Siren Pictures"
@@ -235,7 +235,7 @@
         {
             "id": "VL-A30",
             "title": "Invincible",
-            "image": "img/invincible.jpg",
+            "image": "asset/movie/invincible.jpg",
             "tags": ["2D", "Web Series", "Action", "Sci-Fi", "Drama", "Mature", "Supernatural"],
             "platform": "Amazon Prime",
             "dev": "Skybound / Amazon"
@@ -243,7 +243,7 @@
         {
             "id": "VL-A31",
             "title": "Kaiju No. 8",
-            "image": "https://images.alphacoders.com/135/1359002.jpeg",
+            "image": "asset/movie/kaiju-no-8-6566fbd284b86.jpg",
             "tags": ["2D", "TV Series", "Action", "Sci-Fi", "Shounen", "Military"],
             "platform": "TV Series",
             "dev": "Production I.G"
@@ -251,7 +251,7 @@
         {
             "id": "VL-A32",
             "title": "Gravity Falls",
-            "image": "https://images7.alphacoders.com/417/417855.jpg",
+            "image": "asset/movie/gravity-falls-54dbcc014c26a.jpg",
             "tags": ["2D", "TV Series", "Mystery", "Adventure", "Comedy", "Supernatural", "Family"],
             "platform": "Disney",
             "dev": "Disney TVA"
@@ -259,7 +259,7 @@
         {
             "id": "VL-A33",
             "title": "Ninjago: Masters of Spinjitzu",
-            "image": "img/ninjago.jpg",
+            "image": "asset/movie/ninjago.jpg",
             "tags": ["3D", "TV Series", "Action", "Adventure", "Fantasy", "Kids"],
             "platform": "TV Series",
             "dev": "Wil Film / WildBrain"
@@ -267,7 +267,7 @@
         {
             "id": "VL-A34",
             "title": "Wakfu",
-            "image": "https://images6.alphacoders.com/320/320150.jpg",
+            "image": "asset/movie/wakfu-56b653fb68e85.jpg",
             "tags": ["2D", "TV Series", "Fantasy", "Adventure", "Action", "Game Adaptation", "Epic"],
             "platform": "TV Series",
             "dev": "Ankama Animations"
@@ -275,7 +275,7 @@
         {
             "id": "VL-A35",
             "title": "I Am Groot",
-            "image": "img/i-am-groot.jpg",
+            "image": "asset/movie/i-am-groot.jpg",
             "tags": ["3D", "CGI", "Web Series", "Short", "Comedy", "Sci-Fi", "Space"],
             "platform": "Disney+",
             "dev": "Marvel Studios"
@@ -283,7 +283,7 @@
         {
             "id": "VL-A36",
             "title": "What If...?",
-            "image": "img/what-if.jpg",
+            "image": "asset/movie/what-if.jpg",
             "tags": ["3D", "Web Series", "Sci-Fi", "Action", "Supernatural", "Anthology"],
             "platform": "Disney+",
             "dev": "Marvel Studios"
@@ -291,7 +291,7 @@
         {
             "id": "VL-A37",
             "title": "Wayne",
-            "image": "https://m.media-amazon.com/images/M/MV5BMjQ1NTcyODU0M15BMl5BanBnXkFtZTgwMzk4MjY4NjM@._V1_.jpg",
+            "image": "asset/movie/wayne-2018-5c5e5beb3d8bb.jpg",
             "tags": ["Live Action", "Web Series", "Action", "Comedy", "Drama", "Dark"],
             "platform": "YouTube / Amazon",
             "dev": "Endeavor Content"
@@ -299,7 +299,7 @@
         {
             "id": "VL-A38",
             "title": "Undead Unluck",
-            "image": "img/undead-unluck.jpg",
+            "image": "asset/movie/undead-unluck.jpg",
             "tags": ["2D", "TV Series", "Action", "Comedy", "Supernatural", "Shounen"],
             "platform": "TV Series",
             "dev": "David Production"
@@ -307,7 +307,7 @@
         {
             "id": "VL-A39",
             "title": "Dororo",
-            "image": "img/dororo.jpg",
+            "image": "asset/movie/dororo.jpg",
             "tags": ["2D", "TV Series", "Action", "Historical", "Supernatural", "Demons", "Drama"],
             "platform": "TV Series",
             "dev": "MAPPA / Tezuka"
@@ -315,7 +315,7 @@
         {
             "id": "VL-A40",
             "title": "Cyberpunk: Edgerunners",
-            "image": "img/cyberpunk-edgerunners.jpg",
+            "image": "asset/movie/cyberpunk-edgerunners.jpg",
             "tags": ["2D", "ONA", "Cyberpunk", "Sci-Fi", "Action", "Drama", "Tragedy", "Mature"],
             "platform": "Netflix",
             "dev": "Studio Trigger"
@@ -331,7 +331,7 @@
         {
             "id": "VL-A42",
             "title": "Darling in the FranXX",
-            "image": "https://images4.alphacoders.com/906/906806.png",
+            "image": "asset/movie/darling-in-the-franxx-61d8571b07dfc.jpg",
             "tags": ["2D", "TV Series", "Mecha", "Sci-Fi", "Romance", "Drama", "Action"],
             "platform": "TV Series",
             "dev": "A-1 Pictures / Trigger"
