@@ -5,10 +5,51 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- КОНФИГУРАЦИЯ ---
     const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
+    // Используем v2 для совместимости с новой системой ID
     const STORAGE_KEY = `resonance_data_${pageType}_v2`;
     const GRID_PREF_KEY = 'resonance_grid_density'; 
     
-    // Элементы UI
+    // --- СПИСКИ ТЕГОВ (БАЗЫ ДАННЫХ) ---
+    
+    // 1. ТЕГИ ДЛЯ ИГР (GAMES)
+    const GAMES_TAGS = [
+        "2D", "3D", "VR", "Indie", "Retro", "Remake",
+        "Action", "RPG", "Shooter", "Strategy", "Simulation", "Adventure", "Platformer", "Puzzle", "Racing", "Fighting", "Sports", "Arcade", "Visual Novel",
+        "FPS", "TPS", "Battle Royale", "Hero Shooter", "Tactical", "Hack and Slash", "Stealth", "Survival", "Metroidvania", "Roguelike", "Souls-like",
+        "JRPG", "Turn-Based", "RTS", "4X", "City Builder", "Tower Defense", "MOBA", "Card Game", "Deckbuilder", 
+        "Story Rich", "Choices Matter", "Open World", "Sandbox", "Atmospheric", "Cinematic", "Mystery", "Psychological", "Horror", "Relaxing",
+        "Sci-Fi", "Cyberpunk", "Steampunk", "Fantasy", "Dark Fantasy", "Post-Apocalyptic", "Dystopian", "Space", "Medieval", "Noir", "Lovecraftian",
+        "Pixel Art", "Anime", "Low Poly", "Hand-Drawn", "Stylized", "Realistic",
+        "Crafting", "Building", "Physics", "Loot", "Gacha", "Co-op", "PvP", "MMO", "F2P"
+    ];
+
+    // 2. ТЕГИ ДЛЯ АНИМЕ И КИНО (VISUALS)
+    const ANIME_TAGS = [
+        // --- FORMAT & VISUALS ---
+        "2D", "3D", "CGI", "Stop Motion", "Live Action",
+        "TV Series", "Movie", "OVA", "ONA", "Special", "Web Series", "Short",
+
+        // --- GENRES ---
+        "Action", "Adventure", "Comedy", "Drama", "Sci-Fi", "Fantasy", "Horror", 
+        "Romance", "Slice of Life", "Sports", "Mystery", "Thriller", "Music", "Mecha",
+        "Psychological", "Supernatural", "Magical Girl",
+
+        // --- THEMES & SETTING ---
+        "Cyberpunk", "Steampunk", "Post-Apocalyptic", "Dystopian", "Space", "Time Travel",
+        "Isekai", "School", "Historical", "Military", "Police", "Samurai", 
+        "Vampire", "Demons", "Mythology", "Parody", "Game Adaptation",
+
+        // --- DEMOGRAPHICS / VIBE ---
+        "Shounen", "Seinen", "Shoujo", "Josei", "Kids", "Family",
+        "Story Rich", "Emotional", "Philosophical", "Dark", "Wholesome", 
+        "Epic", "Surreal", "Avant Garde", "Noir", "Classic", "Cult Classic"
+    ];
+
+    // ВЫБОР СПИСКА В ЗАВИСИМОСТИ ОТ СТРАНИЦЫ
+    const WHITELIST_TAGS = (pageType === 'anime') ? ANIME_TAGS : GAMES_TAGS;
+
+
+    // --- ЭЛЕМЕНТЫ UI ---
     const ctxMenu = document.getElementById('ctxMenu');
     const ctxEdit = document.getElementById('ctxEdit');
     const ctxFav = document.getElementById('ctxFav');
@@ -20,51 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const ICON_HIDE = `<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>`;
 
     let contextTargetId = null;
-
-    // --- БЕЛЫЙ СПИСОК ТЕГОВ (ТОП-100) ---
-    const WHITELIST_TAGS = [
-        // --- PERSPECTIVE & TECH ---
-        "2D", "3D", "VR", "First-Person", "Third-Person", "Isometric", 
-        "Top-Down", "Side Scroller", "Open World", "Sandbox",
-
-        // --- CORE GENRES ---
-        "Action", "RPG", "Shooter", "Strategy", "Adventure", "Simulation", 
-        "Puzzle", "Platformer", "Horror", "Racing", "Fighting", "Sports",
-
-        // --- ACTION & SHOOTER SUB-GENRES ---
-        "FPS", "TPS", "Battle Royale", "Hero Shooter", "Tactical", 
-        "Hack and Slash", "Beat 'em up", "Stealth", "Survival", 
-        "Metroidvania", "Bullet Hell", "Shoot 'em up",
-
-        // --- RPG & STRATEGY SUB-GENRES ---
-        "JRPG", "CRPG", "ARPG", "Turn-Based", "RTS", "Tactical RPG", 
-        "Grand Strategy", "4X", "City Builder", "Management", 
-        "Tower Defense", "MOBA", "Card Game", "Deckbuilder", 
-        "Roguelike", "Souls-like", "Dungeon Crawler",
-
-        // --- NARRATIVE & VIBE ---
-        "Story Rich", "Visual Novel", "Interactive Movie", "Choices Matter", 
-        "Multiple Endings", "Linear", "Atmospheric", "Cinematic", 
-        "Mystery", "Psychological", "Drama", "Comedy", "Dark", "Mature",
-        "Relaxing", "Cozy", "Funny", "Short",
-
-        // --- SETTING & THEMES ---
-        "Sci-Fi", "Cyberpunk", "Steampunk", "Fantasy", "Dark Fantasy", 
-        "Post-Apocalyptic", "Dystopian", "Space", "Medieval", "Noir", 
-        "Lovecraftian", "Military", "Historical", "Supernatural",
-
-        // --- ART STYLE ---
-        "Pixel Art", "Anime", "Low Poly", "Voxel", "Hand-Drawn", 
-        "Retro", "Minimalist", "Stylized", "Realistic",
-
-        // --- MECHANICS ---
-        "Crafting", "Building", "Physics", "Parkour", "Permadeath", 
-        "Procedural Generation", "Loot", "Gacha", "Rhythm",
-
-        // --- SOCIAL / TYPE ---
-        "Indie", "AAA", "Remake", "Remaster", "Co-op", "PvP", 
-        "MMO", "Local Co-op", "Split Screen", "F2P"
-    ];
 
     // --- СОСТОЯНИЕ ---
     let allItemsDB = [];
