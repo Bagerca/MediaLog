@@ -518,6 +518,61 @@ body[data-page="anime"] .select-selected::after { border-top-color: var(--cyan);
     grid-column: 1 / -1; text-align: center; padding: 4rem; border: 1px dashed var(--border-color); color: var(--text-muted); font-family: var(--font-head); letter-spacing: 2px;
 }
 
+/* --- ЗАГРУЗЧИК (LOADER) --- */
+.loader-wrapper {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    gap: 20px;
+}
+
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--gold); 
+    animation: spin 1s linear infinite;
+}
+body[data-page="anime"] .loader-spinner { border-top-color: var(--cyan); }
+
+.loader-text {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    animation: pulseText 1.5s infinite;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes pulseText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* --- АНИМАЦИЯ ПОЯВЛЕНИЯ КАРТОЧЕК --- */
+@keyframes cardEntrance {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.game-card, .anime-card {
+    animation: cardEntrance 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Stagger effect */
+.game-card:nth-child(1), .anime-card:nth-child(1) { animation-delay: 0.05s; }
+.game-card:nth-child(2), .anime-card:nth-child(2) { animation-delay: 0.1s; }
+.game-card:nth-child(3), .anime-card:nth-child(3) { animation-delay: 0.15s; }
+.game-card:nth-child(4), .anime-card:nth-child(4) { animation-delay: 0.2s; }
+.game-card:nth-child(5), .anime-card:nth-child(5) { animation-delay: 0.25s; }
+.game-card:nth-child(6), .anime-card:nth-child(6) { animation-delay: 0.3s; }
+.game-card:nth-child(7), .anime-card:nth-child(7) { animation-delay: 0.35s; }
+.game-card:nth-child(8), .anime-card:nth-child(8) { animation-delay: 0.4s; }
+.game-card:nth-child(9), .anime-card:nth-child(9) { animation-delay: 0.45s; }
+.game-card:nth-child(10), .anime-card:nth-child(10) { animation-delay: 0.5s; }
+
+
 /* =========================================
    7. NOTIFICATIONS & CONTEXT MENU
    ========================================= */
