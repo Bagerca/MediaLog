@@ -14,10 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctxFav = document.getElementById('ctxFav');
     const ctxDel = document.getElementById('ctxDel');
     
-    // Кнопка фильтра (Избранное / Скрыть)
+    // Кнопка фильтра
     const filterBtn = document.getElementById('favFilterBtn');
-    const filterBtnLabel = filterBtn ? filterBtn.querySelector('span') : null;
-    const filterBtnIcon = filterBtn ? filterBtn.querySelector('svg') : null;
 
     // SVG ИКОНКИ
     const ICON_STAR = `<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>`;
@@ -29,28 +27,26 @@ document.addEventListener('DOMContentLoaded', () => {
     let allItemsDB = [];
     let userLibrary = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     
-    let currentMode = 'mine'; // 'mine' или 'all'
+    let currentMode = 'mine'; 
     let activeTags = new Set();
-    
-    // Ранги активны по умолчанию
     let activeRanks = new Set(['UR', 'SSR', 'SR', 'R', 'N']);
     
-    // Состояния фильтров
-    let favFilterState = 0; // Для MY_COLLECTION: 0=ALL, 1=FAV, 2=NO_FAV
-    let hideOwnedState = false; // Для GLOBAL_DB: true/false (Скрыть добавленные)
+    let favFilterState = 0; 
+    let hideOwnedState = false; 
     
     let currentSort = 'name_asc';
     const rankWeight = { 'UR': 5, 'SSR': 4, 'SR': 3, 'R': 2, 'N': 1 };
 
-    // --- 1. ЗАГРУЗКА ДАННЫХ ---
+    // --- 1. ЗАГРУЗКА ДАННЫХ (ОБНОВЛЕНО) ---
     if (pageType && gridContainer) {
-        fetch('data.json')
+        // Загружаем файл, соответствующий имени страницы (games.json или anime.json)
+        fetch(`${pageType}.json`) 
             .then(res => res.json())
             .then(data => {
+                // В json файле ключ совпадает с именем страницы (games или anime)
                 allItemsDB = data[pageType];
                 generateTagMatrix(allItemsDB);
                 initInterface();
-                // Принудительно обновляем вид кнопки при старте
                 updateFilterButton(); 
                 renderContent();
             })
@@ -65,21 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let items = [...allItemsDB]; 
 
-        // 1. Фильтр: Источник и Спец.Фильтры
+        // 1. Фильтры
         if (currentMode === 'mine') {
-            // --- РЕЖИМ: МОЯ КОЛЛЕКЦИЯ ---
-            
-            // Сначала берем только свои
             items = items.filter(i => userLibrary[i.title]);
 
-            // Применяем фильтр Избранного (3 состояния)
-            if (favFilterState === 1) {
-                items = items.filter(i => userLibrary[i.title].isFavorite);
-            } else if (favFilterState === 2) {
-                items = items.filter(i => !userLibrary[i.title].isFavorite);
-            }
+            if (favFilterState === 1) items = items.filter(i => userLibrary[i.title].isFavorite);
+            else if (favFilterState === 2) items = items.filter(i => !userLibrary[i.title].isFavorite);
 
-            // Применяем фильтр Рангов (только для своей коллекции)
             items = items.filter(i => {
                 const userData = userLibrary[i.title];
                 if (!userData) return false; 
@@ -87,19 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
         } else {
-            // --- РЕЖИМ: ГЛОБАЛЬНАЯ БАЗА ---
-            
-            // Фильтр "Скрыть добавленные"
-            if (hideOwnedState) {
-                items = items.filter(i => !userLibrary[i.title]);
-            }
+            if (hideOwnedState) items = items.filter(i => !userLibrary[i.title]);
         }
 
-        // 2. Фильтр: Поиск (Общий)
+        // 2. Поиск
         const searchVal = document.getElementById('searchInput')?.value.toLowerCase().trim();
         if (searchVal) items = items.filter(i => i.title.toLowerCase().includes(searchVal));
 
-        // 3. Фильтр: Теги (Общий)
+        // 3. Теги
         if (activeTags.size > 0) {
             const tagsArr = Array.from(activeTags);
             items = items.filter(i => {
@@ -112,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         items.sort((a, b) => {
             const dataA = userLibrary[a.title];
             const dataB = userLibrary[b.title];
-
             const getRank = (data) => data ? rankWeight[data.rank] || 0 : 0;
             const getTime = (data) => data ? data.timestamp : 0;
 
@@ -133,15 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Empty State
         if (items.length === 0) {
-            const msg = 'NO RECORDS FOUND WITH CURRENT FILTERS';
-            gridContainer.innerHTML = `<div class="empty-state">${msg}</div>`;
+            gridContainer.innerHTML = `<div class="empty-state">NO RECORDS FOUND WITH CURRENT FILTERS</div>`;
             return;
         }
 
         const prefix = (pageType === 'games') ? 'game' : 'anime';
-        
         const iconCheck = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
         const iconPlus = `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>`;
         const iconStar = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
@@ -191,77 +170,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     }
 
-    // --- 3. ЛОГИКА КНОПКИ ФИЛЬТРА (ИЗБРАННОЕ / СКРЫТЬ) ---
+    // --- 3. UI LOGIC ---
     function updateFilterButton() {
         if (!filterBtn) return;
-
-        // Сброс всех классов
         filterBtn.classList.remove('active', 'excluded');
 
         if (currentMode === 'mine') {
-            // Режим: МОЯ КОЛЛЕКЦИЯ (Звезда)
             filterBtn.innerHTML = `<svg viewBox="0 0 24 24">${ICON_STAR}</svg><span></span>`;
             const span = filterBtn.querySelector('span');
-            
-            if (favFilterState === 0) {
-                span.textContent = "FAV_FILTER";
-            } else if (favFilterState === 1) {
-                span.textContent = "FAV_ONLY";
-                filterBtn.classList.add('active');
-            } else {
-                span.textContent = "NO_FAVS";
-                filterBtn.classList.add('excluded');
-            }
+            if (favFilterState === 0) span.textContent = "FAV_FILTER";
+            else if (favFilterState === 1) { span.textContent = "FAV_ONLY"; filterBtn.classList.add('active'); }
+            else { span.textContent = "NO_FAVS"; filterBtn.classList.add('excluded'); }
         } else {
-            // Режим: ГЛОБАЛЬНАЯ БАЗА (Глаз)
             filterBtn.innerHTML = `<svg viewBox="0 0 24 24">${ICON_HIDE}</svg><span></span>`;
             const span = filterBtn.querySelector('span');
-
-            if (hideOwnedState) {
-                span.textContent = "OWNED_HIDDEN";
-                filterBtn.classList.add('active');
-            } else {
-                span.textContent = "HIDE_OWNED";
-            }
+            if (hideOwnedState) { span.textContent = "OWNED_HIDDEN"; filterBtn.classList.add('active'); }
+            else span.textContent = "HIDE_OWNED";
         }
     }
 
-    // --- 4. ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА ---
     function initInterface() {
-        
-        // 1. Переключатель режима (Global / Mine)
         document.querySelectorAll('.mode-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
                 currentMode = btn.dataset.mode;
-                
-                // При смене режима обновляем вид кнопки фильтра
                 updateFilterButton();
                 renderContent();
             });
         });
 
-        // 2. Кнопка Фильтра (Умная логика)
         if(filterBtn) {
             filterBtn.addEventListener('click', () => {
-                if (currentMode === 'mine') {
-                    // Логика Избранного (0 -> 1 -> 2 -> 0)
-                    favFilterState = (favFilterState + 1) % 3;
-                } else {
-                    // Логика Скрытия (On / Off)
-                    hideOwnedState = !hideOwnedState;
-                }
+                if (currentMode === 'mine') favFilterState = (favFilterState + 1) % 3;
+                else hideOwnedState = !hideOwnedState;
                 updateFilterButton();
                 renderContent();
             });
         }
 
-        // 3. Поиск
         document.getElementById('searchInput')?.addEventListener('input', renderContent);
 
-        // 4. Кастомная Сортировка
         const customWrapper = document.getElementById('customSelectWrapper');
         if (customWrapper) {
             const selectedDiv = customWrapper.querySelector('.select-selected');
@@ -297,32 +246,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 5. Фильтры рангов
         document.querySelectorAll('.rank-filter-btn').forEach(btn => {
-            btn.classList.add('active'); // По умолчанию включены
+            btn.classList.add('active');
             btn.addEventListener('click', () => {
                 const rank = btn.dataset.rank;
-                if (activeRanks.has(rank)) {
-                    activeRanks.delete(rank);
-                    btn.classList.remove('active');
-                } else {
-                    activeRanks.add(rank);
-                    btn.classList.add('active');
-                }
+                if (activeRanks.has(rank)) { activeRanks.delete(rank); btn.classList.remove('active'); }
+                else { activeRanks.add(rank); btn.classList.add('active'); }
                 renderContent();
             });
         });
 
-        // 6. Сетка (Grid Density)
         const grid = document.getElementById('cards-container');
         const viewBtns = document.querySelectorAll('.view-btn');
         let savedCols = localStorage.getItem(GRID_PREF_KEY) || '5';
         if(grid) grid.className = `grid-cards cols-${savedCols}`;
-        
         viewBtns.forEach(btn => {
             if(btn.dataset.cols === savedCols) btn.classList.add('active');
             else btn.classList.remove('active');
-
             btn.addEventListener('click', () => {
                 viewBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
@@ -332,12 +272,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // 7. Остальное (Меню, Модалка, Анимация заголовка)
         document.addEventListener('click', () => { if(ctxMenu) ctxMenu.style.display = 'none'; });
         document.getElementById('closeModal').onclick = () => els.modal.classList.remove('active');
-        els.modal.onclick = (e) => { 
-            if(e.target === els.modal || e.target.classList.contains('modal-window-wrapper')) els.modal.classList.remove('active');
-        };
+        els.modal.onclick = (e) => { if(e.target === els.modal || e.target.classList.contains('modal-window-wrapper')) els.modal.classList.remove('active'); };
         document.onkeydown = (e) => { if (e.key === 'Escape') els.modal.classList.remove('active'); };
 
         const h1 = document.querySelector('.page-header h1');
@@ -356,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 5. КОНТЕКСТНОЕ МЕНЮ ---
+    // --- 4. CONTEXT MENU & MODAL ---
     window.handleRightClick = function(e, title) {
         if (!userLibrary[title]) return; 
         e.preventDefault(); 
@@ -366,10 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctxMenu.style.display = 'flex';
     };
 
-    if(ctxEdit) ctxEdit.onclick = () => { 
-        openModal(contextTargetTitle); 
-        setTimeout(() => switchMode('edit'), 50); 
-    };
+    if(ctxEdit) ctxEdit.onclick = () => { openModal(contextTargetTitle); setTimeout(() => switchMode('edit'), 50); };
     if(ctxFav) ctxFav.onclick = () => {
         const item = userLibrary[contextTargetTitle];
         if(item) {
@@ -385,7 +319,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- 6. МОДАЛЬНОЕ ОКНО ---
     const els = {
         modal: document.getElementById('detailModal'),
         viewMode: document.getElementById('viewMode'),
@@ -416,7 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalTitle').textContent = item.title;
         document.getElementById('modalDev').textContent = item.dev || 'UNKNOWN';
         document.getElementById('modalPlatform').textContent = item.platform || 'N/A';
-        
         const tagsBox = document.getElementById('modalTags');
         tagsBox.innerHTML = item.tags.split(',').map(t => `<span class="tech-tag">${t.trim()}</span>`).join('');
 
@@ -428,24 +360,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateViewModeUI() {
         const userData = userLibrary[currentItemTitle];
         const rankBox = els.viewRank;
-        
-        const rankConfig = {
-            'UR':  'var(--gold)', 'SSR': 'var(--cyan)', 'SR':  '#00ff9d', 'R':   '#ff8e3c', 'N':   '#ff003c'
-        };
+        const rankConfig = { 'UR': 'var(--gold)', 'SSR': 'var(--cyan)', 'SR': '#00ff9d', 'R': '#ff8e3c', 'N': '#ff003c' };
 
         if (userData) {
             els.btnAdd.style.display = 'none';
             els.grpActions.style.display = 'flex';
-            
             const color = rankConfig[userData.rank] || rankConfig['N'];
-            
             rankBox.textContent = userData.rank;
             rankBox.style.color = color;
-            
-            if(els.bgRank) {
-                els.bgRank.textContent = userData.rank;
-                els.bgRank.style.color = color;
-            }
+            if(els.bgRank) { els.bgRank.textContent = userData.rank; els.bgRank.style.color = color; }
             els.viewNote.textContent = userData.note || "No notes recorded.";
             els.viewNote.style.color = userData.note ? "#ccc" : "#666";
         } else {
@@ -468,12 +391,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const userData = userLibrary[currentItemTitle] || { rank: 'N', note: '', customStatus: '' };
             els.noteInput.value = userData.note || '';
             els.statusInput.value = userData.customStatus || '';
-            
             els.rankBtns.forEach(btn => {
                 btn.classList.remove('active');
                 if(btn.dataset.value === userData.rank) btn.classList.add('active');
             });
-            
             els.viewMode.style.display = 'none';
             els.editMode.style.display = 'flex';
             els.sysLabel.textContent = "/// SYSTEM: EDITING_MODE";
@@ -501,12 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
             saveToStorage(); showToast('RECORD DELETED'); updateViewModeUI(); renderContent(); els.modal.classList.remove('active');
         }
     };
-    els.rankBtns.forEach(btn => {
-        btn.onclick = () => {
-            els.rankBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        };
-    });
+    els.rankBtns.forEach(btn => { btn.onclick = () => { els.rankBtns.forEach(b => b.classList.remove('active')); btn.classList.add('active'); }; });
 
     function saveToStorage() { localStorage.setItem(STORAGE_KEY, JSON.stringify(userLibrary)); }
     function showToast(msg) {
