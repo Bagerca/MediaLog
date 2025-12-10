@@ -24,6 +24,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let contextTargetId = null;
 
+    // --- БЕЛЫЙ СПИСОК ТЕГОВ (ТОП-50) ---
+    // В фильтрах появятся только эти теги, и только если они есть у игр в базе.
+    const WHITELIST_TAGS = [
+        // --- BASE ---
+        "2D", "3D", "VR", "Indie", "Retro", "Remake",
+
+        // --- GENRES ---
+        "Action", "RPG", "Shooter", "Strategy", "Simulation", 
+        "Adventure", "Platformer", "Puzzle", "Racing", "Fighting", 
+        "Sports", "Arcade", "Visual Novel", "Point & Click",
+
+        // --- SUB-GENRES ---
+        "FPS", "Metroidvania", "Roguelike", "Souls-like", "Open World", 
+        "Stealth", "Survival", "Battle Royale", "MOBA", "Tower Defense", 
+        "Hack and Slash", "Card Game", "Rhythm", "Gacha",
+
+        // --- THEMES & VIBE ---
+        "Horror", "Sci-Fi", "Fantasy", "Cyberpunk", "Post-Apocalyptic", 
+        "Dystopian", "Mystery", "Psychological", "Comedy", "Story Rich", 
+        "Choices Matter", "Sandbox", "Mature",
+
+        // --- STYLE ---
+        "Pixel Art", "Anime", "Cinematic",
+
+        // --- ONLINE ---
+        "Co-op", "PvP", "MMO", "F2P"
+    ];
+
     // --- СОСТОЯНИЕ ---
     let allItemsDB = [];
     let userLibrary = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
@@ -48,8 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
+        // Загрузка с защитой от кэша (?v=timestamp)
         setTimeout(() => {
-            fetch(`${pageType}.json`)
+            fetch(`${pageType}.json?v=${new Date().getTime()}`) 
                 .then(res => {
                     if (!res.ok) throw new Error("HTTP error " + res.status);
                     return res.json();
@@ -374,8 +403,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalTitle').textContent = item.title;
         
         // --- ОБНОВЛЕНО: Отображаем ID в заголовке, а DEV в строке ниже ---
-        document.getElementById('modalDev').textContent = item.id; // В поле modalDev теперь пишем ID
-        document.getElementById('modalPlatform').textContent = `${item.platform} // ${item.dev}`; // Объединяем платформу и студию
+        document.getElementById('modalDev').textContent = item.id; 
+        document.getElementById('modalPlatform').textContent = `${item.platform} // ${item.dev}`; 
         // -----------------------------------------------------------------
 
         const tagsBox = document.getElementById('modalTags');
@@ -468,28 +497,40 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.classList.remove('show'), 2000);
     }
 
+    // --- ОБНОВЛЕННАЯ ФУНКЦИЯ ГЕНЕРАЦИИ ТЕГОВ (WHITELIST) ---
     function generateTagMatrix(items) {
         const container = document.getElementById('filterOptions');
         const clearBtn = document.getElementById('clearTagsBtn');
         if(!container) return;
-        const tags = new Set();
         
+        // Собираем все теги, которые есть в базе
+        const availableTags = new Set();
         items.forEach(i => {
             if (Array.isArray(i.tags)) {
-                i.tags.forEach(t => tags.add(t.trim()));
+                i.tags.forEach(t => {
+                    // Проверяем, есть ли тег в нашем "Белом списке" (регистронезависимо)
+                    const normalizedTag = WHITELIST_TAGS.find(wt => wt.toLowerCase() === t.trim().toLowerCase());
+                    if (normalizedTag) {
+                        availableTags.add(normalizedTag); // Добавляем красивую версию из Whitelist
+                    }
+                });
             }
         });
 
-        container.innerHTML = Array.from(tags).sort().map(t => `<button class="tag-btn" data-tag="${t}">${t}</button>`).join('');
+        // Генерируем кнопки только для найденных тегов
+        container.innerHTML = Array.from(availableTags).sort().map(t => `<button class="tag-btn" data-tag="${t}">${t}</button>`).join('');
+        
         container.querySelectorAll('.tag-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const tag = btn.dataset.tag;
                 if(activeTags.has(tag)) { activeTags.delete(tag); btn.classList.remove('active'); }
                 else { activeTags.add(tag); btn.classList.add('active'); }
+                
                 clearBtn.style.display = activeTags.size ? 'block' : 'none';
                 renderContent();
             });
         });
+
         if(clearBtn) clearBtn.onclick = () => {
             activeTags.clear();
             container.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
