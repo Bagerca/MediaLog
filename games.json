@@ -695,6 +695,222 @@
             "tags": ["3D", "Visual Novel", "Story Rich", "Adventure", "Choices Matter", "Mystery", "Mature"],
             "platform": "Steam",
             "dev": "AdHoc Studio"
+        },
+        {
+            "id": "GM-X88",
+            "title": "Deadlock",
+            "image": "https://cdn2.steamgriddb.com/grid/8ad375375525287532393f6b9076926f.png",
+            "tags": ["3D", "MOBA", "Shooter", "Third-Person", "Action", "PvP", "Multiplayer"],
+            "platform": "PC",
+            "dev": "Valve"
+        },
+        {
+            "id": "GM-X89",
+            "title": "Bendy: The Cage",
+            "image": "https://cdn2.steamgriddb.com/grid/f04740e253247072605f273292497067.png",
+            "tags": ["3D", "Horror", "Survival", "Action", "First-Person", "Indie"],
+            "platform": "PC / Console",
+            "dev": "Joey Drew Studios"
+        },
+        {
+            "id": "GM-X90",
+            "title": "Boris and the Dark Survival",
+            "image": "https://cdn2.steamgriddb.com/grid/f27464092490795c643936499369f826.png",
+            "tags": ["3D", "Horror", "Survival", "Top-Down", "Indie"],
+            "platform": "PC / Mobile",
+            "dev": "Joey Drew Studios"
+        },
+        {
+            "id": "GM-X91",
+            "title": "Bendy: Lone Wolf",
+            "image": "https://cdn2.steamgriddb.com/grid/41f87533037000753066606050266023.png",
+            "tags": ["3D", "Horror", "Action", "Indie"],
+            "platform": "Multi-platform",
+            "dev": "Joey Drew Studios"
+        },
+        {
+            "id": "GM-X92",
+            "title": "That's not my Neighbor",
+            "image": "https://cdn2.steamgriddb.com/grid/92742964350692257256565022206260.png",
+            "tags": ["2D", "Horror", "Puzzle", "Simulation", "Indie", "Strategy"],
+            "platform": "PC",
+            "dev": "Nacho Sama"
+        },
+        {
+            "id": "GM-X93",
+            "title": "Kindergarten",
+            "image": "https://cdn2.steamgriddb.com/grid/29323330cc70624d4207943482433066.png",
+            "tags": ["2D", "Puzzle", "Comedy", "Pixel Art", "Indie", "Dark"],
+            "platform": "PC / Console",
+            "dev": "Con Man Games"
+        },
+        {
+            "id": "GM-X94",
+            "title": "Kindergarten 2",
+            "image": "https://cdn2.steamgriddb.com/grid/5738600c7e2d93e2329383804240742d.png",
+            "tags": ["2D", "Puzzle", "Comedy", "Pixel Art", "Indie", "Dark"],
+            "platform": "PC / Console",
+            "dev": "Con Man Games"
+        },
+        {
+            "id": "GM-X95",
+            "title": "Kindergarten 3",
+            "image": "https://cdn2.steamgriddb.com/grid/3233c4bc9f9fefde2490ccf9a623403d.png",
+            "tags": ["2D", "Puzzle", "Comedy", "Pixel Art", "Indie", "Dark"],
+            "platform": "PC",
+            "dev": "Con Man Games"
+        },
+        {
+            "id": "GM-X96",
+            "title": "Don't Starve",
+            "image": "https://cdn2.steamgriddb.com/grid/587d609205342657e244837303e29007.png",
+            "tags": ["2D", "Survival", "Open World", "Indie", "Adventure", "Crafting"],
+            "platform": "Multi-platform",
+            "dev": "Klei Entertainment"
+        },
+        {
+            "id": "GM-X97",
+            "title": "Webbed",
+            "image": "https://cdn2.steamgriddb.com/grid/f0088827727cc3903820299f074d0889.png",
+            "tags": ["2D", "Platformer", "Pixel Art", "Indie", "Physics", "Adventure"],
+            "platform": "PC / Console",
+            "dev": "Sbug Games"
+        },
+        {
+            "id": "GM-X98",
+            "title": "Happy Game",
+            "image": "https://cdn2.steamgriddb.com/grid/f32ce60d62d29486c9f0293cc66037c6.png",
+            "tags": ["2D", "Horror", "Puzzle", "Indie", "Psychological"],
+            "platform": "PC / Switch",
+            "dev": "Amanita Design"
+        },
+        {
+            "id": "GM-X99",
+            "title": "GRIS",
+            "image": "https://cdn2.steamgriddb.com/grid/7438209848f932822432092f6b39ce3e.png",
+            "tags": ["2D", "Platformer", "Atmospheric", "Hand-Drawn", "Indie", "Adventure"],
+            "platform": "Multi-platform",
+            "dev": "Nomada Studio"
+        },
+        {
+            "id": "GM-X100",
+            "title": "Machinarium",
+            "image": "https://cdn2.steamgriddb.com/grid/0273708f37f3747eb487f79432d43a6d.png",
+            "tags": ["2D", "Point & Click", "Puzzle", "Hand-Drawn", "Indie", "Adventure"],
+            "platform": "Multi-platform",
+            "dev": "Amanita Design"
+        },
+        {
+            "id": "GM-X101",
+            "title": "WorldBox - God Simulator",
+            "image": "https://cdn2.steamgriddb.com/grid/7027c897f2269664c3993d0473842c34.png",
+            "tags": ["2D", "Sandbox", "Simulation", "Strategy", "Indie", "Pixel Art"],
+            "platform": "PC / Mobile",
+            "dev": "Maxim Karpenko"
+        },
+        {
+            "id": "GM-X102",
+            "title": "ULTRAKILL",
+            "image": "https://cdn2.steamgriddb.com/grid/374c43cb399753c9b740702f2323f491.png",
+            "tags": ["3D", "FPS", "Shooter", "Action", "Retro", "Indie"],
+            "platform": "PC",
+            "dev": "Arsi \"Hakita\" Patala"
+        },
+        {
+            "id": "GM-X103",
+            "title": "Ghostrunner",
+            "image": "https://cdn2.steamgriddb.com/grid/4df4249a219037a329d9064c330f6229.png",
+            "tags": ["3D", "Action", "Cyberpunk", "Platformer", "First-Person", "Hack and Slash"],
+            "platform": "Multi-platform",
+            "dev": "One More Level"
+        },
+        {
+            "id": "GM-X104",
+            "title": "Ghostrunner 2",
+            "image": "https://cdn2.steamgriddb.com/grid/23d4400e99806e0e02c77609200427c3.png",
+            "tags": ["3D", "Action", "Cyberpunk", "Platformer", "First-Person", "Hack and Slash"],
+            "platform": "PC / Console",
+            "dev": "One More Level"
+        },
+        {
+            "id": "GM-X105",
+            "title": "IDLE BOSS RUSH",
+            "image": "https://cdn2.steamgriddb.com/grid/92742964350692257256565022206260.png",
+            "tags": ["2D", "Simulation", "Indie"],
+            "platform": "PC",
+            "dev": "Unknown"
+        },
+        {
+            "id": "GM-X106",
+            "title": "OneShot",
+            "image": "https://cdn2.steamgriddb.com/grid/5855660034a74cfe0e5fc8d57d17f4ac.png",
+            "tags": ["2D", "Puzzle", "Adventure", "Pixel Art", "Indie", "Story Rich"],
+            "platform": "PC / Console",
+            "dev": "Future Cat"
+        },
+        {
+            "id": "GM-X107",
+            "title": "Crysis",
+            "image": "https://cdn2.steamgriddb.com/grid/c4709289297379737397943084347743.png",
+            "tags": ["3D", "FPS", "Shooter", "Sci-Fi", "Action"],
+            "platform": "PC / Console",
+            "dev": "Crytek"
+        },
+        {
+            "id": "GM-X108",
+            "title": "Crysis 2",
+            "image": "https://cdn2.steamgriddb.com/grid/b3433434734374374374374373473743.png",
+            "tags": ["3D", "FPS", "Shooter", "Sci-Fi", "Action"],
+            "platform": "PC / Console",
+            "dev": "Crytek"
+        },
+        {
+            "id": "GM-X109",
+            "title": "Crysis 3",
+            "image": "https://cdn2.steamgriddb.com/grid/a3434343434343434343434343434343.png",
+            "tags": ["3D", "FPS", "Shooter", "Sci-Fi", "Action"],
+            "platform": "PC / Console",
+            "dev": "Crytek"
+        },
+        {
+            "id": "GM-X110",
+            "title": "Dead Cells",
+            "image": "https://cdn2.steamgriddb.com/grid/c9292929292929292929292929292929.png",
+            "tags": ["2D", "Roguelike", "Metroidvania", "Action", "Pixel Art", "Indie"],
+            "platform": "Multi-platform",
+            "dev": "Motion Twin"
+        },
+        {
+            "id": "GM-X111",
+            "title": "Outlast",
+            "image": "https://cdn2.steamgriddb.com/grid/83838383838383838383838383838383.png",
+            "tags": ["3D", "Horror", "Survival", "First-Person", "Indie"],
+            "platform": "Multi-platform",
+            "dev": "Red Barrels"
+        },
+        {
+            "id": "GM-X112",
+            "title": "Outlast 2",
+            "image": "https://cdn2.steamgriddb.com/grid/92929292929292929292929292929292.png",
+            "tags": ["3D", "Horror", "Survival", "First-Person", "Indie"],
+            "platform": "Multi-platform",
+            "dev": "Red Barrels"
+        },
+        {
+            "id": "GM-X113",
+            "title": "Abyssus",
+            "image": "https://cdn2.steamgriddb.com/grid/12121212121212121212121212121212.png",
+            "tags": ["3D", "FPS", "Roguelike", "Action", "Indie"],
+            "platform": "PC",
+            "dev": "Double Mooses"
+        },
+        {
+            "id": "GM-X114",
+            "title": "Content Warning",
+            "image": "https://cdn2.steamgriddb.com/grid/45454545454545454545454545454545.png",
+            "tags": ["3D", "Co-op", "Horror", "Comedy", "Indie", "First-Person"],
+            "platform": "PC",
+            "dev": "Landfall"
         }
     ]
 }
