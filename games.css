@@ -20,6 +20,7 @@
 .game-card-img {
     position: absolute; inset: 0; background-size: cover; background-position: center;
     transition: transform 0.5s ease, filter 0.5s ease; 
+    /* Базовое состояние: затемнение + сепия + легкий сдвиг оттенка */
     filter: brightness(0.7) sepia(20%) hue-rotate(-10deg); 
     z-index: 1;
 }
@@ -62,6 +63,7 @@
     clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
 }
 
+/* Цвета рангов */
 .game-rank-badge.ur { color: var(--gold); text-shadow: 0 0 10px rgba(255, 174, 0, 0.8); filter: drop-shadow(0 0 8px rgba(255, 174, 0, 0.4)); }
 .game-rank-badge.ssr { color: var(--cyan); text-shadow: 0 0 10px rgba(95, 251, 241, 0.8); filter: drop-shadow(0 0 8px rgba(95, 251, 241, 0.4)); }
 .game-rank-badge.sr { color: #00ff9d; text-shadow: 0 0 10px rgba(0, 255, 157, 0.8); filter: drop-shadow(0 0 8px rgba(0, 255, 157, 0.4)); }
@@ -106,7 +108,13 @@
 
 /* HOVER КАРТОЧКИ */
 .game-card:hover { transform: translateY(-8px); background: var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
-.game-card:hover .game-card-img { transform: scale(1.08); filter: brightness(1.1) grayscale(0%); }
+
+.game-card:hover .game-card-img { 
+    transform: scale(1.08); 
+    /* Возвращаем оригинальную яркость (100%), убираем сепию */
+    filter: brightness(1) grayscale(0%); 
+}
+
 .game-card:hover .game-card-inner::before { opacity: 0; }
 .game-card:hover .game-card-content { transform: translateY(0); }
 .game-card:hover .card-line { width: 100%; }
@@ -153,7 +161,7 @@
 .modal-corner {
     position: absolute; 
     width: 25px; height: 25px;
-    background: transparent;
+    background: transparent; /* Без заливки */
     z-index: 20; pointer-events: none;
     
     /* Тонкие линии */
