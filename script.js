@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- КОНФИГУРАЦИЯ ---
     const pageType = document.body.getAttribute('data-page'); 
     const gridContainer = document.getElementById('cards-container');
-    const STORAGE_KEY = `resonance_data_${pageType}`;
+    // Используем v2, чтобы сбросить старые данные (так как ключи изменились с названий на ID)
+    const STORAGE_KEY = `resonance_data_${pageType}_v2`;
     const GRID_PREF_KEY = 'resonance_grid_density'; 
     
     // Элементы UI
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ICON_STAR = `<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>`;
     const ICON_HIDE = `<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>`;
 
-    let contextTargetTitle = null;
+    let contextTargetId = null;
 
     // --- СОСТОЯНИЕ ---
     let allItemsDB = [];
@@ -37,10 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSort = 'name_asc';
     const rankWeight = { 'UR': 5, 'SSR': 4, 'SR': 3, 'R': 2, 'N': 1 };
 
-    // --- 1. ЗАГРУЗКА ДАННЫХ (С ЛОАДЕРОМ) ---
+    // --- 1. ЗАГРУЗКА ДАННЫХ ---
     if (pageType && gridContainer) {
         
-        // 1. Показываем лоадер
         gridContainer.innerHTML = `
             <div class="loader-wrapper">
                 <div class="loader-spinner"></div>
@@ -82,34 +82,32 @@ document.addEventListener('DOMContentLoaded', () => {
         let items = [...allItemsDB]; 
 
         // 1. Фильтры (Режимы)
+        // ИСПОЛЬЗУЕМ ID ВМЕСТО TITLE ДЛЯ ПРОВЕРКИ БИБЛИОТЕКИ
         if (currentMode === 'mine') {
-            items = items.filter(i => userLibrary[i.title]);
+            items = items.filter(i => userLibrary[i.id]);
 
-            if (favFilterState === 1) items = items.filter(i => userLibrary[i.title].isFavorite);
-            else if (favFilterState === 2) items = items.filter(i => !userLibrary[i.title].isFavorite);
+            if (favFilterState === 1) items = items.filter(i => userLibrary[i.id].isFavorite);
+            else if (favFilterState === 2) items = items.filter(i => !userLibrary[i.id].isFavorite);
 
             items = items.filter(i => {
-                const userData = userLibrary[i.title];
+                const userData = userLibrary[i.id];
                 if (!userData) return false; 
                 return activeRanks.has(userData.rank);
             });
 
         } else {
-            if (hideOwnedState) items = items.filter(i => !userLibrary[i.title]);
+            if (hideOwnedState) items = items.filter(i => !userLibrary[i.id]);
         }
 
         // 2. Поиск
         const searchVal = document.getElementById('searchInput')?.value.toLowerCase().trim();
         if (searchVal) items = items.filter(i => i.title.toLowerCase().includes(searchVal));
 
-        // 3. Теги (ОБНОВЛЕННАЯ ЛОГИКА ДЛЯ МАССИВОВ)
+        // 3. Теги
         if (activeTags.size > 0) {
             const tagsArr = Array.from(activeTags);
             items = items.filter(i => {
-                // Если тегов нет или это не массив, пропускаем
                 if (!i.tags || !Array.isArray(i.tags)) return false;
-
-                // Проверяем пересечение массивов (регистронезависимо)
                 return tagsArr.some(activeTag => 
                     i.tags.some(itemTag => itemTag.toLowerCase() === activeTag.toLowerCase())
                 );
@@ -118,12 +116,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 4. Сортировка
         items.sort((a, b) => {
-            const dataA = userLibrary[a.title];
-            const dataB = userLibrary[b.title];
+            const dataA = userLibrary[a.id];
+            const dataB = userLibrary[b.id];
             const getRank = (data) => data ? rankWeight[data.rank] || 0 : 0;
             const getTime = (data) => data ? data.timestamp : 0;
 
             switch (currentSort) {
+                // Сортировка по имени остается по Title
                 case 'name_asc': return a.title.localeCompare(b.title);
                 case 'name_desc': return b.title.localeCompare(a.title);
                 case 'rank_desc': return (getRank(dataB) - getRank(dataA)) || a.title.localeCompare(b.title);
@@ -151,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const iconStar = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
 
         gridContainer.innerHTML = items.map(item => {
-            const userData = userLibrary[item.title];
+            const userData = userLibrary[item.id];
             const userRank = userData ? userData.rank : null;
             const isFav = userData ? userData.isFavorite : false;
             
@@ -173,10 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusColor = (pageType === 'games' ? 'var(--gold)' : 'var(--cyan)');
             }
 
+            // ПЕРЕДАЕМ ID В ФУНКЦИИ
             return `
             <div class="${prefix}-card" 
-                 onclick="openModal('${item.title.replace(/'/g, "\\'")}')"
-                 oncontextmenu="handleRightClick(event, '${item.title.replace(/'/g, "\\'")}')">
+                 onclick="openModal('${item.id}')"
+                 oncontextmenu="handleRightClick(event, '${item.id}')">
                 <div class="${prefix}-card-inner">
                     <div class="${prefix}-card-img" style="background-image: url('${item.image}');"></div>
                     ${rankHtml}
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="${prefix}-card-title">${item.title}</div>
                         <div class="${prefix}-card-meta">
                             <span style="color: ${statusColor}; font-weight: 700;">${statusText}</span>
-                            <span>/// ${item.platform || 'DB'}</span>
+                            <span>/// ${item.id}</span>
                         </div>
                     </div>
                 </div>
@@ -319,18 +319,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 4. CONTEXT MENU & MODAL ---
-    window.handleRightClick = function(e, title) {
-        if (!userLibrary[title]) return; 
+    window.handleRightClick = function(e, id) {
+        if (!userLibrary[id]) return; 
         e.preventDefault(); 
-        contextTargetTitle = title; 
+        contextTargetId = id; 
         const x = e.pageX; const y = e.pageY;
         ctxMenu.style.left = `${x}px`; ctxMenu.style.top = `${y}px`;
         ctxMenu.style.display = 'flex';
     };
 
-    if(ctxEdit) ctxEdit.onclick = () => { openModal(contextTargetTitle); setTimeout(() => switchMode('edit'), 50); };
+    if(ctxEdit) ctxEdit.onclick = () => { openModal(contextTargetId); setTimeout(() => switchMode('edit'), 50); };
     if(ctxFav) ctxFav.onclick = () => {
-        const item = userLibrary[contextTargetTitle];
+        const item = userLibrary[contextTargetId];
         if(item) {
             item.isFavorite = !item.isFavorite;
             saveToStorage(); renderContent();
@@ -338,8 +338,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     if(ctxDel) ctxDel.onclick = () => {
-        if(confirm(`DELETE "${contextTargetTitle}" FROM DATABASE?`)) {
-            delete userLibrary[contextTargetTitle];
+        if(confirm(`DELETE RECORD FROM DATABASE?`)) {
+            delete userLibrary[contextTargetId];
             saveToStorage(); renderContent(); showToast('RECORD DELETED');
         }
     };
@@ -363,26 +363,28 @@ document.addEventListener('DOMContentLoaded', () => {
         bgRank: document.getElementById('modalBgRank')
     };
 
-    let currentItemTitle = null;
+    let currentItemId = null;
 
-    window.openModal = function(title) {
-        currentItemTitle = title;
-        const item = allItemsDB.find(i => i.title === title);
+    window.openModal = function(id) {
+        currentItemId = id;
+        const item = allItemsDB.find(i => i.id === id);
         if (!item) return;
 
         document.getElementById('modalImg').src = item.image;
         document.getElementById('modalTitle').textContent = item.title;
-        document.getElementById('modalDev').textContent = item.dev || 'UNKNOWN';
-        document.getElementById('modalPlatform').textContent = item.platform || 'N/A';
+        
+        // --- ОБНОВЛЕНО: Отображаем ID в заголовке, а DEV в строке ниже ---
+        document.getElementById('modalDev').textContent = item.id; // В поле modalDev теперь пишем ID
+        document.getElementById('modalPlatform').textContent = `${item.platform} // ${item.dev}`; // Объединяем платформу и студию
+        // -----------------------------------------------------------------
+
         const tagsBox = document.getElementById('modalTags');
         
-        // --- ОБНОВЛЕННАЯ ЛОГИКА ДЛЯ МАССИВА ТЕГОВ ---
         if (Array.isArray(item.tags)) {
             tagsBox.innerHTML = item.tags.map(t => `<span class="tech-tag">${t.trim()}</span>`).join('');
         } else {
             tagsBox.innerHTML = '';
         }
-        // ----------------------------------------------
 
         updateViewModeUI();
         switchMode('view');
@@ -390,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function updateViewModeUI() {
-        const userData = userLibrary[currentItemTitle];
+        const userData = userLibrary[currentItemId];
         const rankBox = els.viewRank;
         const rankConfig = { 'UR': 'var(--gold)', 'SSR': 'var(--cyan)', 'SR': '#00ff9d', 'R': '#ff8e3c', 'N': '#ff003c' };
 
@@ -420,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
             els.sysLabel.textContent = "/// SYSTEM: VIEW_MODE";
             els.sysLabel.style.color = "var(--text-muted)";
         } else {
-            const userData = userLibrary[currentItemTitle] || { rank: 'N', note: '', customStatus: '' };
+            const userData = userLibrary[currentItemId] || { rank: 'N', note: '', customStatus: '' };
             els.noteInput.value = userData.note || '';
             els.statusInput.value = userData.customStatus || '';
             els.rankBtns.forEach(btn => {
@@ -435,7 +437,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if(els.btnAdd) els.btnAdd.onclick = () => {
-        userLibrary[currentItemTitle] = { rank: 'N', note: '', customStatus: '', isFavorite: false, timestamp: Date.now() };
+        // Сохраняем по ID
+        userLibrary[currentItemId] = { rank: 'N', note: '', customStatus: '', isFavorite: false, timestamp: Date.now() };
         saveToStorage(); updateViewModeUI(); renderContent(); switchMode('edit'); showToast('ENTRY CREATED // INPUT DETAILS');
     };
     if(els.btnEdit) els.btnEdit.onclick = () => switchMode('edit');
@@ -444,13 +447,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedRank = document.querySelector('.rank-opt.active')?.dataset.value || 'N';
         const note = els.noteInput.value;
         const customStatus = els.statusInput.value.trim();
-        const oldData = userLibrary[currentItemTitle] || {};
-        userLibrary[currentItemTitle] = { ...oldData, rank: selectedRank, note: note, customStatus: customStatus, timestamp: Date.now() };
+        const oldData = userLibrary[currentItemId] || {};
+        userLibrary[currentItemId] = { ...oldData, rank: selectedRank, note: note, customStatus: customStatus, timestamp: Date.now() };
         saveToStorage(); showToast('DATA LOG UPDATED'); updateViewModeUI(); switchMode('view'); renderContent();
     };
     if(els.btnDelete) els.btnDelete.onclick = () => {
         if(confirm('DELETE RECORD PERMANENTLY?')) {
-            delete userLibrary[currentItemTitle];
+            delete userLibrary[currentItemId];
             saveToStorage(); showToast('RECORD DELETED'); updateViewModeUI(); renderContent(); els.modal.classList.remove('active');
         }
     };
@@ -465,7 +468,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.classList.remove('show'), 2000);
     }
 
-    // --- ОБНОВЛЕННАЯ ФУНКЦИЯ ГЕНЕРАЦИИ ТЕГОВ ---
     function generateTagMatrix(items) {
         const container = document.getElementById('filterOptions');
         const clearBtn = document.getElementById('clearTagsBtn');
