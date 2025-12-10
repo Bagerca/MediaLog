@@ -37,20 +37,43 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSort = 'name_asc';
     const rankWeight = { 'UR': 5, 'SSR': 4, 'SR': 3, 'R': 2, 'N': 1 };
 
-    // --- 1. ЗАГРУЗКА ДАННЫХ (ОБНОВЛЕНО) ---
+// --- 1. ЗАГРУЗКА ДАННЫХ (С ЛОАДЕРОМ) ---
     if (pageType && gridContainer) {
-        // Загружаем файл, соответствующий имени страницы (games.json или anime.json)
-        fetch(`${pageType}.json`) 
-            .then(res => res.json())
-            .then(data => {
-                // В json файле ключ совпадает с именем страницы (games или anime)
-                allItemsDB = data[pageType];
-                generateTagMatrix(allItemsDB);
-                initInterface();
-                updateFilterButton(); 
-                renderContent();
-            })
-            .catch(err => console.error("Data Load Error:", err));
+        
+        // 1. Показываем лоадер
+        gridContainer.innerHTML = `
+            <div class="loader-wrapper">
+                <div class="loader-spinner"></div>
+                <div class="loader-text">/// SYSTEM: INITIALIZING DATABASE...</div>
+            </div>
+        `;
+
+        // Небольшая искусственная задержка (300мс), чтобы лоадер не мигал слишком быстро, 
+        // если инет мгновенный. (Можно убрать setTimeout, если не нужно)
+        setTimeout(() => {
+            fetch(`${pageType}.json`) 
+                .then(res => {
+                    if (!res.ok) throw new Error("HTTP error " + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    allItemsDB = data[pageType];
+                    generateTagMatrix(allItemsDB);
+                    initInterface();
+                    updateFilterButton(); 
+                    renderContent(); // Лоадер перезапишется контентом здесь
+                })
+                .catch(err => {
+                    console.error("Data Load Error:", err);
+                    // Показываем красивую ошибку
+                    gridContainer.innerHTML = `
+                        <div class="empty-state" style="border-color: #ff4d4d; color: #ff4d4d;">
+                            /// SYSTEM ERROR: CONNECTION FAILED<br>
+                            <span style="font-size: 0.8em; opacity: 0.7;">Check console for details.</span>
+                        </div>
+                    `;
+                });
+        }, 300); // 300ms задержка для красоты
     } else {
         initInterface();
     }
